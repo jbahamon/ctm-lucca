@@ -8,32 +8,6 @@ What's missing:
 
 - Pretty much everything
 
-------
-Supers
-------
-
-*Tail Spin
-	Command: D, DB, B, D, DB, B + a/b/c (Standing)
-	Requires 1000 Power.
-	Ayla spins and creates two twisters that damage the opponent.
-	You can press forward or backwards during the spinning to slowly
-	move and rack up more damage.
-	
-*Triple Kick
-	Command: D, DF, F, D, DF, F, a/b/c (Standing)
-	Requires 1000 Power.
-	Ayla jumps at the opponent, kicking him/her/it up to three times.
-	If the first kick  misses or is blocked, the move fails, so
-	try to use this as a combo finisher.
-
-*Gatling Kick
-	Command: ~D, B, D, F + a/b/c (Standing)
-	Requires 1000 Power. 
-	Ayla jumps forwards, making a spinning kick. If it connects, 
-	the enemy will be trapped in a vortex of debris. This is a throw 
-	move, so don't try it against enemies immune to those.
-
-
 ----------------------------
 Credits and Acknowledgements
 ----------------------------
