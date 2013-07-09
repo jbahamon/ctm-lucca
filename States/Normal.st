@@ -102,24 +102,14 @@ anim = 210
 sprpriority = 2
 facep2 = 1
 
-[State 210, VelSet]
-type = Velset
-trigger1 = Var(21) > 0
-x = 2.8
-
-[State 210, Vel]
-type = VelAdd
-trigger1 = AnimElem = 2 || AnimElem = 4
-x = 2
-
 [State 210, 1]
 type = PlaySnd
-trigger1 = AnimElem = 2 || AnimElem = 4
+trigger1 = AnimElem = 3
 value = S7000, 0
 
 [State 210, Explod]
 type = Explod
-trigger1 = AnimElem = 2 || AnimElem = 4
+trigger1 = AnimElem = 3
 anim = 7021
 ID = 210
 pos = 10, 0
@@ -165,37 +155,6 @@ givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
-
-[State 210, Hit2]
-type = HitDef
-trigger1 = AnimElem = 4
-attr = S, NA
-animtype  = Medium
-damage    = 17
-guardflag = M
-hitflag = MAF
-pausetime = 10,10
-sparkno = S7007
-sparkxy = -10, 0
-hitsound   = S7040,1
-guardsound = 6,0
-ground.type = High
-ground.slidetime = 12
-ground.hittime  = 15
-ground.velocity = -3
-air.velocity = -3,-1
-forcenofall = 1
-ground.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
-givepower = 18, 18
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 8
-
-[State 210, 4]
-type = SprPriority
-trigger1 = AnimElem = 5
-value = 2
 
 [State 210, 5]
 type = ChangeState
