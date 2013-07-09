@@ -24,7 +24,7 @@ x = 2.8
 
 [State 200, Explod]
 type = Explod
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 anim = 7020
 ID = 200
 pos = 10, -5
@@ -99,7 +99,7 @@ poweradd= IfElse(Var(21) > 0, 0, 18)
 ctrl = 0
 velset = 0,0
 anim = 210
-sprpriority = 2
+sprpriority = 1
 facep2 = 1
 
 [State 210, 1]
@@ -112,7 +112,7 @@ type = Explod
 trigger1 = AnimElem = 3
 anim = 7021
 ID = 210
-pos = 10, 0
+pos = 5, -35
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -138,8 +138,8 @@ damage    = IfElse(Var(21) > 0, 32, 23)
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
-sparkno = S7007
-sparkxy = -10, 0
+sparkno = S7001
+sparkxy = -5, -25
 hitsound   = S7040,1
 guardsound = 6,0
 ground.type = High
@@ -254,7 +254,7 @@ poweradd= 0
 ctrl = 0
 velset = 0,0
 anim = 400
-sprpriority = 2
+sprpriority = 1
 facep2 = 1
 
 [State 400, VelSet]
@@ -266,6 +266,28 @@ x = 2.8
 type = PlaySnd
 trigger1 = AnimElem = 2
 value = S7010, 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 2
+anim = 7003
+ID = 200
+pos = 12, 0
+postype = p1  ;p2,front,back,left,right
+facing = -1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
 
 [State 400, 2]
 type = HitDef
@@ -318,29 +340,17 @@ anim = 410
 sprpriority = 1
 facep2 = 1
 
-[State 410, VelSet]
-type = Velset
-trigger1 = Var(21) > 0
-x = 2.8
-
 [State 410, 1]
 type = PlaySnd
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 value = S7000, 0
-
-[State 410, VelAdd]
-type = VelAdd
-trigger1 = AnimElem = 2
-x = 2
-y = 0
-ignorehitpause = 1
 
 [State 610, Explod]
 type = Explod
-trigger1 = AnimElem = 2
-anim = 7023
+trigger1 = AnimElem = 3
+anim = 7002
 ID = 610
-pos = 20, 5
+pos = 20, -5
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -359,7 +369,7 @@ ignorehitpause = 1
 
 [State 410, 2]
 type = HitDef
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 attr = C, NA
 damage    = 37
 animtype  = Medium
@@ -404,31 +414,10 @@ anim = 420
 sprpriority = 1
 facep2 = 1
 
-[State 420, VelSet]
-type = Velset
-trigger1 = Var(21) > 0
-x = 2.8
-
 [State 420, 1]
 type = PlaySnd
 trigger1 = AnimElem = 3
 value = S7000,1
-
-[State 420, VelAdd]
-type = VelAdd
-trigger1 = Anim = 420
-trigger1 = AnimElem = 3
-x = 3
-y = 0
-ignorehitpause = 1
-
-[State 420, StateTypeSet]
-type = StateTypeSet
-trigger1 = Anim = 420
-trigger1 = AnimElem = 3
-statetype = A
-physics = N
-ignorehitpause = 1
 
 [State 420, 2]
 type = HitDef
@@ -466,18 +455,9 @@ trigger1 = Anim = 420
 elem = 1
 value = 11
 
-[State 420, StateTypeSet]
-type = StateTypeSet
-trigger1 = Anim = 11
-trigger1 = AnimElem = 1
-statetype = C
-physics = C
-ignorehitpause = 1
-
-[State 420, 3]
+[State 220, 3]
 type = ChangeState
-trigger1 = Anim = 11
-trigger1 = Time >= 50
+trigger1 = AnimTime = 0
 value = 11
 ctrl = 1
 
