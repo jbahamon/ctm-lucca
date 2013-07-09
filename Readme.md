@@ -1,64 +1,12 @@
 --------------------------------
-Ayla (Beta 2) by SilentProtagonist 
+Lucca by SilentProtagonist 
 --------------------------------
 
-Release Date: December 11th, 2012.
-
-Ayla is a three-button character made for MUGEN 1.0.
-This is a beta version: in other words, it's not completely finished.
+Lucca is a three-button character made for MUGEN 1.0.
 
 What's missing:
 
-- More palettes
-- Special intros/winposes, maybe.
-
-==============
-Ayla's Moveset
-==============
-
---------------
-Throws
---------------
-
-*Boulder Toss
-	Command: F/B + [a+b/b+c/a+c] (Standing)
-	A standard throw. The direction you press determines the
-	direction your opponent will be thrown.
-
-
-*Cat Attack
-	Command: D, DB, B + a/b/c (Standing)
-	A special throw where Ayla jumps at the opponent,
-	scratching and biting him/her if it connects.
-	This attack only hits in the falling part of the jump.
-	This attack can be cancelled into Drill Kick (see below).
-
---------------
-Specials
---------------
-
-*Rock Throw
-	Command: D, DF, F + a/b/c (Standing)
-	A standard projectile that travels in an arc.
-	The speed and range of the rock depend on the button pressed.
-
-*Backflip Kick 
-	F, D, DF + a/b/c (Standing)
-	Ayla does a rising kick and a diagonal kick after it.
-	The speed and angle of the attack depend on the button pressed.
-	You can cancel the first part of this special into its second
-	part by pressing a/b/c.
-
-*Drill Kick
-	a/b/c (while executing Cat Attack)
-	Ayla throws herself horizontally at the opponent while spinning.
-
-
-*Tail Whirl
-	Command: D, DB, B + a/b/c Air)
-	Ayla does a Tatsumaki Senpuu Kyaku-styled series of kicks while
-	advancing in the air.
-
+- Pretty much everything
 
 ------
 Supers
