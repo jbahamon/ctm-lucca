@@ -342,20 +342,20 @@ facep2 = 1
 
 [State 410, 1]
 type = PlaySnd
-trigger1 = AnimElem = 3
+trigger1 = AnimElem = 2
 value = S7000, 0
 
 [State 610, Explod]
 type = Explod
-trigger1 = AnimElem = 3
-anim = 7002
+trigger1 = AnimElemTime(2) = 6
+anim = 7004
 ID = 610
-pos = 20, -5
+pos = 15, 2
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
-bindtime = -1
-vel = 0,0
+bindtime = 4
+vel = 0,-0.2
 accel = 0,0
 random = 0,0
 removetime = -2
