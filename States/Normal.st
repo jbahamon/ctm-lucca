@@ -545,43 +545,45 @@ poweradd= IfElse(Var(21) > 0, 0, 18)
 ctrl = 0
 anim = 610
 sprpriority = 1
+facep2 = 1
 
 [State 610, 2]
 type = PlaySnd
-trigger1 = Time = 2
+trigger1 = AnimElem = 2
+trigger2 = AnimElem = 5
 value = S7000, 0
 
-[State 610, Set]
-type = Varset
-trigger1 = !Time
-var(0) = Vel X > 0
+[State 610, 2]
+type = PlayerPush
+trigger1 = NumTarget
+value = 0
+ignorehitpause = 1
 
 [State 610, Vel]
 type = VelSet
-trigger1 = !Time && Var(0)
-X = 0
+trigger1 = !Time
 Y = 0
 
 [State 610, VelAdd]
 type = VelAdd
-trigger1 = !Var(0)
+trigger1 = AnimElemNo(0) >= 2
 Y = 0.49
 
 [State 610, VelAdd]
 type = VelSet
-trigger1 = AnimElemTime(2) = 0 && Var(0)
-x = 5
-y = 5
+trigger1 = AnimElemTime(3) = 0
+trigger2 = AnimElemTime(7) = 0
+y = -5
 
 [State 610, Explod]
 type = Explod
-trigger1 = AnimElem = 2
-trigger1 = Vel X >2
-anim = 7023
+trigger1 = AnimElem = 3
+trigger2 = AnimElem = 7
+anim = 7021
 ID = 610
-pos = 30, 5
+pos = IfElse(AnimElemNo(0) < 5, 5, -10), -44;IfElse(AnimElemNo(0) < 4, 35, 0)
 postype = p1  ;p2,front,back,left,right
-facing = 1
+facing = IfElse(AnimElemNo(0) < 5, 1, -1)
 vfacing = 1
 bindtime = -1
 vel = 0,0
@@ -598,7 +600,8 @@ ignorehitpause = 1
 
 [State 610, 3]
 type = HitDef
-trigger1 = Time = 0
+trigger1 = AnimElem = 2
+trigger2 = AnimElem = 6
 attr = A, NA
 damage = 40
 guardflag = HA
@@ -612,9 +615,9 @@ animtype = Med
 ground.type = High
 ground.slidetime = 12
 ground.hittime  = 14
-ground.velocity = -5
-air.velocity = -5,-4
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 72, 144)), IfElse(Var(21) > 0, 0, 36)
+ground.velocity = IfElse(AnimElemNo(0) < 5, 0, 3), -3
+air.velocity = IfElse(AnimElemNo(0) < 5, 0, 4),-3
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 36, 36
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -622,9 +625,15 @@ palfx.time = 8
 
 [State 610, Landing]
 type = ChangeState
+trigger1 = !AnimTime
+value = 50
+
+[State 610, Landing]
+type = ChangeState
 trigger1 = Vel Y > 0
 trigger1 = pos y > -vel y
 value = 611
+
 
 ;Jump Mid Landing
 [Statedef 611]
