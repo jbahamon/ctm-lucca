@@ -167,6 +167,20 @@ ctrl = 1
 
 [Statedef -3]
 
+[State -3: AttackMulSet]
+type = RemapPal
+trigger1 = (Var(21) != 0)
+trigger1 = Power <= 5
+source = 1, 1
+dest = 1, palno
+
+[State -3: AttackMulSet]
+type = RemapPal
+trigger1 = (Var(21) != 0)
+trigger1 = Power >= 3000
+source = 1, 1
+dest = 2, palno
+
 [State -3, CustomCombo]
 type = PowerAdd
 trigger1 = Var(21) > 0 && StateNo != 2110 && StateNo != [2100, 2102]
@@ -207,27 +221,15 @@ value = Anim
 elem = AnimElemNo(0) + 1
 
 [State -3: AttackMulSet]
-type = AttackMulSet
+type = DefenceMulSet
 trigger1 = (Var(21) > 0)
-value = 0.52
+value = 1.5
 ignorehitpause = 1
 
 [State -3: AttackMulSet]
-type = AttackMulSet
+type = DefenceMulSet
 trigger1 = (Var(21) = 0)
 value = 1
-
-[State -3: AttackMulSet]
-type = RemapPal
-trigger1 = (Var(21) = 0)
-source = 1, 1
-dest = 1, palno
-
-[State -3: AttackMulSet]
-type = RemapPal
-trigger1 = (Var(21) != 0)
-source = 1, 1
-dest = 2, palno
 
 ;This controller plays a sound everytime Ayla lands from a jump, or
 ;from his back-dash.

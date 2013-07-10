@@ -577,7 +577,7 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ; Special Moves
 ;===========================================================================
 [State -1, Backflip Kick]
-type = ChangeState
+type = null;ChangeState
 value = 1010
 triggerall = command = "dfa" || command = "dfb" || command = "dfc"
 triggerall = roundstate = 2 && statetype != A 
@@ -664,6 +664,7 @@ type = ChangeState
 value = 220
 triggerall = command = "c"
 triggerall = command != "holddown"
+triggerall = !NumProjID(220)
 trigger1 = statetype != A
 trigger1 = ctrl
 trigger2 = (stateno = 200) || (stateno = 210)

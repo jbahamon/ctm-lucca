@@ -189,8 +189,8 @@ value = S7010,1
 
 [State 1020, Rock]
 type = Helper
-trigger1 = AnimElem = 3
-name = "Big Rock"
+trigger1 = AnimElem = 2
+name = "Napalm Grenade"
 ID = 1020
 stateno = 1021
 pos = 5,0
@@ -198,34 +198,6 @@ postype = p1    ;p2,front,back,left,right
 facing = 1
 keyctrl = 0
 ownpal = 1
-
-[State 1020, Explod]
-type = Explod
-trigger1 = AnimElemTime(3) >= 0 && AnimElemTime(3) <= 6 && NumExplod(1021) < 3
-anim = 7105 - (NumExplod(1021) % 2)
-ID = 1021
-pos = 5, - floor(random % 6)
-postype = p1  ;p2,front,back,left,right
-facing = 1
-vfacing = 1
-bindtime = 1
-vel = 1 + 0.8 * (random)/1000.0 ,-5 + 2 * (random - 500.0)/500.0
-accel = 0,.52
-removetime = 15
-scale = 1 + 0.1 * (random - 500.0)/500.0 ,1 + 0.1 * (random - 500.0)/500.0
-sprpriority = 4
-ontop = 0
-shadow = -1
-ownpal = 1
-removeongethit = 0
-
-[State 1020, ModifyExplod]
-type = ModifyExplod
-trigger1 = NumExplod(1021) > 0 && AnimElemTime(3) >= 0 
-ID = 1021
-pos = 0,0
-trans = addalpha
-alpha = floor((1 - AnimElemTime(3)/30.0)*256), floor(256*(AnimElemTime(3)/30.0))
 
 [State 1020, Rock Sound]
 type = PlaySnd
@@ -238,28 +210,28 @@ trigger1 = !AnimTime
 value = 0
 ctrl = 1
 
-; The Rock
+; Napalm Grenade
 [Statedef 1021]
 type    = S
 movetype= I
 physics = S
 juggle  = 3
 ctrl = 0
-anim = 7100
+anim = 7009
 sprpriority = 3
 
 [State 1021, PosSet]
 type = VarSet
 trigger1 = !Time
+trigger1 = !(var(1) := 0)
 var(0) = parent, var(0)
-var(1) = 0
 
 [State 1021, HitOverride]
 type = HitOverride
 trigger1 = 1
 time = -1
 attr = SCA, AA, AP, AT
-stateno = 1022
+stateno = 1023
 ignorehitpause = 1
 
 [State 1021, HB]
@@ -270,46 +242,240 @@ value = SCA, NP, SP, HP
 ignorehitpause = 1
 
 [State 1021, PosSet]
-type = VelSet
-trigger1 = parent, AnimElem = 3 && parent, StateNo = 1020
-y = -8
+type = PosSet
+trigger1 = parent, AnimElemNo(0) = 2 && parent, StateNo = 1020
+X = Parent, Pos X - 10
+Y = Parent, Pos Y - 10
+
+[State 1021, PosSet]
+type = PosSet
+trigger1 = parent, AnimElemNo(0) = 3 && parent, StateNo = 1020
+X = Parent, Pos X - 2
+Y = Parent, Pos Y - 27
 
 [State 1021, PosSet]
 type = VelSet
-trigger1 = time > 0 && parent, AnimElemNo(0) = 3 && parent, AnimElemTime(3) < 6 && parent, StateNo = 1020
-x = -4
+trigger1 = parent, AnimElemTime(3) = 0 && parent, StateNo = 1020
+x =  IfElse(var(0) = 2, 3.5, IfElse(var(0) = 1, 4, 3)) * Cos(IfElse(var(0) = 2, 0.54 ,IfElse(var(0) = 1, 0.78, 1.22)))
+y = -IfElse(var(0) = 2, 6, IfElse(var(0) = 1, 5, 6)) * Sin(IfElse(var(0) = 2, 0.54 ,IfElse(var(0) = 1, 0.78, 1.22)))
 
-[State 1021, PosSet]
-type = VelMul
-trigger1 = time > 0 && parent, AnimElemNo(0) = 3 && parent, AnimElemTime(3) < 6  && parent, StateNo = 1020
-y = 0.64
 
 [State 1021, PosSet]
 type = VarSet
-trigger1 = parent, AnimElem = 4 && parent, StateNo = 1020
+trigger1 = parent, AnimElemTime(3) = 0 && parent, StateNo = 1020
 var(1) = 1
-
-[State 1021, PosSet]
-type = VelSet
-trigger1 = parent, AnimElem = 4 && parent, StateNo = 1020
-x = IfElse(var(0) = 0, 6,IfElse(var(0) = 1, 5, 6))
-y = IfElse(var(0) = 0, -2,IfElse(var(0) = 1, -4, -5))
 
 [State 1021, PosSet]
 type = VelAdd
 trigger1 = var(1)
-y = IfElse(var(0) = 0, .56,IfElse(var(0) = 1, .53, .5))
+y = IfElse(var(0) = 2, 0.14, 0.2)
 
 [State 1021, PosSet]
 type = StateTypeSet
-trigger1 = parent, AnimElem = 4 && parent, StateNo = 1020
+trigger1 = var(1)
 statetype = S
 movetype = A
 physics = N
+persistent = 0
 
 [State 1021, HitDef]
 type = HitDef
-trigger1 = parent, AnimElem = 4 && parent, StateNo = 1020
+trigger1 = var(1)
+attr = S, SP
+hitflag = MAF        ;HLAFD+-
+guardflag = MA         ;HLA
+animtype = Hard
+sparkno = S7000
+damage = 72,0
+sparkxy = -10, 0 
+hitsound = S220,1
+ground.type = High
+ground.slidetime = 5
+ground.hittime = 5
+ground.velocity = 0, 0
+ground.cornerpush.veloff = 0
+givepower = 36, 36
+envshake.time = 14
+envshake.freq = 120
+envshake.ampl = 2
+air.velocity = 0, 0
+numhits = 0
+air.fall = 0
+fall.recover = 1
+fall.recovertime = 30
+yaccel = 0.5
+airguard.ctrltime = 16
+airguard.velocity = -8, -1.5
+forcestand = 1
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 72, 144)), IfElse(Var(21) > 0, 0, 36)
+givepower = 36, 36
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
+persistent = 0
+
+[State 1021, ChangeState]
+type = DestroySelf
+trigger1 = (parent, StateNo != 1020 && !var(1)) 
+ignorehitpause = 1
+
+[State 1021, ChangeState]
+type = VarSet
+trigger1 = !Time
+v = 2
+value = 0
+ignorehitpause = 1
+
+[State 1021, ChangeState]
+type = VarSet
+trigger1 = MoveHit
+v = 2
+value = 1
+ignorehitpause = 1
+
+[State 1021, ChangeState]
+type = ChangeState
+trigger1 = MoveHit
+trigger2 = Vel Y >= 0 && Pos Y > - Vel Y
+value = 1022
+ctrl = 0
+ignorehitpause = 1
+
+;Exploding by hitting enemy or ground
+[Statedef 1022]
+type    = S
+movetype= A
+physics = S
+juggle  = 3
+ctrl = 0
+anim = 7007
+sprpriority = 3
+velset = 0,0
+
+[State 1022, Anim]
+type = ChangeAnim
+trigger1 = Var(2) && Pos Y < - 15
+value = 7010
+ignorehitpause = 1
+
+[State 1022, Anim]
+type = PosSet
+trigger1 = Anim = 7007
+Y = 0
+ignorehitpause = 1
+
+[State 1021, HitDef]
+type = HitDef
+trigger1 = !Time
+attr = S, SP
+hitflag = MAF        ;HLAFD+-
+guardflag = MA         ;HLA
+animtype = Hard
+sparkno = -1
+damage = 72,0
+pausetime = 0, 20
+hitsound = S220,1
+ground.type = High
+ground.slidetime = 16
+ground.hittime = 16
+ground.velocity = -2.5, -3
+ground.cornerpush.veloff = 0
+givepower = 36, 36
+envshake.time = 14
+envshake.freq = 120
+envshake.ampl = 2
+air.velocity =  -2.5, -3
+air.fall = 1
+fall.recover = 1
+fall.recovertime = 30
+yaccel = 0.5
+airguard.ctrltime = 16
+airguard.velocity = -8, -1.5
+forcestand = 1
+getpower = 0, 0
+givepower = 36, 36
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
+persistent = 0
+
+[State 1022, Explod]
+type = Explod
+trigger1 = NumExplod(1020) < 3
+trigger1 = Time % 3
+trigger1 = Time < 22
+anim = 7008
+ID = 1020
+pos = 25 - Random % 50, 5 - Random % 30
+postype = p1 ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0, 0
+accel = 0,0
+removetime = -2
+scale = 1 , 1
+sprpriority = 4
+ontop = 0
+shadow = -1
+ownpal = 0
+removeongethit = 0
+
+[State 1022, PosSet]
+type = VelSet
+trigger1 = 1
+y = 0
+x = 0
+
+[State 1021, NoShadow]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 1021, Scale]
+type = AngleDraw
+trigger1 = 1
+value = 1
+scale = Time/33.0, Time/33.0
+;ignorehitpause = 
+;persistent = 
+
+[State 801, Priority]
+type = PlaySnd
+trigger1 = !Time
+value = S2,2
+channel = 0
+
+[State 1021, Trans]
+type = Trans
+trigger1 = Time = [0,20]
+trans = add
+
+[State 1021, Trans]
+type = Trans
+trigger1 = Time != [0,20]
+trans = addalpha
+alpha = 256 - 16 * (Time - 20), 256
+
+[State 1021, End]
+type = DestroySelf
+trigger1 = Time >= 36
+
+;Exploding by getting hit
+[Statedef 1023]
+type    = S
+movetype= A
+physics = S
+juggle  = 3
+ctrl = 0
+anim = 7010
+sprpriority = 3
+velset = 0,0
+
+[State 1021, HitDef]
+type = HitDef
+trigger1 = !Time
 attr = S, SP
 hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
@@ -335,53 +501,28 @@ yaccel = 0.5
 airguard.ctrltime = 16
 airguard.velocity = -8, -1.5
 forcestand = 1
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 72, 144)), IfElse(Var(21) > 0, 0, 36)
+getpower = 0, 0
 givepower = 36, 36
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
-
-[State 1021, ChangeState]
-type = ChangeState
-trigger1 = pos y >= 1 || (parent, StateNo != 1020 && !var(1)) || HitCount > 0
-value = 1022
-ctrl = 0
-ignorehitpause = 1
-
-;Destroyed Rock
-[Statedef 1022]
-type    = S
-movetype= I
-physics = S
-juggle  = 3
-ctrl = 0
-anim = 7103
-sprpriority = 3
-
-[State 1022, Sound]
-type = PlaySnd
-trigger1 = !Time
-value = S7020,5
-
-[State 1022, Must not be seen]
-type = AssertSpecial
-trigger1 = 1
-flag = invisible
-ignorehitpause = 1
+persistent = 0
 
 [State 1022, Explod]
 type = Explod
-trigger1 = NumExplod(1022) < 3 && Time < 5
-anim = 7105 - (NumExplod(1022) % 2)
-ID = 1022
-pos = floor(random % 12) - 6 , ifelse(pos y > 0, floor(-Pos y), floor(random % 12) - 6) 
+trigger1 = NumExplod(1020) < 3
+trigger1 = Time % 3
+trigger1 = Time < 22
+anim = 7008
+ID = 1020
+pos = 25 - Random % 50, 5 - Random % 30
 postype = p1 ;p2,front,back,left,right
 facing = 1
 vfacing = 1
 bindtime = 1
-vel = ifelse(NumExplod(1022) < 3, -1, 1) * (2.5 + 1 * (random)/1000.0) , -5 + 1 * (random - 500.0)/500.0
-accel = 0,.52
-removetime = 20
+vel = 0, 0
+accel = 0,0
+removetime = -2
 scale = 1 , 1
 sprpriority = 4
 ontop = 0
@@ -390,21 +531,45 @@ ownpal = 0
 removeongethit = 0
 
 [State 1022, PosSet]
-type = PosSet
-trigger1 = pos y > 0
+type = VelSet
+trigger1 = 1
 y = 0
+x = 0
 
-[State 1022, ModifyExplod]
-type = ModifyExplod
-trigger1 = NumExplod(1022) > 0
-ID = 1022
-pos = 0,0
+[State 1021, NoShadow]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 1021, Scale]
+type = AngleDraw
+trigger1 = 1
+value = 1
+scale = Time/33.0, Time/33.0
+;ignorehitpause = 
+;persistent = 
+
+[State 801, Priority]
+type = PlaySnd
+trigger1 = !Time
+value = S2,2
+channel = 0
+
+[State 1021, Trans]
+type = Trans
+trigger1 = Time = [0,20]
+trans = add
+
+[State 1021, Trans]
+type = Trans
+trigger1 = Time != [0,20]
 trans = addalpha
-alpha = floor((1 - Time/30.0)*256), floor(256*Time/30.0)
+alpha = 256 - 16 * (Time - 20), 256
 
-[State 1022, DestroySelf]
+[State 1021, End]
 type = DestroySelf
-trigger1 = Time = 20
+trigger1 = Time >= 36
 
 ;---------------------------------------------------------------------------
 ; Cat Attack
