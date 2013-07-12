@@ -577,7 +577,7 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ; Special Moves
 ;===========================================================================
 [State -1, Backflip Kick]
-type = null;ChangeState
+type = ChangeState
 value = 1010
 triggerall = command = "dfa" || command = "dfb" || command = "dfc"
 triggerall = roundstate = 2 && statetype != A 
