@@ -15,6 +15,22 @@ sprpriority = 1
 poweradd = IfElse(Var(21) > 0, 0, 72)
 facep2 = 1
 
+[State 1010, Pal]
+type = PalFx
+trigger1 = Time = [0, 16]
+time = 1
+add = 9 * Time, 4 * Time, Time/2
+mul = 256, 256, 256
+ignorehitpause = 1
+
+[State 1010, Pal]
+type = PalFx
+trigger1 = Time >= 16
+time = 1
+add = 144, 64, 7
+mul = 256, 256, 256
+ignorehitpause = 1
+
 [State 1010, Strength]
 type = VarSet
 trigger1 = !Time
@@ -42,7 +58,7 @@ physics = N
 [State 1010, Jump]
 type = VelSet
 trigger1 = AnimElem = 2
-y = ifelse(var(0) = 2, -8, ifelse(var(0) = 1, -6, -4))
+y = ifelse(var(0) = 2, -8, ifelse(var(0) = 1, -7, -6))
 
 [State 1010, Gravity]
 type = VelAdd
@@ -53,7 +69,7 @@ y = .4
 type = HitDef
 trigger1 = animelem = 2 
 attr = A, SA
-damage = IfElse(var(0) = 2, 67, IfElse(var(0) = 1, 57, 47)), 7
+damage = IfElse(var(0) = 2, 77, IfElse(var(0) = 1, 67, 57)), 7
 animtype = Hard
 guardflag = HA
 hitflag = MAF
@@ -87,95 +103,105 @@ airguard.velocity = -8, -1.5
 forcestand = 1
 airguard.cornerpush.veloff = 0
 airguard.cornerpush.veloff = 0
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
+palfx.add = 128, 100, 7
+palfx.mul = 256,256,256
 palfx.time = 8
 
-[State 1250, hitb]
-type = HitDef
-trigger1 = animelem = 4 && Vel Y < 0
-attr = A, SA
-damage = 47, 7
-animtype = Hard
-guardflag = HA
-hitflag = MAF
-priority = 4, Hit
-pausetime = 14, 14
-sparkno = s7001
-sparkxy = -10, 0
-hitsound = s2, 6
-guardsound = s2, 0
-ground.type = High
-ground.slidetime = 16
-ground.hittime = 16
-ground.velocity = 0, IfElse(var(0) = 2, -8, IfElse(var(0) = 1, -6, -4))
-air.type = Low
-air.velocity = 0, IfElse(var(0) = 2, -8, IfElse(var(0) = 1, -6, -4))
-air.cornerpush.veloff = 0
-ground.cornerpush.veloff = 0
-guard.velocity = -10.52
-guard.cornerpush.veloff = 0;-12.74
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 72, 144)), IfElse(Var(21) > 0, 0, 36)
-givepower = 36, 36
-envshake.time = 16
-envshake.freq = 120
-envshake.ampl = 4
-fall = 1
-fall.recover = 1
-fall.recovertime = 120
-yaccel = 0.5
-airguard.ctrltime = 16
-airguard.velocity = -8, -1.5
-forcestand = 1
-airguard.cornerpush.veloff = 0
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 8
-
-
-[State 1010, HitDef]
-type = HitDef
-trigger1 = AnimElem = 8 && Vel Y < 0
-attr = A, SA
-damage = 62,7
-animtype = Hard
-guardflag = HA
-hitflag = MA
-priority = 6, Hit
-pausetime = 16,16
-sparkno = S7001
-hitsound = S7040,3
-guardsound = 5,0
-ground.type = High
-ground.velocity = ifelse(var(0) = 2, -2, ifelse(var(0) = 1, -3, -4)), ifelse(var(0) = 2, -4, ifelse(var(0) = 1, -3, -2))
-guard.velocity = -2
-ground.hittime = 16
-guard.ctrltime = 16
-airguard.velocity = -2, -1
-air.hittime = 17
-ground.cornerpush.veloff = 0
-air.cornerpush.veloff = 0
-airguard.cornerpush.veloff = 0
-getpower = 28, 14
-givepower = 56,0
-yaccel = 0.625
-fall = 1
-fall.recover = 0
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 36)
-givepower = 36, 36
-envshake.time = 8
-envshake.freq = 120
-envshake.ampl = 2
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 8
-
+[State 1020, Grenade]
+type = Helper
+trigger1 = !Time || Time = 15
+name = "Fire"
+ID = 1010
+stateno = 1012
+pos = 0, 0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
 
 [State 1040, End]
 type = ChangeState
+trigger1 = Vel Y > 0
+value = 1011
+
+;Fire Uppercut Fall
+[Statedef 1011]
+movetype = I
+type = A
+physics = N
+anim = 1011
+sprpriority = 1
+
+[State 1010, Pal]
+type = PalFx
+trigger1 = Time <= 16
+time = 1
+add = 144 - 9 * Time, 64 - 4 * Time, 7 - Time/2
+mul = 256, 256, 256
+ignorehitpause = 1
+
+[State 1011, Gravity]
+type = VelAdd
+trigger1 = 1
+Y = 0.4
+ignorehitpause = 1
+
+[State 1040, End]
+type = ChangeState
+trigger1 = Vel Y > 0
 trigger1 = Pos Y > -Vel Y
 value = 50
 
+;The Fire
+[Statedef 1012]
+movetype = I
+type = A
+anim = 7013
+sprpriority = 3
+
+[State 1012, Pos]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Parent, Var(0)
+
+[State 1011, AfterImage]
+type = AfterImage
+trigger1 = !Time
+time = 30
+length = 10
+;palcolor = 256
+;palinvertall = 0
+palbright = 0,0,0
+palcontrast = 256,256,256
+;palpostbright = 0,0,0
+paladd = 0,0,0
+palmul = 1,1,1
+timegap = 2
+framegap = 4
+trans = addalpha ;"none","add1","sub"
+alpha = 256, 128
+ignorehitpause = 1
+;persistent =
+
+[State 1012, Pos]
+type = PosSet
+trigger1 = 1
+X = Parent, Pos X - Facing * Cos(pi * time/(IfElse(var(0) = 2, 12.0, IfElse(var(0) = 1, 10.0, 8.0)))) * 15
+
+[State 1012, Vel]
+type = VelSet
+trigger1 = 1
+Y = IfElse(ParentDist Y >= 30, 0, Parent, Vel Y - IfElse(var(0) = 2, 0.5, IfElse(var(0) = 1, 0.7, 0.8)) + 0.4)
+
+[State 1012, Vel]
+type = PosFreeze
+trigger1 = ParentDist Y >= 30
+
+[State 1012, Destroy]
+type = DestroySelf
+trigger1 = Parent, StateNo != 1010
 
 ;---------------------------------------------------------------------------
 ; Napalm
@@ -296,7 +322,7 @@ hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
 animtype = Hard
 sparkno = S7000
-damage = 72,0
+damage = 5,0
 sparkxy = -10, 0 
 hitsound = S220,1
 ground.type = High
@@ -317,11 +343,11 @@ yaccel = 0.5
 airguard.ctrltime = 16
 airguard.velocity = -8, -1.5
 forcestand = 1
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 72, 144)), IfElse(Var(21) > 0, 0, 36)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 18, 36)), IfElse(Var(21) > 0, 0, 36)
 givepower = 36, 36
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
-palfx.time = 8
+palfx.time = 4
 persistent = 0
 
 [State 1021, ChangeState]
@@ -382,7 +408,7 @@ hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
 animtype = Hard
 sparkno = -1
-damage = 72,0
+damage = 82,0
 pausetime = 0, 20
 hitsound = S220,1
 ground.type = High
@@ -404,9 +430,9 @@ airguard.velocity = -8, -1.5
 forcestand = 1
 getpower = 0, 0
 givepower = 36, 36
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 8
+palfx.add = 128, 100, 7
+palfx.mul = 256,256,256
+palfx.time = 16
 persistent = 0
 
 [State 1022, Explod]
@@ -491,7 +517,7 @@ hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
 animtype = Hard
 sparkno = S7001
-damage = 72,0
+damage = 82,0
 sparkxy = -10,-15
 hitsound = S220,1
 ground.type = High
@@ -513,9 +539,9 @@ airguard.velocity = -8, -1.5
 forcestand = 1
 getpower = 0, 0
 givepower = 36, 36
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 8
+palfx.add = 128, 100, 7
+palfx.mul = 256,256,256
+palfx.time = 16
 persistent = 0
 
 [State 1022, Explod]
@@ -593,6 +619,7 @@ anim = 1030
 sprpriority = 1
 facep2 = 1
 velset = 0,0
+poweradd = -500
 
 [State 1030, Strength]
 type = VarSet
@@ -611,7 +638,7 @@ var(0) = 0
 
 [State 1030, Wave]
 type = Helper
-trigger1 = AnimElem = 3
+trigger1 = AnimElem = 2
 name = "Hypno Wave"
 ID = 1030
 stateno = 1031
@@ -621,6 +648,25 @@ facing = 1
 keyctrl = 0
 ownpal = 1
 persistent = 0
+
+[State 1030, Hit]
+type = HitDef
+trigger1 = AnimElem = 4
+attr = A, ST 
+hitflag = M-
+priority = 2, Miss
+sparkno = -1
+hitsound = s7010, 0
+p1stateno = 1033
+p2stateno = 1034
+guard.dist = 0
+ground.velocity = 0,0
+fall = 1
+fall.recover = 1
+fall.recovertime = 120
+persistent = 0
+ID = 1030
+nochainID = 1030
 
 [State 1030, End]
 type = ChangeState
@@ -696,7 +742,7 @@ Y = Parent, Pos Y - 24
 
 [State 1031, End]
 type = ChangeState
-trigger1 = Time = 120
+trigger1 = Time = 80 || !(Parent, StateNo = 1030)
 value = 1032
 
 ; Hypno Wave End
@@ -705,14 +751,22 @@ type    = S
 movetype= I
 physics = N
 ctrl = 0
-anim = 7012
+anim = 7011
 sprpriority = 3
 
 [State 7010, Trans]
 type = trans
-trigger1 = 1
+trigger1 = Time <= 20
 trans = addalpha
-alpha = 256 - 16 * Time, 128 + 8 * Time
+alpha = 256, 128
+ignorehitpause = 1
+
+
+[State 7010, Trans]
+type = trans
+trigger1 = Time > 20
+trans = addalpha
+alpha = 256 - 16 * (Time - 20) , 128 + 8 * (Time - 20)
 ignorehitpause = 1
 
 [State 1031, PosSet]
@@ -730,5 +784,63 @@ ignorehitpause = 1
 
 [State 1031, End]
 type = DestroySelf
-trigger1 = Time >= 16
+trigger1 = Time >= 36
 ignorehitpause = 1
+
+; Successful Hypno Wave
+[Statedef 1033]
+type = S
+physics = N
+movetype = I
+velset = 0,0
+ctrl = 0
+anim = 1031
+
+[State 1032, Anim]
+type = Explod
+trigger1 = NumTarget(1030) && Target(1030), Anim = 5110
+anim = 7012
+ID = 1030
+postype = p1
+pos = Facing * (Target(1030), Pos X - Pos X) + Target(1030), Const(size.height)/2 , (Target(1030), Pos Y - Pos Y) - 30
+removetime = -1;300
+facing = Facing
+sprpriority = 3
+removeongethit = 0
+ownpal = 1
+persistent = 0
+
+[State 1032, Self]
+type = ChangeState
+trigger1 = Time > 90
+value = 0
+ctrl = 1
+
+; Get Hit - Ground
+[Statedef 1034]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 1032
+
+[State 1032, Self]
+type = ChangeAnim
+trigger1 = Anim = 1032 && !AnimTime
+trigger1 = SelfAnimExist(5110)
+value = 5110
+
+[State 1032, Self]
+type = ChangeAnim2
+trigger1 = Anim = 1032 && !AnimTime
+trigger1 = !SelfAnimExist(5110)
+value = 5110
+
+[State 1032, End]
+type = SelfState
+trigger1 = Time > 240
+value = 5120

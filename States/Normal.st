@@ -17,11 +17,6 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
-[State 200, VelSet]
-type = Velset
-trigger1 = Var(21) > 0
-x = 2.8
-
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 3
@@ -48,7 +43,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = !Time
 attr = S, NA                     ;Attribute: Standing, Normal Attack
-damage = IfElse(Var(21) > 0, 25, 18)                   ;Damage that move inflicts, guard damage
+damage = 18                   ;Damage that move inflicts, guard damage
 animtype = Light                 ;Animation type: Light, Medium, Heavy, Back (def: Light)
 guardflag = M                    ;Flags on how move is to be guarded against
 hitflag = MAF                    ;Flags of conditions that move can hit
@@ -134,7 +129,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = IfElse(Var(21) > 0, 32, 23)
+damage    = 23
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
@@ -178,12 +173,12 @@ facep2 = 1
 
 [State 220, 1]
 type = PlaySnd
-trigger1 = AnimElem= 3
+trigger1 = AnimElem = 4
 value = S7000, 1
 
 [State 220, Explod]
 type = Explod
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 anim = 7005
 ID = 220
 pos = 16, -15
@@ -205,7 +200,7 @@ ignorehitpause = 1
 
 [State 220, 2]
 type = Projectile
-trigger1 = Animelem = 2
+trigger1 = Animelem = 3
 attr = S, NP
 offset = 16, -15
 projID = 220
@@ -214,7 +209,7 @@ projhitanim = 7002
 projremovetime = 18
 velocity = 4,0
 animtype  = Hard
-damage    = IfElse(Var(21) > 0, 42, 62)
+damage    = 42
 guardflag = MAF
 pausetime = 12,12
 sparkno = -1
@@ -367,7 +362,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = AnimElem = 3
 attr = C, NA
-damage    = 37
+damage    = 34
 animtype  = Medium
 hitflag = MAF
 guardflag = L
@@ -411,12 +406,12 @@ facep2 = 1
 
 [State 420, 1]
 type = PlaySnd
-trigger1 = AnimElem = 3
+trigger1 = AnimElem = 4
 value = S7000,1
 
 [State 420, Explod]
 type = Explod
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 anim = 7005
 ID = 220
 pos = 10, -25
@@ -438,7 +433,7 @@ ignorehitpause = 1
 
 [State 420, 2]
 type = Projectile
-trigger1 = Animelem = 2
+trigger1 = Animelem = 3
 attr = S, NP
 offset = 10, -25
 projID = 220
@@ -447,7 +442,7 @@ projhitanim = 7002
 projremovetime = 10
 velocity = 2,-2.5
 animtype  = Hard
-damage    = IfElse(Var(21) > 0, 42, 62)
+damage    = 42
 guardflag = MAF
 pausetime = 12,12
 sparkno = -1
@@ -604,7 +599,7 @@ Y = 0.45
 type = HitDef
 trigger1 = Time = 0
 attr = A, NA
-damage = 40
+damage = 35
 guardflag = HA
 priority = 3
 pausetime = 8,8
@@ -619,8 +614,8 @@ ground.velocity = -4
 air.velocity = -2,-3
 air.hittime = 14
 givepower = 36, 36
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
+palfx.add = 128, 100, 7
+palfx.mul = 256,256,256
 palfx.time = 8
 
 [State 610, Landing]
@@ -726,7 +721,7 @@ type = HitDef
 trigger1 = AnimElem = 2
 trigger2 = AnimElem = 6
 attr = A, NA
-damage = 40
+damage = 33
 guardflag = HA
 priority = 4
 pausetime = 12,12

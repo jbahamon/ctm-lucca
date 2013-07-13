@@ -1,4 +1,4 @@
-; Ayla's constants and state file.
+; Lucca's constants and state file.
 ; There are comments scattered through this file, so you may like to
 ; take a look if would like to learn more about the cns.
 
@@ -94,43 +94,49 @@ down.friction.threshold = .05         ;If the player's speed drops below this th
 
 [Quotes]
 ; Up to 100 victory quotes can be specified per language (victory0 - victory99)
-victory1 = "Ayla fight while alive! Win and live. Lose and die. Rule of life. No change rule."
-victory2 = "Me no run! Ayla no run away!\nWorse than losing!!"
-victory3 = "No more do bad stuff, okay?!\nThat wrong!"
-victory4 = "Ha ha, you funny.\nAyla like funny people."
-victory5 = "Strong survive.\nAyla strong. Ayla fight!"
+victory1 = "Leave it to Lucca the Great!"
+victory2 = "Nothing can beat science!"
+victory3 = "This is what happens to fools who challenge the mighty Lucca!"
+victory4 = "So, what do you think of my Zonker-38?  \nPretty cool, huh? "
+victory5 = "Get outta my way!!  \nTake 5, you mugs!"
 
 ;Against Lavos
-victory6 = "Ayla strong! Ayla and world good!\nYou outsider. Not part of planet's life!!"
+victory6 = "You CAN'T expect to toy with an entire world and get away with it!"
 
 ;Against Frog
-victory7 = "Yummy frog!\nFor Ayla eat?"
+victory7 = "...  Froggy, you weren't such a bad guy \neither."
 
 ; Against Lucca
-victory8 = "You strong too.\nAyla respect strong people.  Men and women."
+victory8 = "This is completely irrational."
 
 ; Against Crono
-victory9 = "Ayla like strong people.\nSo Ayla like Crono!"
-
+victory9 = "Now don't you go getting any ideas, mister!"
+victory10= "See!\n You DO need me!"
 ; Against Marle
-victory10 = "Sure you ready leave nest?\nNot too big yet."
+victory11 = "Sorry for putting you through all that, Marle."
 
 ; Against Ayla
-victory11 = "What you say?!\nNo rubbish or Ayla, head go boom!"
-
+victory12 = "We're from way after the day after tomorrow. "
+victory13 = "Where have they been keeping her?"
 ;Against Robo
-victory12 = "You different, but strong too."
-victory13 = "«Rawboot?» What that?\nAyla don't know."
+victory14 = "Machines aren't capable of evil... \n...humans make them that way."
+
+;Against Magus
+victory15 = "You...!\nYou're...Janus?"
 
 ;---------------------------------------------------------------------------
 ; Variable usage:
 
 ; Variables 0-20 are temporary and should be reset before use.
-; Var(20): Custom Combo timer
+
+; Var(21): Protect Timer
+; Var(22): Hypno Wave Target
+
+;FVar(29): Protect Damage
 ;----------------------------------------------------------------------
 
 ;---------------------------------------------------------------------------
-; Overriding of custom states
+; Overriding of common states
 ;---------------------------------------------------------------------------
 
 [Statedef 0]
@@ -140,26 +146,30 @@ sprpriority = 0
      
 [State 0, 1]
 type = ChangeAnim
+triggerall = !Var(21)
 trigger1 = Anim != 0 && Anim != 5
 trigger2 = Anim = 5 && AnimTime = 0 ;Turn anim over
 value = 0
+
+[State 0, 1]
+type = ChangeAnim
+triggerall = Var(21)
+trigger1 = Anim != 2100 && Anim != 5
+trigger2 = Anim = 5 && AnimTime = 0 ;Turn anim over
+value = 2100
      
 [State 0, 2]
 type = VelSet
 trigger1 = Time = 0
 y = 0
-     
-[State 0, 3] ;Stop moving if low velocity or 4 ticks pass
-type = VelSet
-trigger1 = abs(vel x) < 2
-trigger2 = Time = 4
-x = 0
 
-[State 0: ChangeState]
-type = ChangeState
-trigger1 = (Var(21) > 0)
-value = 2111
-ctrl = 1
+
+;---------------------------------------------------------------------------
+; States that are always executed (use statedef -2)
+;---------------------------------------------------------------------------
+
+
+
 
 ;---------------------------------------------------------------------------
 ; States that are executed when in self's state file (use statedef -3)
@@ -167,24 +177,67 @@ ctrl = 1
 
 [Statedef -3]
 
-[State -3: AttackMulSet]
-type = RemapPal
-trigger1 = (Var(21) != 0)
-trigger1 = Power <= 5
-source = 1, 1
-dest = 1, palno
+[State -2, Remove Explod]
+type = RemoveExplod
+trigger1 = NumExplod(1030) && !NumTarget(1030)
+ID = 1030
+ignorehitpause = 1
 
-[State -3: AttackMulSet]
-type = RemapPal
-trigger1 = (Var(21) != 0)
-trigger1 = Power >= 3000
-source = 1, 1
-dest = 2, palno
+[State -2]
+type = Helper
+triggerall = !NumHelper(11777) ; If the helper doesn't exists yet, make one
+trigger1 = var(21)
+OwnPal = 1
+PosType = P1
+Pos = 0, 0
+ID = 11777
+StateNo = 11777
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+Name = "Protect"
 
-[State -3, CustomCombo]
+[State -3, EndProtect]
+type = VarSet
+trigger1 = !Power && Var(21)
+v = 21
+value = 0
+ignorehitpause = 1
+
+[State -2] 
+Type= PalFX
+Trigger1= !(Var(21))
+Time = -1
+
+[State -2] ; The main character is immune to every attack (as the helper is taking the damage instead)
+Type= NotHitBy
+Trigger1= NumHelper(11777)>0
+value=SAC
+
+[State -2, ]
+type = assertspecial
+trigger1 = Var(21)
+flag = noairguard
+flag2 = nostandguard
+flag3 = nocrouchguard
+
+[State -2, LifeAdd]
+Type = LifeAdd
+Trigger1 = NumHelper(11777) > 0
+Trigger1 = fVar(29) >=1
+Value = -floor(fVar(29) * 0.5)
+ignorehitpause=1
+
+[State -2, VarSet]
+Type = VarAdd
+Trigger1 = 1
+FV = 29
+Value = -floor(fvar(29))
+ignorehitpause=1
+
+[State -3, SuperArmorDeplete]
 type = PowerAdd
 trigger1 = Var(21) > 0 && StateNo != 2110 && StateNo != [2100, 2102]
-value = -10
+value = IfElse(Power > 5, -5, -Power)
 ignorehitpause = 1
 
 [State -3: VarSet]
@@ -192,44 +245,6 @@ type = VarSet
 trigger1 = (Roundstate = 3)
 v = 21
 value = 0
-
-[State -3, Berserker]
-type = VarSet
-trigger1 = Var(21) > 0 && !Power && StateNo != [2100, 2102]
-var(21) = 0
-
-[State -3: PalFX]
-type = PalFX
-trigger1 = (Var(21) > 0) && ((GameTime%3) = 0)
-time = 2
-add = 132,16,0
-sinadd = 164,32,5,2
-ignorehitpause = 1
-
-[State -3: AssertSpecial]
-type = AssertSpecial
-trigger1 = (Var(21) > 0)
-flag = NoJuggleCheck
-
-[State -3: ChangeAnim]
-type = ChangeAnim
-triggerall = (Var(21) > 0) && (RoundState = 2) && (MoveType != H) && StateNo != [2100, 2102]
-trigger1 = AnimElemTime(AnimElemNo(0) + 1) < 0
-trigger1 = AnimElemTime(AnimElemNo(0)) > floor ((AnimElemTime(AnimElemNo(0)) - AnimElemTime(AnimElemNo(0) + 1))/3)
-ignorehitpause = 1
-value = Anim
-elem = AnimElemNo(0) + 1
-
-[State -3: AttackMulSet]
-type = DefenceMulSet
-trigger1 = (Var(21) > 0)
-value = 1.5
-ignorehitpause = 1
-
-[State -3: AttackMulSet]
-type = DefenceMulSet
-trigger1 = (Var(21) = 0)
-value = 1
 
 ;This controller plays a sound everytime Ayla lands from a jump, or
 ;from his back-dash.

@@ -600,9 +600,10 @@ triggerall = Command = "a" || Command = "b" || Command = "c"
 trigger1 = StateNo = 1030 && !MoveContact
 trigger1 = Pos Y < 0
 ;---------------------------------------------------------------------------
-[State -1, Cat Attack]
+[State -1, Hypno Wave]
 type = ChangeState
 value = 1030
+triggerall = Power >= 500
 triggerall = Command = "qcba" || Command = "qcbb" || Command = "qcbc" 
 trigger1 = statetype != A
 trigger1 = ctrl
@@ -620,13 +621,13 @@ trigger3 = ( StateNo = 1010 ) && movecontact && AnimElemNo(0) < 9
 ; Throws, Rolls, Etc
 ;===========================================================================
 
-[State -1, Boulder Toss]
+[State -1, Napalm]
 type = ChangeState
 trigger1 = (command = "recovery" || command = "2p") && (command = "holdfwd" || command = "holdback")
 trigger1 = roundstate = 2 && ctrl && statetype = S && stateno != 100
 value = 800
 
-[State -1, Berserker]
+[State -1, Protect]
 type = ChangeState
 value = 2110
 triggerall = Command = "2p" && !(command = "holdfwd" || command = "holdback" || command = "holdup" || command = "holddown")

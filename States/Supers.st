@@ -1810,15 +1810,15 @@ type = SelfState
 trigger1 = Time >= 76 && Alive
 value = 5120
 
-;Berserker Activation
+;Protect Activation
 [Statedef 2110]
 type = S
 movetype = I
 physics = S
-anim = 2020
+anim = 2110
 ctrl = 0
 velset = 0,0
-sprpriority = 2
+sprpriority = 1
 facep2 = 1
 
 [State 2010, NHB]
@@ -1826,19 +1826,6 @@ type = NotHitBy
 trigger1 = 1
 time = 1
 value = SCA
-
-[State 2010, PalFx]
-type = PalFX
-trigger1 = (Time % 8 = 0)
-time = 2
-add = 200, 200, 200
-mul = 256, 256, 256
-
-[State 2010, Offset]
-type = OffSet
-trigger1 = Time % 2 = 0
-X = (random % 8) - 4
-Y = (random % 8) - 4
 
 [State 2110, Super Pause FX]
 type = helper
@@ -1859,9 +1846,22 @@ trigger1 = Time = 1
 time = 60
 movetime = 60
 anim = -1
+pos = 0, -20
 sound = S7010,2
 p2defmul = 1
 darken = 0
+
+[State 2110, Super Pause]
+type = Explod
+trigger1 = AnimElem = 9
+removetime = -2
+anim = 7100
+pos = 0, -20
+ownpal = 1
+sprpriority = 3
+removeongethit = 1
+supermovetime = 99999
+
 
 [State 2110, VarSet]
 type = VarSet
@@ -1872,30 +1872,6 @@ value = 1
 [State 2110, End]
 type = ChangeState
 trigger1 = Time > 1 && !NumHelper(7000) && Var(21) > 0
-value = 2111
-ctrl = 1
-
-;Berserker
-[Statedef 2111]
-type = S
-physics = S
-anim = 20
-sprpriority = 1
-     
-[State 9001: VelSet]
-type = VelSet
-trigger1 = 1
-x = 2.8
-     
-[State 9001: AssertSpecial]
-type = AssertSpecial
-trigger1 = 1
-flag = NoWalk
-flag2 = NoAutoTurn
-     
-[State 9001: ChangeState]
-type = ChangeState
-trigger1 = !Var(21)
 value = 0
 ctrl = 1
 
