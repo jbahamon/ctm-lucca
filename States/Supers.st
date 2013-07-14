@@ -354,7 +354,7 @@ type = DestroySelf
 trigger1 = var(0) = 1
 
 ;---------------------------------------------------------------------------
-;Triple Kick
+;Flare 
 [Statedef 2010]
 type    = S
 movetype= A
@@ -371,19 +371,6 @@ type = NotHitBy
 trigger1 = 1
 time = 1
 value = SCA
-
-[State 2010, PalFx]
-type = PalFX
-trigger1 = (Time % 8 = 0)
-time = 2
-add = 200, 200, 200
-mul = 256, 256, 256
-
-[State 2010, Offset]
-type = OffSet
-trigger1 = Time % 2 = 0
-X = (random % 8) - 4
-Y = (random % 8) - 4
 
 [State 2010, Super Pause FX]
 type = helper
@@ -414,525 +401,181 @@ trigger1 = Time > 1 && !NumHelper(7000)
 value = 2011
 ctrl = 0
 
-; First Kick
+;Flare Summoning
 [Statedef 2011]
+type    = S
+movetype= A
+physics = S
+ctrl = 0
+anim = 2011
+sprpriority = 2
+facep2 = 1
+
+[State 2011, End]
+type = ChangeState
+trigger1 = Time > 120
+value = 0
+ctrl = 1
+
+[State 2011, Explosion]
+type = Helper
+trigger1 = Anim = 2011
+trigger1 = AnimElem = 3
+name = "Flare"
+ID = 2020
+stateno = 2022
+pos = 17, -15
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+
+;The Flare
+[Statedef 2022]
 type    = S
 movetype= A
 physics = S
 juggle  = 3
 poweradd= 0
-velset = 0,0
 ctrl = 0
-anim = 2011
-sprpriority = 2
+anim = 7060
+sprpriority = 0
+facep2 = 1
+velset = 0,0
 
-[State 2011, NHB]
-type = NotHitBy
-trigger1 = AnimElemNo(0) < 3
+[State 2022, RealTime]
+trigger1 = !Time && PrevStateNo != 2022
+type = VarSet
+v = 0
+value = 0
+persistent = 0
+ignorehitpause = 1
+
+[State 2022, Snd]
+type = PlaySnd
+trigger1 = !Var(0)
+value = S6,0
+channel = 0
+
+[State 2022, RealTime]
+trigger1 = !Time && PrevStateNo != 2022
+type = VarSet
+v = 0
+value = -1
+persistent = 0
+ignorehitpause = 1
+
+[State 2022, Var]
+trigger1 = 1
+type = VarAdd
+v = 0
+value = 1
+ignorehitpause = 1
+
+[State 2022, Override]
+type = HitOverride
+trigger1 = 1
+attr = SCA,AA, AP
+slot = 0
+stateno = 2023
 time = 1
-value = SCA
+ignorehitpause = 1
 
-[State 2011, Go through stuff]
-type = PlayerPush
+[State 2022, Override]
+type = AssertSpecial
 trigger1 = 1
-value = 0
+flag = NoShadow
 ignorehitpause = 1
 
-[State 2011, Turn towards opponent]
-type = Turn
-triggerall = !Time
-trigger1 = EnemyNear(0), ScreenPos X > ScreenPos X && Facing < 0
-trigger2 = EnemyNear(0), ScreenPos X < ScreenPos X && Facing > 0
-
-[State 2011, Going into the air]
-type = StateTypeSet
-trigger1 = AnimElem = 3
-statetype = A
-physics = N
-
-[State 2011, X]
-Type = VarSet
-Trigger1 = !Time
-fvar(0) = (EnemyNear(0), Pos X- Pos X) * Facing
-
-[State 2011, Y]
-Type = VarSet
-trigger1 = !Time
-fvar(1) = (EnemyNear(0), Pos Y - Pos Y + IfElse(Enemynear(0), Statetype = S, Enemynear(0),Const(size.head.pos.y), Enemynear(0),Const(size.mid.pos.y)))
-
-[State 2011, Vector Length]
-Type = VarSet
-trigger1 = !Time
-fvar(2) = Exp(0.5*ln((fvar(0) * fvar(0))+(fvar(1) * fvar(1))))
-
-[State 2011, Vel]
-type = Velset
-trigger1 = AnimElem = 3
-x = (fvar(0)/fvar(2)) * 15
-y = (fvar(1)/fvar(2)) * 15
-
-[State 2011, Snd]
-type = PlaySnd
-trigger1 = AnimElem = 3
-value = S7050,0
-
-[State 2011, AfterImage]
-type = Explod
-trigger1 = AnimElemNo(0) = 3 && (Time % 2 = 0) && !MoveContact
-anim = 2016
-ID = 2011
-pos = 0,0
-postype = p1  ;p2,front,back,left,right
-facing = 1
-vfacing = 1
-bindtime = 1
-vel = 0,0
-accel = 0,0
-removetime = -2
-scale = 1,1
-sprpriority = 0
-ownpal = 1
-removeongethit = 0
-
-[State 2011, ScreenBound]
-type = ScreenBound
-trigger1 = 1;HitCount
-movecamera = 0,0
-value = 0
+[State 2022, Override]
+type = NotHitBy
+trigger1 = 1
+value = , AT
+time = 1
 ignorehitpause = 1
 
-[State 2011, Hit]
-type = HitDef
-trigger1 = !Time
-attr = A, HA
-hitflag = MAF        ;HLAFD+-
-guardflag = MA         ;HLA
-animtype = Hard
-sparkno = S7008
-damage = 62,0
-sparkxy = 0,0
-hitsound = S7020,5
-pausetime = 16, 60
-guard.pausetime = 16, 16
-ground.type = High
-ground.slidetime = 0
-ground.hittime = 16
-guard.velocity = -5
-ground.velocity = 0, 0
-ground.cornerpush.veloff = 0
-kill = 0
-givepower = 0, 0
-envshake.time = 18
-envshake.freq = 120
-envshake.ampl = 6
-air.velocity = 0,0
-air.fall = 1
-fall.recover = 1
-fall.recovertime = 30
-yaccel = 0.5
-airguard.ctrltime = 16
-airguard.velocity = -3,-4
-getpower = 0,0
-givepower = 36, 36
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 32
+[State 2022, Override]
+type = NotHitBy
+trigger1 = 1
+value = , AT
+time = 1
+ignorehitpause = 1
 
-[State 2011, Var]
+[State 1021, Trans]
 type = VarSet
-trigger1 = !Time
-var(0) = 0
-
-[State 2011, Var]
-type = VarSet
-trigger1 = MoveContact && MoveGuarded
-trigger2 = ScreenPos X > EnemyNear(0), ScreenPos X && Vel X > 0
-trigger2 = Time > 20
-trigger3 = ScreenPos X < EnemyNear(0), ScreenPos X && Vel X < 0
-trigger3 = Time > 20
-trigger4 = ScreenPos Y < EnemyNear(0), ScreenPos Y && Vel Y < 0
-trigger4 = Time > 20
-trigger5 = ScreenPos Y > EnemyNear(0), ScreenPos Y && Vel Y > 0
-trigger5 = Time > 20
-trigger6 = Time > 80
-var(0) = 1
-
-[State 2011, Success]
-type = ChangeState
-triggerall = !Var(0)
-trigger1 = MoveHit
-trigger2 = FrontEdgeBodyDist < 5
-value = 2012
-ctrl = 0
-
-
-[State 2011, Blocked]
-type = ChangeState
-trigger1 = Var(0)
-value = 2014
-ctrl = 0
-
-; Second Kick
-[Statedef 2012]
-type    = A
-movetype= A
-physics = N
-juggle  = 3
-poweradd= 0
-ctrl = 0
-sprpriority = 2
-anim = 2012
-
-[State 2012, ChangeAnim]
-type = ChangeAnim
-trigger1 = Anim = 2012
-trigger1 = FrontEdgeBodyDist < 5
-value = 2012
-elem = 2
-
-[State 2012, Go through stuff]
-type = PlayerPush
 trigger1 = 1
-value = 0
+FV = 0
+value = Sin(Pi * Var(0) / 15.0)
 ignorehitpause = 1
 
-[State 2012, Freeze Camera]
-type = ScreenBound
-trigger1 = 1
-movecamera = 0, 1
+[State 1021, Trans]
+type = Trans
+trigger1 = Var(0) = [0, 100]
+trans = addalpha
+alpha = 256, 128
+
+[State 1021, Trans]
+type = AngleDraw
+trigger1 = Var(0) % 4 = [0, 1]
+scale = IfElse(FVar(0) > 0, Var(0)/50.0 + 1 * FVar(0), 0.5 + Var(0)/200.0), IfElse(FVar(0) < 0, Var(0)/50.0 + 1 * -FVar(0), 0.5 + Var(0)/200.0)
 ignorehitpause = 1
 
-[State 2012, Slowdown from kick]
-type = VelMul
-trigger1 = Anim = 2012 && AnimElemNo(0) = 1
-X = 0.91
-Y = 0.91
+[State 1021, Trans]
+type = AngleDraw
+trigger1 = Var(0) > 80
+trigger1 = Var(0) % 4 = [2, 3]
+scale = (Var(0) - 80) / 25.0, (Var(0) - 80) / 25.0
+ignorehitpause = 1
 
-[State 2012, Stop]
-type = VelSet
-trigger1 = AnimElem = 2 && Anim = 2012
-X = 0
-Y = 0
+[State 1021, Trans]
+type = AngleDraw
+trigger1 = Var(0) <= 80
+trigger1 = Var(0) % 4 = 2
+scale = 0, 0
+ignorehitpause = 1
 
-[State 2012, Turn towards opponent]
-type = Turn
-triggerall = AnimElem = 2 && Anim = 2012 
-trigger1 = EnemyNear(0), ScreenPos X > ScreenPos X && Facing < 0
-trigger2 = EnemyNear(0), ScreenPos X < ScreenPos X && Facing > 0
+[State 2022, Trans]
+type = NotHitBy
+trigger1 = 1
+value = , AT
+time = 1
+ignorehitpause = 1
 
-[State 2012, Rise]
-type = VelSet
-trigger1 = Anim = 2012 && AnimElemTime(2) = 3
-Y = -8
-
-[State 2012, Slow Down]
-type = VelMul
-trigger1 = Anim = 2012 && AnimElemTime(2) > 3 && AnimElemNo(0) = 2
-Y = 0.85
-
-[State 2012, X]
-Type = VarSet
-Trigger1 =  !AnimTime && Anim = 2012
-fvar(0) = (EnemyNear(0), Pos X- Pos X) * Facing
-
-[State 2012, Y]
-Type = VarSet
-trigger1 = !AnimTime && Anim = 2012
-fvar(1) = (EnemyNear(0), Pos Y - Pos Y + Enemynear(0),Const(size.mid.pos.y))
-
-[State 2012, Vector Length]
-Type = VarSet
-trigger1 = !AnimTime && Anim = 2012
-fvar(2) = Exp(0.5*ln((fvar(0) * fvar(0))+(fvar(1) * fvar(1))))
-
-[State 2012, Vel]
-type = Velset
-trigger1 = !AnimTime && Anim = 2012
-x = (fvar(0)/fvar(2)) * 9
-y = (fvar(1)/fvar(2)) * 9
-
-[State 2012, Snd]
-type = PlaySnd
-trigger1 = !AnimTime && Anim = 2012
-value = S7050,0
-
-[State 2012, ChangeAnim]
-type = ChangeAnim
-trigger1 = !AnimTime && Anim = 2012
-value = IfElse(fvar(1) > 0, 2013, 2014)
-
-[State 2012, AfterImage]
+[State 2011,2]
 type = Explod
-trigger1 = Anim != 2012
-trigger1 = (Time % 2 = 0) && !MoveContact
-anim = IfElse(Anim = 2013, 2017, 2018)
-ID = 2012
-pos = 0,0
+trigger1 = NumExplod(2010) < 16
+trigger1 = Var(0) % 3 = 0
+trigger1 = Var(0) <= 100
+anim = 7003
+ID = 2010
+pos = Random % 40 - 20, Random % 40 - 20
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
 bindtime = 1
 vel = 0,0
 accel = 0,0
-removetime = -2
-scale = 1,1
-sprpriority = 0
-ownpal = 1
-removeongethit = 0
-
-[State 2012, Hit]
-type = HitDef
-trigger1 = Anim != 2011 && AnimElem = 2
-attr = A, HA
-hitflag = MAF        ;HLAFD+-
-guardflag = MA         ;HLA
-animtype = Hard
-sparkno = -1
-damage = 64,0
-sparkxy = 0,0
-hitsound = S7020,5
-pausetime = 16, 60
-guard.pausetime = 16, 16
-ground.type = Low
-ground.slidetime = 0
-ground.hittime = 16
-ground.velocity = 0, 0
-guard.velocity = -5
-ground.cornerpush.veloff = 0
-givepower = 0, 0
-envshake.time = 22
-envshake.freq = 120
-envshake.ampl = 8
-air.velocity = 0,0
-air.fall = 1
-kill = 0
-fall.recover = 1
-fall.recovertime = 30
-yaccel = 0.5
-airguard.ctrltime = 16
-airguard.velocity = -3,-4
-forcestand = 1
-getpower = 0,0
-givepower = 36, 36
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 32
-
-[State 2012, Explod]
-type = Explod
-trigger1 = MoveHit
-anim = 7005
-ID = 7005
-pos = -2,5
-postype = p1  ;p2,front,back,left,right
-facing = 1
-vfacing = 1
-bindtime = 1
-vel = 0,0
-accel = 0,0
-random = 0,0
+random = 4,4
 removetime = -2
 scale = 1,1
 sprpriority = 3
 ontop = 0
 shadow = 0,0,0
-ownpal = 0
-removeongethit = 0
-ignorehitpause = 1
-persistent = 0
-
-[State 2012, End 1]
-type = ChangeState
-trigger1 = MoveContact
-value = 2013
-ctrl = 0
-
-[State 2012, End 3]
-type = PosSet
-trigger1 = Pos Y > 0
-y = 0
-
-[State 2012, End 2]
-type = ChangeState
-trigger1 = Pos Y >= 0
-value = 52
-ctrl = 0
-
-[State 2012, End 3]
-type = VelSet
-trigger1 = FrontEdgeBodyDist < 5
-x = - 3
-y = - 7
-
-[State 2012, End 3]
-type = VelSet
-trigger1 = ScreenPos Y < 0
-x = - 3
-y = - 7
-
-[State 2012, End 3]
-type = ChangeState
-trigger1 = FrontEdgeBodyDist < 5 && Anim != 2012
-trigger2 = ScreenPos Y < 0
-value = 50
-ctrl = 0
-
-; Third Kick
-[Statedef 2013]
-type    = A
-movetype= A
-physics = N
-juggle  = 3
-poweradd= 0
-ctrl = 0
-sprpriority = 2
-anim = 2015
-velset = 0, -10
-
-[State 2013, Go through stuff]
-type = PlayerPush
-trigger1 = 1
-value = 0
-ignorehitpause = 1
-
-[State 2013, Freeze Camera]
-type = ScreenBound
-trigger1 = 1
-movecamera = 0, 1
-ignorehitpause = 1
-
-[State 2013, Gravity]
-type = VelMul
-trigger1 = AnimElemNo(0) < 2
-Y = 0.9
-
-[State 2013, Gravity]
-type = VelSet
-trigger1 = AnimElem = 2
-Y = 8
-
-[State 2013, Snd]
-type = PlaySnd
-trigger1 = AnimElem = 2
-value = S7050,0
-
-[State 2013, AfterImage]
-type = Explod
-trigger1 = AnimElemNo(0) = 2
-trigger1 = (Time % 2 = 0) && !MoveContact
-anim = 2019
-ID = 2013
-pos = 0,0
-postype = p1  ;p2,front,back,left,right
-facing = 1
-vfacing = 1
-bindtime = 1
-vel = 0,0
-accel = 0,0
-removetime = -2
-scale = 1,1
-sprpriority = 0
 ownpal = 1
 removeongethit = 0
 
-[State 2012, Hit]
-type = HitDef
-trigger1 = AnimElem = 2
-attr = A, HA
-hitflag = MAF        ;HLAFD+-
-guardflag = MA         ;HLA
-animtype = Hard
-sparkno = -1
-damage = 66,0
-hitsound = S7020,5
-pausetime = 20, 20
-guard.pausetime = 16, 16
-ground.type = Low
-ground.slidetime = 0
-ground.hittime = 16
-ground.velocity = 0, 0
-guard.velocity = -5
-ground.cornerpush.veloff = 0
-givepower = 0, 0
-envshake.time = 24
-envshake.freq = 120
-envshake.ampl = 9
-air.velocity = 0,12
-air.fall = 1
-fall = 1
-fall.recover = 0
-fall.recovertime = 30
-yaccel = 0.5
-airguard.ctrltime = 16
-airguard.velocity = 0,4
-forcestand = 1
-getpower = 0,0
-givepower = 36, 36
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 32
+;End
 
-[State 2013, Explod]
-type = Explod
-trigger1 = MoveHit
-anim = 7006
-ID = 7006
-pos = 0,10
-postype = p1  ;p2,front,back,left,right
-facing = 1
-vfacing = 1
-bindtime = 1
-vel = 0,0
-accel = 0,0
-random = 0,0
-removetime = -2
-scale = 1,1
-sprpriority = 3
-ontop = 0
-shadow = 0,0,0
-ownpal = 0
-removeongethit = 0
-ignorehitpause = 1
-persistent = 0
+[State 1021, Trans]
+type = Trans
+trigger1 = Var(0) = [100, 116]
+trans = addalpha
+alpha = 256 - 16 * (Time - 100), 256
 
-
-[State 2012, End 3]
-type = PosSet
-trigger1 = Pos Y >= 0
-Y = 0
-
-[State 2012, End 3]
-type = ChangeState
-trigger1 = Pos Y >= 0
-value = 52
-ctrl = 0
-
-; Missed
-[Statedef 2014]
-type = A
-physics = N
-movetype = I
-velset = 0,0
-anim = 43
-ctrl = 0
-
-[State 2011, Blocked or Evaded]
-type = VelSet
-trigger1 = !Time
-x = - 3
-y = - 5
-
-[State 2011, Gravity]
-type = VelAdd
-trigger1 = 1
-Y = 0.38
-
-[State 2011, Blocked]
-type = ChangeState
-trigger1 = Vel Y > 0
-trigger1 = Pos Y > - Vel Y
-value = 611
-ctrl = 0
+[State 1021, End]
+type = DestroySelf
+trigger1 = Var(0) >= 116
 
 ;---------------------------------------------------------------------------
 ;Gatling Kick

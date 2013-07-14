@@ -429,16 +429,16 @@ Clsn2: 1
 [Begin Action 610]
 Clsn2:1
   Clsn2[0] = -6, -37, 6, -6
-620,0, 0,-6, 2
+610,0, 0,-6, 2
 Clsn2:1
   Clsn2[0] = -6, -37, 6, -6
-620,1, 0,-6, 2
+610,1, 0,-6, 2
 Clsn2:1
   Clsn2[0] = -6, -37, 6, -6
-620,0, 0,-6, 2
+610,0, 0,-6, 2
 Clsn2:1
   Clsn2[0] = -6, -37, 6, -6
-620,1, 0,-6, 2
+610,1, 0,-6, 2
 Clsn1: 1
   Clsn1[0] = 5, -32, 23, -11
 Clsn2: 2
@@ -564,6 +564,12 @@ Clsn2: 1
   Clsn2[0] = -7, -33, 7, 0
 40,0, 0,0, 10
 
+; Rising Hit Connected
+[Begin Action 1012]
+Clsn2:1
+  Clsn2[0] = -6, -28, 7, 0
+1011,0, 0,2, 10
+
 ; Napalm
 [Begin Action 1020]
 Clsn2: 1
@@ -657,122 +663,44 @@ Clsn2Default:1
 2000,3, -2,0, 6
 
 
-; Triple Kick - Start
+; Flare
 [Begin Action 2010]
 Clsn2Default:1
-  Clsn2[0] = -6, -30, 8, 0
-1010,0, 0,0, 5
-181,0, 0,0, 5
-181,1, 0,0, 5
-181,0, 0,0, 5
-1010,0, 0,0, 5
-181,0, 0,0, 5
+  Clsn2[0] = -6, -29, 8, 1
+610,0, 0,0, 7
+610,1, 0,0, 7
 
 
-; Triple Kick - First Kick
+; Flare Summon
 [Begin Action 2011]
+Clsn2: 1
+  Clsn2[0] = -6, -28, 7, 0
+1010,0, 0,0, 4
 Clsn2:1
-  Clsn2[0] = -7, -19, 9, 0
-47,0, 0,0, 5
+  Clsn2[0] = -6, -28, 7, 0
+1010,1, 0,0, 4
+Clsn2: 1
+  Clsn2[0] = -6, -28, 7, 0
+1010,3, 0,0, 4, H
 Clsn2:1
-  Clsn2[0] = -8, -26, 9, 0
-40,2, 0,0, 5
-Clsn1:1
-  Clsn1[0] = 0, -24, 16, 7
-Clsn2:2
-  Clsn2[0] = -16, -29, 1, 1
-  Clsn2[1] = 1, -21, 8, 4
-410,0, -3,3, -1
-
-
-; Triple Kick - Second Kick (rise)
-[Begin Action 2012]
-Clsn2:2
-  Clsn2[0] = -16, -29, 1, 1
-  Clsn2[1] = 1, -21, 8, 4
-410,0, -3,3, 15
+  Clsn2[0] = -6, -28, 7, 0
+1010,2, 0,0, 4
+LoopStart
 Clsn2:1
-  Clsn2[0] = -9, -30, 7, -1
-230,0, 0,0, 10
-
-
-; Downwards Second Kick
-[Begin Action 2013]
-Clsn1:1
-  Clsn1[0] = -10, -17, 8, 10
-Clsn2:2
-  Clsn2[0] = -15, -35, -1, -10
-  Clsn2[1] = -7, -16, 5, 1
-2012,0, -5,3, -1, H
-
-
-; Upwards Second Kick
-[Begin Action 2014]
-Clsn1:1
-  Clsn1[0] = -8, -27, 16, -12
-Clsn2:2
-  Clsn2[0] = -18, -16, 7, -2
-  Clsn2[1] = -8, -22, 10, -14
-2014,0, -2,4, -1, H
-
-
-; Triple Kick - Third Kick
-[Begin Action 2015]
+  Clsn2[0] = -6, -28, 7, 0
+2011,0, 0,0, 7
 Clsn2:1
-  Clsn2[0] = -7, -36, 7, -2
-2013,0, 0,0, 20
-Loopstart
-Clsn1Default:1
-  Clsn1[0] = -8, -13, 8, 7
-Clsn2Default:2
-  Clsn2[0] = -6, -36, 6, -12
-  Clsn2[1] = -4, -19, 4, 1
-2013,1, -1,0, 5
-2013,2, 0,0, 5
-2013,1, 0,0, 5, H
-2013,3, 0,0, 5
-
-
-; Triple Kick - AfterImage 1
-[Begin Action 2016]
-410,0, -3,3, 8, , A
-
-
-; Triple Kick - AfterImage 2
-[Begin Action 2017]
-2012,0, -5,3, 8, H, A
-
-
-; Triple Kick - AfterImage 3
-[Begin Action 2018]
-2014,0, -2,4, 8, H, A
-
-
-; Triple Kick - AfterImage 4
-[Begin Action 2019]
-2013,3, 0,0, 5, , A
-
+  Clsn2[0] = -6, -28, 7, 0
+2011,1, 0,0, 7
 
 ; Gatling Kick
 [Begin Action 2020]
 Clsn2:1
   Clsn2[0] = -6, -29, 8, 0
-1010,0, 0,0, 5
+610,0, 0,0, 5
 Clsn2:1
   Clsn2[0] = -6, -29, 8, 0
-181,0, 0,0, 5
-Clsn2:1
-  Clsn2[0] = -6, -29, 8, 0
-181,1, 0,0, 5
-Clsn2:1
-  Clsn2[0] = -6, -29, 8, 0
-181,0, 0,0, 5
-Clsn2:1
-  Clsn2[0] = -6, -29, 8, 0
-1010,0, 0,0, 5
-Clsn2:1
-  Clsn2[0] = -6, -29, 8, 0
-181,0, 0,0, 5
+610,1, 0,0, 5
 
 
 ; Gatling Kick
@@ -1379,6 +1307,14 @@ Clsn1Default:1
 7010,4, -10,0, 3, , A1
 7010,5, -12,0, 3, , A1
 
+
+; Flare
+[Begin Action 7060]
+Clsn1: 1
+  Clsn1[0] = -15, -15, 15, 16
+Clsn2: 1
+  Clsn2[0] = -15, -15, 15, 16
+7060,0, 0,0, -1, , A1
 
 ; Protect
 [Begin Action 7100]

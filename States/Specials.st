@@ -62,8 +62,15 @@ y = ifelse(var(0) = 2, -8, ifelse(var(0) = 1, -7, -6))
 
 [State 1010, Gravity]
 type = VelAdd
-trigger1 = AnimElemNo(0) >= 2
+trigger1 = AnimElemNo(0) >= 2 || Anim = 1012
 y = .4
+
+[State 1040, End]
+type = ChangeAnim
+trigger1 = MoveContact && Anim != 1012
+value = 1012
+elem = 1
+ignorehitpause = 1
 
 [State 1250, Hit]
 type = HitDef
@@ -74,7 +81,7 @@ animtype = Hard
 guardflag = HA
 hitflag = MAF
 priority = 4, Hit
-pausetime = 14, 14
+pausetime = 0, 7
 sparkno = s7001
 sparkxy = -10, 0
 hitsound = s2, 6
@@ -82,9 +89,9 @@ guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16
 ground.hittime = 16
-ground.velocity = 0, IfElse(var(0) = 2, -8, IfElse(var(0) = 1, -6, -4))
+ground.velocity = 0, IfElse(var(0) = 2, -7.5, IfElse(var(0) = 1, -6.5, -5))
 air.type = Low
-air.velocity = 0, IfElse(var(0) = 2, -8, IfElse(var(0) = 1, -6, -4))
+air.velocity = 0, IfElse(var(0) = 2, -7.5, IfElse(var(0) = 1, -6.5, -5))
 air.cornerpush.veloff = 0
 ground.cornerpush.veloff = 0
 guard.velocity = -10.52
@@ -97,7 +104,7 @@ envshake.ampl = 4
 fall = 1
 fall.recover = 1
 fall.recovertime = 120
-yaccel = 0.5
+yaccel = 0.3
 airguard.ctrltime = 16
 airguard.velocity = -8, -1.5
 forcestand = 1
@@ -119,6 +126,7 @@ facing = 1
 keyctrl = 0
 ownpal = 1
 persistent = 0
+
 
 [State 1040, End]
 type = ChangeState
@@ -822,6 +830,11 @@ type = S
 physics = N
 movetype = H
 velset = 0,0
+
+[State 1032, Anim]
+type = PlayerPush
+trigger1 = 1
+value= 0
 
 [State 1032, Anim]
 type = ChangeAnim2
