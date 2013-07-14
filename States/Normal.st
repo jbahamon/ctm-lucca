@@ -599,7 +599,7 @@ Y = 0.45
 type = HitDef
 trigger1 = Time = 0
 attr = A, NA
-damage = 35
+damage = 45
 guardflag = HA
 priority = 3
 pausetime = 8,8
@@ -721,7 +721,7 @@ type = HitDef
 trigger1 = AnimElem = 2
 trigger2 = AnimElem = 6
 attr = A, NA
-damage = 33
+damage = IfElse(AnimElemNo(0) < 4, 52, 30)
 guardflag = HA
 priority = 4
 pausetime = 12,12
