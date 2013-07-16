@@ -359,12 +359,9 @@ trigger1 = var(0) = 1
 type    = S
 movetype= A
 physics = S
-juggle  = 3
-poweradd= -1000
 ctrl = 0
 anim = 2010
 sprpriority = 2
-facep2 = 1
 
 [State 2010, NHB]
 type = NotHitBy
@@ -381,6 +378,20 @@ ID = 7000
 name = "Super Charge"
 postype = p1
 pos = 0,0
+ownpal = 1
+persistent = 0
+supermovetime = 9999
+
+[State 2011, Explosion]
+type = Helper
+trigger1 = !Time
+name = "Flare"
+ID = 2010
+stateno = 2012
+pos = 17, -35
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
 ownpal = 1
 persistent = 0
 supermovetime = 9999
@@ -413,67 +424,129 @@ facep2 = 1
 
 [State 2011, End]
 type = ChangeState
-trigger1 = Time > 120
+triggerall = Time > 80
+trigger1 = Command != "holdfwd"
+trigger1 = Command != "holdback"
+trigger1 = Command != "holdup"
+trigger1 = Command != "holddown"
+trigger2 = !NumHelper(2010)
 value = 0
 ctrl = 1
 
-[State 2011, Explosion]
-type = Helper
-trigger1 = Anim = 2011
-trigger1 = AnimElem = 3
-name = "Flare"
-ID = 2020
-stateno = 2022
-pos = 17, -15
-postype = p1    ;p2,front,back,left,right
-facing = 1
-keyctrl = 0
-ownpal = 1
-persistent = 0
-
-;The Flare
-[Statedef 2022]
-type    = S
-movetype= A
-physics = S
-juggle  = 3
-poweradd= 0
+;The Flare (pre-explosion)
+[Statedef 2012]
+type    = A
+movetype= I
+physics = N
 ctrl = 0
-anim = 7060
-sprpriority = 0
+anim = 7200
+sprpriority = 3
 facep2 = 1
 velset = 0,0
 
-[State 2022, RealTime]
-trigger1 = !Time && PrevStateNo != 2022
-type = VarSet
+[State 2012, VarRandom]
+type = VarRandom
+trigger1 = 1
 v = 0
-value = 0
-persistent = 0
+range = -50,50
+     
+[State 2012, VarRandom]
+type = VarRandom
+trigger1 = 1
+v = 1
+range = -50,50
+
+[State 2012, Helper]
+type = Helper
+trigger1 = ((GameTime%5) = 0)
+helpertype = Normal
+name = "PerseEffect"
+id = 2014
+pos = var(0),var(1)
+postype = p1
+facing = 1
+stateno = 2014
+keyctrl = 0
+ownpal = 1
+supermovetime = 999999
+pausemovetime = 999999
 ignorehitpause = 1
 
-[State 2022, Snd]
+[State 2012, Boom]
+type = ChangeState
+trigger1 = Parent, StateNo = 2011
+trigger1 = Parent, AnimElem = 3
+value = 2023
+ignorehitpause = 1
+
+[State 2012, Fail]
+type = DestroySelf
+trigger1 = Parent, StateNo != 2010
+trigger1 = Parent, StateNo != 2011
+ignorehitpause = 1
+
+;The Flare
+[Statedef 2013]
+type    = A
+movetype= A
+physics = N
+poweradd= 0
+ctrl = 0
+anim = 7060
+sprpriority = 3
+facep2 = 1
+velset = 0,0
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command = "holdfwd"
+trigger1 = Parent, Command != "holdback"
+X = 1.4
+ignorehitpause = 1
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command != "holdfwd"
+trigger1 = Parent, Command = "holdback"
+X = -1.4
+ignorehitpause = 1
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command = "holdup"
+trigger1 = Parent, Command != "holddown"
+Y = -1.4
+ignorehitpause = 1
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command != "holdup"
+trigger1 = Parent, Command = "holddown"
+Y = 1.4
+ignorehitpause = 1
+
+[State 2013, Snd]
 type = PlaySnd
 trigger1 = !Var(0)
 value = S6,0
 channel = 0
 
-[State 2022, RealTime]
-trigger1 = !Time && PrevStateNo != 2022
+[State 2013, RealTime]
+trigger1 = !Time && PrevStateNo != 2013
 type = VarSet
 v = 0
 value = -1
 persistent = 0
 ignorehitpause = 1
 
-[State 2022, Var]
+[State 2013, Var]
 trigger1 = 1
 type = VarAdd
 v = 0
 value = 1
 ignorehitpause = 1
 
-[State 2022, Override]
+[State 2013, Override]
 type = HitOverride
 trigger1 = 1
 attr = SCA,AA, AP
@@ -482,74 +555,128 @@ stateno = 2023
 time = 1
 ignorehitpause = 1
 
-[State 2022, Override]
+[State 2013, Override]
 type = AssertSpecial
 trigger1 = 1
 flag = NoShadow
 ignorehitpause = 1
 
-[State 2022, Override]
+[State 2013, Override]
 type = NotHitBy
 trigger1 = 1
 value = , AT
 time = 1
 ignorehitpause = 1
 
-[State 2022, Override]
+[State 2013, Override]
 type = NotHitBy
 trigger1 = 1
 value = , AT
 time = 1
 ignorehitpause = 1
 
-[State 1021, Trans]
+[State 2013, Trans]
 type = VarSet
 trigger1 = 1
 FV = 0
-value = Sin(Pi * Var(0) / 15.0)
+value = Sin(Pi * Var(0) / 20.0)
 ignorehitpause = 1
 
-[State 1021, Trans]
-type = Trans
-trigger1 = Var(0) = [0, 100]
-trans = addalpha
-alpha = 256, 128
-
-[State 1021, Trans]
+[State 2013, Trans]
 type = AngleDraw
-trigger1 = Var(0) % 4 = [0, 1]
+trigger1 = (Var(0) % 4) = 0
+trigger2 = (Var(0) % 4) = 1
 scale = IfElse(FVar(0) > 0, Var(0)/50.0 + 1 * FVar(0), 0.5 + Var(0)/200.0), IfElse(FVar(0) < 0, Var(0)/50.0 + 1 * -FVar(0), 0.5 + Var(0)/200.0)
 ignorehitpause = 1
 
-[State 1021, Trans]
+[State 2013, Scale]
 type = AngleDraw
-trigger1 = Var(0) > 80
-trigger1 = Var(0) % 4 = [2, 3]
-scale = (Var(0) - 80) / 25.0, (Var(0) - 80) / 25.0
+triggerall = Var(0) > 40
+trigger1 = (Var(0) % 4) = 2
+trigger2 = (Var(0) % 4) = 3
+scale = (Var(0) - 40) / 33.0, (Var(0) - 40) / 33.0
 ignorehitpause = 1
 
-[State 1021, Trans]
-type = AngleDraw
-trigger1 = Var(0) <= 80
-trigger1 = Var(0) % 4 = 2
-scale = 0, 0
+[State 2013, Trans]
+type = AssertSpecial
+triggerall = Var(0) <= 40
+trigger1 = (Var(0) % 4) = 2
+trigger2 = (Var(0) % 4) = 3
+flag = invisible
 ignorehitpause = 1
 
-[State 2022, Trans]
+[State 2013, Trans]
+type = Trans
+trigger1 = Var(0) = [0, 16]
+trans = addalpha
+alpha = 16 * Var(0), 256 - 8 * Var(0)
+ignorehitpause = 1
+
+[State 2013, Trans]
+type = Trans
+trigger1 = Var(0) = [17, 70]
+trans = addalpha
+alpha = 256, 128
+ignorehitpause = 1
+
+[State 2013, Trans]
 type = NotHitBy
 trigger1 = 1
 value = , AT
 time = 1
 ignorehitpause = 1
 
-[State 2011,2]
+[State 2013, HitDef]
+type = HitDef
+trigger1 = Var(0) % 20 = 0
+attr = S, HP
+damage = 31,3
+animtype = Hard
+air.type = Low
+guardflag = M
+hitflag = MAF
+priority = 4, Hit
+pausetime = 0,19
+sparkno = -1
+hitsound = S7020,5
+guardsound = 5,0
+ground.type = Low
+ground.velocity = 0, 0
+ground.hittime = 5
+ground.slidetime = 5
+guard.velocity = -1
+air.velocity = 0,0
+airguard.velocity = 0, 0
+air.hittime = 5
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+airguard.cornerpush.veloff = 0
+yaccel = 0.4
+air.fall = 1
+fall = 1
+fall.recover = 0
+fall.recovertime = 120
+fall.animtype = Medium
+getpower = 0, 0
+givepower = 36, 36
+envshake.time = 16
+envshake.freq = 120
+envshake.ampl = 4
+palfx.color = 0
+palfx.add = 144, 64, 7
+palfx.mul = 256, 256, 256
+palfx.time = 20
+ignorehitpause = 1
+numhits = IfElse(Var(0) > 0, 0, 1)
+
+[State 2013,2]
 type = Explod
-trigger1 = NumExplod(2010) < 16
-trigger1 = Var(0) % 3 = 0
-trigger1 = Var(0) <= 100
+trigger1 = NumExplod(2010) < 9
+trigger1 = Var(0) % 2 = 0
+trigger1 = Var(0) <= 70
 anim = 7003
 ID = 2010
-pos = Random % 40 - 20, Random % 40 - 20
+pos = Random % 50 - 25, Random % 50 - 25
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -566,16 +693,71 @@ ownpal = 1
 removeongethit = 0
 
 ;End
-
-[State 1021, Trans]
+[State 2013, Trans]
 type = Trans
-trigger1 = Var(0) = [100, 116]
+trigger1 = Var(0) = [70, 86]
 trans = addalpha
-alpha = 256 - 16 * (Time - 100), 256
+alpha = 256 - 16 * (Var(0) - 70), 128 + 8 * (Var(0) - 70)
 
-[State 1021, End]
+[State 2013, End]
 type = DestroySelf
-trigger1 = Var(0) >= 116
+trigger1 = Var(0) >= 86
+
+;Flare Particle
+[Statedef 2014]
+type    = A
+movetype= I
+physics = N
+ctrl = 0
+anim = 7061
+sprpriority = 3
+facep2 = 1
+velset = 0,0
+
+[State 2014, End]
+type = DestroySelf
+trigger1 = !(Parent, StateNo)
+trigger2 = Parent, StateNo != 2022
+
+[state 2014, dist x]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[state 2014, dist x]
+type = VarSet
+trigger1 = 1
+FV = 0
+value = ParentDist X
+
+[state 2014, dist x]
+type = VarSet
+trigger1 = 1
+FV = 1
+value = ParentDist Y
+
+[state 2014, dist x]
+type = VarSet
+trigger1 = 1
+FV = 2
+value = Exp(0.5 * ln(FVar(0)*FVar(0) + FVar(1) * FVar(1)))
+
+[State 2014, vel]
+type = Velset
+trigger1 = 1
+x = Fvar(0)/Fvar(2) * 3.23
+y = FVar(1)/Fvar(2) * 3.23
+
+[State 2014, PosAdd]
+type = AngleDraw
+trigger1 = 1
+scale = FVar(2)/60.0, FVar(2)/60.0
+
+[State 2014, DestroySelf]
+type = DestroySelf
+trigger1 = FVar(2) < 3  || (Time > 10)
+
 
 ;---------------------------------------------------------------------------
 ;Gatling Kick
