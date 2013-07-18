@@ -3,40 +3,49 @@
 ;===========================================================================
 
 ;---------------------------------------------------------------------------
-; Tail Spin
+; Gato!
 [Statedef 2000]
 type    = S
 movetype= A
 physics = S
-juggle  = 3
-poweradd= -1000
 ctrl = 0
-anim = 2010
+anim = 2000
 sprpriority = 2
-facep2 = 1
 
-[State 2010, NHB]
+[State 2000, NHB]
 type = NotHitBy
-trigger1 = Anim = 2010
+trigger1 = 1
 time = 1
 value = SCA
 
-[State 2010, PalFx]
-type = PalFX
-trigger1 = Anim = 2010
-trigger1 = (Time % 8 = 0)
-time = 2
-add = 200, 200, 200
-mul = 256, 256, 256
+[State 2110, Super Pause]
+type = Explod
+trigger1 = AnimElem = 2
+removetime = -1
+ID = 2000
+anim = 7057
+pos = 6, -25
+ownpal = 1
+sprpriority = 3
+removeongethit = 1
+supermovetime = 99999
+ignorehitpause = 1
 
-[State 2010, Offset]
-type = OffSet
-trigger1 = Anim = 2010
-trigger1 = Time % 2 = 0
-X = (random % 8) - 4
-Y = (random % 8) - 4
+[State 2000, Explosion]
+type = Helper
+trigger1 = AnimElemTime(2) = 10
+name = "Gate"
+ID = 2000
+stateno = 2001
+pos = 17, -85
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+supermovetime = 999999
 
-[State 2010, Super Pause FX]
+[State 2000, Super Pause FX]
 type = helper
 trigger1 = time = 1
 helpertype = normal
@@ -49,7 +58,7 @@ ownpal = 1
 persistent = 0
 supermovetime = 9999
 
-[State 2010, Super Pause]
+[State 2000, Super Pause]
 type = superpause
 trigger1 = time = 1
 time = 45
@@ -59,299 +68,309 @@ sound = S7010,2
 p2defmul = 1
 darken = 0
 
-[State 2010, End]
-type = ChangeAnim
+[State 2000, End]
+type = RemoveExplod
 trigger1 = Time > 1 && !NumHelper(7000)
-value = 2000
-persistent = 0
+ID = 2000
+ignorehitpause = 1
 
-[State 2000, VelSet]
-type = VelSet
-trigger1 = Anim = 2000
-X = 3
-persistent = 0
-
-[State 2000, VelSet]
-type = PosSet
-trigger1 = Anim = 2000
-y = -5 + floor(5 * Cos((Time - 40)/(2 * Pi)))
-
-[State 2000, Vel]
-type = VelSet
-trigger1 = command != "holdfwd" && command != "holdback"
-trigger1 = Anim = 2000 
-x = -0.5 * Cos((Time - 40)/(2 * Pi))
-
-[State 2000, Vel]
-type = VelSet
-trigger1 = command = "holdback"
-trigger1 = Anim = 2000
-x = -1.3
-
-[State 2000, Vel]
-type = VelSet
-trigger1 = command = "holdfwd" 
-trigger1 = Anim = 2000
-x = 1.3
-
-[State 2000, Snd]
-type = PlaySnd
-trigger1 = Anim = 2000
-value = 7050,1
-channel = 0
-persistent = 0
-
-[State 2000, Twister]
-type = Helper
-trigger1 = Anim = 2000 && AnimElem = 2
-name = "Twister"
-ID = 2001
-stateno = 2001 
-pos = -10,0
-postype = p1    ;p2,front,back,left,right
-facing = 1
-keyctrl = 0
-ownpal = 0
-persistent = 0
-
-[State 2000, Twister]
-type = Helper
-trigger1 = Anim = 2000 && AnimElem = 2
-name = "Twister"
-ID = 2002
-stateno = 2002
-pos = -10,0
-postype = p1    ;p2,front,back,left,right
-facing = 1
-keyctrl = 0
-ownpal = 0
-persistent = 0
-
-[State 2000, ChangeState]
+[State 2000, End]
 type = ChangeState
-trigger1 = Time = 250
-value = IfElse(Pos Y < 0, 50,0)
+trigger1 = Time > 1 && !NumHelper(7000)
+value = 0
 ctrl = 1
 
-; The twister itself
+; The Gate
 [Statedef 2001]
-type    = S
-movetype= A
+type    = A
+movetype= I
 physics = N
 juggle  = 3
 poweradd= 0
 ctrl = 0
-anim = 7050
-sprpriority = 2
+anim = 7055
+sprpriority = 1
+
+[State 2001, trans]
+type = Helper
+trigger1 = Time = 70
+ID = 2001
+stateno = 2002
+pos = 0,20
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+supermovetime = 9999
 
 [State 2001, trans]
 type = Trans
-trigger1 = Time < 16
+trigger1 = Time > 150
 trans = addalpha
-alpha = 16*Time, 256 - 8 * Time
-
-[State 2001, Zoom]
-type = trans
-trigger1 = Time >= 16
-trans = addalpha
-alpha = 256, 128
+alpha = 256 - 16 * (Time - 150), 16 * (Time - 150)
 
 [State 2001, AssertSpecial]
 type = AssertSpecial
 trigger1 = 1
 flag = noshadow
 
-[State 2001, VelSet]
-type = PosSet
-trigger1 = 1
-x = parent, pos x + 40 * sin(pi * (-time/30.0)) - 5
-y = 0
-
-[State 2001, SprPriority]
-type = SprPriority
-trigger1 = cos(pi * (time/30.0)) > 0
-value = 3
-
-[State 2001, SprPriority]
-type = SprPriority
-trigger1 = cos(pi * (time/30.0)) < 0
-value = 0
-
-[State 2001, Zoom]
-type = AngleDraw
-trigger1 = 1
-scale = 1 + 0.4 * sin(pi * (-time/30.0) + pi/2), 1 + 0.4 * sin(pi * (-time/30.0) + pi/2)
-
-[State 2001, 2]
-type = HitDef
-trigger1 = Time % 20 = 10
-attr = S, HP
-damage    = 12
-animtype  = Hard
-hitflag = MAF
-guardflag = M
-pausetime = 0,5
-sparkno = -1
-sparkxy = -15,-4
-priority = 5, Hit
-hitsound   = S7000,1
-guardsound = 6,0
-p2facing = IfElse(Pos X > Parent, Pos X, -1, 1)
-ground.type = High
-ground.hittime  = 15
-ground.velocity = 2 * IfElse(Pos X > Parent, Pos X, -1, 1), -3
-air.velocity = 2 * IfElse(Pos X > Parent, Pos X, -1, 1), -3
-fall = 1
-forcenofall = 1
-getpower = 0, 0
-givepower = 7, 7
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 8
-envshake.time = 5
-envshake.freq = 120
-envshake.ampl = 4
-ground.cornerpush.veloff = 0
-air.cornerpush.veloff = 0
-
-[State 2001, End]
-type = VarSet
-trigger1 = Parent, StateNo != 2000
-var(0) = 17
-persistent = 0
-
-
-[State 2001, Timer]
-type = VarAdd
-trigger1 = var(0) > 0
-var(0) = -1
-
-[State 2001, trans]
-type = Trans
-trigger1 = var(0) > 0
-trans = addalpha
-alpha = (16 * var(0)), 128 + 8 * (16 - var(0))
-
-[State 2001, End]
-type = ChangeAnim
-trigger1 = var(0) > 0
-value = 7051
-persistent = 0
-
 [State 2001, End]
 type = DestroySelf
-trigger1 = var(0) = 1
+trigger1 = Time >= 166
 
-
-
-; The twister itself
+; Gato
 [Statedef 2002]
+type    = A
+movetype= I
+physics = N
+poweradd= 0
+ctrl = 0
+anim = 7053
+sprpriority = 2
+
+[State 2002, Fall]
+type = VelSet
+trigger1 = 1
+Y = 2.1
+
+[State 2002, Fall]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+ignorehitpause = 1
+
+[State 2002, Land]
+type = ChangeState
+trigger1 = Vel Y > 0 && Pos Y > - Vel Y
+value = 2003
+
+;Gato - Walking and Punching
+[Statedef 2003]
 type    = S
 movetype= A
 physics = N
-juggle  = 3
-poweradd= 0
 ctrl = 0
-anim = 7050
+velset = 0,0
 sprpriority = 2
+facep2 = 1
 
-[State 2002, trans]
-type = Trans
-trigger1 = Time < 16
-trans = addalpha
-alpha = 16*Time, 256 - 8 * Time
-
-[State 2002, Zoom]
-type = trans
-trigger1 = Time >= 16
-trans = addalpha
-alpha = 256, 128
-
-[State 2002, AssertSpecial]
-type = AssertSpecial
-trigger1 = 1
-flag = noshadow
-
-[State 2002, VelSet]
-type = PosSet
-trigger1 = 1
-x = parent, pos x + 40 * sin(pi * (-time/30.0) + pi) - 5
-y = 0
-
-[State 2002, SprPriority]
-type = SprPriority
-trigger1 = cos(pi * (time/30.0) + pi) > 0
-value = 3
-
-[State 2002, SprPriority]
-type = SprPriority
-trigger1 = cos(pi * (time/30.0) + pi) < 0
-value = 0
-
-[State 2002, Zoom]
-type = AngleDraw
-trigger1 = 1
-scale = 1 + 0.4 * sin(pi * (-time/30.0) + pi/2 + pi), 1 + 0.4 * sin(pi * (-time/30.0) + pi/2 + pi)
-
-[State 2002, 2]
-type = HitDef
-trigger1 = Time % 20 = 10
-attr = S, HP
-damage    = 12
-animtype  = Hard
-priority = 5, Hit
-hitflag = MAF
-guardflag = M
-pausetime = 0,5
-sparkno = -1
-sparkxy = -15,-4
-hitsound   = S7000,1
-guardsound = 6,0
-p2facing = IfElse(Pos X > Parent, Pos X, -1, 1)
-ground.type = Low
-ground.slidetime = 8
-ground.hittime  = 15
-ground.velocity = 2 * IfElse(Pos X > Parent, Pos X, -1, 1), -3
-air.velocity = 2 * IfElse(Pos X > Parent, Pos X, -1, 1), -3
-envshake.time = 5
-envshake.freq = 120
-envshake.ampl = 4
-getpower = 0, 0
-givepower = 7, 7
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 8
-fall = 1
-forcenofall = 1
-ground.cornerpush.veloff = 0
-air.cornerpush.veloff = 0
-
-[State 2002, End]
-type = VarSet
-trigger1 = Parent, StateNo != 2000
-var(0) = 17
-persistent = 0
-
-[State 2002, Timer]
-type = VarAdd
-trigger1 = var(0) > 0
-var(0) = -1
-
-[State 2002, trans]
-type = Trans
-trigger1 = var(0) > 0
-trans = addalpha
-alpha = (16 * var(0)), 128 + 8 * (16 - var(0))
-
-[State 2002, End]
+[State 2013, RealTime]
 type = ChangeAnim
-trigger1 = var(0) > 0
+trigger1 = !Time && PrevStateNo != 2004
+value = 7050
+ignorehitpause = 1
+
+[State 2013, RealTime]
+type = ChangeAnim
+trigger1 = !Time && PrevStateNo = 2004
+value = Var(1)
+elem = Var(2)
+ignorehitpause = 1
+
+[State 2004, NHB]
+type = HitOverride
+trigger1 = 1
+attr = , AA, AP
+stateno = 2004
+ignorehitpause = 1
+
+[State 2004, NHB]
+type = NotHitBy
+trigger1 = 1
+value = , AT
+ignorehitpause = 1
+
+[State 2013, RealTime]
+trigger1 = !Time && PrevStateNo != 2013
+type = VarSet
+v = 0
+value = 0
+persistent = 0
+ignorehitpause = 1
+
+[State 2003, Shake]
+type = EnvShake
+trigger1 = !Var(0)
+freq = 120
+time = 21
+ampl = 4
+
+[State 2003, ChangeAnim]
+type = ChangeAnim
+trigger1 = Anim = 7050 && !AnimTime
 value = 7051
 persistent = 0
 
+[State 2003, Walk]
+type = PosSet
+trigger1 = !Var(0)
+Y = 0
+
+[State 2003, Walk]
+type = VelSet
+trigger1 = Anim = 7051
+X = 2.5
+
+[State 2013, HitDef]
+type = HitDef
+trigger1 = !Var(0)
+attr = S, HA
+damage = 31,3
+animtype = Hard
+air.type = Low
+guardflag = M
+hitflag = MAF
+priority = 4, Hit
+pausetime = 0,19
+sparkno = -1
+hitsound = S7020,5
+guardsound = 5,0
+ground.type = Low
+ground.velocity = 0, 0
+ground.hittime = 5
+ground.slidetime = 5
+guard.velocity = -1
+air.velocity = 0,0
+airguard.velocity = 0, 0
+air.hittime = 5
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+airguard.cornerpush.veloff = 0
+yaccel = 0.4
+air.fall = 1
+fall = 0
+fall.recover = 0
+fall.recovertime = 120
+fall.animtype = Medium
+getpower = 0, 0
+givepower = 36, 36
+envshake.time = 16
+envshake.freq = 120
+envshake.ampl = 4
+palfx.color = 0
+palfx.add = 144, 64, 7
+palfx.mul = 256, 256, 256
+palfx.time = 20
+ignorehitpause = 1
+numhits = IfElse(Var(0) > 0, 0, 1)
+
+[State 2013, HitDef]
+type = HitDef
+trigger1 = Anim = 7052 
+trigger1 = AnimElemTime(3) = 2
+attr = S, HA
+damage = 31,3
+animtype = Hard
+air.type = Low
+guardflag = M
+hitflag = MAF
+priority = 4, Hit
+pausetime = 0,19
+sparkno = -1
+hitsound = S7020,5
+guardsound = 5,0
+ground.type = Low
+ground.velocity = 0, 0
+ground.hittime = 5
+ground.slidetime = 5
+guard.velocity = -1
+air.velocity = 0,0
+airguard.velocity = 0, 0
+air.hittime = 5
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+airguard.cornerpush.veloff = 0
+yaccel = 0.4
+air.fall = 1
+fall = 0
+fall.recover = 0
+fall.recovertime = 120
+fall.animtype = Medium
+getpower = 0, 0
+givepower = 36, 36
+envshake.time = 16
+envshake.freq = 120
+envshake.ampl = 4
+palfx.color = 0
+palfx.add = 144, 64, 7
+palfx.mul = 256, 256, 256
+palfx.time = 20
+ignorehitpause = 1
+numhits = IfElse(Var(0) > 0, 0, 1)
+
+[State 2013, Pawnch]
+type = ChangeAnim
+trigger1 = Anim = 7051
+trigger1 = MoveContact
+value = 7052
+
+[State 2013, Pawnch]
+type = VelSet
+trigger1 = Anim = 7052
+X = 0
+ 
+
+[State 2013, Var]
+trigger1 = MoveContact
+type = VarAdd
+v = 0
+value = 1
+ignorehitpause = 1
+
 [State 2002, End]
 type = DestroySelf
-trigger1 = var(0) = 1
+trigger1 = var(0) = 80
+
+;Gato Gethit
+[Statedef 2004]
+type    = S
+movetype= H
+physics = S
+ctrl = 0
+sprpriority = 2
+
+[State 2004, Anim]
+type = VarSet
+trigger1 = !Time
+trigger1 = PrevStateNo != 2004
+V = 1
+value = Anim
+ignorehitpause = 1
+
+[State 2004, Anim]
+type = VarSet
+trigger1 = !Time
+trigger1 = PrevStateNo != 2004
+V = 2
+value = AnimElemNo(0)
+ignorehitpause = 1
+
+[State 2004, Anim]
+type = ChangeAnim
+trigger1 = !Time
+value = 7053
+ignorehitpause = 1
+
+[State 2004, NHB]
+type = HitOverride
+trigger1 = 1
+attr = , AA, AP
+stateno = 2004
+ignorehitpause = 1
+
+[State 2004, NHB]
+type = NotHitBy
+trigger1 = 1
+value = , AT
+ignorehitpause = 1
+
+[State 2004, End]
+type = ChangeState
+trigger1 = Time > GetHitVar(HitTime)
+value = 2003
+ignorehitpause = 1
+
 
 ;---------------------------------------------------------------------------
 ;Flare 
@@ -476,7 +495,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = Parent, StateNo = 2011
 trigger1 = Parent, AnimElem = 3
-value = 2023
+value = 2013
 ignorehitpause = 1
 
 [State 2012, Fail]
@@ -494,21 +513,13 @@ poweradd= 0
 ctrl = 0
 anim = 7060
 sprpriority = 3
-facep2 = 1
-velset = 0,0
+facep2 = 0
+velset = 0.8,0
 
 [State 2013, PosAdd]
-type = PosAdd
-trigger1 = Parent, Command = "holdfwd"
-trigger1 = Parent, Command != "holdback"
-X = 1.4
-ignorehitpause = 1
-
-[State 2013, PosAdd]
-type = PosAdd
-trigger1 = Parent, Command != "holdfwd"
-trigger1 = Parent, Command = "holdback"
-X = -1.4
+type = VelSet
+trigger1 = MoveContact
+X = 0 
 ignorehitpause = 1
 
 [State 2013, PosAdd]
@@ -549,7 +560,7 @@ ignorehitpause = 1
 [State 2013, Override]
 type = HitOverride
 trigger1 = 1
-attr = SCA,AA, AP
+attr = ,AA, AP
 slot = 0
 stateno = 2023
 time = 1
@@ -559,13 +570,6 @@ ignorehitpause = 1
 type = AssertSpecial
 trigger1 = 1
 flag = NoShadow
-ignorehitpause = 1
-
-[State 2013, Override]
-type = NotHitBy
-trigger1 = 1
-value = , AT
-time = 1
 ignorehitpause = 1
 
 [State 2013, Override]
@@ -617,13 +621,6 @@ type = Trans
 trigger1 = Var(0) = [17, 70]
 trans = addalpha
 alpha = 256, 128
-ignorehitpause = 1
-
-[State 2013, Trans]
-type = NotHitBy
-trigger1 = 1
-value = , AT
-time = 1
 ignorehitpause = 1
 
 [State 2013, HitDef]
@@ -717,7 +714,7 @@ velset = 0,0
 [State 2014, End]
 type = DestroySelf
 trigger1 = !(Parent, StateNo)
-trigger2 = Parent, StateNo != 2022
+trigger2 = Parent, StateNo != 2012
 
 [state 2014, dist x]
 type = AssertSpecial
@@ -760,211 +757,165 @@ trigger1 = FVar(2) < 3  || (Time > 10)
 
 
 ;---------------------------------------------------------------------------
-;Gatling Kick
-[Statedef 2020]
-type    = S
-movetype= A
-physics = S
-juggle  = 0
-poweradd= -1000
-ctrl = 0
-anim = 2020
-sprpriority = 1
-facep2 = 1
-
-[State 2020, NHB]
-type = NotHitBy
-trigger1 = 1
-time = 1
-value = SCA
-
-
-[State 2020, PalFx]
-type = PalFX
-trigger1 = (Time % 8 = 0)
-time = 2
-add = 200, 200, 200
-mul = 256, 256, 256
-
-[State 2020, Offset]
-type = OffSet
-trigger1 = Time % 2 = 0
-X = (random % 8) - 4
-Y = (random % 8) - 4
-
-[State 2020, Super Pause FX]
-type = Helper
-trigger1 = Time = 1
-helpertype = Normal
-stateno = 7000
-ID = 7000
-name = "Super Charge"
-postype = p1
-pos = 0,0
-ownpal = 1
-persistent = 0
-supermovetime = 9999
-
-[State 2020, Super Pause]
-type = SuperPause
-trigger1 = time = 1
-time = 45
-movetime = 45
-anim = -1
-sound = S7010,2
-p2defmul = 1
-darken = 0
-
-[State 2020, End]
-type = ChangeState
-trigger1 = Time > 1 && !NumHelper(7000)
-value = 2021
-ctrl = 0
-
-;Gatling Kick - Jump
-[Statedef 2021]
-type    = A
-movetype= A
-physics = N
-juggle  = 3
-poweradd= 0
-ctrl = 0
-anim = 2021
-sprpriority = 1
-velset = 6.7,0
-
-[State 2021, Snd]
-trigger1 = Time % 10 = 9
-type = PlaySnd
-value = S7000,1
-channel = 1
-
-[State 2021, Jump]
-type = PosAdd
-trigger1 = !Time
-Y = -15
-
-[State 2021, Miss]
-type = ChangeAnim
-trigger1 = Time = 30 && !AnimTime
-value = 2022
-
-[State 2021, Jump]
-type = StateTypeSet
-trigger1 = Time = 30
-physics = A
-
-[State 2021, Jump]
-type = PlayerPush
-trigger1 = Time < 30
-value = 0
-
-[State 2021, Hit]
-type = HitDef
-trigger1 = !Time
-attr = A, HT 
-hitflag = MA-
-priority = 4, Miss
-sparkno = -1
-p1stateno = 2022
-p2stateno = 2023
-guard.dist = 0
-damage = 20, 3 
-animtype = Hard
-p1facing = 1
-pausetime = 5, 0
-ground.velocity = 0,0
-ground.cornerpush.veloff = 0
-fall = 1
-fall.recovertime = 120
-air.type = Low
-getpower = 0,0
-givepower = 36, 36
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 8
-envshake.time = 4
-envshake.freq = 120
-envshake.ampl = 3
-air.fall = 0
-fall.recover = 0
-p1sprpriority = 1
-p2sprpriority = 1
-
-; Gatling Kick - Success
-[Statedef 2022]
+;Gato Summon
+[Statedef 2023]
 type = A
+movetype = H
 physics = N
-movetype = A
-poweradd = 0
-velset = 0,0
+sprpriority = 1
 
-[State 2022, Helper]
-type = Helper
+[State 2023, Anim]
+type = ChangeAnim2
 trigger1 = !Time
-helpertype = normal ;player
-name = "Chasm"
-ID = 2022
-stateno = 2025
-pos = Floor(Target, Pos X - Pos X ) * Facing , Floor(-Pos Y);Floor(Target, Pos X - Pos X ) * Facing, Floor(-Pos Y)
-postype = p1
-facing = 1
-keyctrl = 0
-ownpal = 1
-ignorehitpause =  1
-persistent = 0
+value = 2023
 
-[State 2022, !Push]
-type = PlayerPush
-trigger1 = 1
-value = 0
-
-[State 2022, Var]
-type = VarSet
+[State 2023, Shake]
+type = EnvShake
 trigger1 = !Time
-var(0) = IfElse(Pos X > Target, Pos X, -1,1)
-ignorehitpause =  1
+time = 210
+freq = 60
+ampl = 2
 
-[State 2022, Snd]
-type = PlaySnd
+[State 2023, Shake]
+type = PalFx
 trigger1 = (Time = [0,70]) && ( Time % 32 = 0 )
 trigger2 = (Time = [71,140]) && ( Time % 16 = 0 )
-trigger3 = (Time = [141,169]) && ( Time % 8 = 0 )
-value = S7020,3
-channel = 0
-ignorehitpause =  0
+trigger3 = (Time = [141,210]) && ( Time % 8 = 0 )
+add = 200, 200, 200
+mul = 256, 256, 256
+time = 4
 
-[State 2022, Snd]
-type = PlaySnd
-trigger1 = Time = 170
-value = S7020,6
+[State 2023, Shake]
+type = LifeAdd
+trigger1 = (Time = [0,70]) && ( Time % 32 = 0 )
+trigger2 = (Time = [71,140]) && ( Time % 16 = 0 )
+trigger3 = (Time = [141,210]) && ( Time % 8 = 0 )
+value = -10
+kill = 0
 
-[State 2022, Screenbound]
+[State 2023, Into the Air]
+type = ChangeState
+trigger1 = Time = 210
+value = 2024
+
+[State 2023, End]
+type = SelfState
+trigger1 = Time > 10 && !GetHitVar(IsBound)
+value = 5050
+
+;Gatling Kick - Into the air
+[Statedef 2024]
+type = A
+movetype = H
+physics = N
+sprpriority = 1
+velset = 0, - 12
+
+[State 2024, PosAdd]
+type = PosAdd
+trigger1 = !Time
+Y = Const(size.mid.pos.y)
+
+[State 2024, Gravity]
 type = ScreenBound
 trigger1 = 1
 value = 0
-ignorehitpause =  1
 
+[State 2024, Gravity]
+type = VelAdd
+trigger1 = 1
+Y = .54
 
-[State 2022, Var]
-type = VarSet
-trigger1 = NumHelper(2022)
-fvar(0) = (Helper(2022), Pos X - Pos X)
-persistent = 0
-ignorehitpause = 1
-
-[State 2022, Var]
-type = VarSet
+[State 2024, Anim]
+type = ChangeAnim2
 trigger1 = !Time
-fvar(1) = Pos Y
-persistent = 0
-ignorehitpause = 1
+value = 803
 
-[State 2022, Var]
-type = VarSet
+[State 2024, Vel]
+type = ChangeAnim2
+trigger1 = Vel Y > 0
+value = 804
+
+[State 2024, Life]
+type = LifeAdd
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+value = -15
+
+[State 2024, Pal]
+type = PalFX
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+add = 200, 200, 200
+mul = 256, 256, 256
+time = 8
+
+[State 2024, Life]
+type = EnvShake
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+time = 14
+freq = 120
+ampl = 8
+
+[State 2024, Life]
+type = PosSet
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+y = 0
+
+[State 2024, Hit Ground]
+type = SelfState
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+value = 5100
+ctrl = 0
+
+;Chasm
+[Statedef 2025]
+type = S
+movetype = I
+physics = N
+anim = 7106
+sprpriority = -1
+
+[State 2021, Invisible]
+type = Width
+trigger1 = 1
+value = 0,0
+
+[State 2021, Invisible]	
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 2021, Invisible]
+type = AssertSpecial
+trigger1 = 1
+flag = NoShadow
+
+[State 2021, Scale]
+type = AngleDraw
+trigger1 = Time < 80
+scale = 0.625*Time/60.0, 0.625*Time/100.0
+
+[State 2021, Scale]
+type = AngleDraw
+trigger1 = Time >= 80
+scale = 50/60.0, 50/100.0
+
+[State 2021, Color]
+type = PalFX
 trigger1 = !Time
-fvar(3) = Target, Pos Y
-persistent = 0
+time = -1
+add = 0,0,0
+mul = 156,156,156
+sinadd = 100,0,0,50
+
+[State 2021, Rocks]
+type = Helper
+trigger1 = Time > 30 && (Time % 7 = 0) && !var(0)
+helpertype = normal ;player
+name = "Debris"
+ID = 2025
+stateno = 2026
+pos = -20 + Floor(random % 40*(IfElse(Time > 80, 1, Time/80.0))) , -10
+postype = p1    ;p2,front,back,left,right
 ignorehitpause = 1
 
 [State 2022, Var]
