@@ -192,8 +192,8 @@ PosType = P1
 Pos = 0, 0
 ID = 11777
 StateNo = 11777
-PauseMoveTime = 999999
-SuperMoveTime = 999999
+PauseMoveTime = 9999999
+SuperMoveTime = 9999999
 Name = "Protect"
 
 [State -3, EndProtect]

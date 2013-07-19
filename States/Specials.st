@@ -166,7 +166,7 @@ value = 50
 movetype = I
 type = A
 anim = 7013
-sprpriority = 3
+sprpriority = 4
 
 [State 1012, Pos]
 type = VarSet
@@ -267,7 +267,7 @@ physics = S
 juggle  = 3
 ctrl = 0
 anim = 7009
-sprpriority = 3
+sprpriority = 4
 
 [State 1021, Strength]
 type = VarSet
@@ -279,9 +279,15 @@ var(0) = parent, var(0)
 type = HitOverride
 trigger1 = 1
 time = -1
-attr = , AA, AP
+attr = SCA, AA, AP
 stateno = 1023
 ignorehitpause = 1
+
+
+[State 1020, Strength]
+type = AngleDraw
+trigger1 = 1
+value = IfElse(var(0) = 2, -12 * Time, IfElse(var(0) = 1, 3 * Time , 22 * Time))
 
 [State 1021, HB]
 type = NotHitBy
@@ -393,7 +399,7 @@ physics = S
 juggle  = 3
 ctrl = 0
 anim = 7007
-sprpriority = 3
+sprpriority = 4
 velset = 0,0
 
 [State 1022, Anim]
@@ -450,7 +456,7 @@ trigger1 = Time % 3
 trigger1 = Time < 22
 anim = 7008
 ID = 1020
-pos = 25 - Random % 50, 5 - Random % 30
+pos = IfElse(Anim = 7007, 25 - Random % 50, 25 - Random % 50), IfElse(Anim = 7007, 5 - Random % 15, 25 - Random % 50)
 postype = p1 ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -461,8 +467,7 @@ removetime = -2
 scale = 1 , 1
 sprpriority = 4
 ontop = 0
-shadow = -1
-ownpal = 0
+ownpal = 1
 removeongethit = 0
 
 [State 1022, PosSet]
@@ -514,7 +519,7 @@ physics = S
 juggle  = 3
 ctrl = 0
 anim = 7010
-sprpriority = 3
+sprpriority = 4
 velset = 0,0
 
 [State 1021, HitDef]
@@ -559,7 +564,7 @@ trigger1 = Time % 3
 trigger1 = Time < 22
 anim = 7008
 ID = 1020
-pos = 25 - Random % 50, 5 - Random % 30
+pos = 25 - Random % 50, 25 - Random % 50
 postype = p1 ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -570,8 +575,7 @@ removetime = -2
 scale = 1 , 1
 sprpriority = 4
 ontop = 0
-shadow = -1
-ownpal = 0
+ownpal = 1
 removeongethit = 0
 
 [State 1022, PosSet]
@@ -690,7 +694,7 @@ physics = S
 juggle  = 3
 ctrl = 0
 anim = 7011
-sprpriority = 3
+sprpriority = 4
 
 [State 1031, PosSet]
 type = VarSet
@@ -760,7 +764,7 @@ movetype= I
 physics = N
 ctrl = 0
 anim = 7011
-sprpriority = 3
+sprpriority = 4
 
 [State 7010, Trans]
 type = trans

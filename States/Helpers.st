@@ -46,7 +46,7 @@ Type = A
 MoveType = H
 Physics = N
 ctrl=0
-sprpriority = 4
+sprpriority = 3
 
 [State 11777: Pal]
 type = RemapPal

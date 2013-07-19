@@ -393,7 +393,7 @@ command = b+c
 time = 1
 
 [Command]
-name = "2p"
+name = "a+c"
 command = a+c
 time = 1
 
@@ -539,7 +539,7 @@ triggerall = Var(21) > 0
 trigger1 = statetype != A
 trigger1 = ctrl || ((stateno = [200, 299]) && time <= 10)
 
-[State -1, Gatling Kick]
+[State -1, Time Egg]
 type = ChangeState
 value = 2020
 triggerall = Command = "qcbhcfa" || Command = "qcbhcfb" || Command = "qcbhcfc"
@@ -549,21 +549,23 @@ trigger1 = ctrl
 trigger2 = ( StateNo = [200,299] ) && MoveHit
 trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;---------------------------------------------------------------------------
-[State -1, Triple Kick]
+[State -1, Flare]
 type = ChangeState
 value = 2010
 triggerall = Command = "2qcfa" || Command = "2qcfb" || Command = "2qcfc" 
 triggerall = Power >= 1000
+triggerall = !NumHelper(2010)
 trigger1 = statetype = S
 trigger1 = ctrl
 trigger2 = ( StateNo = [200,299] ) && MoveHit
 trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;---------------------------------------------------------------------------
-[State -1, Tail Spin]
+[State -1, Gato!]
 type = ChangeState
 value = 2000
 triggerall = Command = "2qcba" || Command = "2qcbb" || Command = "2qcbc" 
 triggerall = Power >= 1000
+triggerall = !NumHelper(2000)
 trigger1 = statetype = S
 trigger1 = ctrl
 trigger2 = ( StateNo = [200,299] ) && MoveHit
@@ -573,7 +575,7 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;===========================================================================
 ; Special Moves
 ;===========================================================================
-[State -1, Backflip Kick]
+[State -1, Fire Uppercut]
 type = ChangeState
 value = 1010
 triggerall = command = "dfa" || command = "dfb" || command = "dfc"
@@ -582,7 +584,7 @@ trigger1 = ctrl
 trigger2 = (stateno = [200, 299]) && movecontact
 trigger3 = (stateno = [400, 499]) && movecontact
 ;---------------------------------------------------------------------------
-[State -1, Rock Throw]
+[State -1, Napalm]
 type = ChangeState
 value = 1020
 triggerall = command = "qcfa" || command = "qcfb" || command = "qcfc"
@@ -590,17 +592,11 @@ triggerall = roundstate = 2 && statetype != A && !numhelper(1020)
 trigger1 = ctrl
 trigger2 = (stateno = [200, 299]) && movecontact
 ;---------------------------------------------------------------------------
-[State -1, Cat Attack into Drill Kick]
-type = ChangeState
-value = 1034
-triggerall = Command = "a" || Command = "b" || Command = "c"
-trigger1 = StateNo = 1030 && !MoveContact
-trigger1 = Pos Y < 0
-;---------------------------------------------------------------------------
 [State -1, Hypno Wave]
 type = ChangeState
 value = 1030
 triggerall = Power >= 500
+triggerall = !NumHelper(1030)
 triggerall = Command = "qcba" || Command = "qcbb" || Command = "qcbc" 
 trigger1 = statetype != A
 trigger1 = ctrl
@@ -627,7 +623,7 @@ value = 800
 [State -1, Protect]
 type = ChangeState
 value = 2110
-triggerall = Command = "2p" && !(command = "holdfwd" || command = "holdback" || command = "holdup" || command = "holddown")
+triggerall = Command = "a+c" && !(command = "holdfwd" || command = "holdback" || command = "holdup" || command = "holddown")
 triggerall = Power >= 3000
 triggerall = Var(21) = 0
 trigger1 = StateType = S

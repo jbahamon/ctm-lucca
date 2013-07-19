@@ -252,11 +252,6 @@ anim = 400
 sprpriority = 1
 facep2 = 1
 
-[State 400, VelSet]
-type = Velset
-trigger1 = Var(21) > 0
-x = 2.8
-
 [State 400, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
@@ -691,7 +686,7 @@ Y = 0.49
 type = VelSet
 trigger1 = AnimElemTime(3) = 0
 trigger2 = AnimElemTime(7) = 0
-y = -5
+y = -4
 
 [State 620, Explod]
 type = Explod
