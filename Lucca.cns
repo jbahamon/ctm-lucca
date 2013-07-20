@@ -1,27 +1,16 @@
 ; Lucca's constants and state file.
-; There are comments scattered through this file, so you may like to
-; take a look if would like to learn more about the cns.
 
 [Data]
 ;Amount of life to start with
 life = 1000
-;attack power (more is stronger)
 attack = 100
-;defensive power (more is stronger)
 defence = 100
-;Percentage to increase defense everytime player is knocked down
 fall.defence_up = 50
-;Time which player lies down for, before getting up
 liedown.time = 60
-;Number of points for juggling
 airjuggle = 20
-;Default hit spark number for HitDefs
 sparkno = 2
-;Default guard spark number
 guard.sparkno = 40
-;1 to enable echo on KO
 KO.echo = 0
-;Volume offset (negative for softer)
 volume = 0
 ;Variables with this index and above will not have their values
 ;reset to 0 between rounds or matches. There are 60 int variables,
@@ -52,9 +41,9 @@ draw.offset = 0,0    ;Player drawing offset in pixels (x, y). Recommended 0,0
 [Velocity]
 walk.fwd  = 1.6      ;Walk forward
 walk.back = -1.6     ;Walk backward
-run.fwd  = 2.7, 0    ;Run forward (x, y)
+run.fwd  = 3.1, 0    ;Run forward (x, y)
 run.back = -3.2,-4.2 ;Hop backward (x, y)
-jump.neu = 0,-5.5    ;Neutral jumping velocity (x, y)
+jump.neu = 0,-6.5    ;Neutral jumping velocity (x, y)
 jump.back = -1.7    ;Jump back Speed (x, y)
 jump.fwd = 1.8       ;Jump forward Speed (x, y)
 runjump.back = -2,-7.5 ;Running jump speeds (opt)

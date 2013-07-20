@@ -600,15 +600,7 @@ triggerall = !NumHelper(1030)
 triggerall = Command = "qcba" || Command = "qcbb" || Command = "qcbc" 
 trigger1 = statetype != A
 trigger1 = ctrl
-;---------------------------------------------------------------------------
-[State -1, Tail Whirl]
-type = ChangeState
-value = 1040
-triggerall = Command = "qcba" || Command = "qcbb" || Command = "qcbc" 
-trigger1 = statetype = A
-trigger1 = ctrl
-trigger2 = ( StateNo = [600,610] ) && movecontact
-trigger3 = ( StateNo = 1010 ) && movecontact && AnimElemNo(0) < 9
+;--------------------------------------------------------------------------
 
 ;===========================================================================
 ; Throws, Rolls, Etc

@@ -241,7 +241,7 @@ trigger1 = AnimElem = 3
 name = "Napalm Grenade"
 ID = 1020
 stateno = 1021
-pos = -2,-27
+pos = 6,-27
 postype = p1    ;p2,front,back,left,right
 facing = 1
 keyctrl = 0
@@ -282,7 +282,6 @@ time = -1
 attr = SCA, AA, AP
 stateno = 1023
 ignorehitpause = 1
-
 
 [State 1020, Strength]
 type = AngleDraw
