@@ -17,6 +17,10 @@ What's missing:
 Lucca's Moveset
 ==============
 
+Lucca isn't very agile nor fast. But some of her normal attacks 
+actually launch projectiles, and her standard projectile has a very variable
+range. She excels at close range, so get close to your enemies and punish them!
+
 Throws
 --------------
 
