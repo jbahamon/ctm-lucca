@@ -369,14 +369,19 @@ trigger1 = ScreenPos Y < -30
 trigger2 = RoundState > 1
 
 ;---------------------------------------------------------------------------
-; Reptites Intro
+; Gate
 [Statedef 192]
 type = A
 physics = N
 movetype = I
 ctrl = 0
-anim = 190
+anim = 7200
 sprpriority = 1
+
+[State 191, 2]
+type = AssertSpecial
+trigger1 = Anim = 7200
+flag = NoShadow
 
 [State 191, 2]
 type = AssertSpecial
@@ -388,94 +393,55 @@ type = VarSet
 trigger1 = !Time
 fvar(0) = Pos X
 
+[State 192, StartPos]
+type = PosAdd
+trigger1 = !Time
+X = -40
+Y = - 20
+
 [State 192, Spawn Reptites]
 type = Helper
-trigger1 = Anim = 190
-trigger1 = (NumHelper(1920) < 5)
+trigger1 = Anim = 7200
+trigger1 = !NumHelper(1920)
 helpertype = normal ;player
-name = "Reptite"
+name = "Gate"
 ID = 1920
 stateno = 1920
 postype = p1
-pos = - (NumHelper(1920)*10 - (Random % 3)), IfElse((NumHelper(1920)% 2), -2,2)
+pos = 0, -35
 facing = 1
 keyctrl = 0
 ownpal = 1
 
 [State 192, StartPos]
-type = PosAdd
-trigger1 = NumHelper(1920) = 5
-X = Facing * (IfElse(Facing = 1, -20, 340) - ScreenPos X)
-persistent = 0
-
-[State 192, ScreenBound]
-type = ScreenBound
-trigger1 = 1
-value = 0
-movecamera = 0,0
-
-[State 192, StartPos]
-type = AssertSpecial
-trigger1 = Anim = 190
-flag = Invisible
-
-[State 192, StartPos]
-type = PlaySnd
-trigger1 = Time = 20 
-value = 7050,2
-
-[State 192, StartPos]
-type = PlaySnd
-trigger1 = Time = 90
-value = 7050,0
-
-[State 192, StartPos]
-type = PlaySnd
-trigger1 = AnimElem = 4 && Anim = 192 
-value = 7030,0
-
-[State 192, StartPos]
 type = ChangeAnim
-trigger1 = Time = 100
-value = 42
-
-[State 192, StartPos]
-type = VelSet
-trigger1 = Time = 100
-X = 4.7
-
-[State 192, Land]
-type = ChangeAnim
-trigger1 = Anim = 42 && Abs(Pos X - FVar(0)) < 50
+trigger1 = NumHelper(1920)
+trigger1 = Helper(1920), Time = 60
 value = 192
-persistent = 0
 
-[State 192, Land]
-type = PosSet
-trigger1 = Anim = 192 && AnimElem = 2
-Y = 0
-persistent = 0
-
-[State 192, StartPos]
-type = VelAdd
-triggerall = Time > 100 && (Vel X - 0.07) > 0
-trigger1 = Facing = 1 && Pos X < FVar(0)
-trigger2 = Facing = -1 && Pos X > FVar(0)
-X = -0.081
-
-[State 192, StartPos]
+[State 191, Jump!]
 type = VelSet
-triggerall = Anim = 192
-trigger1 = Facing = 1 && (Pos X) >= FVar(0)
-trigger2 = Facing = -1 && (Pos X) <= FVar(0)
-X = 0
+trigger1 = Anim = 192
+X = ((fvar(0) - Pos X)/20.0)*Facing
+Y = -3
+persistent = 0
 
-[State 192, StartPos]
-type = PosSet
-triggerall = Anim = 192
-trigger1 = Facing = 1 && (Pos X) >= FVar(0)
-trigger2 = Facing = -1 && (Pos X) <= FVar(0)
-X = FVar(0)
+[State 192, Snd]
+type = PlaySnd
+trigger1 = Anim = 192
+value = S7000,2
+persistent = 0
+
+[State 191, Jump!]
+type = VelAdd
+trigger1 = Anim = 192
+Y = 0.34
+
+[State 191, Land]
+type = VelSet
+trigger1 = Anim = 192 && Pos Y >= 0
+Y = 0
+X = 0
 
 [State 192, Land]
 type = StateTypeSet
@@ -483,111 +449,70 @@ trigger1 = Anim = 192 && !AnimTime
 statetype = S
 persistent = 0
 
-[State 192, Land]
-type = ChangeState
-trigger1 = Anim = 192 && !AnimTime
+[State 191, Land]
+type = StateTypeSet
+trigger1 = Anim = 192 && Pos Y >= 0
+statetype = S
+persistent = 0
+
+[State 191, Land]
+type = PosSet
+trigger1 = Anim = 192 && Pos Y >= 0
+Y = 0
+X = fvar(0)
+persistent = 0
+
+[State 191, Land]
+type = ChangeAnim
+trigger1 = Anim = 192 && Pos Y >= 0
+value = 47
+persistent = 0
+
+[State 191, Land]
+type = ChangeAnim
+trigger1 = Anim = 47 && !AnimTime
 value = 0
 persistent = 0
 
-; Reptite
+[State 191, 2]
+type = AssertSpecial
+trigger1 = 1
+flag = Intro
+
+[State 191, 3] ;Change to stand state when done
+type = ChangeState
+trigger1 = Anim = 0 && !NumHelper(1920)
+value = 0
+
+; Gate
 [Statedef 1920]
 type = S
 physics = N
 ctrl = 0
-anim = 7121
+anim = 7101
 velset = 0,0
-sprpriority = 1
+sprpriority = -1
 
 [State 1920, Random Start]
 type = AssertSpecial
 trigger1 = 1
 flag = Intro
 
-[State 1920, Random Start]
-type = ChangeAnim
-trigger1 = !Time
-value = 7121
-elem = (random % 20) + 1
-
-[State 1920, SprPriority]
-type = SprPriority
-trigger1 = !Time
-value = IfElse(Pos Y < 0, 0, 2)
-
 [State 1920, SprPriority]
 type = ChangeAnim
-triggerall = (Parent, Anim = 42 || Parent, Anim = 192) && Anim = 7121 
-trigger1 = Facing = 1 && (Parent, Pos X) >= Pos X
-trigger2 = Facing = -1 && (Parent, Pos X) <= Pos X
-value = 7122
+trigger1 = Parent, Anim = 0
+value = 7106
 persistent = 0
-
-[State 1920, SprPriority]
-type = VelSet
-trigger1 = AnimElem = 1 && Anim = 7122
-X = (Random/1000.0) * 4 + 2
-Y = - (Random/1000.0) * 4 - 2
-
-[State 1920, Shake]
-type = PalFx
-trigger1 = AnimElem = 1 && Anim = 7122
-add = 200, 200, 200
-mul = 256, 256, 256
-time = 4
-
-[State 1920, Shake]
-type = EnvShake
-trigger1 = AnimElem = 1 && Anim = 7122
-time = 3
-freq = 120
-ampl = 2
-
-[State 1920, Shake]
-type = PlaySnd
-trigger1 = AnimElem = 1 && Anim = 7122
-value = 7020,1
-
-[State 1920, Rotate]
-type = PosAdd
-trigger1 = Anim = 7122
-Y = -15
-persistent = 0
-
-[State 1920, Var]
-type = VarSet
-trigger1 = !Time
-var(0) = IfElse(random % 2 = 0, -1, 1)
-
-[State 1920, Angle]
-type = AngleSet
-trigger1 = !Time
-value = 0
-
-[State 1920, Rotate]
-type = AngleAdd
-trigger1 = Anim = 7122
-value = (12 + (random % 3))* var(0)
-
-[State 1920, Rotate]
-type = AngleDraw
-trigger1 = Anim = 7122
-
-[State 1920, Trans]
-type = Trans
-trigger1 = Anim = 7122 && AnimElemTime(1) > 10
-trans = addalpha
-alpha = 256 - (AnimElemTime(1)-10)*8, (AnimElemTime(1)-10)*8
 
 [State 1920, End]
 type = DestroySelf
-trigger1 = Anim = 7122
-trigger1 = AnimElemTime(1) >= 42
+trigger1 = Anim = 7106
+trigger1 = !AnimTime
 trigger2 = RoundState > 1
 
 
 ;---------------------------------------------------------------------------
 ; Taunt
-; CNS difficulty: easy
 [Statedef 195]
 type = S
 ctrl = 0
