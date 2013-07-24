@@ -934,7 +934,7 @@ Clsn2:1
 
 ; Crouch Recover (medium)
 [Begin Action 5026]
-Clsn2:1
+Clsn2Default: 1
   Clsn2[0] = -7, -22, 6, 0
 5020,20, 0,0, 3
 5020,10, 0,0, -1
@@ -942,7 +942,7 @@ Clsn2:1
 
 ; Crouch Recover (hard)
 [Begin Action 5027]
-Clsn2:1
+Clsn2Default: 1
   Clsn2[0] = -7, -22, 6, 0
 5020,20, 0,0, 4
 5020,10, 0,0, -1

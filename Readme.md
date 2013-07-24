@@ -89,7 +89,7 @@ Final Move
 **Gate Key Summon**: D, B, D, F + a/b/c (Standing, must have Berserker activated). Uses all of your Power.
 
 Lucca uses her Gate Key to summon the Black Tyranno! It will appear over the closest 
-opponent and bite down. Make sure it hits, 'cause you only have one shot.
+opponent and bite down. Make sure it hits, 'cause you only have one shot. "AVAVAGO!"
 
 
 ----------------------------
