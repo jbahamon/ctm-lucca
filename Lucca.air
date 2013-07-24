@@ -634,8 +634,8 @@ Clsn2: 2
 
 ; Hypno Wave Connected
 [Begin Action 1031]
-5300,0, 0,0, 10
-5300,1, 0,0, 10
+1031,0, 0,0, 10
+1031,1, 0,0, 10
 
 ; Hypno Wave - Hit
 [Begin Action 1032]
