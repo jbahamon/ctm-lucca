@@ -257,9 +257,8 @@ Clsn2:1
 
 ; Intro - Landing
 [Begin Action 192]
-Clsn2:2
+Clsn2: 1
   Clsn2[0] = -6, -34, 7, -3
-  Clsn2[1] = -1, -24, 0, -23
 40,1, 0,0, 3
 
 
