@@ -216,7 +216,7 @@ trigger1 = Parent, StateNo != 1010
 [Statedef 1020]
 type    = S
 movetype= A
-physics = S
+physics = N
 juggle  = 3
 poweradd= 72
 ctrl = 0
@@ -322,7 +322,7 @@ y = IfElse(var(0) = 0, 0.2, 0.2)
 [State 1021, Air]
 type = StateTypeSet
 trigger1 = var(1)
-statetype = S
+statetype = A
 movetype = A
 physics = N
 persistent = 0
@@ -330,7 +330,7 @@ persistent = 0
 [State 1021, HitDef]
 type = HitDef
 trigger1 = var(1)
-attr = S, SP
+attr = A, SP
 hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
 animtype = Hard
