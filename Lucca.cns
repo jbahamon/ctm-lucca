@@ -192,11 +192,6 @@ v = 21
 value = 0
 ignorehitpause = 1
 
-[State -2] 
-Type= PalFX
-Trigger1= !(Var(21))
-Time = -1
-
 [State -2] ; The main character is immune to every attack (as the helper is taking the damage instead)
 Type= NotHitBy
 Trigger1= NumHelper(11777)>0
