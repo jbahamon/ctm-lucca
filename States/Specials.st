@@ -8,7 +8,7 @@
 type    = S
 movetype= A
 physics = S
-juggle  = 3
+juggle  = 12
 ctrl = 0
 anim = 1010
 sprpriority = 1
@@ -49,22 +49,6 @@ trigger1 = AnimElem = 3
 value = S7000,1
 ignorehitpause = 1
 
-[State 1010, Jump]
-type = StateTypeSet
-trigger1 = AnimElem = 2
-statetype = A
-physics = N
-
-[State 1010, Jump]
-type = VelSet
-trigger1 = AnimElem = 2
-y = ifelse(var(0) = 2, -8, ifelse(var(0) = 1, -7, -6))
-
-[State 1010, Gravity]
-type = VelAdd
-trigger1 = AnimElemNo(0) >= 2 || Anim = 1012
-y = .4
-
 [State 1040, End]
 type = ChangeAnim
 trigger1 = MoveContact && Anim != 1012
@@ -76,7 +60,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = animelem = 2 
 attr = A, SA
-damage = IfElse(var(0) = 2, 77, IfElse(var(0) = 1, 67, 57)), 7
+damage = IfElse(var(0) = 2, 82, IfElse(var(0) = 1, 72, 62)), 7
 animtype = Hard
 guardflag = HA
 hitflag = MAF
@@ -102,7 +86,7 @@ envshake.time = 16
 envshake.freq = 120
 envshake.ampl = 4
 fall = 1
-fall.recover = 1
+fall.recover = 0
 fall.recovertime = 120
 yaccel = 0.3
 airguard.ctrltime = 16
@@ -114,102 +98,104 @@ palfx.add = 144, 64, 7
 palfx.mul = 256,256,256
 palfx.time = 8
 
+[State 1010, Pal]
+type = VelSet
+trigger1 = Time = 6
+X = -1
+ignorehitpause = 1
+
+
+[State 1010, Pal]
+type = VelAdd
+trigger1 = AnimElem = 2
+X = 3
+ignorehitpause = 1
+
 [State 1020, Grenade]
 type = Helper
-trigger1 = !Time || Time = 15
+trigger1 = AnimElem = 2
 name = "Fire"
 ID = 1010
-stateno = 1012
-pos = 0, 0
+stateno = 1011
+pos = 15, 0
 postype = p1    ;p2,front,back,left,right
 facing = 1
 keyctrl = 0
 ownpal = 1
 persistent = 0
 
-
-[State 1040, End]
-type = ChangeState
-trigger1 = Vel Y > 0
-value = 1011
-
-;Fire Uppercut Fall
-[Statedef 1011]
-movetype = I
-type = A
-physics = N
-anim = 1011
-sprpriority = 1
-
 [State 1010, Pal]
 type = PalFx
-trigger1 = Time <= 16
+trigger1 = AnimElemNo(0) = 3
 time = 1
-add = 144 - 9 * Time, 64 - 4 * Time, 7 - Time/2
+add = 144 - 9 * AnimElemTime(3), 64 - 4 * AnimElemTime(3), 7 - AnimElemTime(3)/2
 mul = 256, 256, 256
 ignorehitpause = 1
 
-[State 1011, Gravity]
-type = VelAdd
-trigger1 = 1
-Y = 0.4
-ignorehitpause = 1
+[State 1040, End]
+type = PalFx
+trigger1 = !AnimTime
+time = 1
+add = 0,0,0
+mul = 256, 256, 256
 
 [State 1040, End]
 type = ChangeState
-trigger1 = Vel Y > 0
-trigger1 = Pos Y > -Vel Y
-value = 50
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
 
 ;The Fire
-[Statedef 1012]
+[Statedef 1011]
 movetype = I
 type = A
 anim = 7013
 sprpriority = 4
 
-[State 1012, Pos]
+[State 1011, Pos]
 type = VarSet
 trigger1 = !Time
 v = 0
 value = Parent, Var(0)
 
-[State 1011, AfterImage]
-type = AfterImage
+[State 1011, Explod]
+type = Explod
+trigger1 = Time % 3 = 0
+;trigger1 = AnimElemNo(0) >= 5
+anim = 7014
+ID = 1020
+pos = 0, 0
+postype = p1 ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0, 0
+accel = 0,0
+removetime = -2
+scale = 1 , 1
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 0
+
+[State 1011, Vel]
+type = VelSet
 trigger1 = !Time
-time = 30
-length = 10
-;palcolor = 256
-;palinvertall = 0
-palbright = 0,0,0
-palcontrast = 256,256,256
-;palpostbright = 0,0,0
-paladd = 0,0,0
-palmul = 1,1,1
-timegap = 2
-framegap = 4
-trans = addalpha ;"none","add1","sub"
-alpha = 256, 128
-ignorehitpause = 1
-;persistent =
+Y = - 5
 
-[State 1012, Pos]
-type = PosSet
-trigger1 = 1
-X = Parent, Pos X - Facing * Cos(pi * time/(IfElse(var(0) = 2, 12.0, IfElse(var(0) = 1, 10.0, 8.0)))) * 15
-
-[State 1012, Vel]
+[State 1011, Vel]
 type = VelSet
 trigger1 = 1
-Y = IfElse(ParentDist Y >= 30, 0, Parent, Vel Y - IfElse(var(0) = 2, 0.5, IfElse(var(0) = 1, 0.7, 0.8)) + 0.4)
+X = IfElse(Parent, Vel X > 0.2, Parent, Vel X, 0.2)
 
-[State 1012, Vel]
-type = PosFreeze
-trigger1 = ParentDist Y >= 30
+[State 1011, Vel]
+type = VelAdd
+trigger1 = 1
+Y = 0.2
 
-[State 1012, Destroy]
+[State 1011, Destroy]
 type = DestroySelf
-trigger1 = Parent, StateNo != 1010
+trigger1 = Vel Y >= 0
 
 ;---------------------------------------------------------------------------
 ; Napalm
