@@ -531,7 +531,7 @@ trigger1 = ctrl
 ;===========================================================================
 ; Super Moves
 ;===========================================================================
-[State -1, SGS]
+[State -1, Protect]
 type = ChangeState
 value = 2100
 triggerall = Command = "qcfhcba" || Command = "qcfhcbb" || Command = "qcfhcbc"
