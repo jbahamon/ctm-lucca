@@ -169,7 +169,7 @@ ampl = 8
 [State 2003, ChangeAnim]
 type = ChangeAnim
 trigger1 = Anim = 7050 && !AnimTime
-value = 7051
+value = 7052
 persistent = 0
 
 [State 2003, Walk]
@@ -178,58 +178,27 @@ trigger1 = !Var(0)
 Y = 0
 
 [State 2003, Walk]
+type = VelAdd
+trigger1 = Anim = 7052 && Var(0) < 0
+trigger1 = Vel X < 2.5
+X = 0.2
+
+[State 2003, Walk]
+type = Offset
+trigger1 = Anim = 7052 && Var(0) < 0
+Y = 2 + 2 * Sin(2*Time)
+
+[State 2013, Pawnch]
 type = VelSet
-trigger1 = Anim = 7051
-X = 2.5
+trigger1 = Var(0) >= 0
+X = 0 
 
 [State 2013, HitDef]
 type = HitDef
-trigger1 = Var(0) = -120
-attr = S, HA
-damage = 21,3
-animtype = Hard
-air.type = Low
-guardflag = M
-hitflag = MAF
-priority = 4, Hit
-pausetime = 0,10
-sparkno = -1
-hitsound = S7020,5
-guardsound = 5,0
-ground.type = Low
-ground.velocity = 0, 0
-ground.hittime = 5
-ground.slidetime = 5
-guard.velocity = -1
-air.velocity = 0,0
-airguard.velocity = 0, 0
-air.hittime = 5
-ground.cornerpush.veloff = 0
-air.cornerpush.veloff = 0
-airguard.cornerpush.veloff = 0
-yaccel = 0.4
-air.fall = 1
-snap = 40, 0
-fall = 0
-fall.recover = 0
-fall.recovertime = 120
-fall.animtype = Medium
-getpower = 0, 0
-givepower = 36, 36
-palfx.color = 0
-palfx.add = 144, 64, 7
-palfx.mul = 256, 256, 256
-palfx.time = 20
-ignorehitpause = 1
-numhits = 0
-
-[State 2013, HitDef]
-type = HitDef
-trigger1 = Anim = 7052 
 trigger1 = AnimElemTime(3) = 2
 trigger1 = Var(0) <= 80
 attr = S, HA
-damage = 15,3
+damage = 8,1
 animtype = Hard
 air.type = Low
 guardflag = M
@@ -269,7 +238,6 @@ palfx.time = 20
 ignorehitpause = 1
 numhits = 1
 
-
 [State 2002, ChangeState]
 type = VarSet
 trigger1 = RoundState = 2
@@ -284,17 +252,6 @@ trigger1 = RoundState = 3
 trigger1 = Win
 value = 2004
 ignorehitpause = 1
-
-[State 2013, Pawnch]
-type = ChangeAnim
-trigger1 = Anim = 7051
-trigger1 = MoveContact
-value = 7052
-
-[State 2013, Pawnch]
-type = VelSet
-trigger1 = Anim = 7052
-X = 0 
 
 [State 2013, Var]
 type = VarAdd
@@ -353,6 +310,19 @@ ctrl = 0
 sprpriority = 2
 
 [State 2004, Var]
+type = PosAdd
+trigger1 = !Time
+X = -2
+ignorehitpause = 1
+
+[State 2004, Var]
+type = VarAdd
+trigger1 = !Time
+V = 0
+value = 10
+ignorehitpause = 1
+
+[State 2004, Var]
 type = VarAdd
 trigger1 = 1
 V = 0
@@ -365,6 +335,24 @@ trigger1 = !Time
 trigger1 = PrevStateNo != 2003
 V = 1
 value = Anim
+ignorehitpause = 1
+
+[State 2004, Anim]
+type = VelSet
+trigger1 = 1
+X = 0
+Y = 0
+ignorehitpause = 1
+
+[State 2004, Anim]
+type = PosSet
+trigger1 = 1
+Y = 0
+ignorehitpause = 1
+
+[State 2004, Anim]
+type = PosFreeze
+trigger1 = 1
 ignorehitpause = 1
 
 [State 2004, Anim]
@@ -384,7 +372,7 @@ ignorehitpause = 1
 [State 2004, NHB]
 type = HitOverride
 trigger1 = 1
-attr = , AA, AP
+attr = SCA, AA, AP
 stateno = 2003
 ignorehitpause = 1
 
@@ -622,9 +610,9 @@ ignorehitpause = 1
 [State 2013, Override]
 type = HitOverride
 trigger1 = 1
-attr = SCA,AA, AP
+attr = SCA, AA, AP
 slot = 0
-stateno = 2023
+stateno = 2013
 time = 1
 ignorehitpause = 1
 
