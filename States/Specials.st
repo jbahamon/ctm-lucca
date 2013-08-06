@@ -73,9 +73,9 @@ guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16
 ground.hittime = 16
-ground.velocity = 0, IfElse(var(0) = 2, -7.5, IfElse(var(0) = 1, -6.5, -5))
+ground.velocity = -2, IfElse(var(0) = 2, -7.5, IfElse(var(0) = 1, -6.5, -5))
 air.type = Low
-air.velocity = 0, IfElse(var(0) = 2, -7.5, IfElse(var(0) = 1, -6.5, -5))
+air.velocity = -2, IfElse(var(0) = 2, -7.5, IfElse(var(0) = 1, -6.5, -5))
 air.cornerpush.veloff = 0
 ground.cornerpush.veloff = 0
 guard.velocity = -10.52
@@ -103,7 +103,6 @@ type = VelSet
 trigger1 = Time = 6
 X = -1
 ignorehitpause = 1
-
 
 [State 1010, Pal]
 type = VelAdd

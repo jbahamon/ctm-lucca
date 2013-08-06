@@ -1063,7 +1063,7 @@ ignorehitpause = 1
 
 [State 2023, End]
 type = ChangeState
-trigger1 = Var(0) > 186
+trigger1 = Var(0) > 186 || !NumTarget
 value = 0
 ctrl = 1
 ignorehitpause = 1
@@ -1143,6 +1143,26 @@ physics = N
 anim = 7073
 velset = 0, 0
 sprpriority = 4
+
+[State 2102, fadeout]
+type = Helper
+trigger1 = !Time
+ID = 2021
+name = "Gate"
+stateno = 2030
+postype = p1
+pos = 0, 0
+pausemovetime = 99999
+sprpriority = 3
+ownpal = 1
+persistent = 0
+
+
+[State 2028, Assert]
+type = AngleDraw
+trigger1 = 1
+scale = 0.76, 0.72
+ignorehitpause = 1
 
 [State 2028, Assert]
 type = AssertSpecial
@@ -1225,6 +1245,52 @@ type = DestroySelf
 trigger1 = Time >= 42 && !(Parent, StateNo = 2022)
 trigger2 = Time >= 64 && (Parent, StateNo = 2022)
  
+;Gate
+[Statedef 2030]
+type = A
+movetype = I
+physics = N
+anim = 7074
+velset = 0, 0
+sprpriority = 3
+
+[State 2028, Assert]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 2028, TransVar]
+type = VarSet
+trigger1 = !Time
+V = 0
+value = 0
+
+[State 2028, TransVar]
+type = VarAdd
+trigger1 = 1
+V = 0
+value = 1
+ignorehitpause = 1
+
+[State 2028, TransVar]
+type = Trans
+trigger1 = Var(0) = [0, 32]
+trans = addalpha
+alpha = 8 * Var(0), 256
+ignorehitpause = 1
+
+[State 2028, TransVar]
+type = Trans
+trigger1 = Var(0) >= 32
+trans = addalpha
+alpha = 256, 256
+ignorehitpause = 1
+
+[State 2029, End]
+type = DestroySelf
+trigger1 = root, Var(0) >= 76
+trigger2 = root, StateNo != 2022 ; Safety
 ;---------------------------------------------------------------------------
 
 ;Gate Key Summon
