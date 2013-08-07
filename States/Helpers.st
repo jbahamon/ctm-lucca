@@ -113,6 +113,12 @@ trans = addalpha
 alpha = floor(128 * (1 + Sin(Pi *(GameTime)/30.0))), 256 - floor(128 * (1 + Sin(Pi *(GameTime)/30.0)))
 ignorehitpause=1
 
+[State 6965]
+type=AssertSpecial
+trigger1 = Parent, StateNo = 2020 || Parent, StateNo = 2010 || Parent, StateNo = 2000
+flag = Invisible
+ignorehitpause=1
+
 [State 6965, HitOverride]
 Type = NotHitBy
 Trigger1 = 1

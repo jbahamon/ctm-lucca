@@ -230,7 +230,7 @@ trigger1 = (Roundstate = 3)
 v = 21
 value = 0
 
-;This controller plays a sound everytime Ayla lands from a jump, or
+;This controller plays a sound everytime the character lands from a jump, or
 ;from his back-dash.
 [State -3, Landing Sound]
 type = PlaySnd
