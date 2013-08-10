@@ -446,13 +446,15 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 14
 ground.hittime  = 17
-ground.velocity = -4
-air.velocity = -4,-2
+ground.velocity = -1, -6
+air.velocity = -1,-6
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 72, 216)), IfElse(Var(21) > 0, 0, 36)
 givepower = 36, 36
 palfx.add = 128, 100, 7
 palfx.mul = 256,256,256
 palfx.time = 8
+fall = 1
+air.juggle = 12
 ground.cornerpush.veloff = -2;
 air.cornerpush.veloff = -2;
 
