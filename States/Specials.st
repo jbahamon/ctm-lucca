@@ -180,7 +180,7 @@ removeongethit = 0
 [State 1011, Vel]
 type = VelSet
 trigger1 = !Time
-Y = - 5
+Y = - 3
 
 [State 1011, Vel]
 type = VelSet
