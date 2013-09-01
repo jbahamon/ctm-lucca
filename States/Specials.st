@@ -845,3 +845,47 @@ value = 5110
 type = SelfState
 trigger1 = Time > 240
 value = 5120
+
+;---------------------------------------------------------------------------
+;Robot Summon
+[Statedef 1040]
+type    = S
+movetype= A
+physics = S
+juggle  = 12
+ctrl = 0
+anim = 1040
+sprpriority = 1
+poweradd = IfElse(Var(21) > 0, 0, 72)
+facep2 = 1
+
+[State 1010, Strength]
+type = VarSet
+trigger1 = !Time
+var(0) = ifelse(command = "dfc", 2, ifelse(command = "dfb", 1, 0))
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = S7000,1
+ignorehitpause = 1
+
+[State 1020, Grenade]
+type = Helper
+trigger1 = AnimElem = 2
+name = "Fire"
+ID = 1010
+stateno = 1011
+pos = 15, 0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+
+
+[State 1040, End]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1

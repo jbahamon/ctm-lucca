@@ -629,6 +629,13 @@ Clsn2: 2
 5020,10, 0,0, 13
 5040,10, 0,0, 4
 
+; Robot Summon
+[Begin Action 1040]
+Clsn2Default:1
+  Clsn2[0] = -7, -28, 7, 0
+2000,0, 0,0, 12
+2000,1, 0,0, 32
+
 ; Gato!
 [Begin Action 2000]
 Loopstart
