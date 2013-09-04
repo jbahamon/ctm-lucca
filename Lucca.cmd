@@ -311,6 +311,38 @@ time=15
 ;---
 
 [Command]
+name = "dba"
+command = ~B, D, DB, ~a
+time = 20
+
+[Command]
+name = "dba"
+command = ~B, D, DB, a
+time = 20
+
+[Command]
+name = "dbb"
+command = ~B, D, DB, ~b
+time = 20
+
+[Command]
+name = "dbb"
+command = ~B, D, DB, b
+time = 20
+
+[Command]
+name = "dbc"
+command = ~B, D, DB, ~c
+time = 20
+
+[Command]
+name = "dbc"
+command = ~B, D, DB, c
+time = 20
+
+;---
+
+[Command]
 name = "dfa"
 command = ~F, D, DF, ~a
 time = 20
@@ -575,6 +607,14 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;===========================================================================
 ; Special Moves
 ;===========================================================================
+[State -1, Robot Summon]
+type = ChangeState
+value = 1000
+triggerall = !NumHelper(1000)
+triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
+triggerall = roundstate = 2 && statetype != A 
+trigger1 = ctrl
+;---------------------------------------------------------------------------
 [State -1, Fire Uppercut]
 type = ChangeState
 value = 1010
@@ -597,7 +637,7 @@ type = ChangeState
 value = 1030
 triggerall = Power >= 500
 triggerall = !NumHelper(1030)
-triggerall = Command = "qcba" || Command = "qcbb" || Command = "qcbc" 
+triggerall = Command = "dba" || Command = "dbb" || Command = "dbc" 
 trigger1 = statetype != A
 trigger1 = ctrl
 ;--------------------------------------------------------------------------

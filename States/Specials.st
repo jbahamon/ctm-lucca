@@ -3,6 +3,841 @@
 ;===========================================================================
 
 ;---------------------------------------------------------------------------
+;Robot Summon
+[Statedef 1000]
+type    = S
+movetype= A
+physics = S
+juggle  = 12
+ctrl = 0
+anim = 1000
+sprpriority = 1
+poweradd = IfElse(Var(21) > 0, 0, 72)
+facep2 = 1
+
+[State 2110, Buttan]
+type = Explod
+trigger1 = AnimElem = 2
+removetime = -1
+ID = 1000
+anim = 7055
+bindtime = -1
+pos = 10, -25
+ownpal = 1
+sprpriority = 3
+shadow = -1
+removeongethit = 1
+supermovetime = 99999
+ignorehitpause = 1
+
+[State 1010, Strength]
+type = VarSet
+trigger1 = !Time
+var(0) = ifelse(command = "qcbc", 2, ifelse(command = "qcbb", 1, 0))
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = S7000,1
+ignorehitpause = 1
+
+
+[State 1020, Robot]
+type = VarSet
+trigger1 = AnimElem = 2
+V = 1
+value = EnemyNear, ID
+persistent = 0
+
+[State 1020, Robot]
+type = Helper
+trigger1 = AnimElem = 2
+name = "Robot"
+ID = 1000
+stateno = 1001 + 2 * Var(0)
+pos = floor(IfElse(Facing > 0, - ScreenPos X - 20, -(GameWidth - ScreenPos X + 20))), IfElse(Var(0) = 0, -10, 0)
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+
+[State 2000, End]
+type = RemoveExplod
+trigger1 = !AnimTime
+ID = 1000
+ignorehitpause = 1
+
+[State 1040, End]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
+;Bit
+[Statedef 1001]
+movetype = I
+type = A
+physics = N
+anim = 7030
+sprpriority = -1
+
+[State 1001, Override]
+type = HitOverride
+trigger1 = 1
+attr = SCA, AA, AP
+stateno = 1002
+time = 1
+ignorehitpause = 1
+
+[State 1002, Immune]
+type = NotHitBy
+trigger1 = 1
+value = , AT
+time = 1
+ignorehitpause = 1
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Parent, Var(1)
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 0
+
+[State 1011, Vel]
+type = VelSet
+trigger1 = !Var(1)
+X = Facing * IfElse(ScreenPos X > PlayerID(Var(0)), ScreenPos X, -2, 2)
+Y = 0.2 * Sin (Time / 20.0)
+
+[State 1011, Missile]
+type = ChangeAnim
+trigger1 = Abs(ScreenPos X - PlayerID(Var(0)), ScreenPos X) < 30
+trigger1 = Anim = 7030
+trigger1 = !Var(1)
+trigger1 = Var(1) := 1
+value = 7031
+
+[State 1020, Robot]
+type = Helper
+trigger1 = Anim = 7031
+trigger1 = AnimElem = 3
+name = "Missile"
+ID = 1000
+stateno = 1007
+pos = 0, -10
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+
+
+[State 1011, Stop]
+type = VelSet
+trigger1 = Anim = 7031
+X = 0
+Y = 0
+ignorehitpause = 1
+
+[State 1011, Stop]
+type = ChangeAnim
+trigger1 = Anim = 7031
+trigger1 = !AnimTime
+value = 7030
+ignorehitpause = 1
+
+[State 1011, Stop]
+type = VelSet
+trigger1 = Anim = 7030
+trigger1 = Var(1)
+X = 0
+Y = -3
+ignorehitpause = 1
+
+[State 1011, Destroy]
+type = DestroySelf
+trigger1 = Var(1)
+trigger1 = Anim = 7030
+trigger1 = ScreenPos Y < - 20
+
+;Bit GetHit
+[Statedef 1002]
+type = A
+movetype = H
+anim = 7030
+velset = 0, 0
+
+[State 1002, Explod]
+type = Explod
+trigger1 = !Time
+anim = 7002
+ID = 1002
+pos = 15, -15
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+ignorehitpause = 1
+
+[State 1002, Explod]
+type = Explod
+trigger1 = !Time
+anim = 7002
+ID = 1002
+pos = -15, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+ignorehitpause = 1
+
+[State 1002, Immune]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
+time = 1
+ignorehitpause = 1
+
+
+[State 1002, Invis]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256 - 16 * Time, 16 * Time
+ignorehitpause = 1
+
+[State 1002, Immune]
+type = DestroySelf
+trigger1 = Time > 16
+ignorehitpause = 1
+
+;Debuggest
+[Statedef 1003]
+movetype = A
+type = S
+physics = N
+anim = 7032
+sprpriority = -1
+
+[State 1001, Override]
+type = HitOverride
+trigger1 = 1
+attr = SCA, AA, AP
+stateno = 1004
+time = 1
+ignorehitpause = 1
+
+[State 1002, Immune]
+type = NotHitBy
+trigger1 = 1
+value = , AT
+time = 1
+ignorehitpause = 1
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Parent, Var(1)
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 0
+
+[State 1011, Vel]
+type = VelSet
+trigger1 = !Var(1) 
+trigger1 = Anim = 7032 
+X = IfElse(AnimElemNo(0) != 1, Facing * IfElse(ScreenPos X > PlayerID(Var(0)), ScreenPos X, -3, 3), 0)
+
+[State 1011, Missile]
+type = ChangeAnim
+trigger1 = Abs(ScreenPos X - PlayerID(Var(0)), ScreenPos X) < 20
+trigger1 = Anim = 7032
+trigger1 = !Var(1)
+trigger1 = Var(1) := 1
+value = 7033
+
+[State 1011, Stop]
+type = VelSet
+trigger1 = Anim = 7033
+X = 0
+Y = 0
+ignorehitpause = 1
+
+[State 2000, HitDef]
+type = HitDef
+trigger1 = AnimElem = 3
+trigger2 = AnimElem = 6
+attr = S, HA
+damage = 31,3
+animtype = Hard
+air.type = Low
+guardflag = M
+hitflag = MAF
+priority = 4, Hit
+pausetime = 0,19
+sparkno = -1
+hitsound = S7020,5
+guardsound = 5,0
+ground.type = Low
+ground.velocity = 0, 0
+ground.hittime = 5
+ground.slidetime = 5
+guard.velocity = -1
+air.velocity = 0,0
+airguard.velocity = 0, 0
+air.hittime = 5
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+airguard.cornerpush.veloff = 0
+yaccel = 0.4
+air.fall = 0
+fall = 0
+fall.recover = 1
+fall.recovertime = 120
+fall.animtype = Medium
+getpower = 0, 0
+givepower = 36, 36
+envshake.time = 16
+envshake.freq = 120
+envshake.ampl = 4
+palfx.color = 0
+palfx.time = 20
+palfx.add = 24, 100, 118
+palfx.invertall = 1
+ignorehitpause = 1
+
+[State 1011, Stop]
+type = ChangeAnim
+trigger1 = Anim = 7033
+trigger1 = !AnimTime
+value = 7032
+ignorehitpause = 1
+
+[State 1011, Stop]
+type = Turn
+trigger1 = Anim = 7032
+trigger1 = Var(1)
+trigger1 = (ScreenPos X > GameWidth/2 && Facing < 0) || (ScreenPos X < GameWidth/2 && Facing > 0)
+persistent = 0
+ignorehitpause = 1
+
+[State 1011, Stop]
+type = VelSet
+trigger1 = Anim = 7032
+trigger1 = Var(1)
+X =  IfElse(AnimElemNo(0) != 1, 2, 0)
+ignorehitpause = 1
+
+[State 1011, Destroy]
+type = ChangeState
+trigger1 = MoveReversed
+value = 1004
+ignorehitpause = 1
+
+[State 1011, Destroy]
+type = DestroySelf
+triggerall = Var(1)
+triggerall = Anim = 7032
+trigger1 = FrontEdgeBodyDist < -20
+trigger2 = BackEdgeBodyDist < -20
+
+;Debuggest GetHit
+[Statedef 1004]
+type = S
+movetype = H
+anim = 7034
+velset = 0, 0
+
+[State 1002, Explod]
+type = Explod
+trigger1 = !Time
+anim = 7002
+ID = 1002
+pos = 15, -15
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+ignorehitpause = 1
+
+[State 1002, Explod]
+type = Explod
+trigger1 = !Time
+anim = 7002
+ID = 1002
+pos = -15, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+ignorehitpause = 1
+
+[State 1002, Immune]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
+time = 1
+ignorehitpause = 1
+
+
+[State 1002, Invis]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256 - 16 * Time, 16 * Time
+ignorehitpause = 1
+
+[State 1002, Immune]
+type = DestroySelf
+trigger1 = Time > 16
+ignorehitpause = 1
+
+;Proto-4
+[Statedef 1005]
+movetype = A
+type = S
+physics = N
+anim = 7035
+sprpriority = -1
+
+[State 1011, Stop]
+type = Sprpriority
+trigger1 = 1
+value = -1
+ignorehitpause = 1
+
+[State 1001, Override]
+type = HitOverride
+trigger1 = 1
+attr = SCA, AA, AP
+stateno = 1006
+time = 1
+ignorehitpause = 1
+
+[State 1002, Immune]
+type = NotHitBy
+trigger1 = 1
+value = , AT
+time = 1
+ignorehitpause = 1
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Parent, Var(1)
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 0
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 2
+value = Random % 2
+
+[State 1011, Vel]
+type = VelSet
+trigger1 = !Var(1) 
+trigger1 = Anim = 7035 
+X = Facing * IfElse(ScreenPos X > PlayerID(Var(0)), ScreenPos X, -3, 3)
+
+[State 1011, Missile]
+type = ChangeAnim
+triggerall = Anim = 7035
+trigger1 = Var(2) > 0
+trigger1 = Abs(ScreenPos X - PlayerID(Var(0)), ScreenPos X) < 20
+trigger1 = !Var(1)
+trigger1 = Var(1) := 1
+trigger2 = Var(2) = 0
+trigger2 = Time > 30
+trigger2 = !Var(1)
+trigger2 = Var(1) := 1
+value = 7036 + Var(2)
+
+[State 1011, Stop]
+type = VelSet
+trigger1 = Anim > 7035
+X = 0
+Y = 0
+ignorehitpause = 1
+
+[State 1020, Robot]
+type = Helper
+trigger1 = Anim = 7036
+trigger1 = AnimElem = 2
+name = "Missile"
+ID = 1001
+stateno = 1008
+pos = 10, -10
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+
+[State 2000, HitDef]
+type = HitDef
+trigger1 = Anim = 7037
+attr = S, HA
+damage = 71,3
+animtype = Hard
+air.type = Low
+guardflag = M
+hitflag = MAF
+priority = 4, Hit
+pausetime = 0,19
+sparkno = -1
+hitsound = S7020,5
+guardsound = 5,0
+ground.type = Low
+ground.velocity = 0, 0
+ground.hittime = 5
+ground.slidetime = 5
+guard.velocity = -1
+air.velocity = 0,0
+airguard.velocity = 0, 0
+air.hittime = 5
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+airguard.cornerpush.veloff = 0
+yaccel = 0.4
+air.fall = 0
+fall = 0
+fall.recover = 1
+fall.recovertime = 120
+fall.animtype = Medium
+getpower = 0, 0
+givepower = 36, 36
+envshake.time = 16
+envshake.freq = 120
+envshake.ampl = 4
+palfx.color = 0
+palfx.time = 20
+palfx.add = 24, 100, 118
+palfx.invertall = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 1011, Stop]
+type = ChangeAnim
+trigger1 = Anim = 7036 || Anim = 7037
+trigger1 = !AnimTime
+value = 7035
+ignorehitpause = 1
+
+[State 1011, Stop]
+type = Turn
+trigger1 = Anim = 7035
+trigger1 = Var(1)
+trigger1 = (ScreenPos X > GameWidth/2 && Facing < 0) || (ScreenPos X < GameWidth/2 && Facing > 0)
+persistent = 0
+ignorehitpause = 1
+
+[State 1011, Stop]
+type = VelSet
+trigger1 = Anim = 7035
+trigger1 = Var(1)
+X =  2
+ignorehitpause = 1
+
+[State 1011, Destroy]
+type = ChangeState
+trigger1 = MoveReversed
+value = 1006
+ignorehitpause = 1
+
+[State 1011, Destroy]
+type = DestroySelf
+triggerall = Var(1)
+triggerall = Anim = 7035
+trigger1 = FrontEdgeBodyDist < -20
+trigger2 = BackEdgeBodyDist < -20
+
+;Proto-4 GetHit
+[Statedef 1006]
+type = S
+movetype = H
+anim = 7037
+velset = 0, 0
+sprpriority = -2
+
+[State 1002, Explod]
+type = Explod
+trigger1 = !Time
+anim = 7002
+ID = 1002
+pos = 15, -15
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+ignorehitpause = 1
+
+[State 1002, Explod]
+type = Explod
+trigger1 = !Time
+anim = 7002
+ID = 1002
+pos = -15, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+ignorehitpause = 1
+
+[State 1002, Immune]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
+time = 1
+ignorehitpause = 1
+
+[State 1002, Invis]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256 - 16 * Time, 16 * Time
+ignorehitpause = 1
+
+[State 1002, Immune]
+type = DestroySelf
+trigger1 = Time > 16
+ignorehitpause = 1
+
+; Vertical Missile
+[Statedef 1007]
+type    = S
+movetype= A
+physics = N
+juggle  = 3
+ctrl = 0
+anim = 7039
+sprpriority = 2
+velset = 0.7, -4.7
+
+[State 1001, Explod]
+type = VelAdd
+trigger1 = 1
+Y = 0.2
+
+[State 1001, Explod]
+type = AngleDraw
+trigger1 = Vel X != 0
+value = 180 + (90  - 180.0*ATan(Vel Y / Vel X)/Pi)
+
+[State 1021, HitOverride]
+type = HitOverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP
+stateno = 1009
+ignorehitpause = 1
+
+[State 1021, HB]
+type = NotHitBy
+trigger1 = 1
+time = -1
+value = , AT
+ignorehitpause = 1
+
+[State 1001, HitDef]
+type = HitDef
+trigger1 = !Time
+trigger1 = !var(0)
+attr = S, SP
+hitflag = MAF        ;HLAFD+-
+guardflag = MA         ;HLA
+animtype = Hard
+priority = 4, Hit
+sparkno = -1
+damage = 62,7
+hitsound = S2,1
+ground.type = Low
+ground.slidetime = 16
+ground.hittime = 16
+ground.velocity = -5.52, 0
+ground.cornerpush.veloff = 0
+givepower = 36, 36
+envshake.time = 14
+envshake.freq = 120
+envshake.ampl = 2
+air.velocity = -4, -1
+air.fall = 1
+fall.recover = 1
+fall.recovertime = 30
+yaccel = 0.5
+airguard.ctrltime = 16
+airguard.velocity = -8, -1.5
+forcestand = 1
+getpower = IfElse(Root, Var(21) > 0, 0, 144), IfElse(Root, Var(21) > 0, 0, 36)
+givepower = 36, 36
+palfx.add= 128, 100, 7
+palfx.mul=256,256,256
+palfx.time = 8
+
+[State 1001, ChangeState]
+type = ChangeState
+trigger1 = HitCount > 0
+trigger2 = Pos Y > - Vel Y && Vel Y > 0
+value = 1009
+ctrl = 0
+
+; Horizontal Missile
+[Statedef 1008]
+type    = S
+movetype= A
+physics = N
+juggle  = 3
+ctrl = 0
+anim = 7040
+sprpriority = 2
+velset = 4, 0
+
+[State 1021, HitOverride]
+type = HitOverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP
+stateno = 1009
+ignorehitpause = 1
+
+[State 1021, HB]
+type = NotHitBy
+trigger1 = 1
+time = -1
+value = , AT
+ignorehitpause = 1
+
+[State 1001, HitDef]
+type = HitDef
+trigger1 = !Time
+trigger1 = !var(0)
+attr = S, SP
+hitflag = MAF        ;HLAFD+-
+guardflag = MA         ;HLA
+animtype = Hard
+priority = 4, Hit
+sparkno = -1
+damage = 82,7
+hitsound = S2,1
+ground.type = Low
+ground.slidetime = 16
+ground.hittime = 16
+ground.velocity = -5.52, 0
+ground.cornerpush.veloff = 0
+givepower = 36, 36
+envshake.time = 14
+envshake.freq = 120
+envshake.ampl = 2
+air.velocity = -4, -1
+air.fall = 1
+fall.recover = 1
+fall.recovertime = 30
+yaccel = 0.5
+airguard.ctrltime = 16
+airguard.velocity = -8, -1.5
+forcestand = 1
+getpower = IfElse(Root, Var(21) > 0, 0, 144), IfElse(Root, Var(21) > 0, 0, 36)
+givepower = 36, 36
+palfx.add= 128, 100, 7
+palfx.mul=256,256,256
+palfx.time = 8
+
+[State 1001, ChangeState]
+type = ChangeState
+trigger1 = HitCount > 0
+trigger2 = Pos Y > - Vel Y && Vel Y > 0
+value = 1009
+ctrl = 0
+
+
+; Missile Explosion
+[Statedef 1009]
+type    = A
+movetype= A
+physics = N
+ctrl = 0
+anim = 7300
+sprpriority = 2
+velset = 0, 0
+
+[State 1002, Explod]
+type = Explod
+trigger1 = !Time
+anim = 7002
+ID = 1002
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+ignorehitpause = 1
+
+[State 1002, End]
+type = DestroySelf
+trigger1 = 1
+ignorehitpause = 1
+
+
+
+;---------------------------------------------------------------------------
 ;Fire Uppercut
 [Statedef 1010]
 type    = S
@@ -847,45 +1682,3 @@ trigger1 = Time > 240
 value = 5120
 
 ;---------------------------------------------------------------------------
-;Robot Summon
-[Statedef 1040]
-type    = S
-movetype= A
-physics = S
-juggle  = 12
-ctrl = 0
-anim = 1040
-sprpriority = 1
-poweradd = IfElse(Var(21) > 0, 0, 72)
-facep2 = 1
-
-[State 1010, Strength]
-type = VarSet
-trigger1 = !Time
-var(0) = ifelse(command = "dfc", 2, ifelse(command = "dfb", 1, 0))
-
-[State 1100, JumpSnd]
-type = PlaySnd
-trigger1 = AnimElem = 3
-value = S7000,1
-ignorehitpause = 1
-
-[State 1020, Grenade]
-type = Helper
-trigger1 = AnimElem = 2
-name = "Fire"
-ID = 1010
-stateno = 1011
-pos = 15, 0
-postype = p1    ;p2,front,back,left,right
-facing = 1
-keyctrl = 0
-ownpal = 1
-persistent = 0
-
-
-[State 1040, End]
-type = ChangeState
-trigger1 = !AnimTime
-value = 0
-ctrl = 1

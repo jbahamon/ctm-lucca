@@ -25,7 +25,7 @@ trigger1 = AnimElem = 2
 removetime = -1
 ID = 2000
 anim = 7055
-pos = 5, -25
+pos = 10, -25
 ownpal = 1
 sprpriority = 3
 shadow = -1
@@ -558,7 +558,7 @@ poweradd= 0
 ctrl = 0
 anim = 7060
 sprpriority = 3
-velset = 0.8,0
+velset = 1.2,0
 
 [State 2013, PosAdd]
 type = Turn
