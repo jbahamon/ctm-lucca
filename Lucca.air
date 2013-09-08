@@ -1420,7 +1420,7 @@ LoopStart
 
 ; Remote
 [Begin Action 7055]
-7055,1, 0,0, 10
+7055,1, 0,0, 6
 7055,0, 0,0, -1
 
 ; Flare
