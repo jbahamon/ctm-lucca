@@ -50,7 +50,7 @@ hitflag = MAF                    ;Flags of conditions that move can hit
 priority = 4, Hit                ;Attack priority: 0 (least) to 7 (most), 4 default
 ;Hit/Miss/Dodge type (Def: Hit)
 pausetime = 8, 8                 ;Time attacker pauses, time opponent shakes
-sparkno = S7000                      ;Spark anim no (Def: set above)
+sparkno = S7015                      ;Spark anim no (Def: set above)
 sparkxy = -10, -15               ;X-offset for the "hit spark" rel. to p2,
 ;Y-offset for the spark rel. to p1
 hitsound = S7020, 0                  ;Sound to play on hit
@@ -107,7 +107,7 @@ type = Explod
 trigger1 = AnimElem = 3
 anim = 7021
 ID = 210
-pos = 5, -35
+pos = 9, -35
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -289,7 +289,7 @@ animtype  = Light
 hitflag = MAF
 guardflag = M
 pausetime = 8, 8
-sparkno = S7000
+sparkno = S7015
 sparkxy = -10,-10
 hitsound   = S7040,0
 guardsound = 6,0

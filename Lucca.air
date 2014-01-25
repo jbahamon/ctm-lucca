@@ -1106,9 +1106,9 @@ Clsn2Default:1
 
 ; Hitspark - Hard Centered
 [Begin Action 7001]
-7001,0, 0,0, 5
-7001,1, 0,0, 5
-7001,2, 0,0, 5
+7001,0, 0,0, 4
+7001,1, 0,0, 4
+7001,2, 0,0, 4
 
 
 ; Hitspark - Explosion
@@ -1230,6 +1230,12 @@ Clsn1: 1
 7004,1, 0,0, 2, , A1
 7004,0, 0,0, 2, , A1
 
+
+; Small hit alt
+[Begin Action 7015]
+7009,0, 0,0, 3
+7009,1, 0,0, 3
+7009,2, 0,0, 3
 
 ; Afterimage - Light Hit
 [Begin Action 7020]
