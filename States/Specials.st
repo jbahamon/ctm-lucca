@@ -97,6 +97,13 @@ value = , AT
 time = 1
 ignorehitpause = 1
 
+[State 200, Dampen]
+Type=ParentVarSet
+Trigger1 = Var(2)
+fvar(39) = Parent, fvar(39)*0.85
+persistent = 0
+ignorehitpause = 1
+
 [State 1011, Pos]
 type = VarSet
 trigger1 = !Time
@@ -108,6 +115,13 @@ type = VarSet
 trigger1 = !Time
 v = 1
 value = 0
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 2
+value = 0
+
 
 [State 1011, Vel]
 type = VelSet
@@ -245,6 +259,13 @@ stateno = 1004
 time = 1
 ignorehitpause = 1
 
+[State 200, Dampen]
+Type=ParentVarSet
+trigger1 = MoveHit
+fvar(39) = Parent, fvar(39)*0.85
+persistent = 0
+ignorehitpause = 1
+
 [State 1002, Immune]
 type = NotHitBy
 trigger1 = 1
@@ -289,8 +310,8 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = AnimElem = 3
 trigger2 = AnimElem = 6
-attr = S, HA
-damage = 31,3
+attr = S, SA
+damage = Floor(31 * Root, FVar(39)),3
 animtype = Hard
 air.type = Low
 guardflag = M
@@ -473,6 +494,12 @@ trigger1 = !Time
 v = 2
 value = Random % 2
 
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 3
+value = 0
+
 [State 1011, Vel]
 type = VelSet
 trigger1 = !Var(1) 
@@ -499,6 +526,14 @@ X = 0
 Y = 0
 ignorehitpause = 1
 
+[State 200, Dampen]
+Type=ParentVarSet
+Trigger1 = Var(3)
+trigger2 = MoveHit
+fvar(39) = Parent, fvar(39)*0.85
+persistent = 0
+ignorehitpause = 1
+
 [State 1020, Robot]
 type = Helper
 trigger1 = Anim = 7036
@@ -516,8 +551,8 @@ persistent = 0
 [State 2000, HitDef]
 type = HitDef
 trigger1 = Anim = 7037
-attr = S, HA
-damage = 71,3
+attr = S, SA
+damage = Floor(71 * Root, FVar(39)),3
 animtype = Hard
 air.type = Low
 guardflag = M
@@ -657,7 +692,7 @@ ignorehitpause = 1
 
 ; Vertical Missile
 [Statedef 1007]
-type    = S
+type    = A
 movetype= A
 physics = N
 juggle  = 3
@@ -695,13 +730,13 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = !Time
 trigger1 = !var(0)
-attr = S, SP
+attr = A, SP
 hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
 animtype = Hard
 priority = 4, Hit
 sparkno = -1
-damage = 62,7
+damage = Floor(62 * Root, FVar(39)),7
 hitsound = S2,1
 ground.type = Low
 ground.slidetime = 16
@@ -725,6 +760,13 @@ givepower = 36, 36
 palfx.add= 128, 100, 7
 palfx.mul=256,256,256
 palfx.time = 8
+
+[State 200, Dampen]
+Type=ParentVarset
+Trigger1 = MoveHit
+var(2) = 1
+persistent = 0
+ignorehitpause = 1
 
 [State 1001, ChangeState]
 type = ChangeState
@@ -769,7 +811,7 @@ guardflag = MA         ;HLA
 animtype = Hard
 priority = 4, Hit
 sparkno = -1
-damage = 82,7
+damage = Floor(82 * Root, FVar(39)),7
 hitsound = S2,1
 ground.type = Low
 ground.slidetime = 16
@@ -794,6 +836,13 @@ palfx.add= 128, 100, 7
 palfx.mul=256,256,256
 palfx.time = 8
 
+[State 200, Dampen]
+Type=ParentVarset
+Trigger1 = MoveHit
+var(3) = 1
+persistent = 0
+ignorehitpause = 1
+
 [State 1001, ChangeState]
 type = ChangeState
 trigger1 = HitCount > 0
@@ -808,7 +857,7 @@ type    = A
 movetype= A
 physics = N
 ctrl = 0
-anim = 7300
+anim = 7200
 sprpriority = 2
 velset = 0, 0
 
@@ -850,6 +899,13 @@ sprpriority = 1
 poweradd = IfElse(Var(21) > 0, 0, 72)
 facep2 = 1
 
+[State 200, Dampen]
+Type=VarSet
+trigger1 = MoveHit
+fvar(39) = fvar(39)*0.85
+persistent = 0
+ignorehitpause = 1
+
 [State 1010, Pal]
 type = PalFx
 trigger1 = Time = [0, 16]
@@ -886,18 +942,19 @@ ignorehitpause = 1
 
 [State 1040, End]
 type = ChangeAnim
-trigger1 = MoveContact && Anim != 1012
-value = 1012
-elem = 1
+trigger1 = MoveContact 
+value = 1010
+elem = 3
+persistent = 0
 ignorehitpause = 1
 
 [State 1250, Hit]
 type = HitDef
 trigger1 = animelem = 2 
-attr = A, SA
+attr = S, SA
 damage = IfElse(var(0) = 2, 82, IfElse(var(0) = 1, 72, 62)), 7
 animtype = Hard
-guardflag = HA
+guardflag = M
 hitflag = MAF
 priority = 4, Hit
 pausetime = 0, 7
@@ -1089,6 +1146,13 @@ ctrl = 0
 anim = 7009
 sprpriority = 4
 
+[State 200, Dampen]
+Type=ParentVarSet
+trigger1 = MoveHit
+fvar(39) = Parent, fvar(39)*0.9
+persistent = 0
+ignorehitpause = 1
+
 [State 1021, Strength]
 type = VarSet
 trigger1 = !Time
@@ -1142,7 +1206,7 @@ y = IfElse(var(0) = 0, 0.2, 0.2)
 [State 1021, Air]
 type = StateTypeSet
 trigger1 = var(1)
-statetype = A
+statetype = S
 movetype = A
 physics = N
 persistent = 0
@@ -1150,12 +1214,12 @@ persistent = 0
 [State 1021, HitDef]
 type = HitDef
 trigger1 = var(1)
-attr = A, SP
+attr = S, SP
 hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
 animtype = Hard
 sparkno = S7000
-damage = 5,0
+damage = Floor(5 * Root, FVar(39)),0
 sparkxy = -10, 0 
 hitsound = S220,1
 ground.type = High
@@ -1221,6 +1285,13 @@ anim = 7007
 sprpriority = 4
 velset = 0,0
 
+[State 200, Dampen]
+Type=ParentVarSet
+trigger1 = MoveHit
+fvar(39) = Parent, fvar(39)*0.9
+persistent = 0
+ignorehitpause = 1
+
 [State 1022, Anim]
 type = ChangeAnim
 trigger1 = Var(2) && Pos Y < - 15
@@ -1241,7 +1312,7 @@ hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
 animtype = Hard
 sparkno = -1
-damage = 82,0
+damage = Floor(82 * Root, FVar(39)),0
 pausetime = 0, 20
 hitsound = S220,1
 ground.type = High
@@ -1341,6 +1412,13 @@ anim = 7010
 sprpriority = 4
 velset = 0,0
 
+[State 200, Dampen]
+Type=ParentVarSet
+trigger1 = MoveHit
+fvar(39) = Parent, fvar(39)*0.9
+persistent = 0
+ignorehitpause = 1
+
 [State 1021, HitDef]
 type = HitDef
 trigger1 = !Time
@@ -1349,7 +1427,7 @@ hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
 animtype = Hard
 sparkno = S7001
-damage = 82,0
+damage = Floor(82 * Root, FVar(39)),0
 sparkxy = -10,-15
 hitsound = S220,1
 ground.type = High
@@ -1483,7 +1561,7 @@ persistent = 0
 [State 1030, Hit]
 type = HitDef
 trigger1 = AnimElem = 4
-attr = A, ST 
+attr = S, ST 
 hitflag = M-
 priority = 2, Miss
 sparkno = -1
@@ -1567,9 +1645,10 @@ ignorehitpause = 1
 
 [State 1031, PosSet]
 type = PosSet
-trigger1 = 1
+trigger1 = Parent, StateNo = 1030
 X = Parent, Pos X
 Y = Parent, Pos Y - 24
+ignorehitpause = 1
 
 [State 1031, End]
 type = ChangeState
@@ -1584,6 +1663,11 @@ physics = N
 ctrl = 0
 anim = 7011
 sprpriority = 4
+
+[State 7010, Freeze]
+type = PosFreeze
+trigger1 = 1
+
 
 [State 7010, Trans]
 type = trans

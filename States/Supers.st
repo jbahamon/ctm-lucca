@@ -193,19 +193,38 @@ type = VelSet
 trigger1 = Var(0) >= 0
 X = 0 
 
+[State 2013, Pawnch]
+type = VarSet
+trigger1 = 1
+var(1) = Floor(EnemyNear, ScreenPos X - ScreenPos X)
+
+[State 2013, Turn]
+type = Turn
+triggerall = var(0) < 0
+trigger1 = var(1) * Facing < 0
+
+[State 2013, Var]
+type = ParentVarSet
+trigger1 = MoveHit
+trigger1 = Parent, FVar(39) > 0.86
+FV = 39
+value = Parent, FVar(39) * 0.86
+ignorehitpause = 1
+
 [State 2013, HitDef]
 type = HitDef
 trigger1 = AnimElemTime(3) = 2
 trigger1 = Var(0) <= 80
 attr = S, HA
-damage = 8,1
+damage = Floor(11 * Root, FVar(39)),1
 animtype = Hard
 air.type = Low
 guardflag = M
 hitflag = MAF
 priority = 4, Hit
 pausetime = 0,19
-sparkno = -1
+sparkno = S7001
+sparkxy = Floor(10 - 20 * Random/1000.0), Floor(-20 - 10 *Random/1000.0)
 hitsound = S7020,5
 guardsound = 5,0
 ground.type = Low
@@ -459,7 +478,23 @@ facing = 1
 keyctrl = 0
 ownpal = 1
 persistent = 0
-supermovetime = 9999
+supermovetime =0; 9999
+
+
+[State 2011, Explosion]
+type = Helper
+trigger1 = !Time
+name = "Flare"
+ID = 2011
+stateno = 2012
+pos = 0, -35
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+supermovetime =9999
+
 
 [State 2010, Super Pause]
 type = superpause
@@ -500,7 +535,7 @@ ctrl = 1
 
 ;The Flare (pre-explosion)
 [Statedef 2012]
-type    = A
+type    = S
 movetype= I
 physics = N
 ctrl = 0
@@ -522,6 +557,7 @@ range = -50,50
 
 [State 2012, Helper]
 type = Helper
+trigger1 = IsHelper(2011)
 trigger1 = ((GameTime%5) = 0)
 helpertype = Normal
 name = "PerseEffect"
@@ -538,9 +574,17 @@ ignorehitpause = 1
 
 [State 2012, Boom]
 type = ChangeState
+triggerall = IsHelper(2010)
 trigger1 = Parent, StateNo = 2011
 trigger1 = Parent, AnimElem = 3
 value = 2013
+ignorehitpause = 1
+
+[State 2012, End]
+type = DestroySelf
+triggerall = IsHelper(2011)
+trigger1 = Parent, StateNo = 2011
+trigger1 = Parent, AnimElem = 3
 ignorehitpause = 1
 
 [State 2012, Fail]
@@ -551,7 +595,7 @@ ignorehitpause = 1
 
 ;The Flare
 [Statedef 2013]
-type    = A
+type    = S
 movetype= A
 physics = N
 poweradd= 0
@@ -564,12 +608,6 @@ velset = 1.2,0
 type = Turn
 trigger1 = !Time && PrevStateNo != 2013
 trigger1 = Facing != Parent, Facing
-ignorehitpause = 1
-
-[State 2013, PosAdd]
-type = VelSet
-trigger1 = MoveContact
-X = 0 
 ignorehitpause = 1
 
 [State 2013, PosAdd]
@@ -593,7 +631,7 @@ value = S6,0
 channel = 0
 
 [State 2013, RealTime]
-trigger1 = !Time && PrevStateNo != 2013
+trigger1 = !Time && PrevStateNo = 2012
 type = VarSet
 v = 0
 value = -1
@@ -673,11 +711,20 @@ trans = addalpha
 alpha = 256, 128
 ignorehitpause = 1
 
+[State 2013, Var]
+type = ParentVarSet
+trigger1 = MoveHit
+trigger1 = Parent, FVar(39) > 0.86
+FV = 39
+value = Parent, FVar(39) * 0.86
+ignorehitpause = 1
+
 [State 2013, HitDef]
 type = HitDef
-trigger1 = Var(0) % 20 = 0
+trigger1 = Var(0) % 20 = 2
+trigger1 = Var(0) < 100
 attr = S, HP
-damage = 31,3
+damage = Floor(Parent, FVar(39) * 52),3
 animtype = Hard
 air.type = Low
 guardflag = M
@@ -882,7 +929,7 @@ supermovetime = 9999
 [State 2021, Hit]
 type = HitDef
 trigger1 = !Time
-attr = A, HT 
+attr = S, HT 
 hitflag = MA-
 priority = 4, Miss
 sparkno = -1
@@ -1415,7 +1462,7 @@ trigger1 = !AnimTime
 
 ; Tyranno
 [Statedef 2102]
-type    = A
+type    = S
 movetype= A
 physics = N
 poweradd= 0
@@ -1437,12 +1484,20 @@ trigger1 = Anim = 7104
 trigger1 = Time > 13
 Y = 0
 
+[State 2013, Var]
+type = ParentVarSet
+trigger1 = MoveHit
+trigger1 = Parent, FVar(39) > 0.86
+FV = 39
+value = Parent, FVar(39) * 0.86
+ignorehitpause = 1
+
 [State 2101, Bite Down]
 type = HitDef
 trigger1 = NumHelper(2103)
 trigger1 = Helper(2103), AnimElem = 2
-attr = A,SA
-damage = 280
+attr = S,HA
+damage = Floor(Root, FVar(39) * 256)
 animtype = Hard
 hitflag = MAF
 hitsound = S7002,3
@@ -1501,7 +1556,7 @@ trigger1 = AnimElemTime(1) > 16
 
 ;Tyranno Head
 [Statedef 2103]
-type    = A
+type    = S
 movetype= I
 physics = N
 poweradd= 0

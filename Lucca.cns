@@ -157,7 +157,17 @@ y = 0
 ; States that are always executed (use statedef -2)
 ;---------------------------------------------------------------------------
 
+[Statedef -2]
 
+[State -2, Dampener]
+Type=VarSet
+Trigger1=Roundstate<2
+Trigger2=P2Stateno=[120,160]
+Trigger3=enemynear,ctrl
+Trigger4=P2StateType!=A
+Trigger4=P2MoveType!=H
+fvar(39)=1
+ignorehitpause=1
 
 
 ;---------------------------------------------------------------------------

@@ -17,6 +17,13 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.95
+persistent = 0
+ignorehitpause = 1
+
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 3
@@ -151,6 +158,13 @@ palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
 
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.85
+persistent = 0
+ignorehitpause = 1
+
 [State 210, 5]
 type = ChangeState
 trigger1 = !AnimTime
@@ -170,6 +184,13 @@ velset = 0,0
 anim = 220
 sprpriority = 1
 facep2 = 1
+
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.78
+persistent = 0
+ignorehitpause = 1
 
 [State 220, 1]
 type = PlaySnd
@@ -210,7 +231,8 @@ projremovetime = 18
 velocity = 4,0
 animtype  = Hard
 damage    = 42
-guardflag = MAF
+guardflag = MA
+hitflag = MAF
 pausetime = 12,12
 sparkno = -1
 hitsound   = S7020,3
@@ -252,6 +274,13 @@ anim = 400
 sprpriority = 1
 facep2 = 1
 
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.95
+persistent = 0
+ignorehitpause = 1
+
 [State 400, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
@@ -287,7 +316,7 @@ damage    = 19
 priority  = 3
 animtype  = Light
 hitflag = MAF
-guardflag = M
+guardflag = L
 pausetime = 8, 8
 sparkno = S7015
 sparkxy = -10,-10
@@ -378,6 +407,13 @@ palfx.time = 8
 ground.cornerpush.veloff = 0
 air.cornerpush.veloff = 0
 
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.85
+persistent = 0
+ignorehitpause = 1
+
 [State 410, 4]
 type = ChangeState
 trigger1 = AnimTime = 0
@@ -398,6 +434,13 @@ ctrl = 0
 anim = 420
 sprpriority = 1
 facep2 = 1
+
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.78
+persistent = 0
+ignorehitpause = 1
 
 [State 420, 1]
 type = PlaySnd
@@ -429,7 +472,7 @@ ignorehitpause = 1
 [State 420, 2]
 type = Projectile
 trigger1 = Animelem = 3
-attr = S, NP
+attr = C, NP
 offset = 10, -25
 projID = 220
 projanim = 7006
@@ -438,7 +481,8 @@ projremovetime = 10
 velocity = 2,-2.5
 animtype  = Hard
 damage    = 42
-guardflag = MAF
+guardflag = MA
+hitflag = MAF
 pausetime = 12,12
 sparkno = -1
 hitsound   = S7020,3
@@ -481,6 +525,13 @@ anim = 600
 sprpriority = 1
 facep2 = 1
 
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.95
+persistent = 0
+ignorehitpause = 1
+
 [State 600, 1]
 type = PlaySnd
 trigger1 = Time = 1
@@ -514,6 +565,7 @@ trigger1 = Time = 0
 attr = A, NA
 damage    = 20
 guardflag = HA
+hitflag = MAF
 priority = 3
 pausetime = 7,8
 sparkno = S7000
@@ -598,6 +650,7 @@ trigger1 = Time = 0
 attr = A, NA
 damage = 45
 guardflag = HA
+hitflag = MAF
 priority = 3
 pausetime = 8,8
 sparkno = -1;S7002
@@ -614,6 +667,13 @@ givepower = 36, 36
 palfx.add = 128, 100, 7
 palfx.mul = 256,256,256
 palfx.time = 8
+
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.85
+persistent = 0
+ignorehitpause = 1
 
 [State 610, Landing]
 type = ChangeState
@@ -656,6 +716,13 @@ ctrl = 0
 anim = 620
 sprpriority = 1
 facep2 = 1
+
+[State 200, Dampen]
+Type=Varset
+Trigger1 = MoveHit
+fvar(39) = fvar(39)*0.78
+persistent = 0
+ignorehitpause = 1
 
 [State 610, Boom]
 type = VelMul
@@ -718,8 +785,9 @@ type = HitDef
 trigger1 = AnimElem = 2
 trigger2 = AnimElem = 6
 attr = A, NA
-damage = IfElse(AnimElemNo(0) < 4, 52, 30)
+damage = IfElse(AnimElemNo(0) < 4, 52, 50)
 guardflag = HA
+hitflag = MAF
 priority = 4
 pausetime = 12,12
 sparkno = S7001
