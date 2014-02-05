@@ -230,32 +230,29 @@ Clsn2:1
 
 ; Win
 [Begin Action 181]
-181,0, 0,0, 10
-181,1, 0,0, 10
-181,0, 0,0, 10
-181,1, 0,0, 10
-Loopstart
-181,2, 2,0, 8
-181,3, 0,0, 15
-5,0, 3,0, 4
-181,2, 2,0, 8
-181,4, 5,0, 15
-5,0, -2,0, 4
-
+1010,0, 0,0, 5
+1010,1, 0,0, 5
+1010,3, 0,0, 5
+1010,2, 1,0, 5
+181,0, 0,0, 8
+181,1, 0,0, -1
 
 ; Invisible for Intros
 [Begin Action 190]
 -1,0, 0,0, 10
 
 
-; Intro - Crouching on Dactyl
+; Intro - Weapon
 [Begin Action 191]
-Clsn2:1
-  Clsn2[0] = -8, -22, 6, 1
-6,1, 0,0, -1
+Clsn2Default: 1
+  Clsn2[0] = -7, -28, 6, 1
+191,0, 0,0, 18
+191,1, 0,0, 4
+191,2, 0,0, 8
+0,3, 0,0, 20
 
 
-; Intro - Landing
+; Intro - Gate
 [Begin Action 192]
 Clsn2: 1
   Clsn2[0] = -6, -34, 7, -3
@@ -265,14 +262,9 @@ Clsn2: 1
 ; Taunt
 [Begin Action 195]
 Clsn2Default:1
-  Clsn2[0] = -7, -30, 8, 0
-195,0, 0,0, 25
-195,5, 2,0, 10
-195,1, 2,0, 20
-195,2, 0,0, 15
-195,6, 0,0, 15
-195,7, 3,0, 40
-
+  Clsn2[0] = -7, -28, 7, 0
+2000,0, 0,0, 12
+2000,1, 0,0, 20
 
 ; Stand Light Punch
 [Begin Action 200]
@@ -1602,6 +1594,38 @@ Clsn1: 1
 7110,15, 0,0, 3
 7110,16, 0,0, 3
 
+
+; Bag
+[Begin Action 7111]
+7111,0, 2,-1, 10
+
+; Cake
+[Begin Action 7112]
+7111,1, 2,-3, 10
+
+; Cheese
+[Begin Action 7113]
+7111,2, 2,-3, 10
+
+; Diary
+[Begin Action 7114]
+7111,3, 3,-2, 10
+
+; Dreamstone
+[Begin Action 7115]
+7111,4, 1,-5, 10
+
+; Seed
+[Begin Action 7116]
+7111,5, 1,-3, 10
+
+; Poyozo Doll
+[Begin Action 7117]
+7111,6, 0,0, 10
+
+; Sun Stone
+[Begin Action 7118]
+7111,7, 1,-1, 10
 
 ; No Sprite Anim
 [Begin Action 7200]

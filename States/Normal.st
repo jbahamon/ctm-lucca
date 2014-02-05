@@ -50,7 +50,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = !Time
 attr = S, NA                     ;Attribute: Standing, Normal Attack
-damage = 18                   ;Damage that move inflicts, guard damage
+damage = 19                   ;Damage that move inflicts, guard damage
 animtype = Light                 ;Animation type: Light, Medium, Heavy, Back (def: Light)
 guardflag = M                    ;Flags on how move is to be guarded against
 hitflag = MAF                    ;Flags of conditions that move can hit
@@ -136,13 +136,13 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 23
+damage    = 20
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
 sparkno = S7001
 sparkxy = -5, -25
-hitsound   = S7040,1
+hitsound   = S7020,2
 guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
@@ -194,8 +194,8 @@ ignorehitpause = 1
 
 [State 220, 1]
 type = PlaySnd
-trigger1 = AnimElem = 4
-value = S7000, 1
+trigger1 = AnimElem = 3
+value = S7020, 8
 
 [State 220, Explod]
 type = Explod
@@ -230,7 +230,7 @@ projhitanim = 7002
 projremovetime = 18
 velocity = 4,0
 animtype  = Hard
-damage    = 42
+damage    = 57
 guardflag = MA
 hitflag = MAF
 pausetime = 12,12
@@ -312,7 +312,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = Time = 0
 attr = C, NA
-damage    = 19
+damage    = 20
 priority  = 3
 animtype  = Light
 hitflag = MAF
@@ -358,7 +358,7 @@ facep2 = 1
 [State 410, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
-value = S7000, 0
+value = S7050, 2
 
 [State 610, Explod]
 type = Explod
@@ -386,7 +386,7 @@ ignorehitpause = 1
 type = HitDef
 trigger1 = AnimElem = 3
 attr = C, NA
-damage    = 34
+damage    = 39
 animtype  = Medium
 hitflag = MAF
 guardflag = L
@@ -444,8 +444,8 @@ ignorehitpause = 1
 
 [State 420, 1]
 type = PlaySnd
-trigger1 = AnimElem = 4
-value = S7000,1
+trigger1 = AnimElem = 3
+value = S7020, 8
 
 [State 420, Explod]
 type = Explod
@@ -480,7 +480,7 @@ projhitanim = 7002
 projremovetime = 10
 velocity = 2,-2.5
 animtype  = Hard
-damage    = 42
+damage    = 54
 guardflag = MA
 hitflag = MAF
 pausetime = 12,12
@@ -609,8 +609,8 @@ Y = 0
 
 [State 610, 1]
 type = PlaySnd
-trigger1 = AnimElem = 2
-value = S7000, 1
+trigger1 = AnimElem = 5
+value = S7050, 2
 
 [State 610, Explod]
 type = Explod
@@ -648,7 +648,7 @@ Y = 0.45
 type = HitDef
 trigger1 = Time = 0
 attr = A, NA
-damage = 45
+damage = 40
 guardflag = HA
 hitflag = MAF
 priority = 3
@@ -785,7 +785,7 @@ type = HitDef
 trigger1 = AnimElem = 2
 trigger2 = AnimElem = 6
 attr = A, NA
-damage = IfElse(AnimElemNo(0) < 4, 52, 50)
+damage = IfElse(AnimElemNo(0) < 4, 30, 31)
 guardflag = HA
 hitflag = MAF
 priority = 4

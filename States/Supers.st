@@ -66,7 +66,7 @@ trigger1 = time = 1
 time = 45
 movetime = 45
 anim = -1
-sound = S7010,2
+sound = S7030,0
 p2defmul = 1
 darken = 0
 
@@ -91,6 +91,12 @@ poweradd= 0
 ctrl = 0
 anim = 7053
 sprpriority = 2
+
+[State 2001, Snd]
+type = PlaySnd
+trigger1 =  !Time
+value = S7050,5
+channel = 0
 
 [State 2001, Trans]
 type = Trans
@@ -124,6 +130,14 @@ ctrl = 0
 velset = 0,0
 sprpriority = 2
 facep2 = 1
+
+
+[State 2001, Snd]
+type = PlaySnd
+trigger1 =  !Time
+trigger1 = PrevStateNo = 2001
+value = S7050,6
+channel = 0
 
 [State 2013, RealTime]
 type = ChangeAnim
@@ -225,7 +239,7 @@ priority = 4, Hit
 pausetime = 0,19
 sparkno = S7001
 sparkxy = Floor(10 - 20 * Random/1000.0), Floor(-20 - 10 *Random/1000.0)
-hitsound = S7020,5
+hitsound = S7020,9
 guardsound = 5,0
 ground.type = Low
 ground.velocity = 0, 0
@@ -313,6 +327,13 @@ type = Trans
 trigger1 = Var(0) >= 80
 trans = AddAlpha
 alpha = 256 - 16 * (Var(0) - 80), 16 * (Var(0) - 80)
+ignorehitpause = 1
+
+[State 1022, Anim]
+type = PlaySnd
+trigger1 = Var(0) = 60
+value = S7020,7
+persistent = 0
 ignorehitpause = 1
 
 [State 2002, End]
@@ -480,7 +501,6 @@ ownpal = 1
 persistent = 0
 supermovetime =0; 9999
 
-
 [State 2011, Explosion]
 type = Helper
 trigger1 = !Time
@@ -495,14 +515,13 @@ ownpal = 1
 persistent = 0
 supermovetime =9999
 
-
 [State 2010, Super Pause]
 type = superpause
 trigger1 = time = 1
 time = 45
 movetime = 45
 anim = -1
-sound = S7010,2
+sound = S7050,3
 p2defmul = 1
 darken = 0
 
@@ -605,6 +624,12 @@ sprpriority = 3
 velset = 1.2,0
 
 [State 2013, PosAdd]
+type = PlaySnd
+trigger1 = !Time && PrevStateNo != 2013
+value = S7050,4
+ignorehitpause = 1
+
+[State 2013, PosAdd]
 type = Turn
 trigger1 = !Time && PrevStateNo != 2013
 trigger1 = Facing != Parent, Facing
@@ -623,12 +648,6 @@ trigger1 = Parent, Command != "holdup"
 trigger1 = Parent, Command = "holddown"
 Y = 1.4
 ignorehitpause = 1
-
-[State 2013, Snd]
-type = PlaySnd
-trigger1 = !Var(0)
-value = S6,0
-channel = 0
 
 [State 2013, RealTime]
 trigger1 = !Time && PrevStateNo = 2012
@@ -732,7 +751,7 @@ hitflag = MAF
 priority = 4, Hit
 pausetime = 0,19
 sparkno = -1
-hitsound = S7020,5
+hitsound = -1
 guardsound = 5,0
 ground.type = Low
 ground.velocity = 0, 0

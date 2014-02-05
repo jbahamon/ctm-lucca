@@ -37,10 +37,9 @@ var(0) = ifelse(command = "qcbc", 2, ifelse(command = "qcbb", 1, 0))
 
 [State 1100, JumpSnd]
 type = PlaySnd
-trigger1 = AnimElem = 3
-value = S7000,1
+trigger1 = AnimElem = 2
+value = S7030,0
 ignorehitpause = 1
-
 
 [State 1020, Robot]
 type = VarSet
@@ -552,7 +551,7 @@ persistent = 0
 type = HitDef
 trigger1 = Anim = 7037
 attr = S, SA
-damage = Floor(71 * Root, FVar(39)),3
+damage = Floor(61 * Root, FVar(39)),3
 animtype = Hard
 air.type = Low
 guardflag = M
@@ -736,7 +735,7 @@ guardflag = MA         ;HLA
 animtype = Hard
 priority = 4, Hit
 sparkno = -1
-damage = Floor(62 * Root, FVar(39)),7
+damage = Floor(52 * Root, FVar(39)),7
 hitsound = S2,1
 ground.type = Low
 ground.slidetime = 16
@@ -811,7 +810,7 @@ guardflag = MA         ;HLA
 animtype = Hard
 priority = 4, Hit
 sparkno = -1
-damage = Floor(82 * Root, FVar(39)),7
+damage = Floor(72 * Root, FVar(39)),7
 hitsound = S2,1
 ground.type = Low
 ground.slidetime = 16
@@ -936,7 +935,7 @@ ignorehitpause = 1
 
 [State 1100, JumpSnd]
 type = PlaySnd
-trigger1 = AnimElem = 3
+trigger1 = AnimElem = 2
 value = S7000,1
 ignorehitpause = 1
 
@@ -960,7 +959,7 @@ priority = 4, Hit
 pausetime = 0, 7
 sparkno = s7001
 sparkxy = -10, -25
-hitsound = s2, 6
+hitsound = s7050,2
 guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16
@@ -1107,11 +1106,6 @@ type = VarSet
 trigger1 = !Time
 var(0) = ifelse(command = "qcfc", 2, ifelse(command = "qcfb", 1, 0))
 
-[State 1020, Sound]
-type = PlaySnd
-trigger1 = AnimElem = 3
-value = S7010,1
-
 [State 1020, Grenade]
 type = Helper
 trigger1 = AnimElem = 3
@@ -1124,11 +1118,6 @@ facing = 1
 keyctrl = 0
 ownpal = 1
 persistent = 0
-
-[State 1020, Sound]
-type = PlaySnd
-trigger1 = AnimElem = 4
-value = S7000,1
 
 [State 1020, End]
 type = ChangeState
@@ -1202,6 +1191,12 @@ var(1) = 1
 type = VelAdd
 trigger1 = var(1)
 y = IfElse(var(0) = 0, 0.2, 0.2)
+
+[State 1021, Air]
+type = PlaySnd
+trigger1 = var(1)
+value = S7000,1
+persistent = 0
 
 [State 1021, Air]
 type = StateTypeSet
@@ -1293,6 +1288,12 @@ persistent = 0
 ignorehitpause = 1
 
 [State 1022, Anim]
+type = PlaySnd
+trigger1 = !Time
+value = S7020,7
+ignorehitpause = 1
+
+[State 1022, Anim]
 type = ChangeAnim
 trigger1 = Var(2) && Pos Y < - 15
 value = 7010
@@ -1314,7 +1315,7 @@ animtype = Hard
 sparkno = -1
 damage = Floor(82 * Root, FVar(39)),0
 pausetime = 0, 20
-hitsound = S220,1
+hitsound = -1
 ground.type = High
 ground.slidetime = 16
 ground.hittime = 16
@@ -1412,6 +1413,12 @@ anim = 7010
 sprpriority = 4
 velset = 0,0
 
+[State 1022, Anim]
+type = PlaySnd
+trigger1 = !Time
+value = S7020,7
+ignorehitpause = 1
+
 [State 200, Dampen]
 Type=ParentVarSet
 trigger1 = MoveHit
@@ -1429,7 +1436,7 @@ animtype = Hard
 sparkno = S7001
 damage = Floor(82 * Root, FVar(39)),0
 sparkxy = -10,-15
-hitsound = S220,1
+hitsound = -1
 ground.type = High
 ground.slidetime = 16
 ground.hittime = 16
@@ -1538,7 +1545,8 @@ var(0) = ifelse(command = "qcbc", 2, ifelse(command = "qcbb", 1, 0))
 [State 1030, Jump]
 type = PlaySnd
 trigger1 = !Time
-value = 7010,1
+value = S7050,1
+channel = 0
 
 [State 1030, Jump]
 type = VarSet
