@@ -260,8 +260,9 @@ value = S7010, 3
 
 [State -3, Landing Sound]
 type = PlaySnd
-trigger1 = stateno = 100 && (AnimElemTime(1) = 1)
-value = S7010, 4
+trigger1 = stateno = 100 
+trigger1 = (AnimElemTime(3) = 1) || (AnimElemTime(6) = 1)
+value = S7010, 3
 
 [State -3, Landing Sound]
 type = PlaySnd

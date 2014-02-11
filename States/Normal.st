@@ -284,7 +284,7 @@ ignorehitpause = 1
 [State 400, 1]
 type = PlaySnd
 trigger1 = AnimElem = 2
-value = S7010, 1
+value = S7020,0
 
 [State 200, Explod]
 type = Explod
@@ -320,7 +320,7 @@ guardflag = L
 pausetime = 8, 8
 sparkno = S7015
 sparkxy = -10,-10
-hitsound   = S7040,0
+hitsound   = -1
 guardsound = 6,0
 ground.type = Low
 ground.slidetime = 4
@@ -602,11 +602,6 @@ anim = 610
 sprpriority = 1
 facep2 = 1
 
-[State 610, Boom]
-type = VelSet
-trigger1 = !Time
-Y = 0
-
 [State 610, 1]
 type = PlaySnd
 trigger1 = AnimElem = 5
@@ -636,12 +631,7 @@ ignorehitpause = 1
 
 [State 610, Boom]
 type = VelAdd
-trigger1 = AnimElem = 5
-Y = -4
-
-[State 610, Boom]
-type = VelAdd
-trigger1 = AnimElemNo(0) >= 5
+trigger1 = AnimElemNo(0) >= 3
 Y = 0.45
 
 [State 610, 2]
@@ -819,7 +809,7 @@ trigger1 = pos y > -vel y
 value = 611
 
 ;---------------------------------------------------------------------------
-;Boulder Toss
+; Shockwave
 [Statedef 800]
 type    = S
 movetype= A
@@ -831,6 +821,13 @@ sprpriority = 2
 poweradd = IfElse(Var(21) > 0, 0, 18)
 facep2 = 1
 velset = 0,0
+
+[State 803, Pal]
+type = PalFX
+trigger1 = 1
+add = Floor(32 * Sin(Time * Pi/16.0)) + 32, 32 + Floor(32 * Sin(Time * Pi/16.0)), 32 + Floor(32 * Sin(Time * Pi/16.0))
+mul = 256, 256, 256
+time = 1
 
 [State 800, Direction]
 type = VarSet
@@ -850,7 +847,7 @@ movetype = I
 [State 800, Sound]
 type = PlaySnd
 trigger1 = AnimElem = 2
-value = S7010,0
+value = S7000,1
 
 [State 800, Hit]
 type = hitdef
@@ -875,7 +872,7 @@ trigger1 = !AnimTime
 value = 0
 ctrl = 1
 
-;Boulder Toss - Throw
+;Shockwave - Push and Shoot 
 [Statedef 801]
 type    = S
 movetype= A
@@ -888,61 +885,54 @@ poweradd = IfElse(Var(21) > 0, 0, 72)
 velset = 0,0
 
 [State 801, Bind]
-type = TargetBind
-trigger1 = AnimElemTime(5) < 3
-pos = 15, 0
+type = VarSet
+trigger1 = !Time
+trigger1 = NumTarget
+V = 1
+value = (Target, Pos X - Pos X) * Facing
+ignorehitpause = 1
 
 [State 801, Bind]
 type = TargetBind
-trigger1 = AnimElemTime(5) = [3,5]
-pos = 10, -5
+trigger1 = NumTarget
+pos = Var(1), 0
 
-[State 801, Bind]
-type = TargetBind
-trigger1 = AnimElemTime(5) = [6,8]
-pos = 5, -10
 
-[State 801, Bind]
-type = TargetBind
-trigger1 = AnimElemTime(5) >= 9 && AnimElemTime(6) < 0
-pos = 1, -15
+[State 801, Shot]
+type = Helper
+trigger1 = AnimElemTime(3) = 10
+trigger2 = AnimElemTime(6) = 10
+trigger3 = AnimElemTime(9) = 10
+name = "Shockwave Shot"
+ID = 800
+stateno = 804
+postype = p1    ;p2,front,back,left,right
+pos = 10, -15
+facing = 1
+keyctrl = 0
+ownpal = 1
 
-[State 801, Bind]
-type = TargetBind
-trigger1 = AnimElemNo(0) = 6
-pos = 1, -25
-
-[State 801, Bind]
-type = TargetBind
-trigger1 = AnimElemNo(0) = 7
-pos = 1, -30
+[State 801, push]
+type = VarAdd
+trigger1 = AnimElemNo(0) = 1
+var(1) = 2
 
 [State 801, Throw Enemy]
 type = TargetState
-trigger1 = AnimElem = 8
+trigger1 = !AnimTime
 value = 803
 
-[State 801, Sound]
-type = Turn
-trigger1 = (var(0) < 0) && AnimElem = 6
-
-[State 801, Sound]
-type = PlaySnd
-trigger1 = AnimElem = 5
-value = S7010,1
-
-[State 801, Sound]
-type = PlaySnd
-trigger1 = AnimElem = 8
-value = S7000,2
+[State 801, Throw Enemy]
+type = TargetDrop
+trigger1 = !AnimTime
 
 [State 801, End]
 type = ChangeState
-trigger1 = !AnimTime
+trigger1 = !NumTarget
 value = 0
 ctrl = 1
 
-;Boulder Toss - Gethit
+;Shockwave - Gethit
 [Statedef 802]
 type = S
 movetype = H
@@ -955,6 +945,33 @@ type = SprPriority
 trigger1 = AnimElem = 3
 value = 2
 
+[State 802, LifeAdd]
+type = LifeAdd
+trigger1 = Time = 32
+trigger2 = Time = 59
+trigger3 = Time = 86
+value = -27
+kill = Time > 60
+
+
+[State 802, Shake]
+type = EnvShake
+trigger1 = Time = 32
+trigger2 = Time = 59
+trigger3 = Time = 86
+time = 5
+freq = 120
+ampl = 4
+
+[State 802, Shake]
+type = PalFX
+trigger1 = Time = 32
+trigger2 = Time = 59
+trigger3 = Time = 86
+add = 200, 200, 200
+mul = 256, 256, 256
+time = 5
+
 [State 802, Anim]
 type = ChangeAnim2
 trigger1 = !Time
@@ -965,7 +982,7 @@ type = SelfState
 trigger1 = !gethitvar(isbound)
 value = 5050
 
-;Boulder Toss - Air
+;Shockwave - Air
 [Statedef 803]
 type = A
 movetype = H
@@ -976,8 +993,8 @@ sprpriority = 0
 [State 803, Vel]
 type = VelSet
 trigger1 = !Time
-y = -9
-x = -2
+y = -6
+x = -4
 
 [State 803, Vel]
 type = VelAdd
@@ -993,11 +1010,6 @@ value = 803
 type = ChangeAnim2
 trigger1 = Vel Y > 0
 value = 804
-
-[State 803, Life]
-type = LifeAdd
-trigger1 = (Vel y > 0) && (Pos y >= 0)
-value = -105
 
 [State 803, Pal]
 type = PalFX
@@ -1024,4 +1036,66 @@ trigger1 = (Vel y > 0) && (Pos y >= 0)
 value = 5100
 ctrl = 0
 
+;Shockwave Shot
+[Statedef 804]
+type = A
+physics = N
+movetype= I
+anim = 7024
+ctrl = 0
+velset = 0,0
+sprpriority = 3
 
+[State 804, Invisible]
+type = ChangeAnim
+trigger1 = Anim = 7024
+trigger1 = !AnimTime
+value = 7200
+ignorehitpause = 1
+
+[State 804, NoShadow]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 804, Shot]
+type = Explod
+trigger1 = !Time
+anim = 7025
+ID = 800
+postype = p1  ;p2,front,back,left,right
+pos = 0, 0
+bindtime = 1
+vel = 4,0
+sprpriority = 2
+removetime = 6
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+[State 804, Shot]
+type = Explod
+trigger1 = Time = 12
+anim = 7026
+ID = 801
+postype = p1  ;p2,front,back,left,right
+pos = (Parent, Pos X - Pos X)*Facing + Parent, Var(1), 0
+bindtime = 1
+vel = 0,0
+sprpriority = 2
+removetime = -2
+sprpriority = 0
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 804, End]
+type = DestroySelf
+trigger1 = Time > 12

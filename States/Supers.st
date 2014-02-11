@@ -95,7 +95,7 @@ sprpriority = 2
 [State 2001, Snd]
 type = PlaySnd
 trigger1 =  !Time
-value = S7050,5
+value = S7050,6
 channel = 0
 
 [State 2001, Trans]
@@ -136,7 +136,7 @@ facep2 = 1
 type = PlaySnd
 trigger1 =  !Time
 trigger1 = PrevStateNo = 2001
-value = S7050,6
+value = S7050,7
 channel = 0
 
 [State 2013, RealTime]
@@ -456,6 +456,14 @@ trigger1 = Parent, StateNo = 181
 value = 7054
 persistent = 0
 
+[State 2004, Anim]
+type = PlaySnd
+trigger1 = Anim = 7054
+trigger1 = AnimElem = 2
+value = 7050,5
+channel = 0
+loop = 1
+persistent = 0
 
 ;---------------------------------------------------------------------------
 ;Flare 

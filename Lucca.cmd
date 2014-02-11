@@ -563,7 +563,8 @@ trigger1 = ctrl
 ;===========================================================================
 ; Super Moves
 ;===========================================================================
-[State -1, Protect]
+
+[State -1, Gate Summon]
 type = ChangeState
 value = 2100
 triggerall = Command = "qcfhcba" || Command = "qcfhcbb" || Command = "qcfhcbc"
@@ -646,7 +647,7 @@ trigger1 = ctrl
 ; Throws, Rolls, Etc
 ;===========================================================================
 
-[State -1, Napalm]
+[State -1, Shockwave]
 type = ChangeState
 trigger1 = (command = "recovery" || command = "2p") && (command = "holdfwd" || command = "holdback")
 trigger1 = roundstate = 2 && ctrl && statetype = S && stateno != 100

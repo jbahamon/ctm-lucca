@@ -127,6 +127,11 @@ anim = 191
 velset = 0,0
 
 [State 191, 2] ;Assert this until you want "round 1, fight" to begin
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = S7000,1
+
+[State 191, 2] ;Assert this until you want "round 1, fight" to begin
 type = AssertSpecial
 trigger1 = 1
 flag = Intro

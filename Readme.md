@@ -3,31 +3,33 @@ Lucca by SilentProtagonist
 =========================
 
 Lucca is a three-button character made for MUGEN 1.0.
-This is not a final version.
+This is not a final version but it should be playable.
 
 What's missing:
 
-- Proper sounds
-- More specials ..?
-- More palettes
-- Another intro 
-- Special intros/winposes, maybe.
+- More palettes.
+- Specific character interactions (intros, winposes, double techs, maybe)
 
 
 Lucca's Moveset
 ==============
 
-Lucca isn't very agile nor fast. But some of her normal attacks 
-actually launch projectiles, and her standard projectile has a very variable
-range. She excels at close range, so get close to your enemies and punish them!
+Lucca isn't very agile nor fast. Her game revolves around summoning
+robots and throwing projectiles to put some pressure on your opponent.
+Her air strong attack, also, gives her good horizontal range.
 
 Throws
 --------------
 
+**Shockwave**: F/B + (a+b)/(b+c)/(a+c) (Standing)
+
+Lucca pushes her opponent, firing multiple hits with her Shockwave
+at them.
+
 **Hypnowave**: D, DB, B + a/b/c (Standing). Requires 500 Power.
 
 Lucca uses her Hypnowave to make a single opponent fall asleep. 
-Obviously, the opponent has to be within range of the attack.
+The opponent has to be within range of the attack, obviously.
 This attack actually doesn't do any damage, but if it hits, your 
 opponent will be vulnerable for a bit of time (or until it gets hit).
 Use this to your advantage!
@@ -44,10 +46,23 @@ deal damage. The speed and angle depend on the button pressed.
 
 **Fire Uppercut**: F, D, DF + a/b/c (Standing).
 
-Lucca rises vertically, wrapped up in flames. The button pressed 
-determines the vertical distance you'll travel. Keep in mind that this 
-attack won't give you any horizontal speed, but it gives you the chance 
-to juggle your opponent, as you'll fall before him/her.
+Lucca advances a bit, throwing a fiery uppercut.
+
+**Robot Call**: D, DB, B, + a/b/c (Standing)
+
+Lucca brings out a remote control, using it to call help from a robot 
+she repaired. The button pressed determines the summoned robot:
+
+Pressing a calls a Bit that floats toward your opponent. It shoots
+a missile that rises and then falls on your opponent.
+
+Pressing b calls a Debuggest that walks toward your opponent and tries to 
+shock it.
+
+Pressing c calls a Proto-4 that either fires a missile towards your opponent 
+or tries to shock them.
+
+You can only have up one summoned robot at a given time.
 
 
 Supers
@@ -57,7 +72,7 @@ Supers
 
 Lucca summons Gato. He's had some practice, as he'll walk toward your 
 opponent and try to punch him/her. You're free to move after Gato starts moving,
-so try to team up with him! Gato will dissapear after a set time, 
+so try to team up with him! Gato will stop walking after a set time, 
 so don't do this if your opponent is far away.
 	
 **Flare**: D, DF, F, D, DF, F, a/b/c (Standing). Requires 1000 Power.
@@ -79,17 +94,21 @@ Special Mode
 
 **Protect**: a + c (Standing). Requires 3000 Power.
 
-Lucca gets improved defenses. You'll receive less damage, and it actually won't 
-make you flinch, so you can go on the offensive without worrying about getting hurt.
+Lucca casts Protect on herself, improving her defenses. You'll receive less damage,
+and attacks won't make you flinch, so you can go on the offensive without worrying 
+about getting hurt.
+
 Your Power will automatically decrease: when you run out of Power, the mode ends.
 
 Final Move
 ----------
 
-**Gate Key Summon**: D, B, D, F + a/b/c (Standing, must have Berserker activated). Uses all of your Power.
+**Gate Key Summon**: D, B, D, F + a/b/c (Standing, must have Protect activated). Uses all of your Power, ending Protect.
 
 Lucca uses her Gate Key to summon the Black Tyranno! It will appear over the closest 
-opponent and bite down. Make sure it hits, 'cause you only have one shot. "AVAVAGO!"
+opponent and bite down. Make sure it hits as you only have one shot. 
+
+"AVAVAGO!"
 
 
 ----------------------------
