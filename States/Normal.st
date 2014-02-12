@@ -858,7 +858,7 @@ priority = 1, Miss
 sparkno = -1
 hitsound = s7000, 0
 p1facing = 1
-p2facing = var(0)
+p2facing = 1
 p1stateno = 801
 p2stateno = 802
 guard.dist = 0
@@ -911,6 +911,14 @@ pos = 10, -15
 facing = 1
 keyctrl = 0
 ownpal = 1
+
+[State 801, Sound]
+type = PlaySnd
+trigger1 = AnimElemTime(3) = 10
+trigger2 = AnimElemTime(6) = 10
+trigger3 = AnimElemTime(9) = 10
+value = 7070,0
+channel = 0
 
 [State 801, push]
 type = VarAdd
@@ -1070,7 +1078,7 @@ bindtime = 1
 vel = 4,0
 sprpriority = 2
 removetime = 6
-sprpriority = 0
+sprpriority = 3
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
@@ -1088,7 +1096,7 @@ bindtime = 1
 vel = 0,0
 sprpriority = 2
 removetime = -2
-sprpriority = 0
+sprpriority = 3
 ontop = 0
 shadow = 0,0,0
 ownpal = 1

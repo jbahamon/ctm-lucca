@@ -1430,7 +1430,7 @@ trigger1 = time = 1
 time = 45
 movetime = 45
 anim = -1
-sound = S7010,2
+sound = S7030,0
 p2defmul = 1
 darken = 0
 
@@ -1461,6 +1461,13 @@ type = AngleDraw
 trigger1 = 1
 scale = 2, 1
 
+
+[State 192, Snd]
+type = PlaySnd
+trigger1 = !Time
+value = S7030,1
+persistent = 0
+
 [State 2000, Explosion]
 type = Helper
 trigger1 = AnimElem = 25
@@ -1481,6 +1488,14 @@ trigger1 = Anim = 7101
 trigger1 = !NumHelper(2102)
 trigger1 = AnimElem = 26
 value = 7102
+
+
+[State 192, Snd]
+type = PlaySnd
+trigger1 = Anim = 7102
+value = S7030,1
+persistent = 0
+
 
 [State 2101, End]
 type = DestroySelf
@@ -1527,7 +1542,7 @@ attr = S,HA
 damage = Floor(Root, FVar(39) * 256)
 animtype = Hard
 hitflag = MAF
-hitsound = S7002,3
+hitsound = -1;
 guardflag = HA
 pausetime = 14,14
 sparkno = -1
@@ -1590,6 +1605,13 @@ poweradd= 0
 ctrl = 0
 anim = 7103
 sprpriority = 3
+
+[State 192, Snd]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S7020,5
+persistent = 0
+
 
 [State 2101, Trans]
 type = EnvShake
@@ -1661,7 +1683,7 @@ time = 60
 movetime = 60
 anim = -1
 pos = 0, -20
-sound = S7010,2
+sound = -1
 p2defmul = 1
 darken = 0
 
@@ -1682,6 +1704,18 @@ type = VarSet
 trigger1 = (!AnimTime)
 v = 21
 value = 1
+
+[State 2110, Sound1]
+type = PlaySnd
+trigger1 = !Time
+value = S7060,0
+channel = 0
+
+[State 2110, Sound1]
+type = PlaySnd
+trigger1 = Time = 28
+value = S7060,1
+channel = 0
 
 [State 2110, End]
 type = ChangeState
