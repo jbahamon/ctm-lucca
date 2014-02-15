@@ -880,7 +880,7 @@ trigger1 = FVar(2) < 3  || (Time > 10)
 
 
 ;---------------------------------------------------------------------------
-;Time Egg
+;Gate Trap
 [Statedef 2020]
 type    = S
 movetype= A
@@ -888,10 +888,38 @@ physics = S
 juggle  = 3
 poweradd= -1000
 ctrl = 0
-anim = 2020
+anim = 2000
 sprpriority = 1
 facep2 = 1
 velset = 0,0
+
+[State 2000, Explosion]
+type = Helper
+trigger1 = AnimElem = 2
+name = "Gate"
+ID = 2020
+stateno = 2021
+pos = 25, -Floor(Pos Y)
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+supermovetime = 999999
+
+[State 2110, Super Pause]
+type = Explod
+trigger1 = AnimElem = 2
+removetime = -1
+ID = 2020
+anim = 7100
+pos = 5, -25
+ownpal = 1
+sprpriority = 3
+shadow = -1
+removeongethit = 1
+supermovetime = 99999
+ignorehitpause = 1
 
 [State 2000, NHB]
 type = NotHitBy
@@ -923,47 +951,50 @@ p2defmul = 1
 darken = 0
 
 [State 2000, End]
+type = RemoveExplod
+trigger1 = Time > 1 && !NumHelper(7000)
+ID = 2020
+ignorehitpause = 1
+
+[State 2000, End]
 type = ChangeState
 trigger1 = Time > 1 && !NumHelper(7000)
-value = 2021
+value = 0
 ctrl = 1
 
-; Time Egg - Opening
+; The Gate Trap
 [Statedef 2021]
-type    = S
-movetype= A
+type = S
+movetype = A
 physics = N
-juggle  = 3
-poweradd= 0
-ctrl = 0
-anim = 2021
-sprpriority = 1
+anim = 7071
+velset = 0, 0
+sprpriority = -2
 
-[State 2021, Egg]
-type = Helper
-trigger1 = AnimElem = 2
-name = "Time Egg"
-ID = 2020
-stateno = 2029
-pos = 0, -20
-postype = p1    ;p2,front,back,left,right
-facing = 1
-keyctrl = 0
-ownpal = 1
-persistent = 0
-supermovetime = 9999
+[State 2021, Anim]
+type = ChangeAnim 
+trigger1 = Anim = 7071
+trigger1 = !AnimTime
+value = 7072
+
+[State 2021, Snd]
+type = PlaySnd
+trigger1 = !Time
+value = S7030,1
+channel = 0
 
 [State 2021, Hit]
 type = HitDef
-trigger1 = !Time
+trigger1 = Time = 60
 attr = S, HT 
 hitflag = MA-
 priority = 4, Miss
 sparkno = -1
-p1stateno = 2022
-p2stateno = 2023
+p1stateno = 2023
+p2stateno = 2025
+hitonce = 0
 guard.dist = 0
-damage = 20, 3 
+damage = 0,0
 animtype = Hard
 p1facing = 1
 pausetime = 0, 0
@@ -984,388 +1015,331 @@ air.fall = 0
 fall.recover = 0
 p1sprpriority = 1
 p2sprpriority = 1
+persistent = 0
 
-[State 2021, Miss]
-type = ChangeAnim
-trigger1 = Anim = 2021 
-trigger1 = AnimElemNo(0) = 3 
-trigger1 = !NumHelper(2020)
-value = 2024
+[State 2101, noshadow]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 2101, noshadow]
+type = AngleDraw
+trigger1 = 1
+scale = 1, 0.3
+ignorehitpause = 1
 
 [State 2021, End]
 type = ChangeState
-trigger1 = Anim = 2024 
-trigger1 = !AnimTime
-value = 0
-ctrl = 1
+trigger1 = Anim = 7072
+trigger1 = !NumTarget
+trigger1 = Time > 120
+value = 2022
 
-;Time Egg - Success
+; Gate End
 [Statedef 2022]
+type    = S
+movetype= I
+physics = N
+ctrl = 0
+anim = 7102
+sprpriority = 0
+
+[State 2021, Snd]
+type = PlaySnd
+trigger1 = !Time
+value = S7030,1
+channel = 0
+
+[State 2101, noshadow]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 2101, noshadow]
+type = AngleDraw
+trigger1 = 1
+scale = 1, 0.3
+ignorehitpause = 1
+
+[State 2022, End]
+type = TargetDrop
+trigger1 = !AnimTime
+trigger1 = NumTarget
+
+[State 2022, End]
+type = DestroySelf
+trigger1 = !AnimTime
+
+; Gate Successful Hit
+[Statedef 2023]
 type    = S
 movetype= A
 physics = N
 ctrl = 0
-anim = 2022
-sprpriority = 1
-poweradd = 0
-velset = 0,0
+anim = 7073
+sprpriority = 0
 
-[State 7011, FollowPlayer]
-type = EnvShake
-trigger1 = !Time
-freq = 80
-ampl = 3
-time = 31
-ignorehitpause = 1
-
-[State 7011, FollowPlayer]
+[State 2023, Anim]
 type = VarSet
 trigger1 = !Time
+trigger1 = !NumTarget
 FV = 0
-value = Target, ScreenPos X - ScreenPos X
-ignorehitpause = 1
-
-[State 7011, FollowPlayer]
-type = VarSet
-trigger1 = !Time
-FV = 1
-value = Target, ScreenPos Y - ScreenPos Y
-ignorehitpause = 1
-
-[State 7011, Time]
-type = VarSet
-trigger1 = !Time
-V = 0
-value = 0
-ignorehitpause = 1
-
-[State 2110, Super Pause]
-type = Explod
-trigger1 = Var(0) = 86
-removetime = -2
-ID = 2020
-anim = 7072
-postype = left
-pos = Floor(GameWidth/2), 0
-ownpal = 1
-sprpriority = 3
-ontop = 1
-shadow = -1
-removeongethit = 1
-supermovetime = 99999
-pausemovetime = 99999
-ignorehitpause = 1
-
-[State 2110, Super Pause]
-type = EnvShake
-trigger1 = Var(0) = 86
-ampl = 4
-freq = 120
-time = 60
-ignorehitpause = 1
-
-[State 2110, Super Pause]
-type = TargetLifeAdd
-trigger1 = Var(0) = 106
-value = -210
-ignorehitpause = 1
-
-[State 7011, Time]
-type = VarAdd
-trigger1 = !NumHelper(2020)
-V = 0
-value = 1
-ignorehitpause = 1
-
-[State 2102, fadeout]
-type = AllPalFX
-trigger1 = Var(0) = 60
-time = 16
-sinadd = -255, -255, -255, 64
-
-[State 2102, fadeout]
-type = EnvColor
-trigger1 = Var(0) = [76, 150]
-time = 1
-value = 0, 0, 0 
-
-[State 2102, fadeout]
-type = Helper
-trigger1 = Var(0) > 0
-ID = 2021
-name = "Eclipse"
-stateno = 2028
-postype = p1
-pos = 0, -80
-pausemovetime = 99999
-sprpriority = 4
-ownpal = 1
+value = (Target, Pos X - Pos X) * Facing
 persistent = 0
 
-[State 7011, FollowPlayer]
-type = TargetState
-trigger1 = Var(0) = 1
-value = 2024
-ignorehitpause = 1
-
-[State 7011, FollowPlayer]
+[State 2023, Anim]
 type = TargetBind
-trigger1 = Var(0) = [0, 60]
-time = 1
-pos = Facing * FVar(0) * (1 - Var(0) /60.0), FVar(1) * (1 - Time/60.0) - Var(0) 
+trigger1 = Time = [0,32]
+pos = -(FVar(0)/32.0), 0
 ignorehitpause = 1
 
-[State 7011, FollowPlayer]
+[State 2023, Anim]
 type = TargetBind
-trigger1 = Var(0)  >= 60
-pos = 30, -80
+trigger1 = Time >= 32
+pos = 0, 0
 ignorehitpause = 1
-
-[State 2102, fadeout]
-type = AllPalFX
-trigger1 = Var(0) = [150, 166]
-time = 16
-add = -255, -255, -255
-sinadd = 255, 255, 255, 64
-
-[State 2110, Super Pause]
-type = Pause
-trigger1 = Var(0) = 60
-time = 126
-movetime = 126
-ignorehitpause = 1
-
-[State 2023, End]
-type = ChangeState
-trigger1 = Var(0) > 186 || !NumTarget
-value = 0
-ctrl = 1
-ignorehitpause = 1
-
-; Time Egg - Hit
-[Statedef 2023]
-type = A
-movetype = H
-physics = N
-sprpriority = 2
 
 [State 2023, Anim]
-type = ScreenBound
-trigger1 = 1
-value = 0
-ignorehitpause = 1
+type = ChangeAnim
+trigger1 = Anim = 7073
+trigger1 = Time = 32
+value = 7102
 
-[State 802, Exit]
-type = SelfState
-trigger1 = !gethitvar(isbound)
-value = 5050
-
-[State 2023, Anim]
-type = ChangeAnim2
-trigger1 = !Time
-value = 2023
-ignorehitpause = 1
-
-; Time Egg - Minifying
-[Statedef 2024]
-type = A
-movetype = H
-physics = N
-sprpriority = 2
-
-[State 802, Exit]
-type = SelfState
-trigger1 = !gethitvar(isbound)
-value = 5050
+[State 2021, Snd]
+type = PlaySnd
+trigger1 = Anim = 7102
+value = S7030,1
+channel = 0
+persistent = 0
 
 [State 2023, Anim]
-type = ScreenBound
-trigger1 = 1
-value = 0
-ignorehitpause = 1
+type = ChangeAnim
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
+value = 7200
 
-[State 2024, Anim]
-type = ChangeAnim2
-trigger1 = !Time
-value = 2023
-ignorehitpause = 1
-
-[State 2024, Go Small]
-type = AngleDraw
-trigger1 = Time <= 60
-scale = 1 - Time * 0.016, 1 - Time * 0.016
-ignorehitpause = 1
-
-[State 2024, Go Small]
+[State 2101, noshadow]
 type = AssertSpecial
-trigger1 = Time > 60
+trigger1 = Anim = 7200
 flag = invisible
 ignorehitpause = 1
 
-[State 2023, Anim]
-type = ChangeAnim2
-trigger1 = Time >= 60
-trigger1 = Anim != 7200
-value = 7200
+[State 2101, noshadow]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
 ignorehitpause = 1
 
-; Time Egg - Eclipse
-[Statedef 2028]
-type = A
-movetype = I
-physics = N
-anim = 7073
-velset = 0, 0
-sprpriority = 4
-
-[State 2102, fadeout]
-type = Helper
-trigger1 = !Time
-ID = 2021
-name = "Gate"
-stateno = 2030
-postype = p1
-pos = 0, 0
-pausemovetime = 99999
-sprpriority = 3
-ownpal = 1
-persistent = 0
-
-
-[State 2028, Assert]
+[State 2101, noshadow]
 type = AngleDraw
 trigger1 = 1
-scale = 0.76, 0.72
+scale = 1, 0.3
 ignorehitpause = 1
 
-[State 2028, Assert]
-type = AssertSpecial
-trigger1 = 1
-flag = noshadow
-ignorehitpause = 1
+[State 2022, End]
+type = PosAdd
+trigger1 = Anim = 7200
+Y = - 100
+persistent = 0
 
-[State 2028, TransVar]
-type = VarSet
-trigger1 = !Time
-V = 0
-value = 0
+[State 2022, End]
+type = PlaySnd
+triggerall = Anim = 7200
+trigger1 = AnimElemTime(1) = 20
+trigger2 = AnimElemTime(1) = 40
+value = s7020,3
 
-[State 2028, TransVar]
-type = VarAdd
-trigger1 = 1
-V = 0
-value = 1
-ignorehitpause = 1
 
-[State 2028, TransVar]
-type = Trans
-trigger1 = Var(0) = [0, 32]
-trans = addalpha
-alpha = 8 * Var(0), 256
-ignorehitpause = 1
+[State 2022, End]
+type = PlaySnd
+triggerall = Anim = 7200
+trigger1 = AnimElemTime(1) = 80
+value = s7050,8
 
-[State 2028, TransVar]
-type = Trans
-trigger1 = Var(0) >= 32
-trans = addalpha
-alpha = 256, 256
-ignorehitpause = 1
+[State 2022, End]
+type = EnvShake
+triggerall = Anim = 7200
+trigger1 = AnimElemTime(1) = 20
+trigger2 = AnimElemTime(1) = 40
+trigger3 = AnimElemTime(1) = 80
+ampl = 12
+freq = 120
+time = 10
 
-[State 2028, End]
-type = DestroySelf
-trigger1 = root, Var(0) >= 76
-trigger2 = root, StateNo != 2022 ; Safety
+[State 2022, End]
+type = TargetLifeAdd
+triggerall = Anim = 7200
+trigger1 = AnimElemTime(1) = 20
+trigger2 = AnimElemTime(1) = 40
+trigger3 = AnimElemTime(1) = 80
+value = -37
 
-; Time Egg - The Egg
-[Statedef 2029]
-type = A
-movetype = I
+[State 2022, End]
+type = ChangeState
+trigger1 = Anim = 7200
+trigger1 = AnimElemTime(1) = 100
+value = 2024
+
+; Gate End 
+[Statedef 2024]
+type    = S
+movetype= A
 physics = N
-anim = 7070
-velset = 0, -1.4
-sprpriority = 3
-
-[State 2029, End]
-type = VelSet
-trigger1 = Time >= 15
-Y = 0.8 * Sin(pi * (Time - 15)/10.0)
-
-[State 2029, Sparkles]
-type = Explod
-trigger1 = Time >= 34 && !(Parent, StateNo = 2022)
-trigger2 = Time >= 56 && (Parent, StateNo = 2022)
+ctrl = 0
 anim = 7071
-id = 2024
-pos = 0,0
-postype = p1
-facing = 1
-vfacing = 1
-bindtime = 1
-vel = (IfElse(Random <= 499,Random/305.0,Random/(-305.0))),(IfElse(Random <= 499,Random/305.0,Random/(-305.0)))
-accel = 0,0
-random = 0,0
-removetime = -2
-supermovetime = 0
-pausemovetime = 9999
-scale = 1,1
-sprpriority = 3
-ontop = 0
-shadow = 0,0,0
-ownpal = 1
-removeongethit = 0
+sprpriority = -2
 
-[State 2029, End]
-type = DestroySelf
-trigger1 = Time >= 42 && !(Parent, StateNo = 2022)
-trigger2 = Time >= 64 && (Parent, StateNo = 2022)
- 
-;Gate
-[Statedef 2030]
-type = A
-movetype = I
-physics = N
-anim = 7074
-velset = 0, 0
-sprpriority = 3
+[State 2021, Snd]
+type = PlaySnd
+trigger1 = !Time
+value = S7030,1
+channel = 0
+persistent = 0
 
-[State 2028, Assert]
+[State 2021, Snd]
+type = PlaySnd
+trigger1 = Anim = 7102
+value = S7030,1
+channel = 0
+persistent = 0
+
+[State 2101, noshadow]
 type = AssertSpecial
 trigger1 = 1
 flag = noshadow
 ignorehitpause = 1
 
-[State 2028, TransVar]
-type = VarSet
+[State 2101, noshadow]
+type = AngleDraw
+trigger1 = 1
+scale = 1, 0.3
+ignorehitpause = 1
+
+
+[State 2024, Let Go]
+type = TargetBind
+trigger1 = NumTarget
+pos = 0,0
+
+[State 2024, Anim]
+type = ChangeAnim
+trigger1 = Anim = 7071
+trigger1 = !AnimTime
+value = 7073
+
+[State 2024, Let Go]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = Anim = 7073
+trigger1 = AnimElemTime(1) = 30
+value = 2026
+persistent = 0
+
+[State 2024, Let Go]
+type = TargetDrop
+trigger1 = NumTarget
+trigger1 = Anim = 7073
+trigger1 = AnimElemTime(1) = 30
+persistent = 0
+
+[State 2024, Close]
+type = ChangeAnim
+trigger1 = Anim = 7073
+trigger1 = !AnimTime
+value = 7102
+persistent = 0
+
+[State 2024, End]
+type = DestroySelf
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
+
+;---------------------------------------------------------------------------
+; Gate Trap - Dragged
+[Statedef 2025]
+type = S
+movetype = H
+physics = N
+sprpriority = 1
+
+[State 2023, Anim]
+type = ScreenBound
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 802, Exit]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5050
+
+[State 2023, Anim]
+type = ChangeAnim2
 trigger1 = !Time
-V = 0
+value = 2023
+ignorehitpause = 1
+
+[State 802, Exit]
+type = Trans 
+trigger1 = Time = [0, 32]
+trans = addalpha
+alpha = 256 - 8 * Time, 8* Time
+
+[State 802, Exit]
+type = Trans 
+trigger1 = Time > 32
+trans = addalpha
+alpha = 0, 256
+
+[State 802, Exit]
+type = AngleDraw
+trigger1 = Time = [0, 32]
+scale = 1 - Time/32.0, 1 - Time/32.0
+
+;Gate Trap - Dropped
+[Statedef 2026]
+type = A
+movetype = H
+physics = N
+ctrl = 0
+sprpriority = 0
+velset = 0,0
+
+[State 2026, Bound]
+type = ScreenBound
+trigger1 = 1
 value = 0
 
-[State 2028, TransVar]
-type = VarAdd
+[State 803, Vel]
+type = VelAdd
 trigger1 = 1
-V = 0
-value = 1
-ignorehitpause = 1
+y = .56
 
-[State 2028, TransVar]
-type = Trans
-trigger1 = Var(0) = [0, 32]
-trans = addalpha
-alpha = 8 * Var(0), 256
-ignorehitpause = 1
+[State 803, Vel]
+type = ChangeAnim2
+trigger1 = !Time
+value = 804
 
-[State 2028, TransVar]
-type = Trans
-trigger1 = Var(0) >= 32
-trans = addalpha
-alpha = 256, 256
-ignorehitpause = 1
+[State 803, Life]
+type = EnvShake
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+time = 8
+freq = 120
+ampl = 4
 
-[State 2029, End]
-type = DestroySelf
-trigger1 = root, Var(0) >= 76
-trigger2 = root, StateNo != 2022 ; Safety
-;---------------------------------------------------------------------------
+[State 803, Life]
+type = PosSet
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+y = 0
+
+[State 803, Hit Ground]
+type = SelfState
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+value = 5100
+ctrl = 0
+
 
 ;Gate Key Summon
 [Statedef 2100]
@@ -1394,6 +1368,7 @@ ownpal = 1
 sprpriority = 3
 shadow = -1
 removeongethit = 1
+removetime = 
 supermovetime = 99999
 ignorehitpause = 1
 
@@ -1461,7 +1436,6 @@ type = AngleDraw
 trigger1 = 1
 scale = 2, 1
 
-
 [State 192, Snd]
 type = PlaySnd
 trigger1 = !Time
@@ -1489,18 +1463,23 @@ trigger1 = !NumHelper(2102)
 trigger1 = AnimElem = 26
 value = 7102
 
-
 [State 192, Snd]
 type = PlaySnd
 trigger1 = Anim = 7102
 value = S7030,1
 persistent = 0
 
+[State 2101, noshadow]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
 
 [State 2101, End]
 type = DestroySelf
 trigger1 = Anim = 7102
 trigger1 = !AnimTime
+
 
 ; Tyranno
 [Statedef 2102]
