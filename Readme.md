@@ -81,11 +81,14 @@ Lucca executes the strongest Fire magic move. The flare will slowly advance
 toward your opponent for a bit before dissapearing, and you can make it 
 move up or down by pressing U or D.
 
-**Time Egg **: D, B, D, F + a/b/c (Standing) Requires 1000 Power. 
+**Gate Trap**: D, B, D, F + a/b/c (Standing) Requires 1000 Power. 
 
-Lucca shows her work with Time Eggs by using one against your opponent.
-This attack has a very short range, but if it connects, your opponent 
-will be thrown into Lavos' pocket dimension.
+Lucca uses her Gate Key to open a Gate on the floor. If the opponent stands on it,
+they will fall through it. You don't see what's on the other side of the Gate, 
+but it sure sounds like it hurts.
+
+The Gate stays open for a bit after you create it.
+
 This is a throw, so keep in mind it won't work against unthrowable enemies 
 (bosses are an example).
 

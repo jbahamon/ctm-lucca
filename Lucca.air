@@ -511,7 +511,7 @@ Clsn2:1
 5030,10, 0,0, 12
 5031,30, 0,0, -1
 
-; Boulder Toss (falling)
+; Shockwave (falling)
 [Begin Action 804]
 5041,0, 0,0, -1
 

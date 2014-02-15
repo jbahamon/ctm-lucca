@@ -572,15 +572,14 @@ triggerall = Var(21) > 0
 trigger1 = statetype != A
 trigger1 = ctrl || ((stateno = [200, 299]) && time <= 10)
 
-[State -1, Time Egg]
+[State -1, Gate Trap]
 type = ChangeState
 value = 2020
 triggerall = Command = "qcbhcfa" || Command = "qcbhcfb" || Command = "qcbhcfc"
 triggerall = Power >= 1000
+triggerall = !NumHelper(2020)
 trigger1 = statetype = S
 trigger1 = ctrl
-trigger2 = ( StateNo = [200,299] ) && MoveHit
-trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;---------------------------------------------------------------------------
 [State -1, Flare]
 type = ChangeState
