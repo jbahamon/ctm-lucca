@@ -1663,6 +1663,13 @@ type = ChangeState
 trigger1 = Time = 80 || !(Parent, StateNo = 1030)
 value = 1032
 
+[State 1031, End]
+type = DestroySelf
+trigger1 = Parent, StateNo != 1030
+trigger1 = Parent, StateNo != 1033
+ignorehitpause = 1
+
+
 ; Hypno Wave End
 [Statedef 1032]
 type    = S
@@ -1708,6 +1715,8 @@ ignorehitpause = 1
 [State 1031, End]
 type = DestroySelf
 trigger1 = Time >= 36
+trigger2 = Parent, StateNo != 1030
+trigger2 = Parent, StateNo != 1033
 ignorehitpause = 1
 
 ; Successful Hypno Wave
