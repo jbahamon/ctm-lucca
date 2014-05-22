@@ -436,6 +436,16 @@ time = 1
 
 ;-| Dir + Button |---------------------------------------------------------
 
+[Command]
+name = "F+a"
+command = /F, a
+time = 1
+
+[Command]
+name = "B+a"
+command = /B, a
+time = 1
+
 
 
 ;-| Single Button |---------------------------------------------------------
@@ -660,6 +670,23 @@ triggerall = Power >= 3000
 triggerall = Var(21) = 0
 trigger1 = StateType = S
 trigger1 = ctrl 
+
+
+[State -1, Forwards Dodge]
+type = ChangeState
+value = 17100
+triggerall = command = "F+a"
+triggerall = PalNo = 12
+trigger1 = statetype != A
+trigger1 = ctrl
+
+[State -1, Backwards Dodge]
+type = ChangeState
+value = 17101
+triggerall = command = "B+a" || command = "a"
+triggerall = PalNo = 12
+trigger1 = statetype != A
+trigger1 = ctrl
 
 ;===========================================================================
 ; Normal Moves
