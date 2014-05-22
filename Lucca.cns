@@ -121,7 +121,6 @@ victory15 = "You...!\nYou're...Janus?"
 ; Var(21): Protect Timer
 ; Var(22): Hypno Wave Target
 ; Var(23): Parry Time
-; Var(24): Parry Movement Detection
 
 ;FVar(29): Protect Damage
 ;----------------------------------------------------------------------
@@ -179,70 +178,6 @@ flag2 = NoCrouchGuard
 flag3 = NoAirGuard
 ignorehitpause = 1
 
-[State -2: Null]
-type = Null
-triggerall = PalNo = 12
-trigger1 = (!Time) && (Var(24) = 0)
-trigger1 = ((Command = "holdfwd") && (StateNo = 20 || StateNo = 0)) ^^ ((Command = "holddown") && (StateNo = [10,11]))
-trigger1 = (Var(23) := 8)
-trigger2 = (Command != "holdfwd") && (Command != "holddown") && (Var(24) = 1)
-trigger2 = (Var(24) := 0)
-ignorehitpause = 1
- 
-[State -2: VarAdd]
-type = VarAdd
-triggerall = PalNo = 12
-trigger1 = (Var(23) > 0)
-var(23) = -1
-ignorehitpause = 1
-
-[State -2: Helper]
-type = Helper
-triggerall = PalNo = 12
-trigger1 = ((StateNo = 50) || (StateNo = 17002)) && (Command = "holdfwd") && (NumHelper(17003) = 0)
-helpertype = Normal
-name = "Air Parry"
-id = 17003
-pos = 0,0
-postype = p1
-facing = 0
-stateno = 17003
-keyctrl = 0
-ownpal = 1
-supermovetime = 0
-pausemovetime = 0
-ignorehitpause = 1
-
-[State -2: HitOverride]
-type = HitOverride
-triggerall = PalNo = 12
-triggerall = (StateType != A) && (Ctrl) && (Var(23) > 0)
-trigger1 = (Command != "holddown") && (Command != "holdback")
-attr = SA, AA, AP
-slot = 0
-stateno = 17001
-ignorehitpause = 1
-
-[State -2: HitOverride]
-type = HitOverride
-triggerall = PalNo = 12
-triggerall = (StateType != A) && (Ctrl) && (Var(23) > 0)
-trigger1 = (Command != "holdfwd") && (Command != "holdback")
-attr = C, AA, AP
-slot = 0
-stateno = 17001
-ignorehitpause = 1
-
-[State -2: HitOverride]
-type = HitOverride
-triggerall = PalNo = 12
-triggerall = ((StateNo = 50) || (StateNo = 17002)) && (Var(23) > 0)
-trigger1 = (Command != "holddown") && (Command != "holdback")
-attr = SCA, AA, AP
-slot = 0
-stateno = 17002
-ignorehitpause = 1
-
 ;---------------------------------------------------------------------------
 ; States that are executed when in self's state file (use statedef -3)
 ;---------------------------------------------------------------------------
@@ -252,57 +187,59 @@ ignorehitpause = 1
 
 [State -3, Parry Detection]
 type = helper
-triggerall = roundstate = 2 && !numhelper(765) && !var(20)
-triggerall = (movetype = I && ctrl) || (stateno = [760, 762]) || stateno = 5120
+triggerall = roundstate = 2 && ((!numhelper(17006)) || (NumHelper(17006) && helper(17006), stateno = 17007))
+triggerall = (movetype = I && ctrl) || (stateno = [17001, 17003]) || stateno = 5120
 triggerall = (command != "rlsfwd" && command != "rlsback" && command != "rlsup" && command != "rlsdown")
 trigger1 = (statetype = S || statetype = C || stateno = 5120) && (command = "fwd" || command = "down")
-trigger2 = statetype = A && command = "fwd"
+trigger2 = statetype = A && command = "fwd" 
 helpertype = normal
-stateno = 765
-ID = 765
+stateno = 17006
+ID = 17006
 name = "Parry Detection"
 postype = p1
 pausemovetime = 65535
 supermovetime = 65535
+ignorehitpause = 1
 
 [State -3, Parry Attacks]
 type = changestate
-trigger1 = (stateno != [760, 762]) && numhelper(765)
-trigger1 = helper(765), stateno = 766
-value = ifelse((helper(765), anim = 767), 762, ifelse((helper(765), anim = 766), 761, 760))
+trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
+trigger1 = helper(17006), stateno = 17007
+value = ifelse((helper(17006), anim = 17008), 17003, ifelse((helper(17006), anim = 17007), 17002, 17001))
+
 ignorehitpause = 1
 [State -3, Parry Projectiles]
 type = hitoverride
-trigger1 = (stateno != [760, 762]) && numhelper(765)
-trigger1 = !(helper(765), var(0)) && (helper(765), anim = 765)
+trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
+trigger1 = !(helper(17006), var(0)) && (helper(17006), anim = 17006)
 attr = SA, AP
-stateno = 760
+stateno = 17001
 slot = 0
 time = 1
 ignorehitpause = 1
 [State -3, Parry Projectiles]
 type = hitoverride
-trigger1 = (stateno != [760, 762]) && numhelper(765)
-trigger1 = !(helper(765), var(0)) && (helper(765), anim = 766)
+trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
+trigger1 = !(helper(17006), var(0)) && (helper(17006), anim = 17007)
 attr = C, AP
-stateno = 761
+stateno = 17002
 slot = 0
 time = 1
 ignorehitpause = 1
 [State -3, Parry Projectiles]
 type = hitoverride
-trigger1 = (stateno != [760, 762]) && numhelper(765)
-trigger1 = !(helper(765), var(0)) && (helper(765), anim = 767)
+trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
+trigger1 = !(helper(17006), var(0)) && (helper(17006), anim = 17008)
 attr = SCA, AP
-stateno = 762
+stateno = 17003
 slot = 0
 time = 1
 ignorehitpause = 1
 
 [State -3, NoWalk after Parry]
 type = assertspecial
-trigger1 = var(26) > 0
-trigger1 = var(26) := (var(26) -1)
+trigger1 = var(23) > 0
+trigger1 = var(23) := (var(23) -1)
 flag = nowalk
 
 [State -3, Prevent Undergound Juggles]

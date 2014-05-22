@@ -446,9 +446,35 @@ name = "B+a"
 command = /B, a
 time = 1
 
-
-
 ;-| Single Button |---------------------------------------------------------
+
+[Command]
+name = "fwd"
+command = F
+time = 1
+
+[Command]
+name = "down"
+command = D
+time = 1
+
+[Command]
+name = "rlsfwd"
+command = ~$F
+time = 1
+[Command]
+name = "rlsback"
+command = ~$B
+time = 1
+[Command]
+name = "rlsup"
+command = ~$U
+time = 1
+[Command]
+name = "rlsdown"
+command = ~$D
+time = 1
+
 [Command]
 name = "a"
 command = a

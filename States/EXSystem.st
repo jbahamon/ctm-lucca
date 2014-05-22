@@ -31,7 +31,7 @@ value = 1
 [State 760, No walking]
 type = varset
 trigger1 = 1
-var(26) = 7
+var(23) = 7
 
 [State 760, Flash]
 type = palfx
@@ -99,7 +99,7 @@ value = 1
 [State 761, No walking]
 type = varset
 trigger1 = 1
-var(26) = 7
+var(23) = 7
 
 [State 761, Flash]
 type = palfx
@@ -171,7 +171,7 @@ sinadd = 0, -64, -255, 60
 time = 15
 
 [State 17001: Explod]
-type = Helper
+type = null;,Helper
 trigger1 = (!Time)
 StateNo = 17005
 id = 17000
@@ -216,6 +216,54 @@ type = changestate
 trigger1 = pos y > -vel y && Vel Y > 0
 value = 52
 
+
+; Moon of Mahaa-Khalaa Sigil
+[Statedef 17005]
+type = S
+physics = N
+movetype = I
+anim = 17005
+sprpriority = 6
+    
+[State 17003: ParentVarSet]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 7000, Pal Down]
+type = AngleDraw
+trigger1 = 1
+scale = 0.5, 0.9
+
+[State 7000, Pal Down]
+type = Trans
+trigger1 = Time = [0, 4]
+trans = addalpha
+alpha = 64 * Time, 256
+
+[State 7000, Pal Down]
+type = Trans
+trigger1 = Time = [4, 14]
+trans = addalpha
+alpha = 256, 256
+
+[State 7000, Pal Down]
+type = Trans
+trigger1 = Time = [14, 18]
+trans = addalpha
+alpha = 256 - 64 * (Time - 14), 256
+
+[State 7000, Pal Down]
+type = PalFX
+trigger1 = 1
+time = 1
+color = Floor(128 + 128*Cos(Time/30.0))
+
+
+[State 7000, End]
+type = DestroySelf
+trigger1 = Time >= 18
 
 ; Parry Reversal
 [Statedef 17006]
