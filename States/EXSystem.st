@@ -79,6 +79,7 @@ sprpriority = 2
 poweradd = 78
 facep2 = 1
 
+
 [State 761, HB]
 type = hitby
 trigger1 = 1
@@ -171,7 +172,7 @@ sinadd = 0, -64, -255, 60
 time = 15
 
 [State 17001: Explod]
-type = null;,Helper
+type = Helper
 trigger1 = (!Time)
 StateNo = 17005
 id = 17000
@@ -203,6 +204,7 @@ physics = N
 movetype = I
 anim = 17004
 ctrl = 1
+
 [State 763, Vel]
 type = velset
 trigger1 = !time
@@ -273,6 +275,13 @@ movetype = I
 anim = ifelse(root, statetype = C, 17007, ifelse(root, statetype = A, 17008, 17006))
 velset = 0, 0
 ctrl = 0
+
+[State 760, Stop]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+flag2 = invisible
+ignorehitpause = 1
 
 [State 765, NHB]
 type = nothitby
@@ -360,6 +369,14 @@ trigger4 = (root, stateno = [17001, 17003]) && (root, time <= 1)
 [Statedef 17007]
 movetype = I
 ctrl = 0
+
+[State 760, Stop]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+flag2 = invisible
+ignorehitpause = 1
+
 [State 766, Disable]
 type = varset
 trigger1 = 1
@@ -371,7 +388,7 @@ trigger2 = time >= 2
 
 ; Forwards Dodge 
 [Statedef 17100]
-type = S
+type = U
 movetype = I
 physics = N
 anim = 17100
@@ -386,64 +403,10 @@ hitcountpersist = 0
 sprpriority = 0
 
 [State 17100: SprPriority]
-type = SprPriority
-trigger1 = (Vel X != 0)
-value = -2
-
-[State 17100: NotHitBy]
-type = NotHitBy
-trigger1 = (Time < 20)
-value = , NA, SA, HA, NP, SP, HP
-
-[State 17100: VelSet]
-type = VelSet
-trigger1 = (Time = 5)
-x = 2.9
-
-[State 17100: VelSet]
-type = VelSet
-trigger1 = (Time = 30)
-x = 0
-
-[State 17100: PlayerPush]
-type = PlayerPush
-trigger1 = (Vel X != 0)
-value = 0
-
-[State 17100: AfterImage]
-type = AfterImage
-trigger1 = (Vel X != 0)
-time = 25
-timegap = 2
-framegap = 4
-length = 15
-paladd = 0, 0, 0
-palmul = .50, .50, .50
-palcontrast = 100,100,100
-trans = add
-persistent = 0
-
-[State 17100: ChangeState]
-type = ChangeState
-trigger1 = (AnimTime = 0)
-value = 0
-ctrl = 1
-
-; Backwards Dodge 
-[Statedef 17101]
-type = S
-movetype = I
-physics = N
-anim = 17101
-velset = 0,0
-ctrl = 0
-poweradd = 0
-juggle = 0
-facep2 = 0
-hitdefpersist = 0
-movehitpersist = 0
-hitcountpersist = 0
-sprpriority = 0
+type = StateTypeSet
+trigger1 = !Time
+trigger1 = StateType = C
+statetype = S
 
 [State 17100: SprPriority]
 type = SprPriority
@@ -456,9 +419,15 @@ trigger1 = (AnimElemNo(0) = [2,7])
 value = , NA, SA, HA, NP, SP, HP
 
 [State 17100: VelSet]
+type = VelAdd
+trigger1 = (AnimElem = 2)
+trigger1 = StateType = A
+Y = -7
+
+[State 17100: VelSet]
 type = VelSet
 trigger1 = (AnimElem = 2)
-x = -2.9
+x = 2.9
 
 [State 17100: VelSet]
 type = VelSet
@@ -494,6 +463,113 @@ time = 3
 
 [State 17100: ChangeState]
 type = ChangeState
-trigger1 = (AnimTime = 0)
+trigger1 = StateType = A && Pos Y > Vel Y && Vel Y > 0
+value = 52
+ctrl = 1
+
+[State 17100: ChangeState]
+type = Gravity
+trigger1 = StateType = A
+
+[State 17100: ChangeState]
+type = ChangeState
+trigger1 = StateType = A && !AnimTime
+value = 50
+ctrl = 1
+
+[State 17100: ChangeState]
+type = ChangeState
+trigger1 = StateType != A && !AnimTime
+value = 0
+ctrl = 1
+
+; Backwards Dodge 
+[Statedef 17101]
+type = U
+movetype = I
+physics = N
+anim = 17101
+velset = 0,0
+ctrl = 0
+poweradd = 0
+juggle = 0
+facep2 = 0
+hitdefpersist = 0
+movehitpersist = 0
+hitcountpersist = 0
+sprpriority = 0
+
+[State 17100: SprPriority]
+type = SprPriority
+trigger1 = (Vel X != 0)
+value = -2
+
+[State 17100: NotHitBy]
+type = NotHitBy
+trigger1 = (AnimElemNo(0) = [2,7])
+value = , NA, SA, HA, NP, SP, HP
+
+[State 17100: VelSet]
+type = VelSet
+trigger1 = (AnimElem = 2)
+x = -2.9
+
+[State 17100: VelSet]
+type = VelAdd
+trigger1 = (AnimElem = 2)
+trigger1 = StateType = A
+Y = -7
+
+[State 17100: VelSet]
+type = VelSet
+trigger1 = (AnimElem = 9)
+x = 0
+
+[State 17100: PlayerPush]
+type = PlayerPush
+trigger1 = (Vel X != 0)
+value = 0
+
+[State 17100: AfterImage]
+type = AfterImage
+trigger1 = (AnimElem = 2)
+persistent = 0
+length = 8
+palbright = 0, 0, 0
+palcolor = 256
+paladd = 0, 0, 0
+palmul = .50, .50, .50
+palcontrast = 100,100,100
+trans = add
+timegap  = 2
+framegap = 2
+time = 2; only 2 ticks!!!
+ignorehitpause = 1
+persistent = 0
+
+[State 17100: AfterImage]
+type = AfterImageTime
+trigger1 = (Vel X != 0)
+time = 3
+
+[State 17100: ChangeState]
+type = ChangeState
+trigger1 = StateType = A && Pos Y > Vel Y && Vel Y > 0
+value = 52
+ctrl = 1
+
+[State 17100: ChangeState]
+type = Gravity
+trigger1 = StateType = A
+
+[State 17100: ChangeState]
+type = ChangeState
+trigger1 = StateType = A && !AnimTime
+value = 50
+ctrl = 1
+
+[State 17100: ChangeState]
+type = ChangeState
+trigger1 = StateType != A && !AnimTime
 value = 0
 ctrl = 1

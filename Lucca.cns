@@ -187,7 +187,8 @@ ignorehitpause = 1
 
 [State -3, Parry Detection]
 type = helper
-triggerall = roundstate = 2 && ((!numhelper(17006)) || (NumHelper(17006) && helper(17006), stateno = 17007))
+triggerall = PalNo = 12
+triggerall = roundstate = 2 && !numhelper(17006)
 triggerall = (movetype = I && ctrl) || (stateno = [17001, 17003]) || stateno = 5120
 triggerall = (command != "rlsfwd" && command != "rlsback" && command != "rlsup" && command != "rlsdown")
 trigger1 = (statetype = S || statetype = C || stateno = 5120) && (command = "fwd" || command = "down")
@@ -203,13 +204,15 @@ ignorehitpause = 1
 
 [State -3, Parry Attacks]
 type = changestate
+triggerall = PalNo = 12
 trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
 trigger1 = helper(17006), stateno = 17007
 value = ifelse((helper(17006), anim = 17008), 17003, ifelse((helper(17006), anim = 17007), 17002, 17001))
-
 ignorehitpause = 1
+
 [State -3, Parry Projectiles]
 type = hitoverride
+triggerall = PalNo = 12
 trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
 trigger1 = !(helper(17006), var(0)) && (helper(17006), anim = 17006)
 attr = SA, AP
@@ -219,6 +222,7 @@ time = 1
 ignorehitpause = 1
 [State -3, Parry Projectiles]
 type = hitoverride
+triggerall = PalNo = 12
 trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
 trigger1 = !(helper(17006), var(0)) && (helper(17006), anim = 17007)
 attr = C, AP
@@ -228,6 +232,7 @@ time = 1
 ignorehitpause = 1
 [State -3, Parry Projectiles]
 type = hitoverride
+triggerall = PalNo = 12
 trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
 trigger1 = !(helper(17006), var(0)) && (helper(17006), anim = 17008)
 attr = SCA, AP
@@ -238,6 +243,7 @@ ignorehitpause = 1
 
 [State -3, NoWalk after Parry]
 type = assertspecial
+triggerall = PalNo = 12
 trigger1 = var(23) > 0
 trigger1 = var(23) := (var(23) -1)
 flag = nowalk

@@ -402,6 +402,19 @@ name = "qcfc"
 command = ~D, DF, F, c
 time = 15
 
+[Command]
+name = "BFb"
+command = ~B, F, b
+time = 15
+
+
+[Command]
+name = "BFc"
+command = ~B, F, c
+time = 15
+
+
+
 ;-| Double Tap |-----------------------------------------------------------
 [Command]
 name = "FF"     ;Required (do not remove)
@@ -439,6 +452,16 @@ time = 1
 [Command]
 name = "F+a"
 command = /F, a
+time = 1
+
+[Command]
+name = "U+F+a"
+command = /U+F, a
+time = 1
+
+[Command]
+name = "D+F+a"
+command = /D+F, a
 time = 1
 
 [Command]
@@ -603,6 +626,7 @@ trigger1 = ctrl
 [State -1, Gate Summon]
 type = ChangeState
 value = 2100
+triggerall = PalNo != 12
 triggerall = Command = "qcfhcba" || Command = "qcfhcbb" || Command = "qcfhcbc"
 triggerall = Var(21) > 0
 trigger1 = statetype != A
@@ -611,6 +635,7 @@ trigger1 = ctrl || ((stateno = [200, 299]) && time <= 10)
 [State -1, Gate Trap]
 type = ChangeState
 value = 2020
+triggerall = PalNo != 12
 triggerall = Command = "qcbhcfa" || Command = "qcbhcfb" || Command = "qcbhcfc"
 triggerall = Power >= 1000
 triggerall = !NumHelper(2020)
@@ -620,6 +645,7 @@ trigger1 = ctrl
 [State -1, Flare]
 type = ChangeState
 value = 2010
+triggerall = PalNo != 12
 triggerall = Command = "2qcfa" || Command = "2qcfb" || Command = "2qcfc" 
 triggerall = Power >= 1000
 triggerall = !NumHelper(2010)
@@ -631,6 +657,7 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 [State -1, Gato!]
 type = ChangeState
 value = 2000
+triggerall = PalNo != 12
 triggerall = Command = "2qcba" || Command = "2qcbb" || Command = "2qcbc" 
 triggerall = Power >= 1000
 triggerall = !NumHelper(2000)
@@ -646,6 +673,7 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 [State -1, Robot Summon]
 type = ChangeState
 value = 1000
+triggerall = PalNo != 12
 triggerall = !NumHelper(1000)
 triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
 triggerall = roundstate = 2 && statetype != A 
@@ -654,6 +682,7 @@ trigger1 = ctrl
 [State -1, Fire Uppercut]
 type = ChangeState
 value = 1010
+triggerall = PalNo != 12
 triggerall = command = "dfa" || command = "dfb" || command = "dfc"
 triggerall = roundstate = 2 && statetype != A 
 trigger1 = ctrl
@@ -663,6 +692,7 @@ trigger3 = (stateno = [400, 499]) && movecontact
 [State -1, Napalm]
 type = ChangeState
 value = 1020
+triggerall = PalNo != 12
 triggerall = command = "qcfa" || command = "qcfb" || command = "qcfc"
 triggerall = roundstate = 2 && statetype != A && !numhelper(1020)
 trigger1 = ctrl
@@ -671,6 +701,7 @@ trigger2 = (stateno = [200, 299]) && movecontact
 [State -1, Hypno Wave]
 type = ChangeState
 value = 1030
+triggerall = PalNo != 12
 triggerall = Power >= 500
 triggerall = !NumHelper(1030)
 triggerall = Command = "dba" || Command = "dbb" || Command = "dbc" 
@@ -678,6 +709,43 @@ trigger1 = statetype != A
 trigger1 = ctrl
 ;--------------------------------------------------------------------------
 
+[State -1, Tombstone]
+type = ChangeState
+value = 11000
+triggerall = PalNo = 12
+triggerall = command = "qcfb" || command = "qcfc"
+triggerall = roundstate = 2 && statetype != A && !numhelper(11000)
+trigger1 = ctrl
+trigger2 = (stateno = [200, 299]) && movecontact
+
+;--------------------------------------------------------------------------
+[State -1, Tetsuzanko]
+type = ChangeState
+value = 11100
+triggerall = PalNo = 12
+triggerall = command = "BFb"
+triggerall = roundstate = 2 && statetype != A && !numhelper(11100)
+trigger1 = ctrl
+trigger2 = (stateno = [200, 299]) && movecontact
+
+;--------------------------------------------------------------------------
+[State -1, Heel Stomp]
+type = ChangeState
+value = 11150
+triggerall = PalNo = 12
+triggerall = command = "BFc"
+triggerall = roundstate = 2 && statetype != A && !numhelper(11150)
+trigger1 = ctrl
+trigger2 = (stateno = [200, 299]) && movecontact
+
+;--------------------------------------------------------------------------
+[State -1, Torture Attack]
+type = ChangeState
+value = 11200
+triggerall = PalNo = 12
+triggerall = command = "qcbb" || command = "qcbc"
+triggerall = roundstate = 2 && statetype != A 
+trigger1 = ctrl
 ;===========================================================================
 ; Throws, Rolls, Etc
 ;===========================================================================
@@ -701,9 +769,8 @@ trigger1 = ctrl
 [State -1, Forwards Dodge]
 type = ChangeState
 value = 17100
-triggerall = command = "F+a"
+triggerall = command = "F+a" || command = "U+F+a" || command = "D+F+a" 
 triggerall = PalNo = 12
-trigger1 = statetype != A
 trigger1 = ctrl
 
 [State -1, Backwards Dodge]
@@ -711,7 +778,6 @@ type = ChangeState
 value = 17101
 triggerall = command = "B+a" || command = "a"
 triggerall = PalNo = 12
-trigger1 = statetype != A
 trigger1 = ctrl
 
 ;===========================================================================
@@ -720,6 +786,7 @@ trigger1 = ctrl
 [State -1, Stand Light]
 type = ChangeState
 value = 200
+triggerall = PalNo != 12
 triggerall = command = "a"
 triggerall = command != "holddown"
 trigger1 = statetype != A
@@ -764,6 +831,7 @@ trigger1 = ctrl
 [State -1, Crouching Light]
 type = ChangeState
 value = 400
+triggerall = PalNo != 12
 triggerall = command = "a"
 triggerall = command = "holddown"
 trigger1 = statetype != A
@@ -803,6 +871,7 @@ trigger3 = (StateType != A) && (MoveContact) && (Var(21) > 0)
 [State -1, Jump Light]
 type = ChangeState
 value = 600
+triggerall = PalNo != 12
 triggerall = command = "a"
 trigger1 = statetype = A
 trigger1 = ctrl
