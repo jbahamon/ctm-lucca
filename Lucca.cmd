@@ -721,30 +721,39 @@ trigger2 = (stateno = [200, 299]) && movecontact
 ;--------------------------------------------------------------------------
 [State -1, Tetsuzanko]
 type = ChangeState
-value = 11100
+value = 11100 + (statetype = A)
 triggerall = PalNo = 12
 triggerall = command = "BFb"
-triggerall = roundstate = 2 && statetype != A && !numhelper(11100)
+triggerall = roundstate = 2 && !numhelper(11100)
 trigger1 = ctrl
-trigger2 = (stateno = [200, 299]) && movecontact
+trigger2 = (stateno = [200, 699]) && movecontact
 
 ;--------------------------------------------------------------------------
 [State -1, Heel Stomp]
 type = ChangeState
-value = 11150
+value = 11150 +  (statetype = A)
 triggerall = PalNo = 12
 triggerall = command = "BFc"
-triggerall = roundstate = 2 && statetype != A && !numhelper(11150)
+triggerall = roundstate = 2 && !numhelper(11150)
 trigger1 = ctrl
-trigger2 = (stateno = [200, 299]) && movecontact
+trigger2 = (stateno = [200, 699]) && movecontact
 
 ;--------------------------------------------------------------------------
-[State -1, Torture Attack]
+[State -1, Torture Attack - Ground]
 type = ChangeState
 value = 11200
 triggerall = PalNo = 12
 triggerall = command = "qcbb" || command = "qcbc"
 triggerall = roundstate = 2 && statetype != A 
+trigger1 = ctrl
+
+;--------------------------------------------------------------------------
+[State -1, Torture Attack - Air]
+type = ChangeState
+value = 11300
+triggerall = PalNo = 12
+triggerall = command = "qcbb" || command = "qcbc"
+triggerall = roundstate = 2 && statetype = A 
 trigger1 = ctrl
 ;===========================================================================
 ; Throws, Rolls, Etc

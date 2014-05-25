@@ -252,6 +252,7 @@ givepower = 36, 36
 envshake.time = 16
 envshake.freq = 120
 envshake.ampl = 4
+p2sprpriority = -1
 fall = 1
 fall.recover = 0
 air.juggle = 18
@@ -283,6 +284,122 @@ type = changestate
 trigger1 = !animtime
 value = 0
 ctrl = 1
+
+;Tetsuzanko (Air)
+[Statedef 11101]
+type = A
+physics = N
+movetype = A
+anim = 11100
+ctrl = 0
+velset = 0, 0
+juggle = 18
+poweradd = 0
+sprpriority = 2
+facep2 = 1
+
+[State 1000, Hadouken]
+type = PowerAdd
+trigger1 = !Time
+trigger1 = !(Var(0) := 0)
+trigger1 = Power >= 500
+trigger1 = Var(0) := 1
+value = -500
+ignorehitpause = 1
+
+[State 1000, Hadouken]
+type = PowerAdd
+trigger1 = !Time
+trigger1 = !Var(0)
+value = 72 * !var(21)
+ignorehitpause = 1
+
+[State 1000, Hadouken]
+type = VelSet
+trigger1 = animelem = 3
+X = 6
+
+[State 1000, Hadouken]
+type = VelMul
+trigger1 = 1
+X = 0.89
+Y = 0.85
+ignorehitpause = 1
+
+
+[State 1250, Hit]
+type = HitDef
+trigger1 = !Time
+attr = A, SA
+damage = 38, 7
+animtype = Hard
+guardflag = M
+hitflag = MAF
+priority = 4, Hit
+pausetime = 0, 7
+sparkno = s7001
+sparkxy = -10, -25
+hitsound = s7050,2
+guardsound = s2, 0
+ground.type = High
+ground.slidetime = 16
+ground.hittime = 16
+ground.velocity = -2, -4.5
+air.type = Low
+air.velocity = -2, -4.5
+air.cornerpush.veloff = 0
+ground.cornerpush.veloff = 0
+guard.velocity = -8
+guard.cornerpush.veloff = 0;-12.74
+getpower = (!Var(0)) * IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 72, 144)), (!Var(0)) * IfElse(Var(21) > 0, 0, 36)
+givepower = 36, 36
+envshake.time = 16
+envshake.freq = 120
+envshake.ampl = 4
+p2sprpriority = -1
+fall = 1
+fall.recover = 0
+air.juggle = 18
+fall.recovertime = 120
+yaccel = 0.3
+airguard.ctrltime = 16
+airguard.velocity = -8, -1.5
+forcestand = 1
+airguard.cornerpush.veloff = 0
+airguard.cornerpush.veloff = 0
+palfx.add = 144, 64, 7
+palfx.mul = 256,256,256 
+palfx.time = 8
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Var(0)
+trigger1 = AnimElem = 4
+helpertype = normal
+stateno = 11105
+ID = 11100
+name = "Madama Butterfly's Hand"
+postype = p1
+pos = 10, -30
+ownpal = 1
+
+[State 1000, End]
+type = VelSet
+trigger1 = Pos Y > 0
+Y = 0
+ignorehitpause = 1
+
+[State 1000, End]
+type = PosSet
+trigger1 = Pos Y > 0
+Y = 0
+ignorehitpause = 1
+
+[State 1000, End]
+type = changestate
+trigger1 = !animtime
+value = 50
+ctrl = 0
 
 ; Madama Butterfly's Hand
 [Statedef 11105]
@@ -493,6 +610,7 @@ givepower = 36, 36
 envshake.time = 16
 envshake.freq = 120
 envshake.ampl = 4
+p2sprpriority = -1
 fall = 1
 fall.recover = 0
 air.juggle = 18
@@ -524,6 +642,138 @@ type = changestate
 trigger1 = !animtime
 value = 0
 ctrl = 1
+
+; Heel Stomp (Air)
+[Statedef 11151]
+type = A
+physics = N
+movetype = A
+anim = 11150
+ctrl = 0
+juggle = 18
+poweradd = 0
+sprpriority = 2
+facep2 = 1
+
+[State 11151, VelMul]
+type = VelMul
+trigger1 = 1
+X = 0.86
+Y = 0.86
+ignorehitpause = 1
+
+[State 1000, Hadouken]
+type = PowerAdd
+trigger1 = !Time
+trigger1 = !(Var(0) := 0)
+trigger1 = Power >= 500
+trigger1 = Var(0) := 1
+value = -500
+ignorehitpause = 1
+
+[State 1000, Hadouken]
+type = PowerAdd
+trigger1 = !Time
+trigger1 = !Var(0)
+value = 72 * !var(21)
+ignorehitpause = 1
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 4
+anim = 7015
+ID = 11150
+pos = 10, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+
+[State 1250, Hit]
+type = HitDef
+trigger1 = !Time
+attr = A, SA
+damage = 38, 7
+animtype = Hard
+guardflag = M
+hitflag = MAF
+priority = 4, Hit
+pausetime = 0, 7
+sparkno = s7001
+sparkxy = -10, -25
+hitsound = s7050,2
+guardsound = s2, 0
+ground.type = High
+ground.slidetime = 16
+ground.hittime = 16
+ground.velocity = -2, -4.5
+air.type = Low
+air.velocity = -2, -4.5
+air.cornerpush.veloff = 0
+ground.cornerpush.veloff = 0
+guard.velocity = -8
+guard.cornerpush.veloff = 0;-12.74
+getpower = (!Var(0)) * IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 72, 144)), (!Var(0)) * IfElse(Var(21) > 0, 0, 36)
+givepower = 36, 36
+envshake.time = 16
+envshake.freq = 120
+envshake.ampl = 4
+p2sprpriority = -1
+fall = 1
+fall.recover = 0
+air.juggle = 18
+fall.recovertime = 120
+yaccel = 0.3
+airguard.ctrltime = 16
+airguard.velocity = -8, -1.5
+forcestand = 1
+airguard.cornerpush.veloff = 0
+airguard.cornerpush.veloff = 0
+palfx.add = 144, 64, 7
+palfx.mul = 256,256,256 
+palfx.time = 8
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Var(0)
+trigger1 = AnimElem = 4
+helpertype = normal
+stateno = 11155
+ID = 11150
+name = "Madama Butterfly's Foot"
+postype = p1
+pos = 20, IfElse((Pos Y + 20) > 0, -Pos Y, 20)
+ownpal = 1
+
+[State 1000, End]
+type = VelSet
+trigger1 = Pos Y > 0
+Y = 0
+ignorehitpause = 1
+
+[State 1000, End]
+type = PosSet
+trigger1 = Pos Y > 0
+Y = 0
+ignorehitpause = 1
+
+
+[State 1000, End]
+type = changestate
+trigger1 = !animtime
+value = 50
+ctrl = 0
 
 ; Madama Butterfly's Foot
 [Statedef 11155]
@@ -709,11 +959,11 @@ poweradd = 0
 velset = 0,0
 
 [State 1031, Measure]
-type = null;VarSet
+type = turn
 triggerall = !Time
-trigger1 = Facing > 0 && ScreenPos X > 280
-trigger2 = Facing < 0 && ScreenPos X < 40
-Var(0) = IfElse(Facing > 0, ScreenPos X - 280, ScreenPos X)
+trigger1 = Facing > 0 && ScreenPos X > 240
+trigger2 = Facing < 0 && ScreenPos X < 80
+;Var(0) = IfElse(Facing > 0, ScreenPos X - 280, ScreenPos X)
 
 [State 1031, Measure]
 type = VarSet
@@ -753,6 +1003,14 @@ trigger1 = AnimElemNo(0) = 4
 trigger1 = fvar(1) >= 80
 value = 11203
 
+[State 11205, Change]
+type = EnvShake
+triggerall = Anim = 11201
+trigger1 = AnimElem = 4
+ampl = 8
+time = 4
+freq = 120
+
 [State 1030, Fail]
 type = TargetState
 trigger1 = Anim = 11203
@@ -791,6 +1049,12 @@ type = TargetDrop
 trigger1 = NumTarget
 trigger1 = Target, StateNo = 11298
 
+[State 1030, Fail]
+type = ChangeState
+trigger1 = !NumTarget
+value = 0
+ctrl = 1
+
 ; Get Hit
 [Statedef 11202]
 type = S
@@ -813,7 +1077,7 @@ ctrl = 0
 [Statedef 11205]
 type = S
 physics = N
-movetype = H
+movetype = I
 anim = 11205
 velset = 0,0
 
@@ -959,3 +1223,468 @@ type = ChangeState
 trigger1 = Time > 12
 value = 0
 ctrl = 1
+
+;---------------------------------------------------------------------------
+; Torture Attack - Air
+[Statedef 11300]
+type    = A
+movetype= A
+physics = A
+juggle  = 3
+ctrl = 0
+anim = 11300
+sprpriority = 1
+facep2 = 1
+poweradd = -500
+
+[State 1030, Impulse]
+type = VelSet
+trigger1 = !Time
+Y = -2
+X = 2
+
+[State 1030, Low Gravity]
+type = VelAdd
+trigger1 = 1
+Y = -0.3*Const(movement.yaccel)
+
+[State 1030, Hit]
+type = HitDef
+trigger1 = Time = 10
+attr = S, ST 
+hitflag = MA-
+priority = 2, Miss
+sparkno = -1
+hitsound = s7010, 0
+p1stateno = 11301
+p2stateno = 11302
+guard.dist = 0
+ground.velocity = 0,0
+fall = 1
+fall.recover = 1
+fall.recovertime = 120
+
+; Torture Attack - Pulley
+[Statedef 11301]
+type    = A
+movetype= A
+physics = N
+juggle  = 3
+ctrl = 0
+anim = 11301
+sprpriority = 2
+poweradd = 0
+velset = 0,0
+
+[State 1000, Hadouken]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Time = 39
+helpertype = normal
+stateno = 11305
+ID = 11300
+name = "Pulley"
+postype = p1
+pos = 60, -70
+ownpal = 1
+
+[State 11205, Change]
+type = EnvShake
+trigger1 = !Time
+ampl = 4
+time = 8
+freq = 120
+
+[State 1031, Measure]
+type = Turn
+triggerall = !Time
+trigger1 = Facing > 0 && ScreenPos X > 240
+trigger2 = Facing < 0 && ScreenPos X < 80
+
+[State 1031, Measure]
+type = PosSet
+trigger1 = !Time
+trigger1 = NumTarget
+X = Target, Pos X - 25*Facing
+Y = Target, Const(size.head.pos.y) + 20
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(1) = Facing * (Target, ScreenPos X - ScreenPos X)
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(2) = (Target, ScreenPos Y - ScreenPos Y)
+
+[State 801, Bind]
+type = PosAdd
+triggerall = Time = [5, 32]
+trigger1 = (fvar(1) := fvar(1) - 1)
+trigger1 = (fvar(2) := fvar(2) - (-3 + (Time - 5)*0.18))
+X = 1
+Y = -3 + (Time - 5)*0.18
+
+[State 1031, Measure]
+type = TargetState
+trigger1 = Time = 32
+trigger1 = NumTarget
+value = 11303
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Time = 32
+helpertype = normal
+stateno = 11306
+ID = 11301
+name = "Chain 1"
+postype = p1
+pos = 0,0;Floor(Target, Pos X - Pos X + Target, Const(size.mid.pos.x))*Facing, Floor(Target, Pos Y - Pos Y + Target, Const(size.mid.pos.y))
+ownpal = 1
+
+
+[State 1031, Measure]
+type = null
+trigger1 = Time = 32
+trigger1 = NumTarget
+trigger1 = !(fvar(1) := 0)
+trigger1 = !(fvar(2) := 0)
+
+[State 801, Bind]
+type = PosAdd
+triggerall = Time = [40, 52]
+trigger1 = (fvar(1) := fvar(1) - 4.1)
+trigger1 = (fvar(2) := fvar(2) + 3.8)
+X = 4.1
+Y = -3.8
+
+[State 801, Bind]
+type = PosAdd
+triggerall = NumHelper(11300)
+triggerall = Anim = 11302
+triggerall = AnimElemTime(1) = [14, 25]
+triggerall = NumTarget
+trigger1 = (fvar(1) := fvar(1) - 0.5)
+trigger1 = (fvar(2) := fvar(2) - 10)
+X = 5
+Y = 5
+
+[State 801, Bind]
+type = TargetBind
+trigger1 = 1
+pos = fvar(1), fvar(2)
+
+[State 11205, Change]
+type = ChangeAnim
+triggerall = NumHelper(11300)
+trigger1 = Time = 55
+value = 11302
+persistent = 0
+
+[State 11205, Change]
+type = EnvShake
+trigger1 = Anim = 11302
+trigger1 = AnimElemTime(1) = 25
+ampl = 8
+freq = 120
+time = 12
+persistent = 0
+
+[State 11205, Change]
+type = TargetLifeAdd
+triggerall = NumTarget
+trigger1 = Anim = 11302
+trigger1 = AnimElemTime(1) = 25
+value = -120
+persistent = 0
+
+[State 11205, Change]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+
+[State 11205, Change]
+type = VarAdd
+triggerall = NumTarget
+trigger1 = Anim = 11302
+trigger1 = AnimElemTime(1) = 25
+trigger2 = Var(0) > 0
+v = 0
+value = 1
+
+[State 11205, Change]
+type = TargetState
+triggerall = NumTarget
+trigger1 = Var(0) > 20
+value = 11398
+
+[State 11205, Change]
+type = TargetDrop
+triggerall = NumTarget
+trigger1 = Target, StateNo = 11398
+persistent = 0
+
+[State 11205, Change]
+type = ChangeState
+trigger1 = !NumTarget
+value = 50
+ctrl = 0
+persistent = 0
+
+
+; Get Hit
+[Statedef 11302]
+type = A
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 1
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 11304
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
+; Get Hit - Lift up
+[Statedef 11303]
+type = A
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 1
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 11308
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
+; Pulley
+[Statedef 11305]
+type = A
+physics = N
+movetype = I
+anim = 11305
+sprpriority = 3
+velset = 0,0
+
+[State 11205, Change]
+type = Trans
+trigger1 = Time = [0, 16]
+trans = addalpha
+alpha = Time * 16, 256 - Time * 16
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Parent, Anim = 11302
+trigger1 = Parent, AnimElemTime(1) >= 14
+helpertype = normal
+stateno = 11308
+ID = 11301
+name = "Chain 2"
+postype = p1
+pos = 0, 0
+ownpal = 1
+persistent = 0
+
+[State 11205, Change]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+
+[State 11205, Change]
+type = Trans
+trigger1 = Parent, StateNo != 11301
+trigger1 = (var(0) := (var(0)+1))
+trans = addalpha
+alpha = 256 - 16 * Var(0), 16 * Var(0)
+
+
+[State 1032, Shtuff]
+type = DestroySelf
+trigger1 = Var(0) >= 16
+
+;Chain 1
+[Statedef 11306]
+type = A
+physics = N
+movetype = I
+anim = 11306
+sprpriority = 0
+velset = 0,0
+
+[State 11205, Scale]
+type = AssertSpecial
+trigger1 = Time = [0,8]
+trigger2 = FVar(0) = 0
+flag = invisible
+flag2 = noshadow
+
+[State 11205, Scale]
+type = null
+triggerall = Parent, Anim = 11301
+trigger1 = (FVar(0) := (ScreenPos X - Parent, ScreenPos X) * Parent, Facing)
+trigger1 = (FVar(1) := (ScreenPos Y - Parent, ScreenPos Y + 20))
+
+[State 11205, Scale]
+type = null
+triggerall = Parent, Anim = 11301
+trigger1 = (FVar(2) := Exp(0.5*Ln(FVar(0)*FVar(0) + FVar(1)*FVar(1) + 0.1)))
+
+[State 11205, Scale]
+type = AngleDraw
+trigger1 = FVar(0) != 0
+scale = 1, FVar(2)/64.0
+value = -ATan(Fvar(1)/FVar(0)) * 180.0/Pi - 90.0
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Time = 20
+helpertype = normal
+stateno = 11307
+ID = 11301
+name = "Chain 1 short"
+postype = p1
+pos = -Floor(FVar(0)), -Floor(FVar(1))
+ownpal = 1
+
+[State 11205, Change]
+type = DestroySelf
+trigger1 = Time = 20
+
+;Chain 1 (shortening)
+[Statedef 11307]
+type = A
+physics = N
+movetype = I
+anim = 11306
+sprpriority = 0
+velset = 0,0
+
+[State 11205, Scale]
+type = null
+triggerall = !Time
+trigger1 = (FVar(0) := Parent, FVar(0)) || 1
+trigger1 = (FVar(1) := Parent, FVar(1)) || 1
+
+[State 11205, Scale]
+type = null
+triggerall = !Time
+trigger1 = (FVar(2) := Parent, FVar(2))
+
+[State 11205, Scale]
+type = null
+triggerall = Root, Anim = 11302
+triggerall = Root, AnimElemTime(1) = [14, 25]
+trigger1 = (FVar(2) := (FVar(2) - 6.8))
+
+[State 11205, Scale]
+type = AngleDraw
+trigger1 = 1
+scale = 1, FVar(2)/64.0
+value = -ATan(FVar(1)/FVar(0)) * 180.0/Pi + 90
+
+[State 11205, Change]
+type = DestroySelf
+trigger1 = Root, Anim = 11302
+trigger1 = Root, AnimElemTime(1) > 25
+trigger2 = Root, StateNo != 11301
+
+;Chain 2
+[Statedef 11308]
+type = A
+physics = N
+movetype = I
+anim = 11306
+sprpriority = 0
+velset = 0,0
+
+[State 11205, Scale]
+type = AssertSpecial
+trigger1 = Time = [0,2]
+;trigger2 = FVar(0) = 0
+flag = invisible
+flag2 = noshadow
+
+[State 11205, Scale]
+type = null
+triggerall = Root, Anim = 11302
+trigger1 = (FVar(0) := ((ScreenPos X - Root, ScreenPos X)  * Root, Facing - 10)) 
+trigger1 = (FVar(1) := (ScreenPos Y - Root, ScreenPos Y + 20))
+
+[State 11205, Scale]
+type = null
+triggerall = Root, Anim = 11302
+trigger1 = (FVar(2) := Exp(0.5*Ln(FVar(0)*FVar(0) + FVar(1)*FVar(1) + 0.1))) || 1
+trigger1 = (FVar(3) := -ATan(FVar(1)/FVar(0)) * 180.0/Pi - 90.0)
+
+[State 11205, Scale]
+type = VarSet
+trigger1 = Root, StateNo != 11301
+fv = 3
+value = FVar(3)*0.9 - 180*0.1
+
+[State 11205, Scale]
+type = AngleDraw
+trigger1 = FVar(0) != 0
+scale = 1, FVar(2)/64.0
+value = FVar(3)
+
+[State 11205, Change]
+type = Trans
+trigger1 = Root, StateNo != 11301
+trigger1 = (var(0) := (var(0)+1))
+trans = addalpha
+alpha = 256 - 16 * Var(0), 16 * Var(0)
+
+[State 1032, Shtuff]
+type = DestroySelf
+trigger1 = Var(0) >= 16
+
+; Gethit - Air
+[Statedef 11398]
+type = A
+physics = N
+movetype = H
+velset = 0, 0
+
+[State 803, Vel]
+type = VelAdd
+trigger1 = 1
+y = .56
+
+[State 803, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value = 11297
+
+[State 803, Vel]
+type = ChangeAnim2
+trigger1 = Vel Y > 0
+value = 11298
+
+[State 803, Life]
+type = PosSet
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+y = 0
+
+[State 803, Hit Ground]
+type = SelfState
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+value = 5100
+ctrl = 0
