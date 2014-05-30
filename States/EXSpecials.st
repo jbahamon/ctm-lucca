@@ -27,6 +27,7 @@ helpertype = normal
 stateno = 11005
 ID = 11000
 name = "Tombstone"
+pausemovetime = 9999999*(Var(24) > 0)
 postype = p1
 pos = 30 + 30 * Var(0), -50
 ownpal = 1
@@ -276,7 +277,8 @@ stateno = 11105
 ID = 11100
 name = "Madama Butterfly's Hand"
 postype = p1
-pos = 10, -30
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -5, -30
 ownpal = 1
 
 [State 1000, End]
@@ -380,7 +382,7 @@ stateno = 11105
 ID = 11100
 name = "Madama Butterfly's Hand"
 postype = p1
-pos = 10, -30
+pos = -5, -30
 ownpal = 1
 
 [State 1000, End]
@@ -578,6 +580,7 @@ sprpriority = 3
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -634,6 +637,7 @@ stateno = 11155
 ID = 11150
 name = "Madama Butterfly's Foot"
 postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
 pos = 20, 0
 ownpal = 1
 
@@ -945,25 +949,34 @@ ground.velocity = 0,0
 fall = 1
 fall.recover = 1
 fall.recovertime = 120
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
 
 ; Torture Attack - Iron Maiden
 [Statedef 11201]
-type    = A
+type    = S
 movetype= A
 physics = N
 juggle  = 3
 ctrl = 0
-anim = 11201
+anim = 11204
 sprpriority = 1
 poweradd = 0
 velset = 0,0
+
+[State 801, Bind]
+type = ChangeAnim
+trigger1 = Anim = 11204
+trigger1 = !AnimTime
+value = 11201
+
 
 [State 1031, Measure]
 type = turn
 triggerall = !Time
 trigger1 = Facing > 0 && ScreenPos X > 240
 trigger2 = Facing < 0 && ScreenPos X < 80
-;Var(0) = IfElse(Facing > 0, ScreenPos X - 280, ScreenPos X)
 
 [State 1031, Measure]
 type = VarSet
@@ -1033,6 +1046,7 @@ stateno = 11205
 ID = 11200
 name = "Iron Maiden"
 postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
 pos = 80, 0
 ownpal = 1
 
@@ -1128,6 +1142,7 @@ sprpriority = 4
 ontop = 0
 shadow = -1
 ownpal = 0
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 0
 
 [State 11205, Change]
@@ -1263,6 +1278,9 @@ ground.velocity = 0,0
 fall = 1
 fall.recover = 1
 fall.recovertime = 120
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
 
 ; Torture Attack - Pulley
 [Statedef 11301]
@@ -1290,6 +1308,7 @@ ID = 11300
 name = "Pulley"
 postype = p1
 pos = 60, -70
+pausemovetime = 9999999*(Var(24) > 0)
 ownpal = 1
 
 [State 11205, Change]
@@ -1309,7 +1328,7 @@ trigger2 = Facing < 0 && ScreenPos X < 80
 type = PosSet
 trigger1 = !Time
 trigger1 = NumTarget
-X = Target, Pos X - 25*Facing
+X = Target, Pos X - 15*Facing
 Y = Target, Const(size.head.pos.y) + 20
 
 [State 1031, Measure]
@@ -1325,9 +1344,9 @@ fvar(2) = (Target, ScreenPos Y - ScreenPos Y)
 [State 801, Bind]
 type = PosAdd
 triggerall = Time = [5, 32]
-trigger1 = (fvar(1) := fvar(1) - 1)
+trigger1 = (fvar(1) := fvar(1) - 0.6)
 trigger1 = (fvar(2) := fvar(2) - (-3 + (Time - 5)*0.18))
-X = 1
+X = 0.6
 Y = -3 + (Time - 5)*0.18
 
 [State 1031, Measure]
@@ -1338,11 +1357,12 @@ value = 11303
 
 [State 1000, Hadouken]
 type = helper
-trigger1 = Time = 32
+trigger1 = AnimElemTime(1) = 32
 helpertype = normal
 stateno = 11306
 ID = 11301
 name = "Chain 1"
+pausemovetime = 9999999*(Var(24) > 0)
 postype = p1
 pos = 0,0;Floor(Target, Pos X - Pos X + Target, Const(size.mid.pos.x))*Facing, Floor(Target, Pos Y - Pos Y + Target, Const(size.mid.pos.y))
 ownpal = 1
@@ -1369,7 +1389,7 @@ triggerall = NumHelper(11300)
 triggerall = Anim = 11302
 triggerall = AnimElemTime(1) = [14, 25]
 triggerall = NumTarget
-trigger1 = (fvar(1) := fvar(1) - 0.5)
+trigger1 = (fvar(1) := fvar(1) - 0.9)
 trigger1 = (fvar(2) := fvar(2) - 10)
 X = 5
 Y = 5
@@ -1498,6 +1518,7 @@ stateno = 11308
 ID = 11301
 name = "Chain 2"
 postype = p1
+pausemovetime = 9999999*(Root, Var(24) > 0)
 pos = 0, 0
 ownpal = 1
 persistent = 0
@@ -1554,18 +1575,19 @@ value = -ATan(Fvar(1)/FVar(0)) * 180.0/Pi - 90.0
 
 [State 1000, Hadouken]
 type = helper
-trigger1 = Time = 20
+trigger1 = AnimElemTime(1) = 20 + IfElse(Root, Var(24), 10, 0)
 helpertype = normal
 stateno = 11307
 ID = 11301
 name = "Chain 1 short"
+pausemovetime = 9999999*(Root, Var(24) > 0)
 postype = p1
 pos = -Floor(FVar(0)), -Floor(FVar(1))
 ownpal = 1
 
 [State 11205, Change]
 type = DestroySelf
-trigger1 = Time = 20
+trigger1 = AnimElemTime(1) = 20 + IfElse(Root, Var(24), 10, 0)
 
 ;Chain 1 (shortening)
 [Statedef 11307]
@@ -1591,7 +1613,7 @@ trigger1 = (FVar(2) := Parent, FVar(2))
 type = null
 triggerall = Root, Anim = 11302
 triggerall = Root, AnimElemTime(1) = [14, 25]
-trigger1 = (FVar(2) := (FVar(2) - 6.8))
+trigger1 = (FVar(2) := (FVar(2) - 6.8 + IfElse(Root, Var(24), 0.8, 0)))
 
 [State 11205, Scale]
 type = AngleDraw
@@ -1602,7 +1624,7 @@ value = -ATan(FVar(1)/FVar(0)) * 180.0/Pi + 90
 [State 11205, Change]
 type = DestroySelf
 trigger1 = Root, Anim = 11302
-trigger1 = Root, AnimElemTime(1) > 25
+trigger1 = Root, AnimElemTime(1) > 25 
 trigger2 = Root, StateNo != 11301
 
 ;Chain 2

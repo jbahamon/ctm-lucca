@@ -43,6 +43,7 @@ sprpriority = 2
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -125,6 +126,7 @@ random = 0,0
 removetime = -2
 scale = 1,1
 sprpriority = 2
+pausemovetime = 9999999*(Var(24) > 0)
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
@@ -211,6 +213,7 @@ vel = 0,0
 accel = 0,0
 random = 0,0
 removetime = -2
+pausemovetime = 9999999*(Var(24) > 0)
 scale = 1,1
 sprpriority = 2
 ontop = 0
@@ -300,6 +303,7 @@ vel = 0,0
 accel = 0,0
 random = 0,0
 removetime = -2
+pausemovetime = 9999999*(Var(24) > 0)
 scale = 1,1
 sprpriority = 2
 ontop = 0
@@ -375,6 +379,7 @@ accel = 0,0
 random = 0,0
 removetime = -2
 scale = 1,1
+pausemovetime = 9999999*(Var(24) > 0)
 sprpriority = 2
 ontop = 0
 shadow = 0,0,0
@@ -462,6 +467,7 @@ accel = 0,0
 random = 0,0
 removetime = -2
 scale = 1,1
+pausemovetime = 9999999*(Var(24) > 0)
 sprpriority = 2
 ontop = 0
 shadow = 0,0,0
@@ -556,6 +562,7 @@ sprpriority = 2
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -626,6 +633,7 @@ sprpriority = 2
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -769,6 +777,7 @@ shadow = 0,0,0
 ownpal = 1
 removeongethit = 1
 ignorehitpause = 1
+pausemovetime = 9999999*(Var(24) > 0)
 
 [State 620, 3]
 type = HitDef
@@ -1083,6 +1092,7 @@ ontop = 0
 shadow = 0,0,0
 ownpal = 1
 removeongethit = 1
+pausemovetime = 9999999*(Var(24) > 0)
 ignorehitpause = 1
 
 [State 804, Shot]
@@ -1102,6 +1112,7 @@ shadow = 0,0,0
 ownpal = 1
 removeongethit = 1
 ignorehitpause = 1
+pausemovetime = 9999999*(Var(24) > 0)
 persistent = 0
 
 [State 804, End]

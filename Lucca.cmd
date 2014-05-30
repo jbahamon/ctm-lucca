@@ -667,6 +667,16 @@ trigger2 = ( StateNo = [200,299] ) && MoveHit
 trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;---------------------------------------------------------------------------
 
+
+[State -1, Witch Time]
+type = ChangeState
+value = 13000
+triggerall = PalNo = 12
+triggerall = Command = "2qcba" || Command = "2qcbb" || Command = "2qcbc" 
+triggerall = Power >= 1000
+triggerall = Var(24) <= 0
+trigger1 = statetype = S
+trigger1 = ctrl
 ;===========================================================================
 ; Special Moves
 ;===========================================================================

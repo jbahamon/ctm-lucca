@@ -10,6 +10,12 @@ movetype = I
 anim = 7200
 
 [State 7000, Var]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+flag2 = invisible
+
+[State 7000, Var]
 type = VarSet
 trigger1 = !Time
 var(0) = (Parent, StateNo = 2100)
