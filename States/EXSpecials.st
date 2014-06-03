@@ -942,7 +942,7 @@ hitflag = M-
 priority = 2, Miss
 sparkno = -1
 hitsound = s7010, 0
-p1stateno = 11201
+p1stateno = 11250;11201
 p2stateno = 11202
 guard.dist = 0
 ground.velocity = 0,0
@@ -953,7 +953,7 @@ palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
 
-; Torture Attack - Iron Maiden
+; Success - Iron Maiden
 [Statedef 11201]
 type    = S
 movetype= A
@@ -970,7 +970,6 @@ type = ChangeAnim
 trigger1 = Anim = 11204
 trigger1 = !AnimTime
 value = 11201
-
 
 [State 1031, Measure]
 type = turn
@@ -1059,13 +1058,21 @@ value = 11298
 persistent = 0
 
 [State 1030, Fail]
+type = ChangeAnim
+trigger1 = NumTarget
+trigger1 = Target, StateNo = 11298
+value = 11250
+persistent = 0
+
+[State 1030, Fail]
 type = TargetDrop
 trigger1 = NumTarget
 trigger1 = Target, StateNo = 11298
 
 [State 1030, Fail]
 type = ChangeState
-trigger1 = !NumTarget
+trigger1 = !NumTarget && Anim != 11250
+trigger2 = Anim = 11250 && !AnimTime
 value = 0
 ctrl = 1
 
@@ -1161,6 +1168,490 @@ trigger1 = !AnimTime
 type = PosFreeze
 trigger1 = 1
 
+; Success - Treadmill
+[Statedef 11250]
+type    = S
+movetype= A
+physics = N
+juggle  = 3
+ctrl = 0
+anim = 11204
+sprpriority = 1
+poweradd = 0
+velset = 0,0
+
+[State 801, Bind]
+type = ChangeAnim
+trigger1 = Anim = 11204
+trigger1 = !AnimTime
+value = 11201
+
+[State 801, Bind]
+type = VarAdd
+trigger1 = Anim = 11201
+trigger1 = AnimElemNo(0) = 4
+trigger2 = anim = 11203 
+fvar(1) = IfElse(fvar(1) < 20, 3, (120 - fvar(1))/100.0)
+
+[State 801, Bind]
+type = ChangeAnim
+trigger1 = Anim = 11201
+trigger1 = AnimElemNo(0) = 4
+trigger1 = fvar(1) >= 40
+value = 11203
+
+[State 801, Bind]
+type = EnvShake
+triggerall = NumTarget
+trigger1 = Anim = 11203
+trigger1 = fvar(1) >= 100
+ampl = 12
+freq = 140
+time = 12
+persistent = 0
+
+[State 801, Bind]
+type = TargetLifeAdd
+triggerall = NumTarget
+trigger1 = Anim = 11203
+trigger1 = fvar(1) >= 100
+value = -124
+persistent = 0
+
+[State 801, Bind]
+type = TargetState
+triggerall = NumTarget
+trigger1 = Anim = 11203
+trigger1 = fvar(1) >= 100
+value = 11298
+persistent = 0
+
+[State 11205, Change]
+type = EnvShake
+triggerall = Anim = 11201
+trigger1 = AnimElem = 4
+ampl = 8
+time = 4
+freq = 120
+
+
+[State 801, Bind]
+type = TargetState
+triggerall = NumTarget
+trigger1 = Anim = 11201
+trigger1 = AnimElem = 4
+value = IfElse(Target, Facing = Facing, 11252, 11253)
+persistent = 0
+
+[State 1031, Measure]
+type = turn
+triggerall = !Time
+trigger1 = Facing > 0 && ScreenPos X > 140
+trigger2 = Facing < 0 && ScreenPos X < 100
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(0) = (Target, Const(size.height))
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(1) = Facing * (Target, ScreenPos X - ScreenPos X)
+
+[State 801, Bind]
+type = TargetBind
+trigger1 = 1
+pos = fvar(1), 0
+
+[State 801, Bind]
+type = VarSet
+trigger1 = !Time
+fvar(2) = (20 - FVar(1)) /10.0
+
+[State 801, Bind]
+type = VarAdd
+trigger1 = Time = [0,10]
+fvar(1) = fvar(2)
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Time = 1
+helpertype = normal
+stateno = 11255
+ID = 11250
+name = "Treadmill"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 80, 9
+ownpal = 1
+
+[State 1030, Fail]
+type = TargetDrop
+trigger1 = NumTarget
+trigger1 = Target, StateNo = 11298
+
+[State 1030, Fail]
+type = ChangeState
+trigger1 = !NumTarget
+value = 0
+ctrl = 1
+
+; Get Hit
+[Statedef 11251]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 11202
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
+; Turning
+[Statedef 11252]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+
+[State 11252, Turn]
+type = Turn
+trigger1 = !Time
+
+[State 803, Safety]
+type = ChangeState
+trigger1 = !Time
+value = 11253
+ctrl = 0
+
+; Get Hit - Running
+[Statedef 11253]
+type = A
+physics = N
+movetype = H
+velset = 0,0
+
+[State 1032, Anim]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
+time = 1
+
+[State 1032, Anim]
+type = ChangeAnim
+trigger1 = !Time
+value= 11202
+
+[State 1032, Anim]
+type = ChangeAnim
+trigger1 = Time = 8
+trigger1 = SelfAnimExist(100)
+value= 100
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
+; Treadmill
+[Statedef 11255]
+type = S
+physics = N
+movetype = I
+anim = 11258
+velset = 0,0
+sprpriority = -2
+
+[State 11255, Var]
+type = VarSet
+trigger1 = !Time
+FV = 0
+value = 1
+
+[State 11255, Bump]
+type = VelSet
+trigger1 = Time <= 16
+Y = 1
+
+[State 11255, Bump]
+type = VelSet
+trigger1 = Time >= 16
+Y = 0
+
+[State 11255, Bump]
+type = EnvShake
+trigger1 = Time = 16
+ampl = 6
+freq = 120
+time = 4
+
+[State 200, BG Device]
+type = Explod
+trigger1 = !Time
+anim = 11255
+ID = 11255
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -1
+scale = FVar(0), FVar(0)
+sprpriority = -1
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 200, FG Device]
+type = Explod
+trigger1 = !Time
+anim = 11256
+ID = 11256
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -1
+scale = FVar(0), FVar(0)
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 200, Grinder]
+type = Explod
+trigger1 = !Time
+anim = 11257
+ID = 11257
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -1
+scale = FVar(0), FVar(0)
+sprpriority = 1
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 200, Border]
+type = Explod
+trigger1 = !Time
+anim = 11259
+ID = 11259
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+facing = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -1
+scale = FVar(0), FVar(0)
+sprpriority = -2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 11205, Change]
+type = Trans
+trigger1 = Time = [0, 16]
+trans = addalpha
+alpha = Time * 16, 256 - Time * 16
+
+[State 11205, Change]
+type = AngleDraw
+trigger1 = FVar(0) > 1
+scale = FVar(0), FVar(0)
+
+[State 11205, Change]
+type = Trans
+trigger1 = Anim = 11206
+trigger1 = AnimElemNo(0) = 9
+trans = addalpha
+alpha = 256 - 16 * AnimElemTime(9), AnimElemTime(9) * 16
+
+[State 1022, Explod]
+type = Explod
+triggerall = Root, FVar(1) >= 90
+trigger1 = NumExplod(11256) < 6
+trigger1 = GameTime % 3 = 0
+anim = 7002
+ID = 11260
+pos = Floor((25 - (Random % 50)) * FVar(0)), - Floor(Random % 60*FVar(0))
+postype = p1 ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0, -1.2
+accel = 0,0
+removetime = -2
+scale = 1 , 1
+sprpriority = 4
+ontop = 0
+shadow = -1
+ownpal = 0
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 0
+
+[State 11250, Var]
+type = VarSet
+trigger1 = !Time
+V = 0
+value = 0
+
+[State 11250, Var]
+type = VarAdd
+trigger1 = Root, Anim = 11250
+trigger2 = Root, StateNo != 11250
+trigger3 = Var(0) > 0
+V = 0
+value = 1
+
+[State 11205, Change]
+type = Trans
+trigger1 = Var(0) > 0
+trans = addalpha
+alpha = 256 - Var(0) * 16, Var(0) * 16
+
+[State 1022, Explod]
+type = RemoveExplod
+trigger1 = Var(0) = 1
+trigger2 = Var(0) = 16
+ID = 11255
+[State 1022, Explod]
+type = RemoveExplod
+trigger1 = Var(0) = 1
+trigger2 = Var(0) = 16
+ID = 11256
+[State 1022, Explod]
+type = RemoveExplod
+trigger1 = Var(0) = 1
+trigger2 = Var(0) = 16
+ID = 11257
+[State 1022, Explod]
+type = RemoveExplod
+trigger1 = Var(0) = 1
+trigger2 = Var(0) = 16
+ID = 11259
+
+
+[State 200, BG Device]
+type = Explod
+trigger1 = Var(0) = 1
+anim = 11265
+ID = 11255
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -1
+scale = FVar(0), FVar(0)
+sprpriority = -1
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 200, FG Device]
+type = Explod
+trigger1 = Var(0) = 1
+anim = 11266
+ID = 11256
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -1
+scale = FVar(0), FVar(0)
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 200, Grinder]
+type = Explod
+trigger1 = Var(0) = 1
+anim = 11267
+ID = 11257
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -1
+scale = FVar(0), FVar(0)
+sprpriority = 1
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 200, Border]
+type = Explod
+trigger1 = Var(0) = 1
+anim = 11269
+ID = 11259
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+bindtime = -1
+facing = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -1
+scale = FVar(0), FVar(0)
+sprpriority = -2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+
+[State 1022, Explod]
+type = DestroySelf
+trigger1 = Var(0) >= 16
+
 ; Invisible Get Hit
 [Statedef 11297]
 type = S
@@ -1219,7 +1710,7 @@ value = 5100
 ctrl = 0
 
 
-;Torture Attack Miss
+;Torture Miss
 [Statedef 11299]
 type = C
 physics = C
@@ -1282,7 +1773,7 @@ palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
 
-; Torture Attack - Pulley
+; Success - Pulley
 [Statedef 11301]
 type    = A
 movetype= A
