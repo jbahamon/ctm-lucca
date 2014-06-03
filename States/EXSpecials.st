@@ -1267,11 +1267,11 @@ pos = fvar(1), 0
 [State 801, Bind]
 type = VarSet
 trigger1 = !Time
-fvar(2) = (20 - FVar(1)) /10.0
+fvar(2) = (20 - FVar(1)) /20.0
 
 [State 801, Bind]
 type = VarAdd
-trigger1 = Time = [0,10]
+trigger1 = Time = [0,20]
 fvar(1) = fvar(2)
 
 [State 1000, Hadouken]
@@ -1299,7 +1299,7 @@ ctrl = 1
 
 ; Get Hit
 [Statedef 11251]
-type = S
+type = A
 physics = N
 movetype = H
 velset = 0,0
@@ -1317,7 +1317,7 @@ ctrl = 0
 
 ; Turning
 [Statedef 11252]
-type = S
+type = A
 physics = N
 movetype = H
 velset = 0,0
@@ -1411,7 +1411,7 @@ sprpriority = -1
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
-pausemovetime = 9999999*(Var(24) > 0)
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -1432,7 +1432,7 @@ sprpriority = 2
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
-pausemovetime = 9999999*(Var(24) > 0)
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -1453,7 +1453,7 @@ sprpriority = 1
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
-pausemovetime = 9999999*(Var(24) > 0)
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -1475,7 +1475,7 @@ sprpriority = -2
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
-pausemovetime = 9999999*(Var(24) > 0)
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -1499,12 +1499,12 @@ alpha = 256 - 16 * AnimElemTime(9), AnimElemTime(9) * 16
 
 [State 1022, Explod]
 type = Explod
-triggerall = Root, FVar(1) >= 90
-trigger1 = NumExplod(11256) < 6
-trigger1 = GameTime % 3 = 0
+triggerall = Root, FVar(1) >= 100
+trigger1 = NumExplod(11260) < 6
+trigger1 = Time % 3 = 0
 anim = 7002
 ID = 11260
-pos = Floor((25 - (Random % 50)) * FVar(0)), - Floor(Random % 60*FVar(0))
+pos = Floor((50 - (Random % 50)) * FVar(0)), - 40 - Floor(Random % 60*FVar(0))
 postype = p1 ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -1579,7 +1579,7 @@ sprpriority = -1
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
-pausemovetime = 9999999*(Var(24) > 0)
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -1600,7 +1600,7 @@ sprpriority = 2
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
-pausemovetime = 9999999*(Var(24) > 0)
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -1621,7 +1621,7 @@ sprpriority = 1
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
-pausemovetime = 9999999*(Var(24) > 0)
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -1643,7 +1643,7 @@ sprpriority = -2
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
-pausemovetime = 9999999*(Var(24) > 0)
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
@@ -1654,7 +1654,7 @@ trigger1 = Var(0) >= 16
 
 ; Invisible Get Hit
 [Statedef 11297]
-type = S
+type = A
 physics = N
 movetype = H
 velset = 0,0
@@ -1762,7 +1762,7 @@ hitflag = MA-
 priority = 2, Miss
 sparkno = -1
 hitsound = s7010, 0
-p1stateno = 11301
+p1stateno = 11350;11301
 p2stateno = 11302
 guard.dist = 0
 ground.velocity = 0,0
@@ -2168,6 +2168,223 @@ alpha = 256 - 16 * Var(0), 16 * Var(0)
 [State 1032, Shtuff]
 type = DestroySelf
 trigger1 = Var(0) >= 16
+
+; Success - Chainsaw
+[Statedef 11350]
+type    = A
+movetype= A
+physics = N
+juggle  = 3
+ctrl = 0
+anim = 11301
+sprpriority = -1
+poweradd = 0
+velset = 0,0
+
+[State 1000, Hadouken]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 11205, Change]
+type = EnvShake
+trigger1 = !Time
+ampl = 4
+time = 8
+freq = 120
+
+[State 1031, Measure]
+type = PosSet
+trigger1 = !Time
+trigger1 = NumTarget
+X = Target, Pos X - 25*Facing
+Y = Target, Const(size.head.pos.y) + 20
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(1) = Facing * (Target, ScreenPos X - ScreenPos X)
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(2) = (Target, ScreenPos Y - ScreenPos Y)
+
+[State 801, Bind]
+type = PosAdd
+triggerall = Time = [5, 32]
+trigger1 = (fvar(1) := fvar(1) - 0.2)
+trigger1 = (fvar(2) := fvar(2) - (-3 + (Time - 5)*0.18))
+X = 0.2
+Y = -3 + (Time - 5)*0.18
+
+[State 1031, Measure]
+type = ChangeAnim
+trigger1 = Time = 32
+value = 11350
+
+[State 1031, Measure]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = Anim = 11350
+trigger1 = AnimElem = 2
+value = 11351
+
+
+[State 1031, Measure]
+type = null
+trigger1 = NumTarget
+trigger1 = Target, StateNo = 11351
+;trigger1 = !(fvar(1) := 0)
+trigger1 = !(fvar(2) := 0)
+
+[State 200, Explod]
+type = Explod
+trigger1 = Anim = 11350
+trigger1 = AnimElem = 1
+anim = 11355
+ID =  11355
+pos = -4, -25
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = -2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+
+[State 200, Explod]
+type = RemoveExplod
+trigger1 = Anim = 11350
+trigger1 = AnimElem = 2
+ID = 11355
+
+[State 200, Explod]
+type = Explod
+trigger1 = Anim = 11350
+trigger1 = AnimElem = 2
+anim = 11356
+ID =  11356
+pos = 10,-12
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 801, Bind]
+type = EnvShake
+trigger1 = Anim = 11350
+trigger1 = AnimElemNo(0) = 2
+trigger1 = AnimElemTime(2) % 20 = 0
+ampl = 12
+freq = 120
+time = 20
+
+[State 200, Explod]
+type = Explod
+trigger1 = Anim = 11350
+trigger1 = AnimElemNo(0) = 2
+trigger1 = AnimElemTime(2) < 70
+trigger1 = NumExplod(11357) < 2
+anim = 7001
+ID =  11357
+pos = 20, 12
+random = 15,15
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = 1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 801, Bind]
+type = TargetBind
+trigger1 = 1
+pos = fvar(1), fvar(2)
+
+[State 11205, Change]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+
+[State 2022, End]
+type = TargetState
+trigger1 = Anim = 11350
+trigger1 = !AnimTime
+trigger1 = NumTarget
+value = 11298
+
+[State 2022, End]
+type = TargetDrop
+trigger1 = Anim = 11350
+trigger1 = !AnimTime
+trigger1 = NumTarget
+
+[State 2022, End]
+type = VelSet
+trigger1 = Anim = 11350
+trigger1 = !AnimTime
+X = -3 
+Y = -5
+
+[State 2022, End]
+type = ChangeState
+trigger1 = Anim = 11350
+trigger1 = !AnimTime
+value = 50
+ctrl = 0
+
+; Get Hit - Saw'd
+[Statedef 11351]
+type = A
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 1
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 11351
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
 
 ; Gethit - Air
 [Statedef 11398]

@@ -188,6 +188,17 @@ postype = p1
 pos = Const(size.mid.pos.x), Const(size.mid.pos.y)
 ownpal = 1
 
+[State 1000, Hadouken]
+type = helper
+trigger1 = !Time
+helpertype = normal
+stateno = 13002
+ID = 13001
+name = "Bat Within"
+pausemovetime = 9999999
+postype = p1
+pos = Const(size.mid.pos.x), Const(size.mid.pos.y)
+ownpal = 1
 
 [State 7000, Pal Down]
 type = AssertSpecial
@@ -205,8 +216,8 @@ value = 13001
 [State 1040, End]
 type = PalFX
 trigger1 = Anim = 13001
-trigger1 = AnimElemTime(1) <= 8
-add = 256 - 32 * AnimElemTime(1), 64 - 8 * AnimElemTime(1), 256 - 32 * AnimElemTime(1)
+trigger1 = AnimElemTime(1) = [0,16]
+add = 128 - 8 * AnimElemTime(1) , 64 - 4 * AnimElemTime(1) , 256 - 16 * AnimElemTime(1) 
 mul = 256,256,256
 invertall = 0
 time = 1
@@ -255,8 +266,8 @@ scale = Var(0)/100.0, Var(0)/100.0
 [State 13002, Scale]
 type = VelSet
 trigger1 = 1
-X = Cos(Var(2) * Pi / 180.0) * (Var(1)/100.0) * (24*Time - Time*Time)/2.0
-Y = Sin(Var(2) * Pi / 180.0) * (Var(1)/100.0) * (24*Time - Time*Time)/2.0
+X = Cos(Var(2) * Pi / 180.0) * (Var(1)/100.0) * (24*Time - Time*Time)/1.5
+Y = Sin(Var(2) * Pi / 180.0) * (Var(1)/100.0) * (24*Time - Time*Time)/1.5
 
 [State 13002, Pos]
 type = PosSet
