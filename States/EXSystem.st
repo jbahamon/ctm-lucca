@@ -441,6 +441,7 @@ value = 0
 
 [State 17100: AfterImage]
 type = AfterImage
+trigger1 = Var(24) <= 0
 trigger1 = (AnimElem = 2)
 persistent = 0
 length = 8
@@ -458,6 +459,7 @@ persistent = 0
 
 [State 17100: AfterImage]
 type = AfterImageTime
+trigger1 = Var(24) <= 0
 trigger1 = (Vel X != 0)
 time = 3
 
@@ -532,6 +534,7 @@ value = 0
 
 [State 17100: AfterImage]
 type = AfterImage
+trigger1 = Var(24) <= 0
 trigger1 = (AnimElem = 2)
 persistent = 0
 length = 8
@@ -549,6 +552,7 @@ persistent = 0
 
 [State 17100: AfterImage]
 type = AfterImageTime
+trigger1 = Var(24) <= 0
 trigger1 = (Vel X != 0)
 time = 3
 
