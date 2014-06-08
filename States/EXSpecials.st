@@ -942,7 +942,7 @@ hitflag = M-
 priority = 2, Miss
 sparkno = -1
 hitsound = s7010, 0
-p1stateno = 11270;11201
+p1stateno = 11220;11201; 11250
 p2stateno = 11202
 guard.dist = 0
 ground.velocity = 0,0
@@ -1247,12 +1247,12 @@ fvar(2) = Time * (0.3 * (Time - 20.0) - FVar(0) * 20.0/20.0)
 
 [State 801, Move]
 type = VarAdd
-trigger1 = Time = [28, 63]
+trigger1 = Time = [70, 90]
 fvar(1) = -(FVar(4)*0.1)/70.0
 
 [State 801, Stop]
 type = VarAdd
-trigger1 = Time = [63, 68]
+trigger1 = Time = [105, 110]
 fvar(1) = -(FVar(4)*0.9)/10.0
 
 [State 1000, Hadouken]
@@ -1271,7 +1271,7 @@ ownpal = 1
 [State 1030, Fail]
 type = TargetState
 trigger1 = NumTarget
-trigger1 = Time = 86
+trigger1 = Time = 126
 value = 11398
 persistent = 0
 
@@ -1309,17 +1309,17 @@ value= 11202
 
 [State 1032, Anim]
 type = AngleDraw
-trigger1 = Time = [30, 65]
-scale = (1 - 0.1*(Time - 30)/35.0), 1
+trigger1 = Time = [70, 105]
+scale = (1 - 0.1*(Time - 70)/35.0), 1
 
 [State 801, Stop]
 type = AngleDraw
-trigger1 = Time = [65, 70]
-scale = (1 - 0.9*(Time - 65)/5.0), 1
+trigger1 = Time = [105, 110]
+scale = (0.9 - 0.9*(Time - 105)/5.0), 1
 
 [State 801, Stop]
 type = AssertSpecial
-trigger1 = Time >= 70
+trigger1 = Time >= 110
 flag = invisible
 flag2 = noshadow
 
@@ -1353,13 +1353,6 @@ Y = 1
 type = VelSet
 trigger1 = Time >= 16
 Y = 0
-
-[State 11255, Bump]
-type = EnvShake
-trigger1 = Time = 16
-ampl = 6
-freq = 120
-time = 4
 
 [State 200, Hand]
 type = Helper
@@ -1432,6 +1425,12 @@ trigger1 = !Time
 V = 0
 value = 0
 
+[State 11205, Change]
+type = Trans
+trigger1 = Var(0) > 0
+trans = addalpha
+alpha = 256 - Var(0) * 16, Var(0) * 16
+
 [State 11250, Var]
 type = VarAdd
 trigger1 = Root, Anim = 11250
@@ -1440,11 +1439,6 @@ trigger3 = Var(0) > 0
 V = 0
 value = 1
 
-[State 11205, Change]
-type = Trans
-trigger1 = Var(0) > 0
-trans = addalpha
-alpha = 256 - Var(0) * 16, Var(0) * 16
 
 [State 1022, Explod]
 type = RemoveExplod
@@ -1476,7 +1470,7 @@ ignorehitpause = 1
 
 [State 1022, Explod]
 type = Explod
-trigger1 = Time > 65
+trigger1 = Var(0)
 trigger1 = GameTime % 3 = 0
 anim = 7002
 ID = 11205
@@ -1516,30 +1510,30 @@ Y = 0
 
 [State 801, Move]
 type = PosAdd
-trigger1 = Time = [16,20]
+trigger1 = Time = [30,34]
 X = (32*Parent, FVar(0) - Root, FVar(4))/4.0
 
 [State 801, Bind]
 type = EnvShake
-trigger1 = Time = 20
-trigger2 = Time = 70
+trigger1 = Time = 34
+trigger2 = Time = 110
 ampl = 12
 freq = 140
 time = 12
 
 [State 801, Move]
 type = VelSet
-trigger1 = Time = [30, 65]
+trigger1 = Time = [70, 105]
 X = (Root, FVar(4)*0.1)/35.0
 
 [State 801, Stop]
 type = VelSet
-trigger1 = Time = [65, 70]
+trigger1 = Time = [105, 110]
 X = (Root, FVar(4)*0.9)/5.0
 
 [State 801, Stop]
 type = VelSet
-trigger1 = Time = 70
+trigger1 = Time = 110
 X = 0
 
 [State 11255, Var]
@@ -2230,7 +2224,7 @@ persistent = 0
 type = TargetBind 
 trigger1 = NumHelper(11270)
 trigger1 = Helper(11270), Var(0) = 10
-pos = (Helper(11270), Pos X - Pos X)*Facing + 60 * Cos((Pi/180.0)* Helper(11270), FVar(2) + Pi/2.0), -(ScreenPos Y - Helper(11270), ScreenPos Y) - 60*Sin((Pi/180.0)* Helper(11270), FVar(2) - Pi/2.0)
+pos = (Helper(11270), Pos X - Pos X)*Facing + 60 * Cos(-(Pi/180.0)* Helper(11270), FVar(2) + Pi/2.0), -(ScreenPos Y - Helper(11270), ScreenPos Y) - 60*Sin(-(Pi/180.0)* Helper(11270), FVar(2) - Pi/2.0)
 
 [State 11270, BindToWheel]
 type = TargetState
@@ -2332,7 +2326,7 @@ ctrl = 0
 
 ; Get Hit (Spinning)
 [Statedef 11274]
-type = L
+type = A
 physics = N
 movetype = H
 velset = 0,0
@@ -2359,16 +2353,15 @@ movecamera = 0,0
 type = AngleDraw
 trigger1 = 1
 
-
 [State 1032, Angle]
 type = AngleSet
 trigger1 = !Time
-value = 0
+value = 13
 
 [State 1032, Angle]
 type = AngleAdd
 trigger1 = 1
-value = -13
+value = 13
 
 [State 803, Safety]
 type = SelfState
@@ -2476,7 +2469,7 @@ sprpriority = 3
 ontop = 0
 shadow = 0,0,0
 ownpal = 1
-pausemovetime = 9999999*(Var(24) > 0)
+pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 

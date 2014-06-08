@@ -209,7 +209,7 @@ supermovetime = 65535
 ignorehitpause = 1
 
 [State -3, Parry Attacks]
-type = changestate
+type = null;changestate
 triggerall = PalNo = 12
 trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
 trigger1 = helper(17006), stateno = 17007
@@ -365,12 +365,6 @@ trigger1 = GameTime % 2 = 0
 time = 2
 movetime = 2
 ignorehitpause=1
-
-[State 17100: ChangeState]
-type = ChangeState
-trigger1 = StateType = A && Pos Y > Vel Y && Vel Y > 0
-value = 52
-ctrl = 1
 
 ;This controller plays a sound everytime the character lands from a jump, or
 ;from his back-dash.

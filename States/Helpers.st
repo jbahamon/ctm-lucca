@@ -20,6 +20,11 @@ type = VarSet
 trigger1 = !Time
 var(0) = (Parent, StateNo = 2100)
 
+[State 7000, Var]
+type = VarSet
+trigger1 = !Time
+var(1) = (Parent, StateNo = 13100)
+
 [State 7000, Pal Down]
 type = BGPalFX
 trigger1 = time <= 10 ;&& root, var(10) = 5
@@ -30,20 +35,30 @@ color = 256 -floor(25.6 * time)
 [State 7000, Pal Static]
 type = BGPalFX
 trigger1 = (time = [11, 39]); && root, var(10) = 5
+trigger2 = (Time = [11, 94]) && Var(1)
 time = 1
 mul = 256, 0, 0
 color = 0
 
 [State 7000, Pal Up]
 type = BGPalFX
-trigger1 = time >= 40 
+trigger1 = time >= 40
+trigger1 = !Var(1) 
 time = 1
 mul = 256, ceil(51.2 * (time - 40)), ceil(51.2 * (time - 40))
 color = floor(51.2 * (time - 40))
 
+[State 7000, Pal Up]
+type = BGPalFX
+trigger1 = time >= 95
+trigger1 = Var(1) 
+time = 1
+mul = 256, ceil(51.2 * (time - 95)), ceil(51.2 * (time - 95))
+color = floor(51.2 * (time - 95))
+
 [State 7000, End]
 type = DestroySelf
-trigger1 = Time >= 45
+trigger1 = Time >= IfElse(!Var(1), 45, 100)
 
 ;Protect Super Armor
 ;

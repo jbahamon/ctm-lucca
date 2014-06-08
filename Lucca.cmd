@@ -668,6 +668,17 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;---------------------------------------------------------------------------
 
 
+[State -1, Flare]
+type = ChangeState
+value = 13100
+triggerall = PalNo = 12
+triggerall = Command = "2qcfa" || Command = "2qcfb" || Command = "2qcfc" 
+triggerall = Power >= 1000
+trigger1 = statetype = S
+trigger1 = ctrl
+trigger2 = ( StateNo = [200,299] ) && MoveHit
+trigger3 = ( StateNo = [400,499] ) && MoveHit
+
 [State -1, Witch Time]
 type = ChangeState
 value = 13000
