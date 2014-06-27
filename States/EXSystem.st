@@ -402,6 +402,20 @@ movehitpersist = 0
 hitcountpersist = 0
 sprpriority = 0
 
+[State 17001: Explod]
+type = Helper
+trigger1 = (!Time) && !(Var(24))
+StateNo = 17102
+id = 17100
+pos = 0, 0
+postype = p1
+facing = 1
+supermovetime = 0
+pausemovetime = 0
+scale = 1,1
+sprpriority = 3
+ownpal = 1
+
 [State 17100: SprPriority]
 type = StateTypeSet
 trigger1 = !Time
@@ -501,6 +515,20 @@ movehitpersist = 0
 hitcountpersist = 0
 sprpriority = 0
 
+[State 17001: Explod]
+type = Helper
+trigger1 = (!Time) && !(Var(24))
+StateNo = 17102
+id = 17100
+pos = 0, 0
+postype = p1
+facing = 1
+supermovetime = 0
+pausemovetime = 0
+scale = 1,1
+sprpriority = 3
+ownpal = 1
+
 [State 17100: SprPriority]
 type = SprPriority
 trigger1 = (Vel X != 0)
@@ -577,3 +605,68 @@ type = ChangeState
 trigger1 = StateType != A && !AnimTime
 value = 0
 ctrl = 1
+
+; Dodge Helper
+[Statedef 17102]
+type = S
+physics = N
+movetype = I
+anim = 17102
+sprpriority = 6
+    
+[State 17003, NHB]
+type = NotHitBy
+trigger1 = 1
+time = -1
+value = , AT
+ignorehitpause = 1
+
+[State 17003, HitOverride]
+type = HitOverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP
+stateno = 17103
+ignorehitpause = 1
+
+[State 17003]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 7000, End]
+type = DestroySelf
+trigger1 = Time >= 15
+ignorehitpause = 1
+
+
+; Dodge Helper Success
+[Statedef 17103]
+type = S
+physics = N
+movetype = I
+anim = 7200
+sprpriority = 6
+    
+[State 17003, NHB]
+type = NotHitBy
+trigger1 = 1
+time = -1
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 7000, End]
+type = PowerAdd
+trigger1 = !Time
+value = 250
+
+[State 17003]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 7000, End]
+type = DestroySelf
+trigger1 = !Time

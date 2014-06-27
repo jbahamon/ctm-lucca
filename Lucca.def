@@ -25,7 +25,7 @@ st5     = States/Helpers.st
 st6     = States/EXSystem.st
 st7     = States/EXSpecials.st
 st8     = States/EXSupers.st
-
+st9     = States/EXNormal.st
 
 ; Maps character selection buttons to palette numbers.
 [Palette Keymap]
