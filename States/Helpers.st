@@ -280,3 +280,43 @@ ignorehitpause=1
 Type = DestroySelf
 Trigger1 = !(Root, Var(21))
 ignorehitpause=1
+
+;Running flowers
+[Statedef 17300]
+type = S
+movetype = I
+physics = N
+anim = 17300
+velset = 0,0
+sprpriority = 3
+
+[State 17300, Turn]
+type = Turn
+trigger1 = !Time
+trigger1 = Random % 2
+
+[State 17300, Turn]
+type = VarSet
+trigger1 = !Time
+var(0) = 6 + (Random % 4)
+
+[State 17300, Anim]
+type = ChangeAnim
+trigger1 = !Time
+value = 17300 + Random % 3
+
+[State 17300, Scale]
+type = AngleDraw
+trigger1 = Time = [0, Var(0) + 1]
+scale = 1, (Time + 1.0)/Var(0)
+
+[State 17300, Fade]
+type = Trans
+trigger1 = Time = [Var(0) + 1, Var(0) + 9]
+trans = addalpha
+alpha = 256 - 32 * (Time - 5), 32 * (Time - 5)
+
+[State 17300, End]
+type = DestroySelf
+trigger1 = Time >= (Var(0) + 10)
+

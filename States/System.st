@@ -20,6 +20,19 @@ source = 7000,16
 dest = 7012,16
 
 [State 5900, 3] ;Change palette
+type = null;
+trigger1 = PalNo = 12
+source = 7000,2
+dest = 7000,22
+
+[State 5900, 3] ;Change palette
+type = RemapPal
+trigger1 = PalNo = 12
+source = 7000,21
+dest = 7000,23
+
+
+[State 5900, 3] ;Change palette
 type = RemapPal
 trigger1 = 1
 source = 1,1
@@ -54,11 +67,19 @@ type = VelSet
 trigger1 = 1
 x = const(velocity.run.fwd.x) * IfElse(PalNo = 12, 1.3, 1)
 
-[State 1040, End]
-type = Width
+[State 801, Shot]
+type = Helper
 trigger1 = PalNo = 12
-value = 18,18
-ignorehitpause = 1
+trigger1 = Time % 3 = 0
+name = "Withering Flower"
+ID = 100
+stateno = 17300
+postype = p1    ;p2,front,back,left,right
+pos = -10 + Random % 10, 0
+facing = 1
+keyctrl = 0
+ownpal = 1
+pausemovetime = 9999999999 * (Var(24) > 0)
 
 
 [State 1040, End]

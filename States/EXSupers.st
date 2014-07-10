@@ -813,7 +813,7 @@ flag2 = noshadow
 type = trans
 trigger1 = Var(1) = [32, 64]
 trans = addalpha
-alpha = (Var(1) -32) * 8, 256 - (Var(1) -32) * 8
+alpha = (Var(1) - 32) * 8, 256 - (Var(1) - 32) * 8
 ignorehitpause = 1
 
 [State 1006, Trans]

@@ -415,7 +415,7 @@ juggle  = 18
 
 [State 1001, Dampen]
 Type = ParentVarset
-Trigger1 = MoveHit
+Trigger1 = MoveHit && NumTarget
 trigger1 = !(target, time) && target, movetype = H
 fvar(39) = parent, Fvar(39)*0.85
 persistent = 0
@@ -791,7 +791,7 @@ juggle  = 18
 
 [State 1001, Dampen]
 Type = ParentVarset
-Trigger1 = MoveHit
+Trigger1 = MoveHit && NumTarget
 trigger1 = !(target, time) && target, movetype = H
 fvar(39) = parent, Fvar(39)*0.85
 persistent = 0
