@@ -45,7 +45,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Light
-damage    = 20
+damage    = 10
 guardflag = MA
 hitflag = MAF
 pausetime = 12,12
@@ -126,7 +126,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = HA
 hitflag = MAF
 pausetime = 12,12
@@ -210,7 +210,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 20
+damage    = 15
 guardflag = HA
 hitflag = MAF
 pausetime = 12,12
@@ -294,7 +294,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = MA
 hitflag = MAF
 pausetime = 12,12
@@ -378,7 +378,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Back
-damage    = 20
+damage    = 15
 guardflag = LA
 hitflag = MAF
 pausetime = 12,12
@@ -450,7 +450,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
@@ -532,7 +532,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = HA
 hitflag = MAF 
 pausetime = 12,12
@@ -591,7 +591,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Hard
-damage    = 20
+damage    = 15
 guardflag = L
 hitflag = MAF
 pausetime = 12,12
@@ -688,7 +688,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
@@ -760,7 +760,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Back
-damage    = 20
+damage    = 15
 guardflag = M
 hitflag = MAF
 pausetime = 20,20
@@ -860,7 +860,7 @@ trigger1 = AnimElemNo(0) % 2 = 0
 trigger1 = AnimElemTime(AnimElemNo(0)) = 0
 attr = S, NA
 animtype  = Medium
-damage    = 2
+damage    = 1
 guardflag = M
 hitflag = MAF
 pausetime = 0,12
@@ -931,7 +931,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
@@ -1014,7 +1014,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Hard
-damage    = 20
+damage    = 15
 guardflag = L
 hitflag = MAF
 pausetime = 12,12
@@ -1088,7 +1088,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 20
+damage    = 15
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
@@ -1159,7 +1159,7 @@ type = HitDef
 trigger1 = !Time
 attr = S, NA
 animtype  = Medium
-damage    = 20
+damage    = 15
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
@@ -1390,7 +1390,7 @@ type = hitdef
 trigger1 = !Time
 priority = 4, Hit
 attr = S, SA
-damage = ceil(80 * root, fvar(39)), 4
+damage = ceil(30 * root, fvar(39)), 4
 animtype = Back
 hitflag = MAF
 guardflag = M
@@ -1520,7 +1520,7 @@ type = hitdef
 trigger1 = !Time
 priority = 4, Hit
 attr = S, SA
-damage = ceil(30 * root, fvar(39)), 4
+damage = ceil(40 * root, fvar(39)), 4
 animtype = Back
 hitflag = MAF
 guardflag = M
@@ -1656,7 +1656,7 @@ type = hitdef
 trigger1 = !Time
 priority = 4, Hit
 attr = S, SA
-damage = ceil(80 * root, fvar(39)), 4
+damage = ceil(50 * root, fvar(39)), 4
 animtype = Back
 hitflag = MAF
 guardflag = M
@@ -1808,7 +1808,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Light
-damage    = 20
+damage    = 10
 guardflag = MA
 hitflag = MAF
 pausetime = 12,12
@@ -1844,7 +1844,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APP
 [Statedef 15504]
@@ -1912,7 +1912,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = HA
 hitflag = MAF
 pausetime = 12,12
@@ -1952,7 +1952,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APK
 [Statedef 15505]
@@ -2020,7 +2020,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Medium
-damage    = 20
+damage    = 15
 guardflag = HA
 hitflag = MAF
 pausetime = 12,12
@@ -2060,7 +2060,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APPP
 [Statedef 15508]
@@ -2128,7 +2128,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = MA
 hitflag = MAF
 pausetime = 12,12
@@ -2168,7 +2168,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APPK
 [Statedef 15509]
@@ -2235,7 +2235,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Back
-damage    = 20
+damage    = 15
 guardflag = LA
 hitflag = MAF
 pausetime = 12,12
@@ -2275,7 +2275,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APPPP
 [Statedef 15516]
@@ -2342,7 +2342,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = HA
 hitflag = MAF 
 pausetime = 12,12
@@ -2381,7 +2381,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APPPK
 [Statedef 15517]
@@ -2425,7 +2425,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Hard
-damage    = 20
+damage    = 15
 guardflag = L
 hitflag = MAF
 pausetime = 12,12
@@ -2490,7 +2490,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APPKP
 [Statedef 15518]
@@ -2522,7 +2522,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
@@ -2562,7 +2562,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APPPPK
 [Statedef 15533]
@@ -2640,7 +2640,7 @@ trigger1 = AnimElemNo(0) % 2 = 0
 trigger1 = AnimElemTime(AnimElemNo(0)) = 0
 attr = A, NA
 animtype  = Medium
-damage    = 2
+damage    = 1
 guardflag = M
 hitflag = MAF
 pausetime = 0,12
@@ -2679,7 +2679,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APPPKP
 [Statedef 15534]
@@ -2711,7 +2711,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Medium
-damage    = 20
+damage    = 10
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
@@ -2751,7 +2751,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APPPKK
 [Statedef 15535]
@@ -2818,7 +2818,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Hard
-damage    = 20
+damage    = 15
 guardflag = L
 hitflag = MAF
 pausetime = 12,12
@@ -2860,7 +2860,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
 
 ; APPPKKK
 [Statedef 15571]
@@ -2892,7 +2892,7 @@ type = HitDef
 trigger1 = !Time
 attr = A, NA
 animtype  = Medium
-damage    = 20
+damage    = 15
 guardflag = M
 hitflag = MAF
 pausetime = 12,12
@@ -2931,4 +2931,4 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = 1
+ctrl = !(StateType = A)
