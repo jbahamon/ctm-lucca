@@ -856,10 +856,30 @@ value = 15500 + 2 * (Anim - 15500)
 [State 15002, Air Kick Combos]
 type = ChangeState
 trigger1 = StateNo = [15502, 15999]
+trigger1 = StateType = A
 trigger1 = Var(25)
 trigger1 = Command = "c"
 trigger1 = AnimExist(15500 + 2 * (Anim - 15500) + 1)
 value = 15500 + 2 * (Anim - 15500) + 1
+
+[State 15002, Air to Ground Punch Combos]
+type = ChangeState
+trigger1 = StateNo = [15502, 15999]
+trigger1 = StateType = S
+trigger1 = Var(25)
+trigger1 = Command = "b"
+trigger1 = AnimExist(15000 + 2 * (Anim - 15500))
+value = 15000 + 2 * (Anim - 15500)
+
+[State 15002, Air to Ground Kick Combos]
+type = ChangeState
+trigger1 = StateNo = [15502, 15999]
+trigger1 = StateType = S
+trigger1 = Var(25)
+trigger1 = Command = "c"
+trigger1 = AnimExist(15000 + 2 * (Anim - 15500) + 1)
+value = 15000 + 2 * (Anim - 15500) + 1
+
 
 [State 15002, Punch Combos]
 type = ChangeState

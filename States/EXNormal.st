@@ -2396,6 +2396,30 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 1250, slow]
+type = veladd
+trigger1 = statetype = A
+y = const(movement.yaccel) * 0.05
+
+[State 1250, slow]
+type = statetypeset
+trigger1 = (pos y > (-vel y) && vel y >= 0)
+statetype = S
+physics = S
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
+
+[State 1250, slow]
+type = posset 
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
+
 [State 15517, Hit]
 type = HitDef
 trigger1 = !Time
@@ -2741,6 +2765,30 @@ anim = 15535 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 1250, slow]
+type = veladd
+trigger1 = statetype = A
+y = const(movement.yaccel) * 0.05
+
+[State 1250, slow]
+type = statetypeset
+trigger1 = pos y > (-vel y) && vel y >= 0
+statetype = S
+physics = S
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
+
+[State 1250, slow]
+type = posset 
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
 
 [State 200, Explod]
 type = Explod
