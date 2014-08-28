@@ -37,18 +37,34 @@ var(1) = IfElse(Root, StateNo = 13000, 30, IfElse(Root, StateNo = 13100, 100, 30
 
 [State 7000, Pal Down]
 type = BGPalFX
-trigger1 = time <= 10 ;&& root, var(10) = 5
+trigger1 = time <= 10 && !Var(1)
 time = 1
-mul = 256, 256 -floor(25.6 * time), 256 -floor(25.6 * time)
+mul = 256 , 256 -floor(25.6 * time), 256 -floor(25.6 * time)
 color = 256 -floor(25.6 * time)
+
+[State 7000, Pal Down]
+type = BGPalFX
+trigger1 = time <= 10 && Var(1)
+time = 1
+mul = 256 - floor(19.2 * time), 256 - floor(19.2 * time), 256 - floor(19.2 * time)
+color = 256 -floor(25.6 * time)
+
 
 [State 7000, Pal Static]
 type = BGPalFX
-trigger1 = (time = [11, 39])
-trigger2 = (Time = [11, Var(1)]) && Var(1)
+trigger1 = (time = [11, 39]) && !Var(1)
 time = 1
-mul = 256, 0, 0
+mul = 256 , 0, 0
 color = 0
+
+
+[State 7000, Pal Static]
+type = BGPalFX
+trigger1 = (Time = [11, Var(1)]) && Var(1)
+time = 1
+mul = 64 , 64, 64
+color = 0
+
 
 [State 7000, Pal Up]
 type = BGPalFX
@@ -63,7 +79,7 @@ type = BGPalFX
 trigger1 = time = [Var(1),(Var(1) + 10)]
 trigger1 = Var(1) 
 time = 1
-mul = 256, ceil(25.6 * (time - Var(1))), ceil(25.6 * (time - Var(1)))
+mul = 64 + ceil(19.2 * (time - Var(1))), 64 + ceil(19.2 * (time - Var(1))), 64 + ceil(19.2 * (time - Var(1)))
 color = floor(25.6 * (time - Var(1)))
 
 [State 7000, Pal None]
@@ -99,7 +115,13 @@ value = IfElse(Root, StateNo = 13000, 1, IfElse(Root, StateNo = 13100, 2, 3))
 [State 8520, Pos]
 type = ChangeAnim
 trigger1 = !Time
-value = IfElse(Var(1) = 1, 13998, 13999)
+value = IfElse(Var(1) = 1, 13998, IfElse(Var(1) = 2, 13997, 13999))
+
+[State 8520, Pos]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = Root, StateNo = 13100 && Root, Var(1)
+value = 13996
 
 [State 8520, Pos]
 type = Turn

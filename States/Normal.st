@@ -898,7 +898,7 @@ type = VarSet
 trigger1 = !Time
 trigger1 = NumTarget
 V = 1
-value = (Target, Pos X - Pos X) * Facing
+value = Floor((Target, Pos X - Pos X) * Facing)
 ignorehitpause = 1
 
 [State 801, Bind]
@@ -1101,7 +1101,7 @@ trigger1 = Time = 12
 anim = 7026
 ID = 801
 postype = p1  ;p2,front,back,left,right
-pos = (Parent, Pos X - Pos X)*Facing + Parent, Var(1), 0
+pos = Floor((Parent, Pos X - Pos X)*Facing + Parent, Var(1)), 0
 bindtime = 1
 vel = 0,0
 sprpriority = 2

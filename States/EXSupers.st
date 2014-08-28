@@ -306,7 +306,6 @@ type = AngleDraw
 trigger1 = 1
 scale = 5,5
 
-
 [State 13002, Scale]
 type = PosAdd
 trigger1 = 1
@@ -354,7 +353,7 @@ trigger1 = !Root, Var(24)
 
 
 ;---------------------------------------------------------------------------
-;Phantasmaraneae Summon
+; Infernal Demon Summon
 [Statedef 13100]
 type    = S
 movetype= A
@@ -363,6 +362,13 @@ ctrl = 0
 anim = 13100
 poweradd = -1000
 sprpriority = 2
+
+
+[State 2010, NHB]
+type = VarSet
+trigger1 = !Time
+var(1) = IfElse(command = "2qcfb", 0, 1)
+ignorehitpause = 1
 
 [State 2010, NHB]
 type = PlaySnd
@@ -441,8 +447,9 @@ trigger1 = Helper(13102), Time = 32
 fv = 0
 value = (enemynear(numenemy>1&&!enemynear(0),alive), ScreenPos X - ScreenPos X)*Facing
 
-[State 1000, Hadouken]
+[State 1000, Phantasmaraneae]
 type = helper
+triggerall = Var(1) = 0
 trigger1 = NumHelper(13102)
 trigger1 = Helper(13102), Time = 32
 helpertype = normal
@@ -452,6 +459,21 @@ name = "Phantasmaraneae"
 pausemovetime = 9999999*(Var(24) > 0)
 postype = p1
 pos = Floor(FVar(0) + IfElse(FVar(0) > 0, -100, 100)), 0
+facing = IfElse(FVar(0) > 0, 1, -1)
+ownpal = 1
+
+[State 1000, Malphas]
+type = helper
+triggerall = Var(1) = 1
+trigger1 = NumHelper(13102)
+trigger1 = Helper(13102), Time = 32
+helpertype = normal
+stateno = 13110
+ID = 13105
+name = "Malphas"
+pausemovetime = 9999999*(Var(24) > 0)
+postype = p1
+pos = Floor(FVar(0) + IfElse(FVar(0) > 0, -100, 100)), -70
 facing = IfElse(FVar(0) > 0, 1, -1)
 ownpal = 1
 
@@ -472,7 +494,6 @@ trigger1 = NumHelper(13105)
 trigger1 = Helper(13105), Time = 40
 value = 0
 ctrl = 1
-
 
 
 ; Hair
@@ -620,7 +641,7 @@ type = DestroySelf
 trigger1 = !AnimTime
 trigger1 = Anim = 7102 
 
-; Portal 2
+; Phantasmaraneae Portal
 [Statedef 13103]
 type = A
 physics = N
@@ -726,7 +747,6 @@ type = S
 physics = N
 movetype = I
 ctrl = 0
-anim = 13105
 velset = 0, 0
 sprpriority = 3
 
@@ -741,6 +761,14 @@ type = VarSet
 trigger1 = !Time
 var(0) = IfElse(!prevstateno, 0, Var(0) + 1)
 ignorehitpause = 1
+
+
+[State 13105, Var]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = !PrevStateNo
+ignorehitpause = 1
+value = 13105
 
 [State 3055, HitOverride]
 type = hitoverride
@@ -809,11 +837,10 @@ trigger1 = Var(1) = [0,32]
 flag = invisible
 flag2 = noshadow
 
-[State 1006, Trans]
-type = trans
-trigger1 = Var(1) = [32, 64]
-trans = addalpha
-alpha = (Var(1) - 32) * 8, 256 - (Var(1) - 32) * 8
+[State 2101, Scale]
+type = NotHitBy
+trigger1 = Var(1) = [0,64]
+value = SCA, AA, AP, AT
 ignorehitpause = 1
 
 [State 1006, Trans]
@@ -835,9 +862,15 @@ type = S
 physics = N
 movetype = A
 ctrl = 0
-anim = 13106
 velset = 0, 0
 sprpriority = 3
+
+[State 13105, Var]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = PrevStateNo = 13105
+ignorehitpause = 1
+value = 13106
 
 [State 13105, Var]
 type = VarSet
@@ -989,8 +1022,7 @@ trigger1 = !AnimTime
 value = 13107
 
 
-
-; Phantasmaraneae
+; Phantasmaraneae End
 [Statedef 13107]
 type = S
 physics = N
@@ -1032,6 +1064,515 @@ type = DestroySelf
 trigger1 = Time >= 32
 
 
+; Malphas
+[Statedef 13110]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+velset = 0, 0
+sprpriority = 0
+
+[State 13105, Var]
+type = Sprpriority
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !Time
+var(0) = IfElse(!prevstateno, 0, Var(0) + 1)
+ignorehitpause = 1
+
+[State 13105, Var]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = !PrevStateNo
+ignorehitpause = 1
+value = 13110
+
+[State 3055, HitOverride]
+type = hitoverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP, AT
+stateno = ifelse(var(0) < 10, 13110, 13112)
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = prevstateno = 13110
+trigger1 = gethitvar(hittime)
+time = 1
+value = SCA, AA, AT, AP
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = 1
+time = 1
+value = , AT
+ignorehitpause = 1
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !prevstateno
+trigger1 = !Time
+var(1) = 0
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = NotHitBy
+trigger1 = Var(1) = [0, 64]
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = !Var(1)
+helpertype = normal
+stateno = 13114
+ID = 13114
+name = "Malphas Portal"
+pausemovetime = 9999999*(Root, Var(24) > 0)
+postype = p1
+pos = -125, 0
+ownpal = 1
+
+[State 1006, Trans]
+type = Offset
+trigger1 = Var(1) = [32, 64]
+X = Floor((-64 + Var(1))/2.0)*Facing
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Var(1) = [32, 64]
+trans = addalpha
+alpha = (Var(1) - 32) * 8, 256 - (Var(1) - 32) * 8
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = 1
+time = 1
+add = Floor(-32*(1 + Sin(2*Pi*Time/60.0))), Floor(-32*(1 + Sin(2*Pi*Time/60.0))), Floor(-32*(1 + Sin(2*Pi*Time/60.0)))
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = Var(1) = [0,32]
+flag = invisible
+flag2 = noshadow
+
+[State 1006, Trans]
+type = VarAdd
+trigger1 = 1
+V = 1
+value = 1
+
+[State 1006, Trans]
+type = PosAdd
+trigger1 = Var(1) < 100
+Y = Cos(Time*0.25)
+
+[State 200, Head]
+type = Helper
+trigger1 = !Time
+stateno = 13111
+ID = 13111
+pos = 0, 10
+postype = p1  ;p2,front,back,left,right
+sprpriority = 1
+ownpal = 0
+pausemovetime = 9999999*(Root, Var(24) > 0)
+ignorehitpause = 1
+
+[State 200, Wing]
+type = Helper
+trigger1 = !Time
+stateno = 13112
+ID = 13112
+pos = 10, 0
+postype = p1  ;p2,front,back,left,right
+sprpriority = 2
+ownpal = 0
+pausemovetime = 9999999*(Root, Var(24) > 0)
+ignorehitpause = 1
+
+[State 200, Co Wing]
+type = Helper
+trigger1 = !Time
+stateno = 13113
+ID = 13113
+pos = 10, 0
+postype = p1  ;p2,front,back,left,right
+sprpriority = -1
+ownpal = 0
+pausemovetime = 9999999*(Root, Var(24) > 0)
+ignorehitpause = 1
+
+[State 13110, fef]
+type = ChangeAnim
+trigger1 = Var(1) = 60
+trigger1 = Anim = 13110
+value = 13114
+ignorehitpause = 1
+
+[State 13110, fef]
+type = VelSet
+trigger1 = Var(1) = [60, 84]
+X = -1
+Y = 0
+ignorehitpause = 1
+
+[State 13110, fef]
+type = VarSet
+trigger1 = !Time
+trigger1 = !PrevStateNo
+var(2) = 0
+ignorehitpause = 1
+
+[State 13110, fef]
+type = VelSet
+trigger1 = Var(1) = 85
+X = 12
+Y = 0
+ignorehitpause = 1
+
+
+[State 13110, fef]
+type = VelMul
+trigger1 = Var(1) >= 110
+X = 0.9
+Y = 0
+ignorehitpause = 1
+
+
+[State 13110, fef]
+type = StateTypeSet
+trigger1 = Anim = 13114
+trigger1 = MoveType != A
+movetype = A
+ignorehitpause = 1
+
+[State 2101, Bite Down]
+type = HitDef
+trigger1 = Anim = 13114
+trigger1 = Var(1) > 85
+trigger1 = Var(2) = 0
+trigger1 = (Var(2) := 1)
+trigger2 = Var(1) > 85
+trigger2 = Var(1) < 110
+trigger2 = !Time
+attr = A,HA
+damage = Floor(Root, FVar(39) * 200)
+animtype = Hard
+hitflag = MAF
+sparkno = -1
+pausetime = 0, 30
+ground.slidetime = 16
+ground.hittime = 30
+ground.velocity =-6, -3
+air.velocity = -6, -3
+ground.cornerpush.veloff = 0
+guard.velocity = -7
+guard.cornerpush.veloff = 0;
+getpower = 0
+givepower = 36, 36
+envshake.time = 18
+envshake.freq = 120
+envshake.ampl = 7
+fall =  1
+fall.recover = 0
+p2sprpriority = -2
+fall.recovertime = 120
+air.fall = 1
+palfx.add = 128, 7, 200
+palfx.mul = 256,256,256
+palfx.time = 24
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = Var(1) > 110
+time = 1
+value = SCA, AA, AT, AP
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Var(1) = [110, 142]
+trans = addalpha
+alpha = 256 - (Var(1) - 110) * 8, (Var(1) - 110) * 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Var(1) >= 142
+
+; Malphas Head
+[Statedef 13111]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+velset = 0, 0
+anim = 13111
+sprpriority = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Parent, Var(1) = [110, 142]
+trans = addalpha
+alpha = 256 - (Parent, Var(1) - 110) * 8, (Parent, Var(1) - 110) * 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Parent, Var(1) >= 141
+
+[State 13110, fef]
+type = ChangeAnim
+trigger1 = Parent, Anim = 13114
+trigger1 = Anim = 13111
+value = 13115
+ignorehitpause = 1
+
+[State 2101, Var]
+type = VarSet
+trigger1 = Parent, StateNo
+var(1) = Parent, Var(1) + 1
+ignorehitpause = 1
+
+[State 2101, Trans]
+type = trans
+trigger1 = Var(1) = [32, 64]
+trans = addalpha
+alpha = (Var(1) - 32) * 8, 256 - (Var(1) - 32) * 8
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = Var(1) = [0,32]
+flag = invisible
+flag2 = noshadow
+
+[State 2101, Scale]
+type = BindToParent
+trigger1 = 1
+pos = 0, 10
+
+[State 1006, Trans]
+type = Offset
+trigger1 = Var(1) = [32, 64]
+X = Floor((-64 + Var(1))/2.0)*Facing
+ignorehitpause = 1
+
+;Malphas Wing
+[Statedef 13112]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+velset = 0, 0
+anim = 13112
+sprpriority = 2
+
+[State 1006, Trans]
+type = trans
+trigger1 = Parent, Var(1) = [110, 142]
+trans = addalpha
+alpha = 256 - (Parent, Var(1) - 110) * 8, (Parent, Var(1) - 110) * 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Parent, Var(1) >= 141
+
+[State 13110, fef]
+type = ChangeAnim
+trigger1 = Parent, Anim = 13114
+trigger1 = Anim = 13112
+value = 13116
+ignorehitpause = 1
+
+[State 2101, Var]
+type = VarSet
+trigger1 = Parent, StateNo
+var(1) = Parent, Var(1)
+ignorehitpause = 1
+
+[State 2101, Trans]
+type = trans
+trigger1 = Var(1) = [32, 64]
+trans = addalpha
+alpha = (Var(1) - 32) * 8, 256 - (Var(1) - 32) * 8
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = Var(1) = [0,32]
+flag = invisible
+flag2 = noshadow
+
+[State 2101, Scale]
+type = BindToParent
+trigger1 = 1
+pos = 0, 0
+
+[State 1006, Trans]
+type = Offset
+trigger1 = Var(1) = [32, 64]
+X = Floor((-64 + Var(1))/2.0)*Facing
+ignorehitpause = 1
+
+; Malphas Co-Wing
+[Statedef 13113]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+velset = 0, 0
+anim = 13113
+sprpriority = -1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Parent, Var(1) = [110, 142]
+trans = addalpha
+alpha = 256 - (Parent, Var(1) - 110) * 8, (Parent, Var(1) - 110) * 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Parent, Var(1) >= 141
+
+[State 13110, fef]
+type = ChangeAnim
+trigger1 = Parent, Anim = 13114
+trigger1 = Anim = 13113
+value = 13117
+ignorehitpause = 1
+
+[State 2101, Var]
+type = VarSet
+trigger1 = Parent, StateNo
+var(1) = Parent, Var(1)
+ignorehitpause = 1
+
+[State 2101, Trans]
+type = trans
+trigger1 = Var(1) = [32, 64]
+trans = addalpha
+alpha = (Var(1) - 32) * 8, 256 - (Var(1) - 32) * 8
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = Var(1) = [0,32]
+flag = invisible
+flag2 = noshadow
+
+[State 2101, Scale]
+type = BindToParent
+trigger1 = 1
+pos = 5, 0
+
+[State 1006, Trans]
+type = Offset
+trigger1 = Var(1) = [32, 64]
+X = Floor((-64 + Var(1))/2.0)*Facing
+ignorehitpause = 1
+
+
+; Malphas Portal
+[Statedef 13114]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 7101
+velset = 0, 0
+sprpriority = -2
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 14
+anim = 13103
+ID = 13103
+pos = -1, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1, 0.75
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 2101, Remove]
+type = RemoveExplod
+trigger1 = Parent, Var(1) = 110
+ID = 13103
+persistent = 0
+
+[State 220, Explod]
+type = Explod
+trigger1 = Parent, Var(1) = 110
+anim = 13107
+ID = 13103
+pos = -1, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1, 0.75
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = 1
+scale = 1.82, 0.35
+value = 90
+
+[State 2101, Scale]
+type = ChangeAnim
+trigger1 = Parent, Var(1) = 110 
+value = 7102 
+persistent = 0
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
 ;---------------------------------------------------------------------------
 ; Torture Attack - Strong
 [Statedef 13200]

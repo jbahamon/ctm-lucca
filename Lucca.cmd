@@ -671,16 +671,16 @@ trigger3 = ( StateNo = [400,499] ) && MoveHit
 type = ChangeState
 value = 13200
 triggerall = PalNo = 12
-triggerall = Command = "qcbhcfa" || Command = "qcbhcfb" || Command = "qcbhcfc"
+triggerall = Command = "qcbhcfb" || Command = "qcbhcfc"
 triggerall = Power >= 1000
 trigger1 = statetype = S
 trigger1 = ctrl
 
-[State -1, Phantasmaraneae]
+[State -1, Infernal Demon Summon]
 type = ChangeState
 value = 13100
 triggerall = PalNo = 12
-triggerall = Command = "2qcfa" || Command = "2qcfb" || Command = "2qcfc" 
+triggerall = Command = "2qcfb" || Command = "2qcfc" 
 triggerall = Power >= 1000
 triggerall = !(NumHelper(13101) + NumHelper(13102) + NumHelper(13105))
 trigger1 = statetype = S
@@ -690,14 +690,61 @@ trigger1 = ctrl
 type = ChangeState
 value = 13000
 triggerall = PalNo = 12
-triggerall = Command = "2qcba" || Command = "2qcbb" || Command = "2qcbc" 
+triggerall = Command = "2qcbb" || Command = "2qcbc" 
 triggerall = Power >= 1000
 triggerall = Var(24) <= 0
-triggerall = !(NumPartner && Partner, Name = "Lucca" && Partner, AuthorName = "SilentProtagonist" && Partner, PalNo = 12 && Partner, Var(24) > 0)
-triggerall = !(Enemy(0), Name = "Lucca" && Enemy(0), AuthorName = "SilentProtagonist" && Enemy(0), PalNo = 12 && Enemy(0), Var(24) > 0)
-triggerall = !(NumEnemy = 2 && Enemy(1), Name = "Lucca" && Enemy(1), AuthorName = "SilentProtagonist" && Enemy(1), PalNo = 12 && Enemy(1), Var(24) > 0)
+triggerall = !NumPartner
+triggerall = NumEnemy = 1
+triggerall = !(EnemyNear(0), Name = "Lucca" && EnemyNear(0), AuthorName = "SilentProtagonist" && EnemyNear(0), PalNo = 12 && EnemyNear(0), Var(24) > 0)
 trigger1 = statetype = S
 trigger1 = ctrl
+
+
+[State -1, Witch Time]
+type = ChangeState
+value = 13000
+triggerall = PalNo = 12
+triggerall = Command = "2qcbb" || Command = "2qcbc" 
+triggerall = Power >= 1000
+triggerall = Var(24) <= 0
+triggerall = NumPartner
+triggerall = NumEnemy = 1
+triggerall = !(Partner, Name = "Lucca" && Partner, AuthorName = "SilentProtagonist" && Partner, PalNo = 12 && Partner, Var(24) > 0)
+triggerall = !(EnemyNear(0), Name = "Lucca" && EnemyNear(0), AuthorName = "SilentProtagonist" && EnemyNear(0), PalNo = 12 && EnemyNear(0), Var(24) > 0)
+trigger1 = statetype = S
+trigger1 = ctrl
+
+[State -1, Witch Time]
+type = ChangeState
+value = 13000
+triggerall = PalNo = 12
+triggerall = Command = "2qcbb" || Command = "2qcbc" 
+triggerall = Power >= 1000
+triggerall = Var(24) <= 0
+triggerall = !NumPartner
+triggerall = NumEnemy = 2
+triggerall = !(EnemyNear(0), Name = "Lucca" && EnemyNear(0), AuthorName = "SilentProtagonist" && EnemyNear(0), PalNo = 12 && EnemyNear(0), Var(24) > 0)
+triggerall = !(EnemyNear(1), Name = "Lucca" && EnemyNear(1), AuthorName = "SilentProtagonist" && EnemyNear(1), PalNo = 12 && EnemyNear(1), Var(24) > 0)
+trigger1 = statetype = S
+trigger1 = ctrl
+
+[State -1, Witch Time]
+type = ChangeState
+value = 13000
+triggerall = PalNo = 12
+triggerall = Command = "2qcbb" || Command = "2qcbc" 
+triggerall = Power >= 1000
+triggerall = Var(24) <= 0
+triggerall = NumPartner
+triggerall = NumEnemy = 2
+triggerall = !(Partner, Name = "Lucca" && Partner, AuthorName = "SilentProtagonist" && Partner, PalNo = 12 && Partner, Var(24) > 0)
+triggerall = !(EnemyNear(0), Name = "Lucca" && EnemyNear(0), AuthorName = "SilentProtagonist" && EnemyNear(0), PalNo = 12 && EnemyNear(0), Var(24) > 0)
+triggerall = !(EnemyNear(1), Name = "Lucca" && EnemyNear(1), AuthorName = "SilentProtagonist" && EnemyNear(1), PalNo = 12 && EnemyNear(1), Var(24) > 0)
+trigger1 = statetype = S
+trigger1 = ctrl
+
+
+
 ;===========================================================================
 ; Special Moves
 ;===========================================================================
@@ -757,7 +804,7 @@ triggerall = PalNo = 12
 triggerall = command = "BFb"
 triggerall = roundstate = 2 && !numhelper(11100)
 trigger1 = ctrl
-trigger2 = (stateno = [200, 699]) && movecontact
+trigger2 = (stateno = [15002, 15599]) && movecontact
 
 ;--------------------------------------------------------------------------
 [State -1, Heel Stomp]
@@ -767,7 +814,7 @@ triggerall = PalNo = 12
 triggerall = command = "BFc"
 triggerall = roundstate = 2 && !numhelper(11150)
 trigger1 = ctrl
-trigger2 = (stateno = [200, 699]) && movecontact
+trigger2 = (stateno = [15002, 15599]) && movecontact
 
 ;--------------------------------------------------------------------------
 [State -1, Torture Attack - Ground]
@@ -794,6 +841,7 @@ trigger1 = ctrl
 
 [State -1, Shockwave]
 type = ChangeState
+trigger1 = PalNo != 12
 trigger1 = (command = "recovery" || command = "2p") && (command = "holdfwd" || command = "holdback")
 trigger1 = roundstate = 2 && ctrl && statetype = S && stateno != 100
 value = 800
