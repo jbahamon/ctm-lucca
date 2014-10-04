@@ -84,6 +84,87 @@ trigger1 = !AnimTime
 value = 0
 ctrl = 1
 
+; K
+[Statedef 15003]
+type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = S                      ;Physics: S-stand, C-crouch, A-air
+juggle  = 3                      ;Number of air juggle points move takes
+;Commonly-used controllers:
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 15003 ;Change animation (Def: no change)
+poweradd = 0                     ;Power to add (Def: 0)
+sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+facep2 = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 3
+anim = 7308
+ID = 15002
+pos = 15, -15
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 15002, Hit]
+type = HitDef
+trigger1 = !Time
+attr = S, NA
+animtype  = Medium
+damage    = 15
+guardflag = HA
+hitflag = MAF
+pausetime = 12,12
+sparkno = S7400
+sparkxy = -10, -15
+hitsound   = S7020,2
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime  = 20
+ground.velocity = .5
+air.velocity = .5,-.5
+forcenofall = 1
+ground.cornerpush.veloff = 0;
+air.cornerpush.veloff = 0;
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+givepower = 18, 18
+
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = AnimElemTime(3) >= 6
+trigger2 = MoveHit
+var(25) = 1
+ignorehitpause = 1
+
+[State 15002, ChangeAnim]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
 ; PP
 [Statedef 15004]
 type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
@@ -247,6 +328,87 @@ var(25) = 1
 ignorehitpause = 1
 
 [State 15005, ChangeAnim]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
+; KK
+[Statedef 15007]
+type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = S                      ;Physics: S-stand, C-crouch, A-air
+juggle  = 3                      ;Number of air juggle points move takes
+;Commonly-used controllers:
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 15007 ;Change animation (Def: no change)
+poweradd = 0                     ;Power to add (Def: 0)
+sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+facep2 = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 3
+anim = 7308
+ID = 15002
+pos = 15, -15
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 15002, Hit]
+type = HitDef
+trigger1 = !Time
+attr = S, NA
+animtype  = Light
+damage    = 12
+guardflag = HA
+hitflag = MAF
+pausetime = 12,12
+sparkno = S7400
+sparkxy = -10, -15
+hitsound   = S7020,2
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime  = 20
+ground.velocity = .5
+air.velocity = .5,-.5
+forcenofall = 1
+ground.cornerpush.veloff = 0;
+air.cornerpush.veloff = 0;
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+givepower = 18, 18
+
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = AnimElemTime(3) >= 6
+trigger2 = MoveHit
+var(25) = 1
+ignorehitpause = 1
+
+[State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
 value = 0
@@ -481,6 +643,93 @@ ignorehitpause = 1
 [State 15010, ComboVar]
 type = VarSet
 trigger1 = AnimElem = 4
+trigger2 = MoveHit
+var(25) = 1
+ignorehitpause = 1
+
+[State 15002, ChangeAnim]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
+; KKK
+[Statedef 15015]
+type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = S                      ;Physics: S-stand, C-crouch, A-air
+juggle  = 3                      ;Number of air juggle points move takes
+;Commonly-used controllers:
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 15015 ;Change animation (Def: no change)
+poweradd = 0                     ;Power to add (Def: 0)
+sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+facep2 = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 3
+trigger2 = AnimElem = 8
+trigger3 = AnimElem = 14
+anim = 7308
+ID = 15002
+pos = 15, -15
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 15002, Hit]
+type = HitDef
+trigger1 = !Time
+trigger2 = AnimElem = 6
+trigger3 = AnimElem = 11
+attr = S, NA
+animtype  = Hard
+damage    = 6
+guardflag = MA
+hitflag = MAF
+pausetime = 2,2
+sparkno = S7401
+sparkxy = -10, -15
+hitsound   = S7020,2
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime  = 20
+ground.velocity = IfElse(AnimElemNo(0) > 10, -3, .5), IfElse(AnimElemNo(0) > 10, -3, 0)
+air.velocity = IfElse(AnimElemNo(0) > 10, -3, .5),-.5
+forcenofall = AnimElemNo(0) < 10
+fall = IfElse(AnimElemNo(0) > 10, 1, 0)
+air.fall = IfElse(AnimElemNo(0) > 10, 1, 0)
+ground.cornerpush.veloff = 0;
+air.cornerpush.veloff = 0;
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+givepower = 18, 18
+
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = AnimElemTime(3) >= 6
 trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
@@ -1844,7 +2093,132 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = !(StateType = A)
+ctrl = 1;!(StateType = A)
+
+; AK
+[Statedef 15503]
+type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = N                      ;Physics: S-stand, C-crouch, A-air
+juggle  = 3                      ;Number of air juggle points move takes
+;Commonly-used controllers:
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 15503 ;Change animation (Def: no change)
+poweradd = 0                     ;Power to add (Def: 0)
+sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+facep2 = 1
+
+[State 1250, slow]
+type = veladd
+trigger1 = statetype = A
+y = const(movement.yaccel) * 0.1
+
+[State 1250, slow]
+type = statetypeset
+trigger1 = pos y > (-vel y) && vel y >= 0
+statetype = S
+physics = S
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = !Time
+Y = -1
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = AnimElem = 5
+Y = 6.5
+ignorehitpause = 1
+
+[State 1250, slow]
+type = posset 
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 5
+anim = 7305
+ID = 15002
+pos = 10, -4
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 15502, Hit]
+type = HitDef
+trigger1 = !Time
+attr = A, NA
+animtype  = Medium
+damage    = 15
+guardflag = HA
+hitflag = MAF
+pausetime = 12,12
+sparkno = S7401
+sparkxy = -10, -15
+hitsound   = S7020,2
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime  = 20
+ground.velocity = -.5
+air.velocity = .5,-.5
+fall = 1
+ground.cornerpush.veloff = 0;
+air.cornerpush.veloff = 0;
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+givepower = 18, 18
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+ignorehitpause = 1
+
+
+[State 15502, ComboVar]
+type = VarAdd
+trigger1 = StateType = S
+var(0) = 1
+ignorehitpause = 1
+
+[State 15502, ComboVar]
+type = ChangeAnim
+trigger1 = Var(0) = 15
+value = 121
+ignorehitpause = 1
+
+[State 15502, ComboVar]
+type = ChangeState
+trigger1 = Var(0) > 20
+value = 0
+ctrl = 1
+ignorehitpause = 1
+
 
 ; APP
 [Statedef 15504]
@@ -2275,7 +2649,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
-ctrl = !(StateType = A)
+ctrl = 1
 
 ; APPPP
 [Statedef 15516]
@@ -2564,6 +2938,130 @@ trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
 ctrl = !(StateType = A)
 
+
+; APPKK
+[Statedef 15519]
+type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = N                      ;Physics: S-stand, C-crouch, A-air
+juggle  = 3                      ;Number of air juggle points move takes
+;Commonly-used controllers:
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 15519 ;Change animation (Def: no change)
+poweradd = 0                     ;Power to add (Def: 0)
+sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+facep2 = 1
+
+[State 1250, slow]
+type = veladd
+trigger1 = statetype = A
+y = const(movement.yaccel) * 0.1
+
+[State 1250, slow]
+type = statetypeset
+trigger1 = pos y > (-vel y) && vel y >= 0
+statetype = S
+physics = S
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = !Time
+Y = -1
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = AnimElem = 5
+Y = 6.5
+ignorehitpause = 1
+
+[State 1250, slow]
+type = posset 
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 5
+anim = 7305
+ID = 15002
+pos = 10, -4
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 15502, Hit]
+type = HitDef
+trigger1 = !Time
+attr = A, NA
+animtype  = Medium
+damage    = 15
+guardflag = HA
+hitflag = MAF
+pausetime = 12,12
+sparkno = S7401
+sparkxy = -10, -15
+hitsound   = S7020,2
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime  = 20
+ground.velocity = -.5
+air.velocity = .5,-.5
+fall = 1
+ground.cornerpush.veloff = 0;
+air.cornerpush.veloff = 0;
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+givepower = 18, 18
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+ignorehitpause = 1
+
+
+[State 15502, ComboVar]
+type = VarAdd
+trigger1 = StateType = S
+var(0) = 1
+ignorehitpause = 1
+
+[State 15502, ComboVar]
+type = ChangeAnim
+trigger1 = Var(0) = 15
+value = 121
+ignorehitpause = 1
+
+[State 15502, ComboVar]
+type = ChangeState
+trigger1 = Var(0) > 20
+value = 0
+ctrl = 1
+ignorehitpause = 1
 ; APPPPK
 [Statedef 15533]
 type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedown

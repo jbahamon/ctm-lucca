@@ -883,12 +883,30 @@ trigger1 = statetype != A
 trigger1 = ctrl
 
 
+[State -1, Standing Kick]
+type = ChangeState
+value = 15003
+triggerall = PalNo = 12
+triggerall = command = "c"
+triggerall = command != "holddown"
+trigger1 = statetype != A
+trigger1 = ctrl
+
+
 [State -1, Air Punch]
 type = ChangeState
 value = 15502
 triggerall = PalNo = 12
 triggerall = command = "b"
-triggerall = command != "holddown"
+trigger1 = statetype = A
+trigger1 = ctrl
+
+
+[State -1, Air Kick]
+type = ChangeState
+value = 15503
+triggerall = PalNo = 12
+triggerall = command = "c"
 trigger1 = statetype = A
 trigger1 = ctrl
 
