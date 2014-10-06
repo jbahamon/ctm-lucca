@@ -3355,7 +3355,7 @@ ownpal = 1
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElemNo(0) < 19
-trigger1 = AnimElemNo(0) % 2 = 0
+trigger1 = AnimElemNo(0) % 3 = 2
 trigger1 = AnimElemTime(AnimElemNo(0)) = 0
 anim = 7308
 ID = 15002
