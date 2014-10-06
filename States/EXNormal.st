@@ -1052,6 +1052,105 @@ trigger1 = !AnimTime
 value = 0
 ctrl = 1
 
+
+; PPPPP
+[Statedef 15032]
+type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = S                      ;Physics: S-stand, C-crouch, A-air
+juggle  = 3                      ;Number of air juggle points move takes
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 15032 ;Change animation (Def: no change)
+poweradd = 0                     ;Power to add (Def: 0)
+sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = AnimElem = 18
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -5, -30
+ownpal = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElemNo(0) < 19
+trigger1 = AnimElemNo(0) % 2 = 0
+trigger1 = AnimElemTime(AnimElemNo(0)) = 0
+anim = 7308
+ID = 15002
+pos = 13, -13
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = IfElse((AnimElemNo(0) - 2)% 4, -1, 1)
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 15033, Hit]
+type = HitDef
+trigger1 = AnimElemNo(0) < 19
+trigger1 = AnimElemNo(0) % 2 = 0
+trigger1 = AnimElemTime(AnimElemNo(0)) = 0
+attr = S, NA
+animtype  = Medium
+damage    = 1
+guardflag = M
+hitflag = MAF
+pausetime = 0,12
+sparkno = S7400
+sparkxy = -6 + Random % 6, -15 + Random % 6
+hitsound   = S7020,2
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime  = 20
+ground.velocity = -.5
+air.velocity = -.5,-.5
+forcenofall = 1
+ground.cornerpush.veloff = 0;
+air.cornerpush.veloff = 0;
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+givepower = 18, 18
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
+
+[State 15033, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+[State 15033, ComboVar]
+type = VarSet
+trigger1 = AnimElem = 4
+trigger2 = MoveHit
+var(25) = 1
+ignorehitpause = 1
+
+[State 15002, ChangeAnim]
+type = ChangeState
+trigger1 = !AnimTime
+value = 0
+ctrl = 1
+
 ; PPPPK
 [Statedef 15033]
 type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
@@ -1378,6 +1477,143 @@ trigger1 = !AnimTime
 value = 0
 ctrl = 1
 
+; PPPPPK
+[Statedef 15065]
+type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = N                      ;Physics: S-stand, C-crouch, A-air
+juggle  = 3                      ;Number of air juggle points move takes
+;Commonly-used controllers:
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 15065 ;Change animation (Def: no change)
+poweradd = 0                     ;Power to add (Def: 0)
+sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+facep2 = 1
+
+[State 15019, Stomp]
+type = helper
+trigger1 = AnimElem = 5
+helpertype = normal
+stateno = 15155
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 20, 10
+ownpal = 1
+
+[State 1250, slow]
+type = veladd
+trigger1 = statetype = A
+y = const(movement.yaccel) * 0.1
+
+[State 1250, slow]
+type = statetypeset
+trigger1 = AnimElemNo(0) > 2
+trigger1 = pos y > (-vel y) && vel y >= 0
+statetype = S
+physics = S
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = !Time
+Y = -1
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = AnimElem = 5
+Y = 6.5
+ignorehitpause = 1
+
+[State 1250, slow]
+type = posset 
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 5
+anim = 7305
+ID = 15002
+pos = 10, -4
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 15502, Hit]
+type = HitDef
+trigger1 = !Time
+attr = A, NA
+animtype  = Medium
+damage    = 15
+guardflag = HA
+hitflag = MAF
+pausetime = 12,12
+sparkno = S7401
+sparkxy = -10, -15
+hitsound   = S7020,2
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime  = 20
+ground.velocity = -.5
+air.velocity = .5,-.5
+fall = 1
+ground.cornerpush.veloff = 0;
+air.cornerpush.veloff = 0;
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+givepower = 18, 18
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+ignorehitpause = 1
+
+
+[State 15502, ComboVar]
+type = VarAdd
+trigger1 = StateType = S
+var(0) = 1
+ignorehitpause = 1
+
+[State 15502, ComboVar]
+type = ChangeAnim
+trigger1 = Var(0) = 15
+value = 121
+ignorehitpause = 1
+
+[State 15502, ComboVar]
+type = ChangeState
+trigger1 = Var(0) > 20
+value = 0
+ctrl = 1
+ignorehitpause = 1
+
 ; PPPKKK
 [Statedef 15071]
 type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
@@ -1462,7 +1698,7 @@ juggle  = 18
 [State 15105, StateVar]
 type = VarSet
 trigger1 = !Time
-v = 0
+v = 5
 value = Root, StateNo
 ignorehitpause = 1
 
@@ -1730,6 +1966,14 @@ velset = 0, 0
 sprpriority = 0
 juggle  = 18
 
+
+[State 15105, StateVar]
+type = VarSet
+trigger1 = !Time
+v = 5
+value = Root, StateNo
+ignorehitpause = 1
+
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = MoveHit && NumTarget
@@ -1783,12 +2027,12 @@ ground.slidetime = 16
 ground.hittime  = 35
 ground.velocity = 0, -1
 air.velocity = 0, -1
-yaccel = .05
+yaccel = IfElse((Var(5) = 15565) || (Var(5) = 15065), 2, .05)
 forcenofall = 1
 air.hittime  = 35
 guard.velocity = -3
-fall = 0
-air.fall = 0
+fall = (Var(5) = 15565) || (Var(5) = 15065)
+air.fall = (Var(5) = 15565) || (Var(5) = 15065)
 getpower = 0
 givepower = 36, 36
 envshake.time = 18
@@ -3062,6 +3306,125 @@ trigger1 = Var(0) > 20
 value = 0
 ctrl = 1
 ignorehitpause = 1
+
+; APPPPP
+[Statedef 15532]
+type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = N                      ;Physics: S-stand, C-crouch, A-air
+juggle  = 3                      ;Number of air juggle points move takes
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 15532 ;Change animation (Def: no change)
+poweradd = 0                     ;Power to add (Def: 0)
+sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+facep2 = 1
+
+
+[State 1250, slow]
+type = statetypeset
+trigger1 = pos y > (-vel y) && vel y >= 0
+statetype = S
+physics = S
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
+
+[State 1250, slow]
+type = posset 
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = AnimElem = 18
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -5, -30
+ownpal = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElemNo(0) < 19
+trigger1 = AnimElemNo(0) % 2 = 0
+trigger1 = AnimElemTime(AnimElemNo(0)) = 0
+anim = 7308
+ID = 15002
+pos = 13, -13
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = IfElse((AnimElemNo(0) - 2)% 4, -1, 1)
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 15033, Hit]
+type = HitDef
+trigger1 = AnimElemNo(0) < 19
+trigger1 = AnimElemNo(0) % 2 = 0
+trigger1 = AnimElemTime(AnimElemNo(0)) = 0
+attr = S, NA
+animtype  = Medium
+damage    = 1
+guardflag = M
+hitflag = MAF
+pausetime = 0,12
+sparkno = S7400
+sparkxy = -6 + Random % 6, -15 + Random % 6
+hitsound   = S7020,2
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime  = 20
+ground.velocity = -.5
+air.velocity = -.5,-.5
+forcenofall = 1
+ground.cornerpush.veloff = 0;
+air.cornerpush.veloff = 0;
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+givepower = 18, 18
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
+
+[State 15033, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+[State 15033, ComboVar]
+type = VarSet
+trigger1 = AnimElem = 4
+trigger2 = MoveHit
+var(25) = 1
+ignorehitpause = 1
+
+[State 15502, ChangeAnim]
+type = ChangeState
+trigger1 = !AnimTime
+value = IfElse(StateType = A, 50, 0)
+ctrl = 1;!(StateType = A)
+
 ; APPPPK
 [Statedef 15533]
 type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedown
@@ -3359,6 +3722,143 @@ type = ChangeState
 trigger1 = !AnimTime
 value = IfElse(StateType = A, 50, 0)
 ctrl = !(StateType = A)
+
+; APPPPPK
+[Statedef 15565]
+type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = N                      ;Physics: S-stand, C-crouch, A-air
+juggle  = 3                      ;Number of air juggle points move takes
+;Commonly-used controllers:
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 15565 ;Change animation (Def: no change)
+poweradd = 0                     ;Power to add (Def: 0)
+sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
+facep2 = 1
+
+[State 15019, Stomp]
+type = helper
+trigger1 = AnimElem = 5
+helpertype = normal
+stateno = 15155
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 20, 0
+ownpal = 1
+
+[State 1250, slow]
+type = veladd
+trigger1 = statetype = A
+y = const(movement.yaccel) * 0.1
+
+[State 1250, slow]
+type = statetypeset
+trigger1 = AnimElemNo(0) > 2
+trigger1 = pos y > (-vel y) && vel y >= 0
+statetype = S
+physics = S
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = !Time
+Y = -1
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = AnimElem = 5
+Y = 6.5
+ignorehitpause = 1
+
+[State 1250, slow]
+type = posset 
+trigger1 = statetype = S
+Y = 0
+ignorehitpause = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 5
+anim = 7305
+ID = 15002
+pos = 10, -4
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
+[State 15502, Hit]
+type = HitDef
+trigger1 = !Time
+attr = A, NA
+animtype  = Medium
+damage    = 15
+guardflag = HA
+hitflag = MAF
+pausetime = 12,12
+sparkno = S7401
+sparkxy = -10, -15
+hitsound   = S7020,2
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 0
+ground.hittime  = 20
+ground.velocity = -.5
+air.velocity = .5,-.5
+fall = 1
+ground.cornerpush.veloff = 0;
+air.cornerpush.veloff = 0;
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+givepower = 18, 18
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+ignorehitpause = 1
+
+
+[State 15502, ComboVar]
+type = VarAdd
+trigger1 = StateType = S
+var(0) = 1
+ignorehitpause = 1
+
+[State 15502, ComboVar]
+type = ChangeAnim
+trigger1 = Var(0) = 15
+value = 121
+ignorehitpause = 1
+
+[State 15502, ComboVar]
+type = ChangeState
+trigger1 = Var(0) > 20
+value = 0
+ctrl = 1
+ignorehitpause = 1
 
 ; APPPKKK
 [Statedef 15571]
