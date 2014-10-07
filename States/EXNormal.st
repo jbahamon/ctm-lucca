@@ -17,6 +17,19 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -5, -20
+ownpal = 1
+
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 3
@@ -59,6 +72,8 @@ ground.hittime  = 20
 ground.velocity = .5
 air.velocity = .5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -97,6 +112,20 @@ anim = 15003 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, -35
+ownpal = 1
+
 
 [State 200, Explod]
 type = Explod
@@ -140,6 +169,8 @@ ground.hittime  = 20
 ground.velocity = .5
 air.velocity = .5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -178,6 +209,19 @@ anim = 15004 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -5, -30
+ownpal = 1
 
 [State 200, Explod]
 type = Explod
@@ -221,6 +265,8 @@ ground.hittime  = 20
 ground.velocity = .5
 air.velocity = .5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -262,6 +308,20 @@ anim = 15005 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, -28
+ownpal = 1
+
 
 [State 200, Explod]
 type = Explod
@@ -305,6 +365,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = -.5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -346,6 +408,21 @@ anim = 15007 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, -30
+ownpal = 1
+
 
 [State 200, Explod]
 type = Explod
@@ -389,6 +466,8 @@ ground.hittime  = 20
 ground.velocity = .5
 air.velocity = .5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -427,6 +506,19 @@ anim = 15008 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -7, -28
+ownpal = 1
 
 [State 200, Explod]
 type = Explod
@@ -470,6 +562,8 @@ ground.hittime  = 20
 ground.velocity = .5
 air.velocity = .5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -510,6 +604,20 @@ anim = 15009 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 3
+helpertype = normal
+stateno = 15155
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, 0
+ownpal = 1
 
 
 [State 200, Explod]
@@ -557,6 +665,8 @@ yaccel = 0.1
 forcenofall = 1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
+p1sprpriority = 1
+p2sprpriority = -1
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
 palfx.add = 200, 200, 200
@@ -604,7 +714,7 @@ ID = 15000
 name = "Madama Butterfly's Hand"
 postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
-pos = -5, -30
+pos = -5, -26
 ownpal = 1
 
 [State 15010, Hit]
@@ -628,6 +738,8 @@ air.velocity = -.5,-.5
 forcenofall = 1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
+p1sprpriority = 1
+p2sprpriority = -1
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
 palfx.add = 200, 200, 200
@@ -666,6 +778,21 @@ anim = 15015 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 14
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, -35
+ownpal = 1
+
 
 [State 200, Explod]
 type = Explod
@@ -753,6 +880,19 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -5, -20
+ownpal = 1
+
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 2
@@ -797,6 +937,8 @@ air.velocity = .5,-.5
 forcenofall = 1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
+p1sprpriority = 1
+p2sprpriority = -1
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
 palfx.add = 200, 200, 200
@@ -835,6 +977,21 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 3
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, -15
+ownpal = 1
+
+
 [State 15017, Hit]
 type = HitDef
 trigger1 = !Time
@@ -856,6 +1013,8 @@ ground.velocity = 0, -0.8
 yaccel = 0.1
 air.velocity =  0, -0.8
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 fall = 0
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
@@ -952,6 +1111,8 @@ ground.velocity = 0, -1
 air.velocity = 0, -1
 yaccel = 0.1
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -1025,6 +1186,8 @@ air.velocity = 0, -1
 yaccel = .05
 forcenofall = 1
 air.hittime  = 60
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -1068,6 +1231,21 @@ facep2 = 1
 
 [State 15010, Punch]
 type = helper
+trigger1 = Var(21)
+trigger1 = AnimElemNo(0) < 18
+trigger1 = AnimElemNo(0) % 3 = 0
+trigger1 = AnimElemTime(AnimElemNo(0)) = 0
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -13 + (Random % 10), -35 + (Random % 15)
+ownpal = 1
+
+[State 15010, Punch]
+type = helper
 trigger1 = AnimElem = 18
 helpertype = normal
 stateno = 15105
@@ -1075,20 +1253,20 @@ ID = 15000
 name = "Madama Butterfly's Hand"
 postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
-pos = -5, -30
+pos = -5, -28
 ownpal = 1
 
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElemNo(0) < 19
-trigger1 = AnimElemNo(0) % 2 = 0
+trigger1 = AnimElemNo(0) % 3 = 0
 trigger1 = AnimElemTime(AnimElemNo(0)) = 0
 anim = 7308
 ID = 15002
 pos = 13, -13
 postype = p1  ;p2,front,back,left,right
 facing = 1
-vfacing = IfElse((AnimElemNo(0) - 2)% 4, -1, 1)
+vfacing = IfElse((AnimElemNo(0) - 2)% 4, 1, -1)
 bindtime = -1
 vel = 0,0
 accel = 0,0
@@ -1106,7 +1284,7 @@ ignorehitpause = 1
 [State 15033, Hit]
 type = HitDef
 trigger1 = AnimElemNo(0) < 19
-trigger1 = AnimElemNo(0) % 2 = 0
+trigger1 = AnimElemNo(0) % 3 = 0
 trigger1 = AnimElemTime(AnimElemNo(0)) = 0
 attr = S, NA
 animtype  = Medium
@@ -1125,6 +1303,8 @@ ground.velocity = -.5
 air.velocity = -.5,-.5
 forcenofall = 1
 ground.cornerpush.veloff = 0;
+p1sprpriority = 1
+p2sprpriority = -1
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
@@ -1163,6 +1343,21 @@ anim = 15033 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElemNo(0) < 19
+trigger1 = AnimElemNo(0) % 2 = 0
+trigger1 = AnimElemTime(AnimElemNo(0)) = 0
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 35 + (Random % 10), -42 + (Random % 26)
+ownpal = 1
 
 [State 15019, Stomp]
 type = helper
@@ -1222,6 +1417,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = -.5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -1296,6 +1493,8 @@ yaccel = 0.1
 forcenofall = 1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
+p1sprpriority = 1
+p2sprpriority = -1
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
 palfx.add = 200, 200, 200
@@ -1333,6 +1532,19 @@ anim = 15035 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 3
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 27, -18
+ownpal = 1
 
 [State 200, Explod]
 type = Explod
@@ -1378,6 +1590,8 @@ ground.velocity = 0, -2
 air.velocity = 0, -2
 yaccel = .15
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 fall = 0
@@ -1575,6 +1789,8 @@ ground.slidetime = 0
 ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = .5,-.5
+p1sprpriority = 1
+p2sprpriority = -1
 fall = 1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
@@ -1658,6 +1874,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = -.5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -1699,8 +1917,24 @@ juggle  = 18
 type = VarSet
 trigger1 = !Time
 v = 5
-value = Root, StateNo
+value = IfElse((Root, StateNo = 15010 || (Root, StateNo = 15032 && Root, AnimElemNo(0) > 17) || (Root, StateNo = 15532 && Root, AnimElemNo(0) > 17)), 1, 0)
 ignorehitpause = 1
+
+[State 15105, Dommoge]
+type = VarSet
+trigger1 = !Time
+fv = 0
+value = IfElse(Var(5), 1, IfElse(Root, StateNo = 15032 || Root, StateNo = 15532, 0.2, 0.4))
+ignorehitpause = 1
+
+[State -3, Prevent Undergound Juggles]
+type= targetbind
+trigger1= movehit=1
+trigger1= numtarget=1 && numenemy
+trigger1= (target,time<=1) && (target,ID=enemynear,ID); this is just to prevent Simul issues as usual
+trigger1= !(target,hitshakeover) && (target, hitfall) && (target, pos y>0)
+pos= ceil(p2dist x), ceil(-root, pos y); keeps P2 at the same horizontal distance, but resets his Y position
+ignorehitpause= 1
 
 [State 1001, Dampen]
 Type = ParentVarset
@@ -1740,14 +1974,14 @@ X = 0
 type = VarSet
 trigger1 = !Time
 v = 1
-value = 40
+value = 60
 
 [State 1005, Hit]
 type = hitdef
 trigger1 = !Time
 priority = 4, Hit
 attr = S, SA
-damage = ceil(Var(1) * root, fvar(39)), 4
+damage = ceil(Var(1) * root, fvar(39) * fvar(0)), 4
 animtype = Back
 hitflag = MAF
 guardflag = M
@@ -1759,18 +1993,18 @@ guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16
 ground.hittime = 16
-ground.velocity = -3, -2
+ground.velocity = IfElse(Var(5), -3, 0.2),  IfElse(Var(5), -2, 0)
 ground.cornerpush.veloff = 0
-air.velocity = -3, -4
-guard.velocity = -5
-fall = 1
-air.fall = 1
-fall.recover = 0
+air.velocity = IfElse(Var(5), -3, 0.2), IfElse(Var(5), -4, 0)
+guard.velocity = IfElse(Var(5), -5, -0.7)
+fall = Var(5)
+air.fall = Var(5)
+fall.recover = !Var(5)
 getpower = 0
 givepower = 36, 36
-envshake.time = 18
+envshake.time = 18 * IfElse(Var(5), 1, 0.5)
 envshake.freq = 120
-envshake.ampl = 6
+envshake.ampl = 6 * IfElse(Var(5), 1, 0.5)
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
@@ -1836,6 +2070,15 @@ velset = 0, 0
 sprpriority = 0
 juggle  = 18
 
+[State -3, Prevent Undergound Juggles]
+type= targetbind
+trigger1= movehit=1
+trigger1= numtarget=1 && numenemy
+trigger1= (target,time<=1) && (target,ID=enemynear,ID); this is just to prevent Simul issues as usual
+trigger1= !(target,hitshakeover) && (target, hitfall) && (target, pos y>0)
+pos= ceil(p2dist x), ceil(-pos y); keeps P2 at the same horizontal distance, but resets his Y position
+ignorehitpause= 1
+
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = MoveHit && NumTarget
@@ -1843,6 +2086,14 @@ trigger1 = !(target, time) && target, movetype = H
 fvar(39) = parent, Fvar(39)*0.85
 persistent = 0
 ignorehitpause = 1
+
+[State 15105, StateVar]
+type = VarSet
+trigger1 = !Time
+v = 5
+value = Root, StateNo
+ignorehitpause = 1
+
 
 [State 1005, HitOverride]
 type = hitoverride
@@ -1875,7 +2126,7 @@ type = hitdef
 trigger1 = !Time
 priority = 4, Hit
 attr = S, SA
-damage = ceil(30 * root, fvar(39)), 4
+damage = ceil(50 * root, fvar(39)), 4
 animtype = Back
 hitflag = MAF
 guardflag = M
@@ -1966,12 +2217,27 @@ velset = 0, 0
 sprpriority = 0
 juggle  = 18
 
+[State -3, Prevent Undergound Juggles]
+type= targetbind
+trigger1= movehit=1
+trigger1= numtarget=1 && numenemy
+trigger1= (target,time<=1) && (target,ID=enemynear,ID); this is just to prevent Simul issues as usual
+trigger1= !(target,hitshakeover) && (target, hitfall) && (target, pos y>0)
+pos= ceil(p2dist x), ceil(-pos y); keeps P2 at the same horizontal distance, but resets his Y position
+ignorehitpause= 1
 
 [State 15105, StateVar]
 type = VarSet
 trigger1 = !Time
 v = 5
-value = Root, StateNo
+value = IfElse((Root, StateNo = 15565) || (Root, StateNo = 15065), 1, 0)
+ignorehitpause = 1
+
+[State 15105, Dommoge]
+type = VarSet
+trigger1 = !Time
+fv = 0
+value = IfElse(Var(5), 1, IfElse(Root, StateNo = 15032 || Root, StateNo = 15532, 0.2, 0.4))
 ignorehitpause = 1
 
 [State 1001, Dampen]
@@ -2013,7 +2279,7 @@ type = hitdef
 trigger1 = !Time
 priority = 4, Hit
 attr = S, SA
-damage = ceil(40 * root, fvar(39)), 4
+damage = ceil(60 * root, fvar(39) * fvar(0)), 4
 animtype = Back
 hitflag = MAF
 guardflag = M
@@ -2027,17 +2293,17 @@ ground.slidetime = 16
 ground.hittime  = 35
 ground.velocity = 0, -1
 air.velocity = 0, -1
-yaccel = IfElse((Var(5) = 15565) || (Var(5) = 15065), 2, .05)
+yaccel = IfElse(Var(5), 2, .05)
 forcenofall = 1
 air.hittime  = 35
 guard.velocity = -3
-fall = (Var(5) = 15565) || (Var(5) = 15065)
-air.fall = (Var(5) = 15565) || (Var(5) = 15065)
+fall = Var(5)
+air.fall = Var(5)
 getpower = 0
 givepower = 36, 36
-envshake.time = 18
+envshake.time = 18 * IfElse(Var(5), 1, 0.5)
 envshake.freq = 120
-envshake.ampl = 6
+envshake.ampl = 6 * IfElse(Var(5), 1, 0.5)
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
@@ -2110,6 +2376,42 @@ velset = 0, 0
 sprpriority = 0
 juggle  = 18
 
+[State -3, Prevent Undergound Juggles]
+type= targetbind
+trigger1= movehit=1
+trigger1= numtarget=1 && numenemy
+trigger1= (target,time<=1) && (target,ID=enemynear,ID); this is just to prevent Simul issues as usual
+trigger1= !(target,hitshakeover) && (target, hitfall) && (target, pos y>0)
+pos= ceil(p2dist x), ceil(-pos y); keeps P2 at the same horizontal distance, but resets his Y position
+ignorehitpause= 1
+
+
+[State 15105, StateVar]
+type = VarSet
+trigger1 = !Time
+v = 5
+value = 0
+ignorehitpause = 1
+
+[State 15105, StateVar]
+type = VarSet
+triggerall = !Time
+trigger1 = Root, StateNo = 15039 
+trigger2 = (Root, StateNo = 15033 && Root, AnimElemNo(0) > 18)
+trigger3 = (Root, StateNo = 15533 && Root, AnimElemNo(0) > 18)
+trigger4 = Root, StateNo = 15071 
+trigger5 = Root, StateNo = 15571
+v = 5
+value = 1
+ignorehitpause = 1
+
+[State 15105, Dommoge]
+type = VarSet
+trigger1 = !Time
+fv = 0
+value = IfElse(Var(5), 1, IfElse(Root, StateNo = 15033 || Root, StateNo = 15533, 0.2, 0.4))
+ignorehitpause = 1
+
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = MoveHit && NumTarget
@@ -2149,7 +2451,7 @@ type = hitdef
 trigger1 = !Time
 priority = 4, Hit
 attr = S, SA
-damage = ceil(50 * root, fvar(39)), 4
+damage = ceil(65 * root, fvar(39) * fvar(0)), 4
 animtype = Back
 hitflag = MAF
 guardflag = M
@@ -2160,19 +2462,18 @@ guard.sparkno = s7001
 guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16
-ground.hittime = 16
-ground.velocity = -3, -2
+ground.hittime = 16* IfElse(!Var(5), 2, 1)
+ground.velocity = IfElse(Var(5), -3, 0.5), IfElse(Var(5), -2, -0.4)
 ground.cornerpush.veloff = 0
-air.velocity = -3, -4
-guard.velocity = -5
-fall = 1
-air.fall = 1
-fall.recover = 0
+air.velocity = IfElse(Var(5), -3, 0.5), IfElse(Var(5), -4, 0)
+guard.velocity = IfElse(Var(5), -5, -0.7)
+fall = Var(5)
+air.fall = Var(5)
 getpower = 0
 givepower = 36, 36
-envshake.time = 18
+envshake.time = 18 * IfElse(Var(5), 1, 0.5)
 envshake.freq = 120
-envshake.ampl = 6
+envshake.ampl = 6 * IfElse(Var(5), 1, 0.5)
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
@@ -2182,13 +2483,6 @@ airguard.ctrltime = 16
 airguard.velocity = -3, 0
 forcestand = 0
 air.juggle = 12
-
-[State 1005, End]
-type = EnvShake
-trigger1 = AnimElem = 7
-ampl = 4
-freq = 120
-time = 8
 
 [State 1005, End]
 type = changestate
@@ -2248,6 +2542,20 @@ anim = 15502 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -5, -20
+ownpal = 1
 
 [State 1250, slow]
 type = veladd
@@ -2315,6 +2623,8 @@ ground.hittime  = 20
 ground.velocity = .5
 air.velocity = .5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -2352,6 +2662,19 @@ anim = 15503 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 4
+helpertype = normal
+stateno = 15155
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, 25
+ownpal = 1
 
 [State 1250, slow]
 type = veladd
@@ -2425,6 +2748,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = .5,-.5
 fall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -2477,6 +2802,19 @@ anim = 15504 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -5, -30
+ownpal = 1
 
 [State 1250, slow]
 type = veladd
@@ -2544,6 +2882,8 @@ ground.hittime  = 20
 ground.velocity = .5
 air.velocity = .5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -2585,6 +2925,19 @@ anim = 15505 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 4
+helpertype = normal
+stateno = 15155
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, 25
+ownpal = 1
 
 [State 1250, slow]
 type = veladd
@@ -2652,6 +3005,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = -.5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -2693,6 +3048,19 @@ anim = 15508 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -7, -28
+ownpal = 1
 
 [State 1250, slow]
 type = veladd
@@ -2760,6 +3128,8 @@ ground.hittime  = 20
 ground.velocity = .5
 air.velocity = .5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -2800,6 +3170,19 @@ anim = 15509 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 3
+helpertype = normal
+stateno = 15155
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, 0
+ownpal = 1
 
 [State 1250, slow]
 type = veladd
@@ -2868,6 +3251,8 @@ ground.velocity = 0, -1
 air.velocity = 0, -1
 yaccel = 0.1
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -2907,6 +3292,20 @@ anim = 15516 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -5, -20
+ownpal = 1
+
 
 [State 1250, slow]
 type = veladd
@@ -2974,6 +3373,8 @@ ground.hittime  = 20
 ground.velocity = .5
 air.velocity = .5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -3013,6 +3414,20 @@ anim = 15517 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 3
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 30, -15
+ownpal = 1
+
 
 [State 1250, slow]
 type = veladd
@@ -3060,6 +3475,8 @@ yaccel = 0.1
 air.velocity =  0, -0.8
 forcenofall = 1
 fall = 0
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -3155,6 +3572,8 @@ ground.velocity = 0, -1
 air.velocity = 0, -1
 yaccel = 0.1
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -3196,6 +3615,19 @@ anim = 15519 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15019, Stomp]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 2
+helpertype = normal
+stateno = 15155
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 20, 0
+ownpal = 1
 
 [State 1250, slow]
 type = veladd
@@ -3269,6 +3701,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = .5,-.5
 fall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -3320,6 +3754,20 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElemNo(0) < 18
+trigger1 = AnimElemNo(0) % 3 = 0
+trigger1 = AnimElemTime(AnimElemNo(0)) = 0
+helpertype = normal
+stateno = 15105
+ID = 15000
+name = "Madama Butterfly's Hand"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -13 + (Random % 10), -35 + (Random % 15)
+ownpal = 1
 
 [State 1250, slow]
 type = statetypeset
@@ -3398,6 +3846,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = -.5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -3437,6 +3887,21 @@ anim = 15533 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElemNo(0) < 19
+trigger1 = AnimElemNo(0) % 2 = 0
+trigger1 = AnimElemTime(AnimElemNo(0)) = 0
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 35 + (Random % 10), -42 + (Random % 26)
+ownpal = 1
 
 [State 1250, slow]
 type = statetypeset
@@ -3515,6 +3980,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = -.5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -3587,6 +4054,8 @@ ground.velocity = 0, -1
 air.velocity = 0, -1
 yaccel = 0.1
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -3626,6 +4095,19 @@ anim = 15535 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 15010, Punch]
+type = helper
+trigger1 = Var(21)
+trigger1 = AnimElem = 3
+helpertype = normal
+stateno = 15165
+ID = 15000
+name = "Madama Butterfly's Foot"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 27, -18
+ownpal = 1
 
 [State 1250, slow]
 type = veladd
@@ -3698,6 +4180,8 @@ forcenofall = 1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 fall = 0
+p1sprpriority = 1
+p2sprpriority = -1
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
 palfx.add = 200, 200, 200
@@ -3822,6 +4306,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = .5,-.5
 fall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
@@ -3904,6 +4390,8 @@ ground.hittime  = 20
 ground.velocity = -.5
 air.velocity = -.5,-.5
 forcenofall = 1
+p1sprpriority = 1
+p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
