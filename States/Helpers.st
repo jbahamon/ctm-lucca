@@ -33,7 +33,7 @@ var(0) = (Parent, StateNo = 2100)
 type = VarSet
 trigger1 = !Time
 trigger1 = var(1) := (Root, PalNo = 12)
-var(1) = IfElse(Root, StateNo = 13000, 30, IfElse(Root, StateNo = 13100, 100, 30))
+var(1) = IfElse(Root, StateNo = 13000, 30, IfElse(Root, StateNo = 13100, 100, IfElse(Root, StateNo = 13200, 30, 30)))
 
 [State 7000, Pal Down]
 type = BGPalFX
@@ -110,12 +110,12 @@ anim = 13999
 type = VarSet
 trigger1 = !Time
 v = 1
-value = IfElse(Root, StateNo = 13000, 1, IfElse(Root, StateNo = 13100, 2, 3))
+value = IfElse(Root, StateNo = 13000, 1, IfElse(Root, StateNo = 13100, 2, IfElse(Root, StateNo = 13200, 3, 4)))
 
 [State 8520, Pos]
 type = ChangeAnim
 trigger1 = !Time
-value = IfElse(Var(1) = 1, 13998, IfElse(Var(1) = 2, 13997, 13999))
+value = IfElse(Var(1) = 1, 13998, IfElse(Var(1) = 2, 13997, IfElse(Var(1) = 3, 13999, 13995)))
 
 [State 8520, Pos]
 type = ChangeAnim
@@ -302,6 +302,70 @@ ignorehitpause=1
 Type = DestroySelf
 Trigger1 = !(Root, Var(21))
 ignorehitpause=1
+
+
+;Protect Super Armor
+[Statedef 11778]
+Type = A
+MoveType = H
+Physics = N
+ctrl=0
+sprpriority = 3
+
+[State 3510, Elem]
+Type = ChangeAnim
+trigger1 = root, selfanimexist(Root, Anim)
+trigger1 = ifelse((root, movetype = H), (root, stateno = [5000, 5300]), 1)
+trigger1 = Anim != Root, Anim || AnimElemNo(0) != Root, AnimElemNo(0)
+Value = Root, Anim
+Elem = Root, AnimElemNo(0)
+ignorehitpause = 1
+
+[State 775, customstatesanim]
+type = AssertSpecial
+trigger1 = root, movetype = H && (root, stateno != [5000, 5300])
+trigger2 = !root, selfanimexist(root, anim)
+flag = invisible
+ignorehitpause = 1
+
+[State 11777: Pal]
+type = RemapPal
+trigger1 = !Time
+source = 1, 1
+dest = 2, (Parent, palno)
+
+[State 6965]
+Type=Assertspecial
+Trigger1=1
+flag=noshadow
+ignorehitpause=1
+
+[State 6965]
+Type=Trans
+Trigger1=1
+trans = addalpha
+alpha = floor(128 * (1 + Sin(Pi *(GameTime)/30.0))), 256 - floor(128 * (1 + Sin(Pi *(GameTime)/30.0)))
+ignorehitpause=1
+
+[State 6965, HitOverride]
+Type = NotHitBy
+Trigger1 = 1
+value = SCA, AA, AP, AT
+Time = 1
+ignorehitpause=1
+
+[State 6965, BindToRoot]
+Type = BindToRoot
+Trigger1 = 1
+Time = 1
+Facing = 1
+ignorehitpause=1
+
+[State 6965, DestroySelf] ; The opposite of the conditions for creating the helper, this is for when the armor needs to be removed.
+Type = DestroySelf
+Trigger1 = !(Root, Var(21))
+ignorehitpause=1
+
 
 ;Running flowers
 [Statedef 17300]

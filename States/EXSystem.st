@@ -370,6 +370,11 @@ trigger4 = (root, stateno = [17001, 17003]) && (root, time <= 1)
 movetype = I
 ctrl = 0
 
+[State 7000, End]
+type = PowerAdd
+trigger1 = !Time && !(Root, Var(21))
+value = 250
+
 [State 760, Stop]
 type = AssertSpecial
 trigger1 = 1
@@ -381,6 +386,7 @@ ignorehitpause = 1
 type = varset
 trigger1 = 1
 var(0) = 1
+
 [State 766, End]
 type = destroyself
 trigger1 = root, stateno = [17001, 17003]
@@ -658,8 +664,8 @@ ignorehitpause = 1
 
 [State 7000, End]
 type = PowerAdd
-trigger1 = !Time
-value = 250
+trigger1 = !Time && !(Root, Var(21))
+value = 500
 
 [State 17003]
 type = AssertSpecial

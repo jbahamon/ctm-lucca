@@ -500,6 +500,11 @@ ctrl = 0
 velset = 0, 0
 sprpriority = 0
 
+[State 1006, NHB]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
+ignorehitpause = 1
 
 [State 11004, Shake]
 type = SprPriority
@@ -882,6 +887,12 @@ movetype = I
 ctrl = 0
 velset = 0, 0
 sprpriority = 0
+
+[State 1006, NHB]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
+ignorehitpause = 1
 
 [State 11004, Shake]
 type = SprPriority

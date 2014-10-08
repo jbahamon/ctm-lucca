@@ -1668,6 +1668,7 @@ darken = 0
 
 [State 2110, Super Pause]
 type = Explod
+trigger1 = PalNo != 12
 trigger1 = AnimElem = 9
 removetime = -2
 anim = 7110
@@ -1683,6 +1684,19 @@ type = VarSet
 trigger1 = (!AnimTime)
 v = 21
 value = 1
+
+[State 8520, Portrait]
+type = Helper
+trigger1 = Time = 2
+stateno = 7001
+name = "Super BG"
+ID = 7001
+sprpriority = -16
+postype = back
+ownpal = 1
+supermovetime = 99999
+pausemovetime = 99999
+d
 
 [State 2110, Sound1]
 type = PlaySnd

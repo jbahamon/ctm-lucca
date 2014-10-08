@@ -783,7 +783,7 @@ facep2 = 1
 [State 15010, Punch]
 type = helper
 trigger1 = Var(21)
-trigger1 = AnimElem = 14
+trigger1 = AnimElem = 3
 helpertype = normal
 stateno = 15165
 ID = 15000
@@ -1707,15 +1707,17 @@ facep2 = 1
 
 [State 15019, Stomp]
 type = helper
-trigger1 = AnimElem = 5
+trigger1 = AnimElemNo(0) >= 5
+trigger1 = Pos Y > -40
 helpertype = normal
 stateno = 15155
 ID = 15000
 name = "Madama Butterfly's Foot"
 postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
-pos = 20, 10
+pos = 20, Floor(-pos y)
 ownpal = 1
+persistent = 0
 
 [State 1250, slow]
 type = veladd
@@ -1938,6 +1940,7 @@ ignorehitpause= 1
 
 [State 1001, Dampen]
 Type = ParentVarset
+trigger1 = Var(5)
 Trigger1 = MoveHit && NumTarget
 trigger1 = !(target, time) && target, movetype = H
 fvar(39) = parent, Fvar(39)*0.85
@@ -2002,9 +2005,9 @@ air.fall = Var(5)
 fall.recover = !Var(5)
 getpower = 0
 givepower = 36, 36
-envshake.time = 18 * IfElse(Var(5), 1, 0.5)
+envshake.time = Floor(18 * IfElse(Var(5), 1, 0.5))
 envshake.freq = 120
-envshake.ampl = 6 * IfElse(Var(5), 1, 0.5)
+envshake.ampl = Floor(6 * IfElse(Var(5), 1, 0.5))
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
@@ -2047,6 +2050,12 @@ type = ChangeAnim
 trigger1 = 1
 value = 11106
 elem = Var(0)
+ignorehitpause = 1
+
+[State 1006, NHB]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
 ignorehitpause = 1
 
 [State 1006, Trans]
@@ -2196,6 +2205,12 @@ value = 11116
 elem = Var(0)
 ignorehitpause = 1
 
+[State 1006, NHB]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
 [State 1006, Trans]
 type = trans
 trigger1 = 1
@@ -2242,6 +2257,7 @@ ignorehitpause = 1
 
 [State 1001, Dampen]
 Type = ParentVarset
+trigger1 = Var(5)
 Trigger1 = MoveHit && NumTarget
 trigger1 = !(target, time) && target, movetype = H
 fvar(39) = parent, Fvar(39)*0.85
@@ -2301,9 +2317,9 @@ fall = Var(5)
 air.fall = Var(5)
 getpower = 0
 givepower = 36, 36
-envshake.time = 18 * IfElse(Var(5), 1, 0.5)
+envshake.time = Floor(18 * IfElse(Var(5), 1, 0.5))
 envshake.freq = 120
-envshake.ampl = 6 * IfElse(Var(5), 1, 0.5)
+envshake.ampl = Floor(6 * IfElse(Var(5), 1, 0.5))
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
@@ -2353,6 +2369,12 @@ type = ChangeAnim
 trigger1 = 1
 value = 11156
 elem = Var(0)
+ignorehitpause = 1
+
+[State 1006, NHB]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
 ignorehitpause = 1
 
 [State 1006, Trans]
@@ -2414,6 +2436,7 @@ ignorehitpause = 1
 
 [State 1001, Dampen]
 Type = ParentVarset
+trigger1 = Var(5)
 Trigger1 = MoveHit && NumTarget
 trigger1 = !(target, time) && target, movetype = H
 fvar(39) = parent, Fvar(39)*0.85
@@ -2471,9 +2494,9 @@ fall = Var(5)
 air.fall = Var(5)
 getpower = 0
 givepower = 36, 36
-envshake.time = 18 * IfElse(Var(5), 1, 0.5)
+envshake.time = Floor(18 * IfElse(Var(5), 1, 0.5))
 envshake.freq = 120
-envshake.ampl = 6 * IfElse(Var(5), 1, 0.5)
+envshake.ampl = Floor(6 * IfElse(Var(5), 1, 0.5))
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
@@ -2511,11 +2534,23 @@ v = 0
 value = AnimElemNo(0)
 ignorehitpause = 1
 
+[State 1006, NHB]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
 [State 11004, Shake]
 type = ChangeAnim
 trigger1 = 1
 value = 11166
 elem = Var(0)
+ignorehitpause = 1
+
+[State 1006, NHB]
+type = NotHitBy
+trigger1 = 1
+value = SCA, AA, AP, AT
 ignorehitpause = 1
 
 [State 1006, Trans]
@@ -2666,15 +2701,17 @@ facep2 = 1
 [State 15010, Punch]
 type = helper
 trigger1 = Var(21)
-trigger1 = AnimElem = 4
+trigger1 = AnimElemNo(0) >= 5
+trigger1 = Pos Y > -40
 helpertype = normal
 stateno = 15155
 ID = 15000
 name = "Madama Butterfly's Foot"
 postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
-pos = 30, 25
+pos = 20, Floor(-pos y)
 ownpal = 1
+persistent = 0
 
 [State 1250, slow]
 type = veladd

@@ -2956,6 +2956,10 @@ LoopStart
 [Begin Action 13298]
 5041,0, 0,0, -1
 
+; Super BG asd
+[Begin Action 13995]
+13999,6, 0,0, 10
+
 ; Super BG 4
 [Begin Action 13996]
 13999,3, 0,0, -1, , A
@@ -3333,7 +3337,7 @@ Clsn2: 3
 Clsn2: 2
   Clsn2[0] = -3, -23, 6, 0
   Clsn2[1] = 2, -24, 15, -8
-15004,2, 0,0, 18
+15004,2, 0,0, 24
 
 ; PPPPK
 [Begin Action 15033]
@@ -3830,7 +3834,7 @@ Clsn2: 3
 Clsn2: 2
   Clsn2[0] = -3, -23, 6, 0
   Clsn2[1] = 2, -24, 15, -8
-15004,2, 0,0, 18
+15004,2, 0,0, 24
 
 ; APPPPK
 [Begin Action 15533]

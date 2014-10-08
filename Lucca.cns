@@ -138,7 +138,7 @@ sprpriority = 0
      
 [State 0, 1]
 type = ChangeAnim
-triggerall = !Var(21)
+triggerall = !Var(21) || (Var(21) && PalNo = 12)
 trigger1 = Anim != 0 && Anim != 5
 trigger2 = Anim = 5 && AnimTime = 0 ;Turn anim over
 value = 0
@@ -146,6 +146,7 @@ value = 0
 [State 0, 1]
 type = ChangeAnim
 triggerall = Var(21)
+triggerall = PalNo != 12
 trigger1 = Anim != 2100 && Anim != 5
 trigger2 = Anim = 5 && AnimTime = 0 ;Turn anim over
 value = 2100
@@ -272,7 +273,22 @@ ignorehitpause = 1
 
 [State -2]
 type = Helper
+triggerall = !NumHelper(11778) ; If the helper doesn't exists yet, make one
+trigger1 = PalNo = 12
+trigger1 = var(21)
+OwnPal = 1
+PosType = P1
+Pos = 0, 0
+ID = 11778
+StateNo = 11778
+PauseMoveTime = 9999999
+SuperMoveTime = 9999999
+Name = "Umbran Climax"
+
+[State -2]
+type = Helper
 triggerall = !NumHelper(11777) ; If the helper doesn't exists yet, make one
+trigger1 = PalNo != 12
 trigger1 = var(21)
 OwnPal = 1
 PosType = P1
@@ -297,6 +313,7 @@ value=SAC
 
 [State -2, ]
 type = assertspecial
+trigger1 = PalNo != 12
 trigger1 = Var(21)
 flag = noairguard
 flag2 = nostandguard
@@ -318,9 +335,18 @@ ignorehitpause=1
 
 [State -3, SuperArmorDeplete]
 type = PowerAdd
+trigger1 = PalNo != 12
 trigger1 = Var(21) > 0 && StateNo != 2110 && StateNo != [2100, 2102]
 value = IfElse(Power > 5, -5, -Power)
 ignorehitpause = 1
+
+[State -3, SuperArmorDeplete]
+type = PowerAdd
+trigger1 = PalNo = 12
+trigger1 = Var(21) > 0 && StateNo != 2110 && StateNo != [2100, 2102]
+value = IfElse(Power > 3, -3, -Power)
+ignorehitpause = 1
+
 
 [State -3: VarSet]
 type = VarSet
