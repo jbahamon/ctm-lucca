@@ -667,11 +667,20 @@ trigger2 = ( StateNo = [200,299] ) && MoveHit
 trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;---------------------------------------------------------------------------
 
+[State -1, Gomorrah]
+type = ChangeState
+value = 13300
+triggerall = PalNo = 12
+triggerall = Command = "qcbhcfb" || Command = "qcbhcfc"
+triggerall = Power >= 3000 || Var(21) > 0
+trigger1 = statetype = S
+trigger1 = ctrl
+
 [State -1, Big Torture]
 type = ChangeState
 value = 13200
 triggerall = PalNo = 12
-triggerall = Command = "qcbhcfb" || Command = "qcbhcfc"
+triggerall = Command = "qcfhcbb" || Command = "qcfhcbc"
 triggerall = Power >= 1000
 trigger1 = statetype = S
 trigger1 = ctrl

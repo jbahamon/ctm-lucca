@@ -2956,9 +2956,37 @@ LoopStart
 [Begin Action 13298]
 5041,0, 0,0, -1
 
+; Gomorrah
+[Begin Action 13305]
+7104,0, 0,0, 10
+
+; Gomorrah Head
+[Begin Action 13306]
+7103,3, 0,0, 49
+Clsn1: 1
+  Clsn1[0] = -19, -14, 21, 49
+7103,0, 0,0, 10
+7103,0, 0,0, 20
+
+; Gomorrah Head End
+[Begin Action 13308]
+7103,0, 0,0, -1
+
+;Gomorrah Head - Connected
+[Begin Action 13309]
+7103,3, 0,0, 5
+7103,0, 0,0, 5
+7103,1, 0,0, 5
+7103,2, 0,0, 5
+7103,3, 0,0, 5
+
+; Gomorrah BG
+[Begin Action 13994]
+13999,7, 0,0, 10, , A
+
 ; Super BG asd
 [Begin Action 13995]
-13999,6, 0,0, 10
+13999,6, 0,0, 10, , A
 
 ; Super BG 4
 [Begin Action 13996]

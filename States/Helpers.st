@@ -118,6 +118,19 @@ trigger1 = !Time
 value = IfElse(Var(1) = 1, 13998, IfElse(Var(1) = 2, 13997, IfElse(Var(1) = 3, 13999, 13995)))
 
 [State 8520, Pos]
+type = VarSet
+trigger1 = !Time
+trigger1 = Root, StateNo = 13300
+v = 1
+value = 4
+
+[State 8520, Pos]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = Root, StateNo = 13300
+value = 13994
+
+[State 8520, Pos]
 type = ChangeAnim
 trigger1 = !Time
 trigger1 = Root, StateNo = 13100 && Root, Var(1)

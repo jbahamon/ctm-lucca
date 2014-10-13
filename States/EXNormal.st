@@ -78,6 +78,9 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
 
 
 [State 15002, ComboVar]
@@ -175,6 +178,9 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
 
 
 [State 15002, ComboVar]
@@ -472,6 +478,9 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
 
 
 [State 15002, ComboVar]
@@ -846,6 +855,9 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
 
 
 [State 15002, ComboVar]
@@ -2664,6 +2676,10 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
+
 
 [State 15502, ComboVar]
 type = VarSet
@@ -2791,6 +2807,9 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
 
 [State 15502, ComboVar]
 type = VarSet
@@ -3744,6 +3763,10 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
 givepower = 18, 18
+palfx.add = 200, 200, 200
+palfx.mul = 256, 256, 256
+palfx.time = 8
+
 
 [State 15502, ComboVar]
 type = VarSet

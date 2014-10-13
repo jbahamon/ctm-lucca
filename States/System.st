@@ -20,6 +20,13 @@ source = 7000,16
 dest = 7012,16
 
 [State 5900, 3] ;Change palette
+type = RemapPal
+trigger1 = PalNo = 12
+source = 7000,10
+dest = 7001,10
+
+
+[State 5900, 3] ;Change palette
 type = null;
 trigger1 = PalNo = 12
 source = 7000,2

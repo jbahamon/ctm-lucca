@@ -1687,6 +1687,7 @@ value = 1
 
 [State 8520, Portrait]
 type = Helper
+trigger1 = PalNo = 12
 trigger1 = Time = 2
 stateno = 7001
 name = "Super BG"
@@ -1696,7 +1697,6 @@ postype = back
 ownpal = 1
 supermovetime = 99999
 pausemovetime = 99999
-d
 
 [State 2110, Sound1]
 type = PlaySnd

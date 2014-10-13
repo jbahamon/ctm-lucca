@@ -89,7 +89,7 @@ facep2 = 1
 type = VarSet
 trigger1 = !Time
 v = 24
-value = 1000
+value = 500
 
 [State 2000, Explosion]
 type = Helper
@@ -304,7 +304,7 @@ sprpriority = 6
 [State 13002, Scale]
 type = AngleDraw
 trigger1 = 1
-scale = 5,5
+scale = 5 * Root, Var(24)/500.0, 5 * Root, Var(24)/500.0
 
 [State 13002, Scale]
 type = PosAdd
@@ -534,7 +534,7 @@ ignorehitpause = 1
 
 [State 2101, Remove]
 type = VarAdd
-trigger1 = Root, Var(0) || !(Root, StateNo = 13100)
+trigger1 = Root, Var(0) || !(Root, StateNo = 13100 || Root, StateNo = 13300)
 trigger2 = var(0) > 0
 var(0) = 1
 
@@ -601,13 +601,13 @@ scale = 0.814, 0.36
 
 [State 2101, Remove]
 type = RemoveExplod
-trigger1 = Root, Var(0) || !(Root, StateNo = 13100)
+trigger1 = Root, Var(0) || !(Root, StateNo = 13100 || Root, StateNo = 13300)
 ID = 13102
 persistent = 0
 
 [State 220, Explod]
 type = Explod
-trigger1 = Root, Var(0) || !(Root, StateNo = 13100)
+trigger1 = Root, Var(0) || !(Root, StateNo = 13100 || Root, StateNo = 13300)
 anim = 13104
 ID = 13104
 pos = 0, 0
@@ -631,7 +631,7 @@ persistent = 0
 
 [State 2101, Remove]
 type = ChangeAnim
-trigger1 = Root, Var(0) || !(Root, StateNo = 13100)
+trigger1 = Root, Var(0) || !(Root, StateNo = 13100 || Root, StateNo = 13300)
 trigger1 = Anim != 7102 
 value = 7102 
 persistent = 0
@@ -1292,6 +1292,7 @@ palfx.add = 128, 7, 200
 palfx.mul = 256,256,256
 palfx.time = 24
 ignorehitpause = 1
+persistent = 0
 
 [State 3055, hitby]
 type = nothitby
@@ -3193,3 +3194,557 @@ type = ChangeState
 trigger1 = Time > 12
 value = 0
 ctrl = 1
+
+;---------------------------------------------------------------------------
+; Gomorrah Climax
+[Statedef 13300]
+type    = S
+movetype= A
+physics = S
+ctrl = 0
+anim = 13100
+poweradd = -3000
+sprpriority = 2
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,0
+channel =  0
+
+[State 2010, NHB]
+type = NotHitBy
+trigger1 = Time > 5 && !NumHelper(13305)
+time = 1
+value = SCA
+
+[State 2010, Super Pause FX]
+type = helper
+trigger1 = time = 1
+helpertype = normal
+stateno = 7000
+ID = 7000
+name = "Super Charge"
+postype = p1
+pos = 0,0
+ownpal = 1
+persistent = 0
+supermovetime = 999999
+
+[State 8520, Portrait]
+type = Helper
+trigger1 = !Time
+stateno = 7001
+name = "Super BG"
+ID = 7001
+sprpriority = -16
+postype = back
+ownpal = 1
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 2010, Super Pause]
+type = superpause
+trigger1 = time = 5
+time = 100
+movetime = 100
+anim = -1
+p2defmul = 1
+darken = 0
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = animelem = 9
+helpertype = normal
+stateno = 13101
+ID = 13101
+name = "Hair"
+pausemovetime = 9999999*(Var(24) > 0)
+postype = p1
+pos = 0, -20
+ownpal = 1
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = animelem = 9
+helpertype = normal
+stateno = 13102
+ID = 13102
+name = "Portal"
+pausemovetime = 9999999*(Var(24) > 0)
+postype = p1
+pos = 0, -118
+ownpal = 1
+
+[State 13100, HelperPos]
+type = VarSet
+trigger1 = NumHelper(13102)
+trigger1 = Helper(13102), Time = 32
+fv = 0
+value = (enemynear(numenemy>1&&!enemynear(0),alive), ScreenPos X - ScreenPos X)*Facing
+
+
+[State 13100, HelperPos]
+type = VarSet
+trigger1 = NumHelper(13102)
+trigger1 = Helper(13102), Time = 32
+fv = 1
+value = Floor(EnemyNear(IfElse(EnemyNear(0), Alive, 0, 1)), Pos Y + EnemyNear(IfElse(EnemyNear(0), Alive, 0, 1)), Const(size.head.pos.y) - 40)
+
+[State 1000, Phantasmaraneae]
+type = helper
+triggerall = Var(1) = 0
+trigger1 = NumHelper(13102)
+trigger1 = Helper(13102), Time = 32
+helpertype = normal
+stateno = 13305
+ID = 13305
+name = "Gomorrah"
+pausemovetime = 9999999*(Var(24) > 0)
+postype = p1
+pos = Floor(FVar(0)), Floor(Fvar(1))
+facing = IfElse(FVar(0) > 0, 1, -1)
+ownpal = 1
+
+[State 2010, NHB]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+
+[State 2010, NHB]
+type = VarSet
+trigger1 = NumHelper(13305)
+trigger1 = Helper(13305), Time = 32
+var(0) = 1
+
+[State 2010, NHB]
+type = ChangeState
+trigger1 = NumHelper(13105)
+trigger1 = Helper(13105), Time = 40
+value = 0
+ctrl = 1
+
+; Gomorrah Body
+[Statedef 13305]
+type = S
+physics = N
+movetype = I
+ctrl = 0
+velset = 0, 0
+sprpriority = 1
+
+[State 2000, Explosion]
+type = Helper
+trigger1 = !Time
+name = "Gomorrah Head"
+ID = 13306
+stateno = 13306
+postype = p1    ;p2,front,back,left,right
+pos = 0, 0
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
+supermovetime = 999999
+
+[State 13105, Var]
+type = Sprpriority
+trigger1 = 1
+value = -2
+ignorehitpause = 1
+
+[State 13105, Var]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = !PrevStateNo
+ignorehitpause = 1
+value = 13305
+
+[State 3055, HitOverride]
+type = hitoverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP, AT
+stateno = ifelse(var(0) < 10, 13305, 13307)
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = 1
+time = 1
+value = , AT
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = prevstateno = 13305
+trigger1 = gethitvar(hittime)
+time = 1
+value = SCA, AA, AT, AP
+ignorehitpause = 1
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !prevstateno
+trigger1 = !Time
+var(1) = 0
+ignorehitpause = 1
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = !Var(1)
+helpertype = normal
+stateno = 13350
+ID = 13350
+name = "Portal 2"
+pausemovetime = 9999999*(Root, Var(24) > 0)
+postype = p1
+pos = 0, -45
+ownpal = 1
+
+[State 1006, Trans]
+type = Offset
+trigger1 = Var(1) = [32, 48]
+Y = Floor((-48 + Var(1))/2.0)
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Var(1) = [32, 48]
+trans = addalpha
+alpha = (Var(1) -32) * 16, 256 - (Var(1) -32) * 16
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = !Time
+time = -1
+add = -48,-48,-48
+sinadd = -32,-32,-32, 60
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = Var(1) = [0,32]
+flag = invisible
+flag2 = noshadow
+
+[State 2101, Scale]
+type = NotHitBy
+trigger1 = Var(1) = [0,64]
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = VarAdd
+trigger1 = 1
+V = 1
+value = 1
+
+[State 13305, End]
+type = ChangeState
+trigger1 = !NumHelper(13306)
+trigger2 = NumHelper(13306) && Helper(13306), StateNo = 13308
+value = 13307
+
+
+
+; Gomorrah Head
+[Statedef 13306]
+type = S
+physics = N
+movetype = A
+ctrl = 0
+velset = 0, 0
+sprpriority = 0
+
+[State 13105, Var]
+type = SprPriority
+trigger1 = Anim = 13306
+ignorehitpause = 1
+value = IfElse(AnimElemNo(0) = 1 || AnimElemNo(0) = 5, -1,1)
+
+[State 1006, Trans]
+type = Offset
+trigger1 = Parent, Var(1) = [32, 48]
+Y = Floor((-48 + Parent, Var(1))/2.0)
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = Trans
+trigger1 = Parent, Var(1) < 32
+trans = addalpha
+alpha = 0, 256
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Parent, Var(1) = [32, 48]
+trans = addalpha
+alpha = (Parent, Var(1) -32) * 16, 256 - (Parent, Var(1) -32) * 16
+ignorehitpause = 1
+
+[State 13105, Var]
+type = ChangeAnim
+trigger1 = !Time
+ignorehitpause = 1
+value = 13306
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = 1
+time = 1
+value = SCA, AA, AT, AP
+ignorehitpause = 1
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !prevstateno
+trigger1 = !Time
+var(1) = 0
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = Var(1) = 1
+time = -1
+add = -48,-48,-48
+sinadd = -32,-32,-32, 60
+
+[State 1006, Trans]
+type = VarAdd
+trigger1 = 1
+V = 1
+value = 1
+
+[State 1006, Trans]
+type = ChangeState
+trigger1 = Anim = 13306
+trigger1 = !AnimTime
+value = 13308
+
+[State 13306, Shake]
+type = EnvShake
+trigger1 = AnimElem = 2
+time = 6
+freq = 120
+ampl = 6
+ignorehitpause = 1
+
+[State 3010, HitDef]
+type = null;HitDef
+trigger1 = !Time
+attr = S,HT        ;SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+hitflag = MA-        ;HLAFD+-
+guardflag = MA         ;HLA
+animtype = light          ;light,medium,hard,back,up,diagup
+air.animtype = light
+damage = 20,0
+;guard.pause,0
+sparkno = -1
+sparkxy = 0,0
+hitsound = S7001,1
+guardsound = S2,0
+ground.type = High      ;Low,Trip,None
+air.hittime = 20
+ground.velocity = 0,0
+air.velocity = 0,0
+p1getp2facing = 0
+down.bounce = 0
+id = 13306
+chainID = -1
+nochainID = -1
+hitonce = 1
+kill = 0
+numhits = 0
+
+[State 3010, HitDef]
+type = HitDef
+trigger1 = AnimElemTime(2) = 9 && !NumTarget(13306)
+attr = S,HA        ;SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+hitflag = MA        ;HLAFD+-
+guardflag = MA         ;HLA
+animtype = light          ;light,medium,hard,back,up,diagup
+air.animtype = light
+damage = 200,0
+pausetime = 18, 18
+sparkno = -1
+sparkxy = 0,0
+hitsound = S7001,1
+guardsound = S2,0
+ground.type = High      ;Low,Trip,None
+air.hittime = 20
+fall = 1
+air.fall = 1
+fall.recover = 0
+getpower = 0,0
+givepower = 36,36
+ground.velocity = 0,0
+air.velocity = 0,0
+p1getp2facing = 0
+id = 13307
+chainID = -1
+nochainID = 13306,13307
+hitonce = 1
+kill = 1
+envshake.time = 18
+envshake.freq = 120
+envshake.ampl = 6
+numhits = 0
+
+
+; Gomorrah Body End
+[Statedef 13307]
+type = S
+physics = N
+movetype = I
+ctrl = 0
+anim = 13305
+velset = 0, 0
+sprpriority = -2
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = 1
+time = 1
+value = SCA, AA, AT, AP
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = Offset
+trigger1 = Time = [0, 32]
+Y = Floor((-Time)/2.0)
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Time = [0,32]
+trans = addalpha
+alpha = 256 - Time * 8, Time * 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Time >= 32
+
+; Gomorrah Head End
+[Statedef 13308]
+type = S
+physics = N
+movetype = A
+ctrl = 0
+velset = 0, 0
+sprpriority = -1
+anim = 13308
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = 1
+time = 1
+value = SCA, AA, AT, AP
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = Offset
+trigger1 = Time = [0, 32]
+Y = Floor((-Time)/2.0)
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Time = [0,32]
+trans = addalpha
+alpha = 256 - Time * 8, Time * 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Time >= 32
+
+; Gomorrah Portal
+[Statedef 13350]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 7101
+velset = 0, 0
+sprpriority = -4
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 14
+anim = 13102
+ID = 13103
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale =  0.75, 1
+sprpriority = -5
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 2101, Remove]
+type = RemoveExplod
+trigger1 = Parent, StateNo = 13307
+trigger1 = Parent, Time = 30
+ID = 13103
+persistent = 0
+
+[State 220, Explod]
+type = Explod
+trigger1 = Parent, StateNo = 13307
+trigger1 = Parent, Time = 30
+anim = 13104
+ID = 13103
+pos = -1, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 0.75, 1
+sprpriority = -5
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = 1
+scale = 1.82, 0.35
+value = 0
+
+[State 2101, Scale]
+type = ChangeAnim
+trigger1 = Parent, StateNo = 13307
+trigger1 = Parent, Time = 30
+value = 7102 
+persistent = 0
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
