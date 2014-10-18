@@ -2956,6 +2956,11 @@ LoopStart
 [Begin Action 13298]
 5041,0, 0,0, -1
 
+; Miss
+[Begin Action 13301]
+170,0, 0,0, 17
+5020,0, 0,0, 17
+
 ; Gomorrah
 [Begin Action 13305]
 7104,0, 0,0, 10
@@ -2973,12 +2978,77 @@ Clsn1: 1
 7103,0, 0,0, -1
 
 ;Gomorrah Head - Connected
-[Begin Action 13309]
+[Begin Action 13310]
 7103,3, 0,0, 5
 7103,0, 0,0, 5
-7103,1, 0,0, 5
+7103,1, 0,0, 3
 7103,2, 0,0, 5
-7103,3, 0,0, 5
+7103,3, 0,0, -1
+
+; Got hit by Gomorrah
+[Begin Action 13320]
+5010,10, 0,0, -1
+
+; P
+[Begin Action 13370]
+13370,0, 0,0, 10, , A
+
+; U
+[Begin Action 13371]
+13370,1, 0,0, 10, , A
+
+; N
+[Begin Action 13372]
+13370,2, 0,0, 10, , A
+
+; I
+[Begin Action 13373]
+13370,3, 0,0, 10, , A
+
+; S
+[Begin Action 13374]
+13370,4, 0,0, 10, , A
+
+; H
+[Begin Action 13375]
+13370,5, 0,0, 10, , A
+
+; I
+[Begin Action 13376]
+13370,3, 0,0, 10, , A
+
+; T
+[Begin Action 13377]
+13370,6, 0,0, 10, , A
+
+; Character circle
+[Begin Action 13378]
+13371,0, 0,0, 3, , AS32D208
+13371,0, 0,0, 3, , AS64D160
+13371,0, 0,0, 3, , AS96D112
+13371,0, 0,0, -1, , AS128D64
+
+; Fading Circle
+[Begin Action 13379]
+13371,0, 0,0, 3, , AS128D64
+13371,0, 0,0, 3, , AS96D112
+13371,0, 0,0, 3, , AS64D160
+13371,0, 0,0, 3, , AS32D208
+
+; Prompt
+[Begin Action 13380]
+13380,0, 0,0, 3, , AS64D192
+13380,0, 0,0, 3, , AS128D128
+13380,0, 0,0, 3, , AS192D64
+13380,0, 0,0, -1
+
+; Punch Button
+[Begin Action 13381]
+13381,0, 0,0, 10
+
+; Kick Button
+[Begin Action 13382]
+13382,0, 0,0, 10
 
 ; Gomorrah BG
 [Begin Action 13994]

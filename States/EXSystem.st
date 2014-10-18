@@ -11,6 +11,20 @@ sprpriority = 2
 poweradd = 78
 facep2 = 1
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S7020,0
+channel =  1
+persistent = 0
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8000, 7
+channel =  0
+persistent = 0
+
 [State 760, HB]
 type = hitby
 trigger1 = 1
@@ -60,6 +74,13 @@ trigger1 = !time
 time = 0
 ampl = 0
 
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = NumHelper(17000) && Helper(17000), StateNo = 17007
+value = S8000,3
+channel =  0
+
 [State 760, End]
 type = changestate
 trigger1 = !animtime
@@ -79,6 +100,19 @@ sprpriority = 2
 poweradd = 78
 facep2 = 1
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S7020,0
+channel =  1
+persistent = 0
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8000, 7
+channel =  0
+persistent = 0
 
 [State 761, HB]
 type = hitby
@@ -146,6 +180,20 @@ ctrl = 0
 sprpriority = 2
 poweradd = 78
 facep2 = 1
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S7020,0
+channel =  1
+persistent = 0
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8000, 7
+channel =  0
+persistent = 0
 
 [State 762, HB]
 type = hitby
@@ -408,6 +456,7 @@ movehitpersist = 0
 hitcountpersist = 0
 sprpriority = 0
 
+
 [State 17001: Explod]
 type = Helper
 trigger1 = (!Time) && !(Var(24))
@@ -520,6 +569,13 @@ hitdefpersist = 0
 movehitpersist = 0
 hitcountpersist = 0
 sprpriority = 0
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = NumHelper(17100) && Helper(17100), StateNo = 17103
+value = S8000,IfElse(Random % 2, 6, 9)
+channel =  0
+persistent = 0
 
 [State 17001: Explod]
 type = Helper

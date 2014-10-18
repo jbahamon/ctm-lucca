@@ -373,7 +373,7 @@ ignorehitpause = 1
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = !Time
-value = S8000,0
+value = S8000,0 + Var(1) * 11
 channel =  0
 
 [State 2010, NHB]
@@ -3209,7 +3209,7 @@ sprpriority = 2
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = !Time
-value = S8000,0
+value = S8000,3
 channel =  0
 
 [State 2010, NHB]
@@ -3252,6 +3252,7 @@ anim = -1
 p2defmul = 1
 darken = 0
 
+
 [State 1000, Hadouken]
 type = helper
 trigger1 = animelem = 9
@@ -3291,9 +3292,8 @@ trigger1 = Helper(13102), Time = 32
 fv = 1
 value = Floor(EnemyNear(IfElse(EnemyNear(0), Alive, 0, 1)), Pos Y + EnemyNear(IfElse(EnemyNear(0), Alive, 0, 1)), Const(size.head.pos.y) - 40)
 
-[State 1000, Phantasmaraneae]
+[State 1000, Gomorrah]
 type = helper
-triggerall = Var(1) = 0
 trigger1 = NumHelper(13102)
 trigger1 = Helper(13102), Time = 32
 helpertype = normal
@@ -3306,6 +3306,14 @@ pos = Floor(FVar(0)), Floor(Fvar(1))
 facing = IfElse(FVar(0) > 0, 1, -1)
 ownpal = 1
 
+[State 13100, HelperPos]
+type = NotHitBy
+trigger1 = NumHelper(13305)
+trigger1 = Helper(13305), StateNo = 13305
+value = SCA, AA, AP, AT
+time = 1
+ignorehitpause = 1
+
 [State 2010, NHB]
 type = VarSet
 trigger1 = !Time
@@ -3313,14 +3321,58 @@ var(0) = 0
 
 [State 2010, NHB]
 type = VarSet
-trigger1 = NumHelper(13305)
+triggerall = NumHelper(13305)
 trigger1 = Helper(13305), Time = 32
 var(0) = 1
 
+[State 1010, Strength]
+type = VarSet
+trigger1 = !Time
+var(1) = ifelse(command = "qcbhcfb", 0, 1)
+
+[State 1010, Strength]
+type = VarSet
+trigger1 = !Time
+var(2) = 0
+
+[State 1010, Strength]
+type = VarSet
+triggerall = NumHelper(13305) 
+trigger1 = Helper(13305), StateNo = 13307
+var(2) = 1
+
 [State 2010, NHB]
+type = VarSet
+triggerall = NumHelper(13306) 
+trigger1 = Helper(13306), StateNo = 13310
+trigger1 = Helper(13306), NumHelper(13382) >= 8
+trigger2 = Helper(13306), StateNo = 13310
+trigger2 = Helper(13306), Time > 180
+var(2) = 1
+
+[State 1010, Strength]
 type = ChangeState
-trigger1 = NumHelper(13105)
-trigger1 = Helper(13105), Time = 40
+trigger1 = Var(2)
+value = 13301
+ctrl = 0
+
+;Climax Miss
+[Statedef 13301]
+type = C
+physics = C
+movetype = I
+velset = 0,0
+anim = 13301
+ctrl = 0
+
+[State 1035, Pos]
+type = PosSet
+trigger1 = !Time
+Y = 0
+
+[State 1035, Pos]
+type = ChangeState
+trigger1 = Time > 120
 value = 0
 ctrl = 1
 
@@ -3390,7 +3442,7 @@ trigger1 = !Time
 var(1) = 0
 ignorehitpause = 1
 
-[State 1000, Hadouken]
+[State 1000, Portal]
 type = helper
 trigger1 = !Var(1)
 helpertype = normal
@@ -3444,9 +3496,8 @@ value = 1
 type = ChangeState
 trigger1 = !NumHelper(13306)
 trigger2 = NumHelper(13306) && Helper(13306), StateNo = 13308
+trigger3 = Root, StateNo != 13300
 value = 13307
-
-
 
 ; Gomorrah Head
 [Statedef 13306]
@@ -3520,7 +3571,8 @@ value = 1
 type = ChangeState
 trigger1 = Anim = 13306
 trigger1 = !AnimTime
-value = 13308
+trigger2 = Root, StateNo != 13300
+value = IfElse(NumTarget(13306), 13310, 13308)
 
 [State 13306, Shake]
 type = EnvShake
@@ -3531,7 +3583,7 @@ ampl = 6
 ignorehitpause = 1
 
 [State 3010, HitDef]
-type = null;HitDef
+type = HitDef
 trigger1 = !Time
 attr = S,HT        ;SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
 hitflag = MA-        ;HLAFD+-
@@ -3590,6 +3642,57 @@ envshake.time = 18
 envshake.freq = 120
 envshake.ampl = 6
 numhits = 0
+
+[State 3010, Hit]
+type = EnvShake
+triggerall = NumTarget(13306)
+trigger1 = MoveHit && (AnimElemTime(2) = 1)
+time = 8
+freq = 120
+ampl = 3
+
+[State 3010, Hit]
+type = TargetLifeAdd
+triggerall = NumTarget(13306)
+trigger1 = MoveHit && (AnimElemTime(2) = 1)
+trigger2 = Anim = 3037 && AnimElem = 2
+ID = 13306
+value = -10
+kill = 0
+
+[State 3010, pos]
+type = Varset
+trigger1 = NumTarget(13306)
+fvar(0) = Target(13306), Pos X
+persistent = 0
+
+[State 3010, pos]
+type = Varset
+trigger1 = NumTarget(13306)
+fvar(1) = Target(13306), Pos Y
+persistent = 0
+
+[State 3010, Hit]
+type = TargetBind
+trigger1 = NumTarget(13306)
+ID = 13306
+pos = Facing * (fvar(0) - Pos X), fvar(1) - Pos Y
+ignorehitpause = 1
+
+[State 3010, Hit]
+type = TargetState
+trigger1 = NumTarget(13306)
+ID = 13306
+value = 13320
+ignorehitpause = 1
+persistent = 0 
+
+[State 3010, Hit]
+type = ChangeState
+trigger1 = !AnimTime && !NumTarget(13306)
+value = 13308
+ignorehitpause = 1
+persistent = 0 
 
 
 ; Gomorrah Body End
@@ -3660,6 +3763,91 @@ ignorehitpause = 1
 type = DestroySelf
 trigger1 = Time >= 32
 
+; Head, Connected
+[Statedef 13310]
+movetype = A
+velset = 0,0
+
+[State 13320, Anim]
+type = ChangeAnim
+trigger1 = !Time 
+value = 13310
+elem = 4
+
+[State 13105, Var]
+type = SprPriority
+trigger1 = 1
+ignorehitpause = 1
+value = IfElse(AnimElemNo(0) = 1 || AnimElemNo(0) = 5, -1,1)
+
+[State 3010, Hit]
+type = TargetBind
+trigger1 = NumTarget(13306)
+ID = 13306
+pos = Facing * (fvar(0) - Pos X), fvar(1) - Pos Y
+ignorehitpause = 1
+
+[State 1006, Safety]
+type = ChangeState
+trigger1 = !NumTarget(13306)
+trigger2 = Root, Var(2)
+trigger3 = Root, StateNo != 13300
+value = 13308
+
+[State 13306, Shake]
+type = EnvShake
+trigger1 = AnimElem = 2
+time = 3
+freq = 120
+ampl = 3
+ignorehitpause = 1
+
+[State 13320, Anim]
+type = TargetLifeAdd
+trigger1 = NumTarget(13306)
+trigger1 = AnimElem = 2
+value = -24
+ID = 13306
+
+[State 13320, Anim]
+type = ChangeAnim
+triggerall = !(Root, Var(2))
+triggerall = AnimElemNo(0) = 5
+trigger1 = !Root, Var(1) && Root, Command = "rlsb" 
+trigger2 = Root, Var(1) && Root, Command = "rlsc"
+value = 13310
+elem = 1
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = !Time
+helpertype = normal
+stateno = 13380
+ID = 13380
+name = "Prompt"
+pausemovetime = 9999999*(Root, Var(24) > 0)
+postype = p1
+pos = 0, -45
+ownpal = 1
+
+
+;Opponent
+[Statedef 13320]
+movetype = H
+velset = 0,0
+
+[State 3020, Exit]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5050
+	
+[State 3020, anim]
+type = ChangeAnim2
+trigger1 = !Time
+value = 13320
+ignorehitpause = 1
+
+
 ; Gomorrah Portal
 [Statedef 13350]
 type = A
@@ -3698,6 +3886,7 @@ persistent = 0
 type = RemoveExplod
 trigger1 = Parent, StateNo = 13307
 trigger1 = Parent, Time = 30
+trigger2 = Root, StateNo != 13300
 ID = 13103
 persistent = 0
 
@@ -3705,6 +3894,7 @@ persistent = 0
 type = Explod
 trigger1 = Parent, StateNo = 13307
 trigger1 = Parent, Time = 30
+trigger2 = Root, StateNo != 13300
 anim = 13104
 ID = 13103
 pos = -1, 0
@@ -3741,6 +3931,7 @@ value = 0
 type = ChangeAnim
 trigger1 = Parent, StateNo = 13307
 trigger1 = Parent, Time = 30
+trigger2 = Root, StateNo != 13300
 value = 7102 
 persistent = 0
 
@@ -3748,3 +3939,348 @@ persistent = 0
 type = DestroySelf
 trigger1 = Anim = 7102
 trigger1 = !AnimTime
+
+
+; Input Prompt
+[Statedef 13380]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13380
+velset = 0, 0
+sprpriority = 4
+
+[State 220, Explod]
+type = Explod
+trigger1 = !Time
+anim = 13378
+ID = 13378
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -1
+scale =  0.35, 0.35
+sprpriority = 5
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = !Time
+helpertype = normal
+stateno = 13381
+ID = 13381
+name = "Button"
+pausemovetime = 9999999*(Root, Var(24) > 0)
+postype = p1
+pos = 0, 0
+ownpal = 1
+
+
+[State 13320, Anim]
+type = VarSet
+trigger1 = !Time
+value = 0
+v = 0
+
+[State 13320, Anim]
+type = VarAdd
+trigger1 = !Root, Var(1) && Root, Command = "rlsb" 
+trigger2 = Root, Var(1) && Root, Command = "rlsc"
+value = 1
+v = 0
+
+[State 13320, Anim]
+type = Helper
+triggerall = !(Root, Var(2))
+triggerall = NumHelper(13382) < 8
+trigger1 = (Var(0)/3.0 > NumHelper(13382))
+helpertype = normal
+stateno = 13382
+ID = 13382
+name = "Character"
+pausemovetime = 9999999*(Root, Var(24) > 0)
+postype = p1
+pos = Floor(19 * Cos(Pi/4.0 * (NumHelper(13382) - 3))) * Facing, Floor(19  * Sin(Pi/4.0 * (NumHelper(13382)- 3)))
+facing = Facing
+ownpal = 1
+
+
+[State 13320, Anim]
+type = VarSet
+trigger1 = !Time 
+trigger2 = FVar(0) > 0.75
+fv = 0
+value = 0.75
+
+[State 13320, Anim]
+type = VarAdd
+trigger1 = FVar(0) < 0.75
+fv = 0
+value = 0.03
+
+[State 13320, Anim]
+type = AngleDraw
+trigger1 = 1
+scale = FVar(0), FVar(0)
+
+[State 13320, Anim]
+type = Trans
+trigger1 = Time < 16
+trans = addalpha
+alpha = 16 * Time, 256 - 16 * Time
+
+[State 13320, Anim]
+type = VarSet
+trigger1 = !Root, Var(1) && Root, Command = "rlsb" 
+trigger2 = Root, Var(1) && Root, Command = "rlsc"
+fv = 0
+value = 0.65
+
+[State 13320, Anim]
+type = PalFX
+trigger1 = FVar(0) < 1
+add = Floor(-(FVar(0) - 0.75)/0.1 * 32), 0, Floor(-(FVar(0) - 0.75)/0.1 * 64)
+time = 1
+
+
+[State 13381, fef]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow 
+
+[State 13381, fef]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 0
+
+[State 13381, fef]
+type = VarSet
+trigger1 = Root, Var(2)
+trigger2 = Root, StateNo != 13300
+v = 1
+value = 1
+persistent = 0
+
+[State 13381, fef]
+type = VarAdd
+trigger1 = Var(1)
+v = 1
+value = 1
+
+[State 13381, End]
+type = Trans
+trigger1 = Var(1)
+trans = addalpha
+alpha = 256 - Var(1) * 16, Var(1) * 16
+
+[State 13381, End]
+type = DestroySelf
+trigger1 = Var(1) >= 16
+
+
+[State 220, Explod]
+type = RemoveExplod
+trigger1 = Var(1)
+ID = 13378
+
+[State 220, Explod]
+type = Explod
+trigger1 = Var(1)
+anim = 13379
+ID = 13379
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale =  0.35, 0.35
+sprpriority = 5
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+; Button
+[Statedef 13381]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+velset = 0, 0
+sprpriority = 5
+
+[State 13320, Anim]
+type = Trans
+trigger1 = Time < 16
+trans = addalpha
+alpha = 16 * Time, 256 - 16 * Time
+
+[State 13320, Anim]
+type = ChangeAnim
+trigger1 = !Time 
+value = 13381 + (Root, Var(1))
+
+[State 13320, Anim]
+type = VarSet
+trigger1 = !Time 
+trigger2 = FVar(0) > 0.25
+fv = 0
+value = 0.25
+
+[State 13320, Anim]
+type = VarAdd
+trigger1 = FVar(0) < 0.25
+fv = 0
+value = 0.03
+
+[State 13320, Anim]
+type = AngleDraw
+trigger1 = 1
+scale = FVar(0), FVar(0)
+
+[State 13320, Anim]
+type = VarSet
+trigger1 = !Root, Var(1) && Root, Command = "rlsb" 
+trigger2 = Root, Var(1) && Root, Command = "rlsc"
+fv = 0
+value = 0.15
+
+[State 13320, Anim]
+type = PalFX
+trigger1 = FVar(0) < 0.25
+add = Floor(-(FVar(0) - 0.25)/0.1 * 64), 0, Floor(-(FVar(0) - 0.25)/0.1 * 128)
+time = 1
+
+[State 13381, fef]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow 
+
+[State 13381, fef]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+
+[State 13381, fef]
+type = VarSet
+trigger1 = Root, Var(2)
+trigger2 = Root, StateNo != 13300
+v = 0
+value = 1
+persistent = 0
+
+[State 13381, fef]
+type = VarAdd
+trigger1 = Var(0)
+v = 0
+value = 1
+
+[State 13381, End]
+type = Trans
+trigger1 = Var(0)
+trans = addalpha
+alpha = 256 - Var(0) * 16, Var(0) * 16
+
+[State 13381, End]
+type = DestroySelf
+trigger1 = Var(0) >= 16
+
+
+; Characters
+[Statedef 13382]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13381
+velset = 0, 0
+sprpriority = 5
+
+[State 13320, Anim]
+type = ChangeAnim
+trigger1 = !Time
+value = 13369 + Parent, NumHelper(13382)
+
+
+[State 13320, Anim]
+type = AngleDraw
+trigger1 = Time = [0, 8]
+scale = 0.4 + 0.04 * (8 - Time), 0.4 + 0.02 * (8 - Time)
+
+
+[State 13320, Anim]
+type = Trans
+trigger1 = Time = [0, 8]
+trans = addalpha
+alpha = Time * 32, 256 - Time * 32
+
+
+[State 13320, Anim]
+type = AngleDraw
+trigger1 = Time > 8
+scale = 0.4, 0.4
+
+[State 13320, Anim]
+type = Trans
+trigger1 = Time > 8
+trans = addalpha
+alpha = 256, 0
+
+
+[State 13381, fef]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow 
+
+[State 13381, fef]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+
+[State 13381, fef]
+type = VarSet
+trigger1 = Root, Var(2)
+trigger2 = Root, StateNo != 13300
+v = 0
+value = 1
+persistent = 0
+
+[State 13381, fef]
+type = VarAdd
+trigger1 = Var(0)
+v = 0
+value = 1
+
+[State 13381, End]
+type = Trans
+trigger1 = Var(0)
+trans = addalpha
+alpha = 256 - Var(0) * 16, Var(0) * 16
+
+[State 13381, End]
+type = DestroySelf
+trigger1 = Var(0) >= 16
+

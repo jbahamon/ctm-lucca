@@ -211,7 +211,7 @@ supermovetime = 65535
 ignorehitpause = 1
 
 [State -3, Parry Attacks]
-type = null;changestate
+type = changestate
 triggerall = PalNo = 12
 trigger1 = (stateno != [17001, 17003]) && numhelper(17006)
 trigger1 = helper(17006), stateno = 17007

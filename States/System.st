@@ -69,6 +69,13 @@ trigger1 = !Time
 trigger1 = PalNo = 12
 value = 10100
 
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+trigger1 = PalNo = 12
+value = S8000,13
+channel =  0
+
 [State 100, 1]
 type = VelSet
 trigger1 = 1

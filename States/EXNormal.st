@@ -315,6 +315,12 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,12
+channel =  0
+
 [State 15010, Punch]
 type = helper
 trigger1 = Var(21)
@@ -714,6 +720,12 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,8
+channel =  0
+
 [State 15010, Punch]
 type = helper
 trigger1 = AnimElem = 2
@@ -1091,6 +1103,12 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,2
+channel =  0
+
 [State 15010, Punch]
 type = helper
 trigger1 = AnimElem = 2
@@ -1240,6 +1258,13 @@ anim = 15032 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,4
+channel =  0
 
 [State 15010, Punch]
 type = helper
@@ -1470,6 +1495,12 @@ anim = 15034 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,2
+channel =  0
 
 [State 15010, Punch]
 type = helper
@@ -3088,6 +3119,7 @@ ignorehitpause = 1
 [State 15505, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
+trigger2 = StateType = S && MoveHit
 value = IfElse(StateType = A, 50, 0)
 ctrl = !(StateType = A)
 
@@ -3596,6 +3628,12 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,2
+channel =  0
+
 [State 15010, Punch]
 type = helper
 trigger1 = AnimElem = 2
@@ -3813,6 +3851,12 @@ anim = 15532 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,4
+channel =  0
 
 [State 15010, Punch]
 type = helper
@@ -4081,6 +4125,12 @@ anim = 15534 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,2
+channel =  0
 
 [State 15010, Punch]
 type = helper

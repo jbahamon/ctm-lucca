@@ -499,6 +499,17 @@ command = ~$D
 time = 1
 
 [Command]
+name = "rlsb"
+command = ~b
+time = 1
+
+[Command]
+name = "rlsc"
+command = ~c
+time = 1
+
+
+[Command]
 name = "a"
 command = a
 time = 1
