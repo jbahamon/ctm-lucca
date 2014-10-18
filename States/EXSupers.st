@@ -19,7 +19,7 @@ type = superpause
 trigger1 = Time = 2
 time = 45
 anim = -1
-sound = s7, 0
+sound = s8000,10
 p2defmul = 1
 darken = 0
 
@@ -84,6 +84,13 @@ ctrl = 0
 anim = 7200
 sprpriority = 1
 facep2 = 1
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,IfElse(Random % 3, 6, IfElse(Random % 2, 14, 9))
+channel =  0
+persistent = 0
 
 [State 13001, Var]
 type = VarSet
@@ -300,6 +307,15 @@ physics = N
 movetype = I
 anim = 13006
 sprpriority = 6
+
+
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8001,14
+channel =  0
+persistent = 0
 
 [State 13002, Scale]
 type = AngleDraw

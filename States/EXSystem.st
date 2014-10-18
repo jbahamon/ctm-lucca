@@ -456,6 +456,12 @@ movehitpersist = 0
 hitcountpersist = 0
 sprpriority = 0
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = NumHelper(17100) && Helper(17100), StateNo = 17103
+value = S8000,IfElse(Random % 3 = 0, 6, IfElse(Random % 2, 14, 9))
+channel =  0
+persistent = 0
 
 [State 17001: Explod]
 type = Helper
@@ -573,7 +579,7 @@ sprpriority = 0
 [State N, Sound]
 type = PlaySnd
 trigger1 = NumHelper(17100) && Helper(17100), StateNo = 17103
-value = S8000,IfElse(Random % 2, 6, 9)
+value = S8000,IfElse(Random % 3, 6, IfElse(Random % 2, 14, 9))
 channel =  0
 persistent = 0
 
