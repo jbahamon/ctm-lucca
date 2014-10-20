@@ -1850,8 +1850,8 @@ facep2 = 1
 
 [State 2010, NHB]
 type = PlaySnd
-trigger1 = AnimElem = 3
-value = S8001,2
+trigger1 = AnimElem = 2
+value = S8000,15
 channel =  0
 
 [State 15019, Stomp]
@@ -4535,8 +4535,8 @@ facep2 = 1
 
 [State 2010, NHB]
 type = PlaySnd
-trigger1 = AnimElem = 3
-value = S8001,2
+trigger1 = AnimElem = 2
+value = S8000,15
 channel =  0
 
 [State 15019, Stomp]

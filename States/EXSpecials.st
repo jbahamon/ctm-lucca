@@ -224,6 +224,12 @@ type = VelSet
 trigger1 = animelem = 3
 X = 6
 
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = S8001,2
+channel =  0
+
 [State 1250, Hit]
 type = HitDef
 trigger1 = !Time
@@ -299,6 +305,12 @@ juggle = 18
 poweradd = 0
 sprpriority = 2
 facep2 = 1
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = S8001,2
+channel =  0
 
 [State 1000, Hadouken]
 type = PowerAdd
@@ -550,6 +562,13 @@ poweradd = 0
 sprpriority = 2
 facep2 = 1
 
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S8001,9
+channel =  0
+
 [State 1000, Hadouken]
 type = PowerAdd
 trigger1 = !Time
@@ -663,6 +682,13 @@ juggle = 18
 poweradd = 0
 sprpriority = 2
 facep2 = 1
+
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S8001,9
+channel =  0
 
 [State 11151, VelMul]
 type = VelMul
@@ -979,6 +1005,7 @@ sprpriority = 1
 poweradd = 0
 velset = 0,0
 
+
 [State 801, Change]
 type = ChangeState
 triggerall = NumTarget
@@ -990,6 +1017,13 @@ trigger2 = Target, Name = "Robo" || Target, Name = "Magus" || Target, Name = "Fr
 trigger3 = Target, Name = "Ayla"
 value = 11210
 persistent = 0
+
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = Time = 1
+value = S8002,4
+channel =  0
 
 [State 801, Bind]
 type = ChangeAnim
@@ -1248,6 +1282,13 @@ anim = 11210
 sprpriority = -1
 poweradd = 0
 velset = 0,0
+
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8002,5
+channel =  0
 
 [State 1031, Measure]
 type = VarSet
@@ -2184,6 +2225,13 @@ anim = 11301
 sprpriority = -1
 poweradd = 0
 velset = 0,0
+
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8002,6
+channel =  0
 
 [State 1000, Hadouken]
 type = PlayerPush

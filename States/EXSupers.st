@@ -308,8 +308,6 @@ movetype = I
 anim = 13006
 sprpriority = 6
 
-
-
 [State N, Sound]
 type = PlaySnd
 trigger1 = !Time
@@ -575,6 +573,12 @@ anim = 7101
 velset = 0, 0
 sprpriority = -2
 
+[State 2101, Scale]
+type = PlaySnd
+trigger1 = !Time
+value = 8002,1
+ignorehitpause = 1
+
 [State 13101, Bind]
 type = BindToRoot
 trigger1 = 1
@@ -778,6 +782,11 @@ trigger1 = !Time
 var(0) = IfElse(!prevstateno, 0, Var(0) + 1)
 ignorehitpause = 1
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = Var(1) = 64
+value = S8002,2
+persistent = 0
 
 [State 13105, Var]
 type = ChangeAnim
@@ -1136,6 +1145,13 @@ type = VarSet
 trigger1 = !prevstateno
 trigger1 = !Time
 var(1) = 0
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PlaySnd
+trigger1 = Var(1) = 32
+value = 8002,0
+persistent = 0
 ignorehitpause = 1
 
 [State 2101, Scale]
@@ -1768,6 +1784,13 @@ anim = 13220
 sprpriority = 2
 poweradd = 0
 velset = 0,0
+
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8002,6
+channel =  0
 
 [State 1031, Measure]
 type = turn
@@ -3400,6 +3423,14 @@ movetype = I
 ctrl = 0
 velset = 0, 0
 sprpriority = 1
+
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8002,3
+persistent = 0
+
 
 [State 2000, Explosion]
 type = Helper
