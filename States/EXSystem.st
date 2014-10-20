@@ -77,7 +77,8 @@ ampl = 0
 
 [State 2010, NHB]
 type = PlaySnd
-trigger1 = NumHelper(17000) && Helper(17000), StateNo = 17007
+trigger1 = NumHelper(17000) 
+trigger1 = Helper(17000), StateNo = 17007
 value = S8000,3
 channel =  0
 
@@ -458,7 +459,8 @@ sprpriority = 0
 
 [State N, Sound]
 type = PlaySnd
-trigger1 = NumHelper(17100) && Helper(17100), StateNo = 17103
+trigger1 = NumHelper(17100) 
+trigger1 = Helper(17100), StateNo = 17103
 value = S8000,IfElse(Random % 3 = 0, 6, IfElse(Random % 2, 14, 9))
 channel =  0
 persistent = 0
@@ -578,7 +580,8 @@ sprpriority = 0
 
 [State N, Sound]
 type = PlaySnd
-trigger1 = NumHelper(17100) && Helper(17100), StateNo = 17103
+trigger1 = NumHelper(17100)
+trigger1 = Helper(17100), StateNo = 17103
 value = S8000,IfElse(Random % 3, 6, IfElse(Random % 2, 14, 9))
 channel =  0
 persistent = 0

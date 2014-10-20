@@ -471,6 +471,7 @@ guardflag = M
 pausetime = 4 * (var(2) < 3), 6
 sparkno = -1
 sparkxy = -10, 0
+hitsound = S7050,2
 guard.sparkno = s7001
 guardsound = s2, 0
 ground.type = High
@@ -866,6 +867,7 @@ guardflag = M
 pausetime = 4 * (var(2) < 3), 6
 sparkno = -1
 sparkxy = -10, 0
+hitsound = S7050,2
 guard.sparkno = s7001
 guardsound = s2, 0
 ground.type = High
@@ -1230,6 +1232,15 @@ trigger2 = AnimElem = 6
 ampl = 8
 time = 12
 freq = 120
+
+
+[State 11205, Change]
+type = PlaySnd
+triggerall = Anim = 11206
+trigger1 = AnimElem = 5
+trigger2 = AnimElem = 6
+value = S7050,2
+
 
 [State 1022, Explod]
 type = Explod
@@ -1829,6 +1840,13 @@ type = PlayerPush
 trigger1 = 1
 value = 0
 
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8002,7
+channel =  0
+
+
 [State 1000, Hadouken]
 type = helper
 trigger1 = Time = 39
@@ -1943,6 +1961,13 @@ trigger1 = AnimElemTime(1) = 25
 ampl = 8
 freq = 120
 time = 12
+persistent = 0
+
+[State 11205, Change]
+type = PlaySnd
+trigger1 = Anim = 11302
+trigger1 = AnimElemTime(1) = 25
+value = S7020,5
 persistent = 0
 
 [State 11205, Change]
@@ -2353,6 +2378,14 @@ trigger1 = AnimElemTime(2) % 20 = 0
 ampl = 12
 freq = 120
 time = 20
+
+[State 11205, Change]
+type = PlaySnd
+trigger1 = Anim = 11350
+trigger1 = AnimElemNo(0) = 2
+trigger1 = AnimElemTime(2) % 5 = 0
+value = S7020,2
+
 
 [State 200, Explod]
 type = Explod

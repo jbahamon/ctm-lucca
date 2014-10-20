@@ -92,6 +92,13 @@ value = S8000,IfElse(Random % 3, 6, IfElse(Random % 2, 14, 9))
 channel =  0
 persistent = 0
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8002,8
+channel = 1
+persistent = 0
+
 [State 13001, Var]
 type = VarSet
 trigger1 = !Time
@@ -472,7 +479,7 @@ ID = 13105
 name = "Phantasmaraneae"
 pausemovetime = 9999999*(Var(24) > 0)
 postype = p1
-pos = Floor(FVar(0) + IfElse(FVar(0) > 0, -100, 100)), 0
+pos = Floor(FVar(0) + IfElse(FVar(0) > 0, -150, 150)), 0
 facing = IfElse(FVar(0) > 0, 1, -1)
 ownpal = 1
 

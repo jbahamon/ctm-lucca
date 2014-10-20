@@ -1,4 +1,4 @@
-; Player information
+	; Player information
 [Info]
 name = "Lucca"        ;Name of character
 displayname = "Lucca" ;Name of character to display
