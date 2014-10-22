@@ -2958,6 +2958,8 @@ LoopStart
 
 ; Miss
 [Begin Action 13301]
+Clsn2Default: 1
+  Clsn2[0] = -5, -22, 7, 1
 170,0, 0,0, 17
 5020,0, 0,0, 17
 
@@ -2984,6 +2986,13 @@ Clsn1: 1
 7103,1, 0,0, 3
 7103,2, 0,0, 5
 7103,3, 0,0, -1
+
+; Gomorrah Roar
+[Begin Action 13311]
+7103,0, 0,0, 5
+7103,1, 0,0, 3
+7103,2, 0,0, 5
+7103,3, 0,0, 70
 
 ; Got hit by Gomorrah
 [Begin Action 13320]

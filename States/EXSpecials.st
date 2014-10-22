@@ -15,6 +15,13 @@ sprpriority = 1
 facep2 = 1
 juggle  = 12
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8001,8
+channel =  0
+persistent = 0
+
 [State 1000, Strength]
 type = varset
 trigger1 = !time 
@@ -1402,6 +1409,14 @@ time = 8
 freq = 120
 persistent = 0
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = NumTarget
+trigger1 = Anim = 11211
+trigger1 = AnimElem = 2 
+value = S7020,0
+persistent = 0
+
 [State 801, Bind]
 type = EnvShake
 trigger1 = Anim = 11211
@@ -1410,6 +1425,12 @@ ampl = 8
 time = 6
 freq = 120
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = Anim = 11211
+trigger1 = AnimElem = 5
+value = S7020,0
+
 [State 801, Bind]
 type = ChangeAnim
 trigger1 = Anim = 11211
@@ -1417,6 +1438,11 @@ trigger1 = Time > 200
 value = 11212
 persistent = 0
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = Anim = 11212
+trigger1 = AnimElemTime(1) = 32
+value = S7020,5
 
 [State 801, Bind]
 type = EnvShake
@@ -1433,6 +1459,12 @@ trigger1 = AnimElemTime(2) = 5
 ampl = 12
 time = 8
 freq = 120
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = Anim = 11212
+trigger1 = AnimElemTime(2) = 5
+value = S7050,2
 
 [State 801, Bind]
 type = TargetState

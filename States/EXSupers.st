@@ -652,6 +652,7 @@ ontop = 0
 shadow = 0,0,0
 ownpal = 1
 pausemovetime = 9999999*(Root, Var(24) > 0)
+supermovetime = 9999999
 removeongethit = 1
 ignorehitpause = 1
 persistent = 0
@@ -704,6 +705,7 @@ ontop = 0
 shadow = 0,0,0
 ownpal = 1
 pausemovetime = 9999999*(Root, Var(24) > 0)
+supermovetime = 9999999
 removeongethit = 1
 ignorehitpause = 1
 persistent = 0
@@ -1632,7 +1634,7 @@ type = superpause
 trigger1 = Time = 2
 time = 45
 anim = -1
-sound = s7, 0
+sound = s8001,13
 movetime = 45
 p2defmul = 1
 darken = 0
@@ -1868,10 +1870,26 @@ type = VarAdd
 trigger1 = Time = [70, 90]
 fvar(1) = -(FVar(4)*0.1)/70.0
 
+
+[State 801, Bind]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = Time = 35
+value = -40
+kill = 0
+
+[State 801, Bind]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = Time = 110
+value = -95
+kill = 1
+
+
 [State 801, Stop]
 type = VarAdd
 trigger1 = Time = [105, 110]
-fvar(1) = -(FVar(4)*0.9)/10.0
+fvar(1) = -(FVar(4)*1.1)/10.0
 
 [State 1000, Hadouken]
 type = helper
@@ -2157,6 +2175,13 @@ ampl = 12
 freq = 140
 time = 12
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = Time = 34
+trigger2 = Time = 110
+value = S7020,5
+channel = 1
+
 [State 801, Move]
 type = VelSet
 trigger1 = Time = [70, 105]
@@ -2230,6 +2255,13 @@ trigger1 = Time = [0, 16]
 trans = addalpha
 alpha = Time * 16, 256 - Time * 16
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = Parent, Var(0) > 0
+value = S7050,2
+channel = 1
+persistent = 0
+
 [State 11205, Change]
 type = Trans
 trigger1 = Parent, Var(0) > 0
@@ -2287,7 +2319,7 @@ type = TargetLifeAdd
 triggerall = NumTarget
 trigger1 = Anim = 13203
 trigger1 = fvar(1) >= 100
-value = -124
+value = -135
 persistent = 0
 
 [State 801, Bind]
@@ -2605,6 +2637,13 @@ trigger3 = Var(0) > 0
 V = 0
 value = 1
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = Var(0) > 0
+value = S7050,2
+channel = 1
+persistent = 0
+
 [State 11205, Change]
 type = Trans
 trigger1 = Var(0) > 0
@@ -2825,6 +2864,22 @@ trigger1 = (FVar(2) := - Pos Y) || 1
 value = 13273
 persistent = 0
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8001,4
+channel = 0
+persistent = 0
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = NumTarget
+trigger1 = NumHelper(13270)
+trigger1 = Helper(13270), Var(0) = 8
+value = S8001,6
+channel = 0
+persistent = 0
+
 
 [State 801, Bind]
 type = ChangeAnim
@@ -2833,6 +2888,13 @@ trigger1 = Target, StateNo = 13273
 trigger1 = Anim = 13270
 value = 13271
 persistent = 0
+
+
+[State 11270, BindToWheel]
+type = TargetLifeAdd
+trigger1 = NumHelper(13270)
+trigger1 = Helper(13270), Var(0) = 9
+value = -1
 
 [State 801, Bind]
 type = TargetBind
@@ -2858,6 +2920,33 @@ type = TargetBind
 trigger1 = NumHelper(13270)
 trigger1 = Helper(13270), Var(0) = 10
 pos = (Helper(13270), Pos X - Pos X)*Facing + 60 * Cos(-(Pi/180.0)* Helper(13270), FVar(2) + Pi/2.0), -(ScreenPos Y - Helper(13270), ScreenPos Y) - 60*Sin(-(Pi/180.0)* Helper(13270), FVar(2) - Pi/2.0)
+
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = NumTarget
+trigger1 = Anim = 13271
+trigger1 = AnimElem = 2
+value = S8001,3
+channel = 0
+persistent = 0
+
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = NumHelper(13270)
+trigger1 = Helper(13270), Var(0) = 10
+value = S8001,10
+channel = 0
+persistent = 0
+
+
+[State 11270, BindToWheel]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = NumHelper(13270)
+trigger1 = Helper(13270), Var(0) = 11
+value = -78
 
 [State 11270, BindToWheel]
 type = TargetState
@@ -3078,6 +3167,14 @@ ampl = 8
 freq = 120
 persistent = 0
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = Var(0) = 9
+trigger1 = NumExplod(13275) < 3
+trigger1 = Time % 5 = 0
+value = S7020,2
+channel = 1
+
 [State 200, Explod]
 type = Explod
 trigger1 = Var(0) = 9
@@ -3123,6 +3220,13 @@ trigger1 = Var(0) = 10
 trigger1 = ScreenPos X < 40 || ScreenPos X > 280
 trigger1 = Var(0) := 11
 X = 0
+persistent = 0
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = Var(0) = 11
+value = S7050,2
+channel = 1
 persistent = 0
 
 [State 1022, Explod]
@@ -3307,6 +3411,7 @@ stateno = 13101
 ID = 13101
 name = "Hair"
 pausemovetime = 9999999*(Var(24) > 0)
+supermovetime = 9999999
 postype = p1
 pos = 0, -20
 ownpal = 1
@@ -3319,6 +3424,7 @@ stateno = 13102
 ID = 13102
 name = "Portal"
 pausemovetime = 9999999*(Var(24) > 0)
+supermovetime = 9999999
 postype = p1
 pos = 0, -118
 ownpal = 1
@@ -3326,7 +3432,7 @@ ownpal = 1
 [State 13100, HelperPos]
 type = VarSet
 trigger1 = NumHelper(13102)
-trigger1 = Helper(13102), Time = 32
+trigger1 = Helper(13102), Time = 1
 fv = 0
 value = (enemynear(numenemy>1&&!enemynear(0),alive), ScreenPos X - ScreenPos X)*Facing
 
@@ -3334,19 +3440,20 @@ value = (enemynear(numenemy>1&&!enemynear(0),alive), ScreenPos X - ScreenPos X)*
 [State 13100, HelperPos]
 type = VarSet
 trigger1 = NumHelper(13102)
-trigger1 = Helper(13102), Time = 32
+trigger1 = Helper(13102), Time = 1
 fv = 1
 value = Floor(EnemyNear(IfElse(EnemyNear(0), Alive, 0, 1)), Pos Y + EnemyNear(IfElse(EnemyNear(0), Alive, 0, 1)), Const(size.head.pos.y) - 40)
 
 [State 1000, Gomorrah]
 type = helper
 trigger1 = NumHelper(13102)
-trigger1 = Helper(13102), Time = 32
+trigger1 = Helper(13102), Time = 1
 helpertype = normal
 stateno = 13305
 ID = 13305
 name = "Gomorrah"
 pausemovetime = 9999999*(Var(24) > 0)
+supermovetime = 9999999
 postype = p1
 pos = Floor(FVar(0)), Floor(Fvar(1))
 facing = IfElse(FVar(0) > 0, 1, -1)
@@ -3398,7 +3505,8 @@ var(2) = 1
 
 [State 1010, Strength]
 type = ChangeState
-trigger1 = Var(2)
+trigger1 = Var(2) && NumHelper(13306)
+trigger1 = Helper(13306), StateNo = 13308
 value = 13301
 ctrl = 0
 
@@ -3431,14 +3539,6 @@ ctrl = 0
 velset = 0, 0
 sprpriority = 1
 
-
-[State N, Sound]
-type = PlaySnd
-trigger1 = !Time
-value = S8002,3
-persistent = 0
-
-
 [State 2000, Explosion]
 type = Helper
 trigger1 = !Time
@@ -3451,7 +3551,7 @@ facing = 1
 keyctrl = 0
 ownpal = 1
 persistent = 0
-supermovetime = 999999
+supermovetime = 48
 
 [State 13105, Var]
 type = Sprpriority
@@ -3504,6 +3604,7 @@ stateno = 13350
 ID = 13350
 name = "Portal 2"
 pausemovetime = 9999999*(Root, Var(24) > 0)
+supermovetime = 9999999
 postype = p1
 pos = 0, -45
 ownpal = 1
@@ -3635,6 +3736,12 @@ time = 6
 freq = 120
 ampl = 6
 ignorehitpause = 1
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = AnimElem = 2
+value = S8002,10
+channel = 1
 
 [State 3010, HitDef]
 type = HitDef
@@ -3828,9 +3935,15 @@ trigger1 = !Time
 value = 13310
 elem = 4
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = Anim = 13310 && AnimElem = 2
+value = S8002,9
+channel = 1
+
 [State 13105, Var]
 type = SprPriority
-trigger1 = 1
+trigger1 = Anim = 13310
 ignorehitpause = 1
 value = IfElse(AnimElemNo(0) = 1 || AnimElemNo(0) = 5, -1,1)
 
@@ -3841,32 +3954,64 @@ ID = 13306
 pos = Facing * (fvar(0) - Pos X), fvar(1) - Pos Y
 ignorehitpause = 1
 
+
+[State 1006, Safety]
+type = ChangeAnim
+trigger1 = Anim != 13311
+trigger1 = Root, Var(2)
+value = 13311
+
+
+[State 1006, Safety]
+type = TargetDrop
+trigger1 = Anim = 13311
+persistent = 0
+
+[State 1006, Safety]
+type = EnvShake
+trigger1 = Anim = 13311
+trigger1 = AnimElem = 4
+time = 40
+freq = 120
+ampl = 6
+ignorehitpause = 1
+persistent = 0
+
+
 [State 1006, Safety]
 type = ChangeState
-trigger1 = !NumTarget(13306)
-trigger2 = Root, Var(2)
-trigger3 = Root, StateNo != 13300
+trigger1 = !NumTarget(13306) && Anim != 13311
+trigger2 = Root, StateNo != 13300
+trigger3 = Anim = 13311 && !AnimTime
 value = 13308
 
 [State 13306, Shake]
 type = EnvShake
-trigger1 = AnimElem = 2
+trigger1 = Anim = 13310 && AnimElem = 2
 time = 3
 freq = 120
 ampl = 3
 ignorehitpause = 1
 
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = Anim = 13311 && AnimElem = 4
+value = S8002,3
+channel = 1
+persistent = 0
+
 [State 13320, Anim]
 type = TargetLifeAdd
 trigger1 = NumTarget(13306)
-trigger1 = AnimElem = 2
-value = -24
+trigger1 = Anim = 13310 && AnimElem = 2
+value = -26
 ID = 13306
 
 [State 13320, Anim]
 type = ChangeAnim
 triggerall = !(Root, Var(2))
-triggerall = AnimElemNo(0) = 5
+triggerall = Anim = 13310 && AnimElemNo(0) = 5
 trigger1 = !Root, Var(1) && Root, Command = "rlsb" 
 trigger2 = Root, Var(1) && Root, Command = "rlsc"
 value = 13310
@@ -3932,6 +4077,7 @@ ontop = 0
 shadow = 0,0,0
 ownpal = 1
 pausemovetime = 9999999*(Root, Var(24) > 0)
+supermovetime = 9999999
 removeongethit = 1
 ignorehitpause = 1
 persistent = 0
@@ -3966,6 +4112,7 @@ ontop = 0
 shadow = 0,0,0
 ownpal = 1
 pausemovetime = 9999999*(Root, Var(24) > 0)
+supermovetime = 9999999
 removeongethit = 1
 ignorehitpause = 1
 persistent = 0
