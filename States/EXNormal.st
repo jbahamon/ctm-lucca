@@ -1414,7 +1414,7 @@ ground.cornerpush.veloff = 0;
 p1sprpriority = 1
 p2sprpriority = -1
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 3, 7)), IfElse(Var(21) > 0, 0, 1)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -1542,7 +1542,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 3, 7)), IfElse(Var(21) > 0, 0, 1)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -4143,7 +4143,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 3, 7)), IfElse(Var(21) > 0, 0, 1)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -4291,7 +4291,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 3, 7)), IfElse(Var(21) > 0, 0, 1)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256

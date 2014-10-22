@@ -172,6 +172,13 @@ ctrl = 0
 velset = 0, 0
 sprpriority = 4
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S7020,5
+channel =  0
+persistent = 0
+
 [State 1006, Trans]
 type = trans
 trigger1 = 1

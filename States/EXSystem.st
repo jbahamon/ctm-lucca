@@ -457,6 +457,12 @@ movehitpersist = 0
 hitcountpersist = 0
 sprpriority = 0
 
+
+[State -3, Landing Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S7010, 5
+
 [State N, Sound]
 type = PlaySnd
 trigger1 = NumHelper(17100) 
@@ -577,6 +583,12 @@ hitdefpersist = 0
 movehitpersist = 0
 hitcountpersist = 0
 sprpriority = 0
+
+
+[State -3, Landing Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S7010, 5
 
 [State N, Sound]
 type = PlaySnd
