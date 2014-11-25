@@ -479,7 +479,7 @@ ID = 13105
 name = "Phantasmaraneae"
 pausemovetime = 9999999*(Var(24) > 0)
 postype = p1
-pos = Floor(FVar(0) + IfElse(FVar(0) > 0, -150, 150)), 0
+pos = Floor(FVar(0) + IfElse(FVar(0) > 0, -120, 120)), 0
 facing = IfElse(FVar(0) > 0, 1, -1)
 ownpal = 1
 
@@ -4185,9 +4185,9 @@ ID = 13381
 name = "Button"
 pausemovetime = 9999999*(Root, Var(24) > 0)
 postype = p1
+facing = Facing
 pos = 0, 0
 ownpal = 1
-
 
 [State 13320, Anim]
 type = VarSet
