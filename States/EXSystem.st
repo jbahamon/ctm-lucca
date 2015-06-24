@@ -463,11 +463,31 @@ type = PlaySnd
 trigger1 = !Time
 value = S7010, 5
 
+
+[State -3, Landing Sound]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Random % 5
+
+
 [State N, Sound]
 type = PlaySnd
+trigger1 = Var(0) < 3
 trigger1 = NumHelper(17100) 
 trigger1 = Helper(17100), StateNo = 17103
-value = S8000,IfElse(Random % 3 = 0, 6, IfElse(Random % 2, 14, 9))
+value = S8000,IfElse(Var(0) = 0, 6, IfElse(Var(0) = 1, 14, 9))
+channel =  0
+persistent = 0
+
+
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = Var(0) >= 3
+trigger1 = NumHelper(17100) 
+trigger1 = Helper(17100), StateNo = 17103
+value = S8002,IfElse(Var(0) = 3, 11, 13)
 channel =  0
 persistent = 0
 
@@ -590,13 +610,32 @@ type = PlaySnd
 trigger1 = !Time
 value = S7010, 5
 
+[State -3, Landing Sound]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Random % 5
+
+
 [State N, Sound]
 type = PlaySnd
-trigger1 = NumHelper(17100)
+trigger1 = Var(0) < 3
+trigger1 = NumHelper(17100) 
 trigger1 = Helper(17100), StateNo = 17103
-value = S8000,IfElse(Random % 3, 6, IfElse(Random % 2, 14, 9))
+value = S8000,IfElse(Var(0) = 0, 6, IfElse(Var(0) = 1, 14, 9))
 channel =  0
 persistent = 0
+
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = Var(0) >= 3
+trigger1 = NumHelper(17100) 
+trigger1 = Helper(17100), StateNo = 17103
+value = S8002,IfElse(Var(0) = 3, 11, 13)
+channel =  0
+persistent = 0
+
 
 [State 17001: Explod]
 type = Helper

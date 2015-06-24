@@ -236,7 +236,7 @@ var(21) = 0
 [State 190, 0]
 type = ChangeState
 trigger1 = Time
-value = 191 + (Random % 2)
+value = IfElse(PalNo = 12, 191, 191 + (Random % 2))
 ctrl = 0
 
 ;===========================================================================
@@ -250,10 +250,17 @@ ctrl = 0
 anim = 191
 velset = 0,0
 
-[State 191, 2] ;Assert this until you want "round 1, fight" to begin
+[State 191, 2]
 type = PlaySnd
 trigger1 = AnimElem = 3
+trigger1 = PalNo != 12
 value = S7000,1
+
+[State 191, 2]
+type = PlaySnd
+trigger1 = AnimElem = 3
+trigger1 = PalNo = 12
+value = S8002, 14  + IfElse(Random > 750, Random % 3, -2)
 
 [State 191, 2] ;Assert this until you want "round 1, fight" to begin
 type = AssertSpecial
@@ -455,6 +462,7 @@ sprpriority = 1
 
 [State 2110, Buttan]
 type = Explod
+trigger1 = PalNo != 12
 trigger1 = AnimElem = 2
 removetime = -1
 ID = 195
@@ -471,8 +479,28 @@ persistent = 0
 
 [State 1100, JumpSnd]
 type = PlaySnd
+trigger1 = PalNo != 12
 trigger1 = AnimElem = 2
 value = S7030,0
+ignorehitpause = 1
+
+[State 1100, JumpSnd]
+type = ChangeAnim
+trigger1 = PalNo = 12
+trigger1 = !Time
+value = 17305
+ignorehitpause = 1
+
+
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = PalNo = 12
+trigger1 = !Time
+value = S8002,IfElse(Random % 2, 11, 13)
+channel =  0
+persistent = 0
+
 ignorehitpause = 1
 
 [State 2000, End]

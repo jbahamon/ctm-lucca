@@ -105,6 +105,7 @@ movetype = I
 physics = N
 velset = 0,0
 anim = 13999
+sprpriority = 999
 
 [State 8520, Pos]
 type = VarSet

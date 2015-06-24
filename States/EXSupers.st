@@ -3396,8 +3396,8 @@ pausemovetime = 99999
 [State 2010, Super Pause]
 type = superpause
 trigger1 = time = 5
-time = 100
-movetime = 100
+time = 60
+movetime = 60
 anim = -1
 p2defmul = 1
 darken = 0
@@ -3405,7 +3405,7 @@ darken = 0
 
 [State 1000, Hadouken]
 type = helper
-trigger1 = animelem = 9
+trigger1 = animelem = 4
 helpertype = normal
 stateno = 13101
 ID = 13101
@@ -3418,7 +3418,7 @@ ownpal = 1
 
 [State 1000, Hadouken]
 type = helper
-trigger1 = animelem = 9
+trigger1 = animelem = 4
 helpertype = normal
 stateno = 13102
 ID = 13102
@@ -3611,15 +3611,15 @@ ownpal = 1
 
 [State 1006, Trans]
 type = Offset
-trigger1 = Var(1) = [32, 48]
-Y = Floor((-48 + Var(1))/2.0)
+trigger1 = Var(1) = [12, 28]
+Y = Floor((-28 + Var(1))/2.0)
 ignorehitpause = 1
 
 [State 1006, Trans]
 type = trans
-trigger1 = Var(1) = [32, 48]
+trigger1 = Var(1) = [12, 28]
 trans = addalpha
-alpha = (Var(1) -32) * 16, 256 - (Var(1) -32) * 16
+alpha = (Var(1) -12) * 16, 256 - (Var(1) -12) * 16
 ignorehitpause = 1
 
 [State 2101, Scale]
@@ -3631,13 +3631,13 @@ sinadd = -32,-32,-32, 60
 
 [State 2101, Scale]
 type = AssertSpecial
-trigger1 = Var(1) = [0,32]
+trigger1 = Var(1) = [0,12]
 flag = invisible
 flag2 = noshadow
 
 [State 2101, Scale]
 type = NotHitBy
-trigger1 = Var(1) = [0,64]
+trigger1 = Var(1) = [0,44]
 value = SCA, AA, AP, AT
 ignorehitpause = 1
 
@@ -3671,22 +3671,22 @@ value = IfElse(AnimElemNo(0) = 1 || AnimElemNo(0) = 5, -1,1)
 
 [State 1006, Trans]
 type = Offset
-trigger1 = Parent, Var(1) = [32, 48]
-Y = Floor((-48 + Parent, Var(1))/2.0)
+trigger1 = Parent, Var(1) = [12, 28]
+Y = Floor((-28 + Parent, Var(1))/2.0)
 ignorehitpause = 1
 
 [State 1006, Trans]
 type = Trans
-trigger1 = Parent, Var(1) < 32
+trigger1 = Parent, Var(1) < 12
 trans = addalpha
 alpha = 0, 256
 ignorehitpause = 1
 
 [State 1006, Trans]
 type = trans
-trigger1 = Parent, Var(1) = [32, 48]
+trigger1 = Parent, Var(1) = [12, 28]
 trans = addalpha
-alpha = (Parent, Var(1) -32) * 16, 256 - (Parent, Var(1) -32) * 16
+alpha = (Parent, Var(1) -12) * 16, 256 - (Parent, Var(1) -12) * 16
 ignorehitpause = 1
 
 [State 13105, Var]
@@ -3807,19 +3807,20 @@ numhits = 0
 [State 3010, Hit]
 type = EnvShake
 triggerall = NumTarget(13306)
-trigger1 = MoveHit && (AnimElemTime(2) = 1)
+trigger1 = MoveHit && (AnimElemTime(2) >= 1)
 time = 8
 freq = 120
 ampl = 3
+persistent = 0
 
 [State 3010, Hit]
 type = TargetLifeAdd
 triggerall = NumTarget(13306)
-trigger1 = MoveHit && (AnimElemTime(2) = 1)
-trigger2 = Anim = 3037 && AnimElem = 2
+trigger1 = MoveHit && (AnimElemTime(2) >= 1)
 ID = 13306
 value = -10
 kill = 0
+persistent = 0
 
 [State 3010, pos]
 type = Varset
@@ -3846,7 +3847,7 @@ trigger1 = NumTarget(13306)
 ID = 13306
 value = 13320
 ignorehitpause = 1
-persistent = 0 
+persistent = 1
 
 [State 3010, Hit]
 type = ChangeState
@@ -4053,13 +4054,13 @@ type = A
 physics = N
 movetype = I
 ctrl = 0
-anim = 7101
+anim = 13304
 velset = 0, 0
 sprpriority = -4
 
 [State 220, Explod]
 type = Explod
-trigger1 = AnimElem = 14
+trigger1 = AnimElem = 7
 anim = 13102
 ID = 13103
 pos = 0, 0
@@ -4085,7 +4086,7 @@ persistent = 0
 [State 2101, Remove]
 type = RemoveExplod
 trigger1 = Parent, StateNo = 13307
-trigger1 = Parent, Time = 30
+trigger1 = Parent, Time = 10
 trigger2 = Root, StateNo != 13300
 ID = 13103
 persistent = 0
@@ -4093,7 +4094,7 @@ persistent = 0
 [State 220, Explod]
 type = Explod
 trigger1 = Parent, StateNo = 13307
-trigger1 = Parent, Time = 30
+trigger1 = Parent, Time = 10
 trigger2 = Root, StateNo != 13300
 anim = 13104
 ID = 13103
@@ -4131,7 +4132,7 @@ value = 0
 [State 2101, Scale]
 type = ChangeAnim
 trigger1 = Parent, StateNo = 13307
-trigger1 = Parent, Time = 30
+trigger1 = Parent, Time = 10
 trigger2 = Root, StateNo != 13300
 value = 7102 
 persistent = 0
