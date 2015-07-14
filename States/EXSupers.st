@@ -862,8 +862,8 @@ ignorehitpause = 1
 type = PalFX
 trigger1 = !Time
 time = -1
-add = -32,-32,-32
-sinadd = -32,-32,-32, 60
+add = -64,-64,-64
+sinadd = -64,-64,-64, 60
 
 [State 2101, Scale]
 type = AssertSpecial

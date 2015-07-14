@@ -13,18 +13,17 @@ type = VarRangeSet
 trigger1 = roundsexisted = 0
 fvalue = 0
 
-[State 5900, 3] ;Change palette
+[State 5900, 3] ;Change Portal palette
 type = RemapPal
 trigger1 = PalNo = 12
 source = 7000,16
 dest = 7012,16
 
-[State 5900, 3] ;Change palette
+[State 5900, 3] ;Change Gomorrah palette
 type = RemapPal
 trigger1 = PalNo = 12
 source = 7000,10
 dest = 7001,10
-
 
 [State 5900, 3] ;Change palette
 type = null;
@@ -32,14 +31,14 @@ trigger1 = PalNo = 12
 source = 7000,2
 dest = 7000,22
 
-[State 5900, 3] ;Change palette
+[State 5900, 3] ;Change SFX palette
 type = RemapPal
 trigger1 = PalNo = 12
 source = 7000,21
 dest = 7000,23
 
 
-[State 5900, 3] ;Change palette
+[State 5900, 3] ;Change Own palette
 type = RemapPal
 trigger1 = 1
 source = 1,1

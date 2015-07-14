@@ -1396,7 +1396,7 @@ trigger1 = AnimElemNo(0) % 3 = 0
 trigger1 = AnimElemTime(AnimElemNo(0)) = 0
 attr = S, NA
 animtype  = Medium
-damage    = 1
+damage    = 2
 guardflag = M
 hitflag = MAF
 pausetime = 0,12
@@ -1524,7 +1524,7 @@ trigger1 = AnimElemNo(0) % 2 = 0
 trigger1 = AnimElemTime(AnimElemNo(0)) = 0
 attr = S, NA
 animtype  = Medium
-damage    = 1
+damage    = 2
 guardflag = M
 hitflag = MAF
 pausetime = 0,12
@@ -2077,6 +2077,13 @@ velset = 0, 0
 sprpriority = 0
 juggle  = 18
 
+
+[State 1001, Scale]
+Type = AngleDraw
+Trigger1 = 1
+scale = 0.1,0.1
+ignorehitpause = 1
+
 [State 15105, StateVar]
 type = VarSet
 trigger1 = !Time
@@ -2090,6 +2097,21 @@ trigger1 = !Time
 fv = 0
 value = IfElse(Var(5), 1, IfElse(Root, StateNo = 15032 || Root, StateNo = 15532, 0.2, 0.4))
 ignorehitpause = 1
+
+
+
+[State 1005, End]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Random % 2
+
+
+[State 1005, End]
+type = Sprpriority
+trigger1 = 1
+value = ifelse(var(0) > 0, 2, -2)
+
 
 [State -3, Prevent Undergound Juggles]
 type= targetbind
@@ -2193,6 +2215,13 @@ movetype = I
 ctrl = 0
 velset = 0, 0
 sprpriority = 0
+
+
+[State 1001, Scale]
+Type = AngleDraw
+Trigger1 = Time > 0
+scale = 0.1,0.1
+ignorehitpause = 1
 
 [State 11004, Shake]
 type = SprPriority
