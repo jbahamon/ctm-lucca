@@ -792,3 +792,283 @@ ignorehitpause = 1
 [State 7000, End]
 type = DestroySelf
 trigger1 = !Time
+
+
+;Outfit Intro
+[Statedef 17191]
+type = S
+ctrl = 0
+anim = 10191
+velset = 0,0
+sprpriority = 0
+
+[State 191, 2] ;Assert this until you want "round 1, fight" to begin
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Random % 2
+
+
+[State 191, 2] ;Assert this until you want "round 1, fight" to begin
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = Var(0)
+value = 10181
+elem = 2
+
+[State 191, 2] ;Assert this until you want "round 1, fight" to begin
+type = AssertSpecial
+trigger1 = 1
+flag = Intro
+
+[State 192, StartPos]
+type = VarSet
+trigger1 = !Time
+fvar(0) = Pos X
+
+[State 192, Spawn Affinities]
+type = Helper
+trigger1 = !Time
+helpertype = normal ;player
+name = "Affinity"
+ID = 17191
+stateno = 17192
+postype = p1
+pos = - 40 - 40, -2
+facing = 1
+keyctrl = 0
+ownpal = 1
+
+[State 192, Spawn Affinities]
+type = Helper
+trigger1 = Time = 1
+helpertype = normal ;player
+name = "Affinity"
+ID = 17191
+stateno = 17192
+postype = p1
+pos = 30 + 40, -1
+facing = -1
+keyctrl = 0
+ownpal = 1
+
+[State 192, Spawn Affinities]
+type = Helper
+trigger1 = Time = 2
+helpertype = normal ;player
+name = "Affinity"
+ID = 17191
+stateno = 17192
+postype = p1
+pos = -20 - 40, 0
+facing = 1
+keyctrl = 0
+ownpal = 1
+
+
+
+[State 1920, Random Start]
+type = Turn
+trigger1 = !Time
+trigger2 = Time = 60
+trigger3 = Time = 120
+trigger4 = Time = 180
+
+[State 191, 2] ;Assert this until you want "round 1, fight" to begin
+type = ChangeAnim
+triggerall = Anim = 10181
+trigger1 = Time = 60
+trigger2 = Time = 120
+trigger3 = Time = 180
+value = IfElse(Time = 180, 10182, 10181)
+
+
+[State 1920, Random Start]
+type = PlaySnd
+trigger1 = Time = 60
+value = 8002,17
+channel = 0
+persistent = 0
+
+
+[State 1920, Random Start]
+type = ChangeAnim
+trigger1 = Time = 210
+value = 10196
+persistent = 0
+
+[State 1920, Random Start]
+type = PlaySnd
+trigger1 = Time = 210
+value = 8001,6
+channel = 0
+persistent = 0
+
+
+[State 2110, Buttan]
+type = Explod
+trigger1 = Time = 210
+ID = 17191
+anim = IfElse(Var(0), 10183, 10192)
+bindtime = 1
+pos = 7, -20
+ownpal = 1
+vel = 1, -2
+accel = 0, 0.1
+removetime = 22
+sprpriority = 3
+shadow = -1
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+
+[State 1920, Random Start]
+type = PlaySnd
+trigger1 = Time = 240
+trigger1 = Var(0)
+value = 8003,18
+channel = 0
+volumescale = 128
+persistent = 0
+
+
+[State 1920, Random Start]
+type = PlaySnd
+trigger1 = Time = 240
+trigger1 = Var(0)
+value = 8003,18
+channel = 0
+volumescale = 64
+persistent = 0
+
+
+[State 192, Land]
+type = ChangeState
+trigger1 = Time = 420
+value = 0
+persistent = 0
+
+; Affinity
+[Statedef 17192]
+type = S
+physics = N
+ctrl = 0
+anim = 10193
+velset = 0,0
+sprpriority = 0
+
+[State 1920, Random Start]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = (Root, Time)
+persistent = 0
+
+[State 1920, Random Start]
+type = VelSet
+trigger1 = !Time
+X = 30.0/(IfElse(Var(0) = 1, 50.0, IfElse(Var(0) = 2, 110.0, 180.0)))
+persistent = 0
+
+
+[State 1920, Random Start]
+type = VelSet
+trigger1 = (Root, Time > 50 && Var(0) = 1)
+trigger2 = (Root, Time > 110 && Var(0) = 2)
+trigger3 = (Root, Time > 170 && Var(0) = 3)
+X = 0
+persistent = 0
+
+[State 1920, Random Start]
+type = ChangeAnim
+trigger1 = (Root, Time > 50 && Var(0) = 1)
+trigger2 = (Root, Time > 110 && Var(0) = 2)
+trigger3 = (Root, Time > 170 && Var(0) = 3)
+value = 10194
+persistent = 0
+
+[State 1920, Random Start]
+type = AssertSpecial
+trigger1 = 1
+flag = Intro
+
+[State 1920, SprPriority]
+type = SprPriority
+trigger1 = 1
+value = 2*Var(0) - 1
+
+[State 1920, SprPriority]
+type = ChangeAnim
+trigger1 = (Parent, Anim > 10195) && Anim = 10194
+value = 10195
+persistent = 0
+
+[State 1920, SprPriority]
+type = VelSet
+trigger1 = Anim = 10195
+X = -(Random/1000.0) * 4 + 2
+Y = - (Random/1000.0) * 4 - 2
+persistent = 0
+
+[State 1920, Shake]
+type = PalFx
+trigger1 = Anim = 10195
+add = 200, 200, 200
+mul = 256, 256, 256
+time = 4
+persistent = 0
+
+[State 1920, Shake]
+type = EnvShake
+trigger1 = Anim = 10195
+time = 3
+freq = 120
+ampl = 2
+persistent = 0
+
+[State 1920, Shake]
+type = PlaySnd
+trigger1 = Anim = 10195
+value = 7020,1
+persistent = 0
+
+[State 1920, Rotate]
+type = PosAdd
+trigger1 = Anim = 10195
+Y = -15
+persistent = 0
+
+[State 1920, Var]
+type = VarSet
+trigger1 = !Time
+var(1) = -Facing
+
+[State 1920, Angle]
+type = AngleSet
+trigger1 = !Time
+value = 0
+
+[State 1920, Rotate]
+type = AngleAdd
+trigger1 = Anim =10195
+value = (18 + (random % 3))* var(1)
+
+[State 1920, Rotate]
+type = AngleDraw
+trigger1 = Anim = 10195
+
+[State 1920, Trans]
+type = Trans
+trigger1 = Anim = 10195 && AnimElemTime(1) > 10
+trans = addalpha
+alpha = 256 - (AnimElemTime(1)-10)*8, (AnimElemTime(1)-10)*8
+
+[State 1920, End]
+type = DestroySelf
+trigger1 = Anim = 10195
+trigger1 = AnimElemTime(1) >= 42
+trigger2 = RoundState > 1
+
+

@@ -322,6 +322,16 @@ value = S8001,14
 channel =  0
 persistent = 0
 
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = !Time
+value = S8001,15
+channel =  1
+loop = 1
+persistent = 0
+
+
 [State 13002, Scale]
 type = AngleDraw
 trigger1 = 1
@@ -367,6 +377,12 @@ time = 1
 add = Floor(200 * Root, Var(24)/16.0), Floor(120 * Root, Var(24)/16.0), Floor(230 * Root, Var(24)/16.0)
 mul = 256 - 8 * Root, Var(24), 256 - 8 * Root, Var(24), 256 - 8 * Root, Var(24)
 
+
+
+[State N, Sound]
+type = StopSnd
+trigger1 = !Root, Var(24)
+channel =  1
 
 [State 7000, End]
 type = DestroySelf

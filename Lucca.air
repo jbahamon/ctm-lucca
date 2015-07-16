@@ -1783,6 +1783,60 @@ Clsn2Default: 1
 10100,2, 0,0, 4
 10100,3, 0,0, 5
 
+; Dress outfit
+[Begin Action 10181]
+10181,0, 0,0, 40
+LoopStart
+10181,1, 0,0, 20
+10181,2, 0,0, 20, H
+10181,3, 0,0, 20
+10181,2, 0,0, 20, H
+
+; Permanent hit
+[Begin Action 10182]
+10181,0, 0,0, 10
+
+; Outfit
+[Begin Action 10183]
+10181,4, 0,0, 2
+10181,4, 0,0, 2, , AS0D256
+
+; w/Nun outfit
+[Begin Action 10191]
+10191,0, 0,0, 20
+10191,1, 0,0, 20
+10191,2, 0,0, 20
+10191,1, 0,0, 20
+
+; Nun Outfit
+[Begin Action 10192]
+10192,0, 0,0, 2
+10192,0, 0,0, 2, , AS0D256
+
+; Affinity - Standing
+[Begin Action 10193]
+10193,0, 0,0, 10, H
+10193,1, 0,0, 10, H
+10193,2, 0,0, 10, H
+10193,3, 0,0, 10, H
+10193,4, 0,0, 10, H
+
+; Affinity - Attacking
+[Begin Action 10194]
+10194,0, 0,0, 6, H
+10194,3, 0,0, 4, H
+10194,4, 0,0, 10, H
+10193,0, 0,0, -1, H
+
+; Taking Nun outfit out
+[Begin Action 10196]
+2020,2, 0,0, 10
+2000,1, 0,0, -1
+
+; Affinity Got Hit
+[Begin Action 10195]
+10195,0, 0,0, -1
+
 ; Tombstone Summon
 [Begin Action 11000]
 Clsn2Default: 1

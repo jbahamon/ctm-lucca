@@ -235,7 +235,7 @@ var(21) = 0
 [State 190, 0]
 type = ChangeState
 trigger1 = Time
-value = IfElse(PalNo = 12, 191, 191 + (Random % 2))
+value = IfElse(PalNo = 12, 191 + (Random % 2)*17000, 191 + (Random % 2))
 ctrl = 0
 
 ;===========================================================================
