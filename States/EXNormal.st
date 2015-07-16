@@ -669,7 +669,7 @@ ID = 15000
 name = "Madama Butterfly's Foot"
 postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
-pos = 30, 0
+pos = 15, 0
 ownpal = 1
 
 
@@ -2077,13 +2077,6 @@ velset = 0, 0
 sprpriority = 0
 juggle  = 18
 
-
-[State 1001, Scale]
-Type = AngleDraw
-Trigger1 = 1
-scale = 0.1,0.1
-ignorehitpause = 1
-
 [State 15105, StateVar]
 type = VarSet
 trigger1 = !Time
@@ -2215,13 +2208,6 @@ movetype = I
 ctrl = 0
 velset = 0, 0
 sprpriority = 0
-
-
-[State 1001, Scale]
-Type = AngleDraw
-Trigger1 = Time > 0
-scale = 0.1,0.1
-ignorehitpause = 1
 
 [State 11004, Shake]
 type = SprPriority

@@ -439,14 +439,6 @@ velset = 0, 0
 sprpriority = 0
 juggle  = 18
 
-
-
-[State 1001, Scale]
-Type = AngleDraw
-Trigger1 = 1
-scale = 0.1,0.1
-ignorehitpause = 1
-
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = MoveHit && NumTarget
@@ -534,13 +526,6 @@ movetype = I
 ctrl = 0
 velset = 0, 0
 sprpriority = 0
-
-
-[State 1001, Scale]
-Type = AngleDraw
-Trigger1 = Time > 0
-scale = 0.1,0.1
-ignorehitpause = 1
 
 [State 1006, NHB]
 type = NotHitBy
