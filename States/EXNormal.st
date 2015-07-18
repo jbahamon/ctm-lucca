@@ -758,6 +758,16 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+
+[State 15010, Punch]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = PrevStateNo = 15505
+value = 15010
+elem = 2
+persistent = 0
+
+
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = !Time
@@ -766,7 +776,7 @@ channel =  0
 
 [State 15010, Punch]
 type = helper
-trigger1 = AnimElem = 2
+trigger1 = AnimElem = 3
 helpertype = normal
 stateno = 15105
 ID = 15000
@@ -813,7 +823,7 @@ ignorehitpause = 1
 
 [State 15010, ComboVar]
 type = VarSet
-trigger1 = AnimElem = 4
+trigger1 = AnimElem = 5
 trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
@@ -2864,7 +2874,7 @@ ignorehitpause = 1
 
 [State 15502, ComboVar]
 type = VarSet
-trigger1 = AnimElemTime(3) >= 6
+trigger1 = AnimElemTime(3) >= 0
 trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
@@ -3207,8 +3217,14 @@ ignorehitpause = 1
 
 [State 1250, slow]
 type = velset
-trigger1 = statetype = S
-Y = 0
+trigger1 = !Time
+Y = -1
+ignorehitpause = 1
+
+[State 1250, slow]
+type = velset
+trigger1 = AnimElem = 5
+Y = 6.5
 ignorehitpause = 1
 
 [State 1250, slow]
@@ -3219,10 +3235,10 @@ ignorehitpause = 1
 
 [State 200, Explod]
 type = Explod
-trigger1 = AnimElem = 2
-anim = 7308
+trigger1 = AnimElem = 5
+anim = 7305
 ID = 15002
-pos = 13, -13
+pos = 10, -4
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -3240,7 +3256,7 @@ pausemovetime = 9999999*(Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
-[State 15505, Hit]
+[State 15502, Hit]
 type = HitDef
 trigger1 = !Time
 attr = A, NA
@@ -3250,15 +3266,15 @@ guardflag = HA
 hitflag = MAF
 pausetime = 12,12
 sparkno = S7401
-sparkxy = -5, -18
+sparkxy = -10, -15
 hitsound   = S7020,2
 guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 20
 ground.velocity = -.5
-air.velocity = -.5,-.5
-forcenofall = 1
+air.velocity = .5,-.5
+fall = 0
 p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
@@ -3269,6 +3285,24 @@ palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
 
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(0) = 0
+ignorehitpause = 1
+
+
+[State 15502, ComboVar]
+type = VarAdd
+trigger1 = StateType = S
+var(0) = 1
+ignorehitpause = 1
+
+[State 15502, ComboVar]
+type = ChangeAnim
+trigger1 = Var(0) = 15
+value = 121
+ignorehitpause = 1
 
 [State 15505, ComboVar]
 type = VarSet
@@ -3278,17 +3312,17 @@ ignorehitpause = 1
 
 [State 15505, ComboVar]
 type = VarSet
-trigger1 = AnimElem = 3
-trigger2 = MoveHit
+trigger1 = Var(0) = [1, 14]
 var(25) = 1
 ignorehitpause = 1
 
-[State 15505, ChangeAnim]
+[State 15502, ComboVar]
 type = ChangeState
-trigger1 = !AnimTime
-trigger2 = StateType = S && MoveHit
-value = IfElse(StateType = A, 50, 0)
-ctrl = !(StateType = A)
+trigger1 = Var(0) > 20
+value = 0
+ctrl = 1
+ignorehitpause = 1
+
 
 ; APPP
 [Statedef 15508]

@@ -947,6 +947,7 @@ trigger1 = Var(25)
 trigger1 = Command = "c"
 trigger1 = AnimExist(15500 + 2 * (Anim - 15500) + 1)
 value = 15500 + 2 * (Anim - 15500) + 1
+ignorehitpause = 1
 
 [State 15002, Air to Ground Punch Combos]
 type = ChangeState

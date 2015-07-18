@@ -1701,14 +1701,29 @@ pausemovetime = 99999
 [State 2110, Sound1]
 type = PlaySnd
 trigger1 = !Time
+trigger1 = PalNo != 12
 value = S7060,0
 channel = 0
 
 [State 2110, Sound1]
 type = PlaySnd
 trigger1 = Time = 28
+trigger1 = PalNo != 12
 value = S7060,1
 channel = 0
+
+[State 2110, Sound1]
+type = PlaySnd
+trigger1 = !Time
+trigger1 = PalNo = 12
+value = S8001,16
+channel = 0
+
+[State 2110, Sound1]
+type = PlaySnd
+trigger1 = Time = 28
+trigger1 = PalNo = 12
+value = S8001,14
 
 [State 2110, End]
 type = ChangeState

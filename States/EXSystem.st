@@ -869,7 +869,7 @@ ownpal = 1
 
 [State 1920, Random Start]
 type = Turn
-trigger1 = !Time
+trigger1 = Time = 210
 trigger2 = Time = 60
 trigger3 = Time = 120
 trigger4 = Time = 180
@@ -946,7 +946,8 @@ persistent = 0
 
 [State 192, Land]
 type = ChangeState
-trigger1 = Time = 420
+trigger1 = Time = 240 && !Var(0)
+trigger2 = Time = 420 && Var(0)
 value = 0
 persistent = 0
 
@@ -1008,7 +1009,7 @@ persistent = 0
 [State 1920, SprPriority]
 type = VelSet
 trigger1 = Anim = 10195
-X = -(Random/1000.0) * 4 + 2
+X = -(Random/1000.0) * 4 - 2
 Y = - (Random/1000.0) * 4 - 2
 persistent = 0
 

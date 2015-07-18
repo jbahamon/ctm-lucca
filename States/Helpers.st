@@ -318,7 +318,7 @@ Trigger1 = !(Root, Var(21))
 ignorehitpause=1
 
 
-;Protect Super Armor
+;Umbran Climax Effect
 [Statedef 11778]
 Type = A
 MoveType = H
@@ -358,7 +358,7 @@ ignorehitpause=1
 Type=Trans
 Trigger1=1
 trans = addalpha
-alpha = floor(128 * (1 + Sin(Pi *(GameTime)/30.0))), 256 - floor(128 * (1 + Sin(Pi *(GameTime)/30.0)))
+alpha = floor(128 * (1 + Sin(Pi *(GameTime)/10.0))), 256 - floor(128 * (1 + Sin(Pi *(GameTime)/10.0)))
 ignorehitpause=1
 
 [State 6965, HitOverride]

@@ -3854,7 +3854,7 @@ persistent = 0
 type = TargetBind
 trigger1 = NumTarget(13306)
 ID = 13306
-pos = Facing * (fvar(0) - Pos X), fvar(1) - Pos Y
+pos = Facing * (fvar(0) - Pos X), 40
 ignorehitpause = 1
 
 [State 3010, Hit]
@@ -3968,7 +3968,7 @@ value = IfElse(AnimElemNo(0) = 1 || AnimElemNo(0) = 5, -1,1)
 type = TargetBind
 trigger1 = NumTarget(13306)
 ID = 13306
-pos = Facing * (fvar(0) - Pos X), fvar(1) - Pos Y
+pos = Facing * (fvar(0) - Pos X), 40
 ignorehitpause = 1
 
 
