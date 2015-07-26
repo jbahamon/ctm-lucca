@@ -472,6 +472,11 @@ time = 1
 ;-| Single Button |---------------------------------------------------------
 
 [Command]
+name = "holdc";Required (do not remove)
+command = /c
+time = 1
+
+[Command]
 name = "fwd"
 command = F
 time = 1
@@ -893,6 +898,27 @@ trigger1 = ctrl
 ; EX Normal Moves
 ;===========================================================================
 
+
+[State -1, Launch Punch]
+type = ChangeState
+value = 15202
+triggerall = PalNo = 12
+triggerall = command = "b"
+triggerall = command = "holddown"
+trigger1 = statetype = C
+trigger1 = ctrl
+
+
+[State -1, Launch Kick]
+type = ChangeState
+value = 15203
+triggerall = PalNo = 12
+triggerall = command = "c"
+triggerall = command = "holddown"
+trigger1 = statetype = C
+trigger1 = ctrl
+
+
 [State -1, Standing Punch]
 type = ChangeState
 value = 15002
@@ -932,18 +958,18 @@ trigger1 = ctrl
 
 [State 15002, Air Punch Combos]
 type = ChangeState
-trigger1 = StateNo = [15502, 15999]
+trigger1 = StateNo = [15502, 15599]
 trigger1 = StateType = A
-trigger1 = Var(25)
+trigger1 = Var(25) = 1
 trigger1 = Command = "b"
 trigger1 = AnimExist(15500 + 2 * (Anim - 15500))
 value = 15500 + 2 * (Anim - 15500)
 
 [State 15002, Air Kick Combos]
 type = ChangeState
-trigger1 = StateNo = [15502, 15999]
+trigger1 = StateNo = [15502, 15599]
 trigger1 = StateType = A
-trigger1 = Var(25)
+trigger1 = Var(25) = 1
 trigger1 = Command = "c"
 trigger1 = AnimExist(15500 + 2 * (Anim - 15500) + 1)
 value = 15500 + 2 * (Anim - 15500) + 1
@@ -951,7 +977,7 @@ ignorehitpause = 1
 
 [State 15002, Air to Ground Punch Combos]
 type = ChangeState
-trigger1 = StateNo = [15502, 15999]
+trigger1 = StateNo = [15502, 15599]
 trigger1 = StateType = S
 trigger1 = Var(25)
 trigger1 = Command = "b"
@@ -960,26 +986,49 @@ value = 15000 + 2 * (Anim - 15500)
 
 [State 15002, Air to Ground Kick Combos]
 type = ChangeState
-trigger1 = StateNo = [15502, 15999]
+trigger1 = StateNo = [15502, 15599]
 trigger1 = StateType = S
-trigger1 = Var(25)
+trigger1 = Var(25) = 1
 trigger1 = Command = "c"
 trigger1 = AnimExist(15000 + 2 * (Anim - 15500) + 1)
 value = 15000 + 2 * (Anim - 15500) + 1
 
+[State 15002, Air Pause+Kick Combos]
+type = ChangeState
+trigger1 = StateNo = [15502, 15599]
+trigger1 = Var(25) = 2
+trigger1 = Command = "c"
+trigger1 = AnimExist(15500 + 2 * (Anim - 15500) + 200 + 1)
+value = 15500 + 2 * (Anim - 15500) + 200 + 1
+
+[State 15002, Pause+Punch Combos]
+type = ChangeState
+trigger1 = StateNo = [15002, 15099]
+trigger1 = Var(25) = 2
+trigger1 = Command = "b"
+trigger1 = AnimExist(15000 + 2 * (Anim - 15000) + 200)
+value = 15000 + 2 * (Anim - 15000) + 200
+
+[State 15002, Pause+Kick Combos]
+type = ChangeState
+trigger1 = StateNo = [15002, 15099]
+trigger1 = Var(25) = 2
+trigger1 = Command = "c"
+trigger1 = AnimExist(15000 + 2 * (Anim - 15000) + 200 + 1)
+value = 15000 + 2 * (Anim - 15000) + 200 + 1
 
 [State 15002, Punch Combos]
 type = ChangeState
-trigger1 = StateNo = [15002, 15499]
-trigger1 = Var(25)
+trigger1 = StateNo = [15002, 15099]
+trigger1 = Var(25) = 1
 trigger1 = Command = "b"
 trigger1 = AnimExist(15000 + 2 * (Anim - 15000))
 value = 15000 + 2 * (Anim - 15000)
 
 [State 15002, Kick Combos]
 type = ChangeState
-trigger1 = StateNo = [15002, 15499]
-trigger1 = Var(25)
+trigger1 = StateNo = [15002, 15099]
+trigger1 = Var(25) = 1
 trigger1 = Command = "c"
 trigger1 = AnimExist(15000 + 2 * (Anim - 15000) + 1)
 value = 15000 + 2 * (Anim - 15000) + 1

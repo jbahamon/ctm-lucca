@@ -439,6 +439,13 @@ velset = 0, 0
 sprpriority = 0
 juggle  = 18
 
+[State 2101, Scale]
+type = PalFX
+trigger1 = !Time
+time = -1
+add = -64, -64, -64
+sinadd = 64, 64, 64, 30
+
 [State 1001, Dampen]
 Type = ParentVarset
 Trigger1 = MoveHit && NumTarget
@@ -834,6 +841,13 @@ ctrl = 0
 velset = 0, 0
 sprpriority = 0
 juggle  = 18
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = !Time
+time = -1
+add = -64, -64, -64
+sinadd = 64, 64, 64, 30
 
 [State 1001, Dampen]
 Type = ParentVarset

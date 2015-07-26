@@ -807,6 +807,20 @@ trigger1 = !Time
 var(0) = IfElse(!prevstateno, 0, Var(0) + 1)
 ignorehitpause = 1
 
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !Time
+trigger1 = !prevstateno
+var(3) = Facing
+ignorehitpause = 1
+
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Var(3)
+ignorehitpause = 1
+
 [State N, Sound]
 type = PlaySnd
 trigger1 = Var(1) = 64
@@ -914,6 +928,11 @@ movetype = A
 ctrl = 0
 velset = 0, 0
 sprpriority = 3
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Var(3)
+ignorehitpause = 1
 
 [State 13105, Var]
 type = ChangeAnim
@@ -1083,6 +1102,11 @@ velset = 0, 0
 sprpriority = 3
 
 [State 13105, Var]
+type = Turn
+trigger1 = Facing != Var(3)
+ignorehitpause = 1
+
+[State 13105, Var]
 type = Sprpriority
 trigger1 = 1
 value = 3
@@ -1122,6 +1146,19 @@ movetype = I
 ctrl = 0
 velset = 0, 0
 sprpriority = 0
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !Time
+trigger1 = !prevstateno
+var(3) = Facing
+ignorehitpause = 1
+
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Var(3)
+ignorehitpause = 1
 
 [State 13105, Var]
 type = Sprpriority
@@ -1322,6 +1359,8 @@ trigger1 = (Var(2) := 1)
 trigger2 = Var(1) > 85
 trigger2 = Var(1) < 110
 trigger2 = !Time
+trigger2 = Var(2) = 0
+trigger2 = (Var(2) := 1)
 attr = A,HA
 damage = Floor(Root, FVar(39) * 200)
 animtype = Hard
@@ -1378,6 +1417,11 @@ ctrl = 0
 velset = 0, 0
 anim = 13111
 sprpriority = 1
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Parent, Var(3)
+ignorehitpause = 1
 
 [State 1006, Trans]
 type = trans
@@ -1437,6 +1481,11 @@ velset = 0, 0
 anim = 13112
 sprpriority = 2
 
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Parent, Var(3)
+ignorehitpause = 1
+
 [State 1006, Trans]
 type = trans
 trigger1 = Parent, Var(1) = [110, 142]
@@ -1494,6 +1543,11 @@ ctrl = 0
 velset = 0, 0
 anim = 13113
 sprpriority = -1
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Parent, Var(3)
+ignorehitpause = 1
 
 [State 1006, Trans]
 type = trans
@@ -1553,6 +1607,11 @@ ctrl = 0
 anim = 7101
 velset = 0, 0
 sprpriority = -2
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Parent, Var(3)
+ignorehitpause = 1
 
 [State 220, Explod]
 type = Explod
@@ -3971,13 +4030,11 @@ ID = 13306
 pos = Facing * (fvar(0) - Pos X), 40
 ignorehitpause = 1
 
-
 [State 1006, Safety]
 type = ChangeAnim
 trigger1 = Anim != 13311
 trigger1 = Root, Var(2)
 value = 13311
-
 
 [State 1006, Safety]
 type = TargetDrop
@@ -3993,7 +4050,6 @@ freq = 120
 ampl = 6
 ignorehitpause = 1
 persistent = 0
-
 
 [State 1006, Safety]
 type = ChangeState
@@ -4056,7 +4112,20 @@ velset = 0,0
 type = SelfState
 trigger1 = !gethitvar(isbound)
 value = 5050
+
+[State 3020, Exit]
+type = Offset
+trigger1 = 1
+X = Random % 4 - 2
+Y = Random % 4 - 2
 	
+
+[State 3020, Exit]
+type = ScreenBound
+trigger1 = 1
+value = 0
+movecamera = 0,0
+
 [State 3020, anim]
 type = ChangeAnim2
 trigger1 = !Time

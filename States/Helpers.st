@@ -172,7 +172,7 @@ alpha = 256, 256
 [State 8520, Scale]
 type = AngleDraw
 trigger1 = 1
-scale = 0.5 + IfElse(Time > Var(0), (Time - Var(0))/32.0, 0), 0.5 + IfElse(Time > Var(0), (Time - Var(0))/32.0, 0)
+scale = 0.5 + IfElse(Time > Var(0), (Time - Var(0))/16.0, 0), 0.5 + IfElse(Time > Var(0), (Time - Var(0))/16.0, 0)
 
 [State 8520, Scale]
 type = Trans
