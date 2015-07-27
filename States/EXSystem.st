@@ -735,6 +735,14 @@ physics = N
 movetype = I
 anim = 17102
 sprpriority = 6
+
+    
+[State 17003, NHB]
+type = PosAdd
+trigger1 = 1
+X = (Root, Pos X - Pos X)*Facing/10.0
+Y = (Root, Pos Y - Pos Y)/10.0
+ignorehitpause = 1
     
 [State 17003, NHB]
 type = NotHitBy

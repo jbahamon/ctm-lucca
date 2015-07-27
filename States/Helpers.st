@@ -33,7 +33,7 @@ var(0) = (Parent, StateNo = 2100)
 type = VarSet
 trigger1 = !Time
 trigger1 = var(1) := (Root, PalNo = 12)
-var(1) = IfElse(Root, StateNo = 13000, 30, IfElse(Root, StateNo = 13100, 100, IfElse(Root, StateNo = 13200, 30, 30)))
+var(1) = IfElse(Root, StateNo = 13000, 30, IfElse(Root, StateNo = 13100, 100 , IfElse(Root, StateNo = 13200, 30, 30)))
 
 [State 7000, Pal Down]
 type = BGPalFX
@@ -155,7 +155,7 @@ flag = noshadow
 [State 8520, Scale]
 type = VarSet
 trigger1 = !Time
-var(0) = 24
+var(0) = 24 + 70 * (Var(1) = 2)
 
 [State 8520, Trans]
 type = Trans
@@ -172,7 +172,7 @@ alpha = 256, 256
 [State 8520, Scale]
 type = AngleDraw
 trigger1 = 1
-scale = 0.5 + IfElse(Time > Var(0), (Time - Var(0))/16.0, 0), 0.5 + IfElse(Time > Var(0), (Time - Var(0))/16.0, 0)
+scale = 0.5 + IfElse(Time > Var(0), (Time - Var(0))/10.0, 0), 0.5 + IfElse(Time > Var(0), (Time - Var(0))/10.0, 0)
 
 [State 8520, Scale]
 type = Trans

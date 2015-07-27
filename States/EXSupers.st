@@ -3601,7 +3601,7 @@ Y = 0
 
 [State 1035, Pos]
 type = ChangeState
-trigger1 = Time > 120
+trigger1 = Time > 80
 value = 0
 ctrl = 1
 
