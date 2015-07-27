@@ -1838,7 +1838,7 @@ ctrl = 1
 [Statedef 11300]
 type    = A
 movetype= A
-physics = A
+physics = N
 juggle  = 3
 ctrl = 0
 anim = 11300
@@ -1849,13 +1849,16 @@ poweradd = -500
 [State 1030, Impulse]
 type = VelSet
 trigger1 = !Time
-Y = -2
+Y = 0
 X = 2
 
-[State 1030, Low Gravity]
-type = VelAdd
-trigger1 = 1
-Y = -0.3*Const(movement.yaccel)
+[State 1030, Impulse]
+type = StateTypeSet
+trigger1 = AnimElem = 5
+movetype = I
+statetype = A
+physics = A
+persistent = 0
 
 [State 1030, Hit]
 type = HitDef

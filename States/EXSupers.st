@@ -61,7 +61,7 @@ numhits = 0
 
 [State 1020, HitOverride]
 type = HitOverride
-trigger1 = AnimElemTime(2) >= 0 && AnimElemTime(9) < 0
+trigger1 = AnimElemTime(9) < 0
 slot = 1
 time = 1
 stateno = 13001
@@ -1767,6 +1767,12 @@ palfx.time = 8
 envshake.ampl = 8
 envshake.time = 4
 envshake.freq = 120
+
+[State 13200, Vel]
+type = VelSet
+trigger1 = AnimElem = 8
+X = 3
+
 
 ; Success - Selector
 [Statedef 13201]
