@@ -1575,7 +1575,7 @@ ID = 15000
 name = "Madama Butterfly's Foot"
 postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
-pos = 50, -40
+pos = 50, -20
 ownpal = 1
 
 [State 200, Explod]

@@ -123,6 +123,7 @@ victory15 = "You...!\nYou're...Janus?"
 ; Var(23): Parry Time
 ; Var(24): Witch Time
 ; Var(25): Combo Control Flag
+; Var(26): Witch Mode
 
 ;FVar(29): Protect Damage
 ;----------------------------------------------------------------------

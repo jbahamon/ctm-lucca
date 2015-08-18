@@ -5,7 +5,7 @@
 ; Bat Within
 [Statedef 13000]
 type    = S
-movetype= A
+movetype= I
 physics = S
 juggle  = 3
 ctrl = 0
@@ -77,7 +77,7 @@ ctrl = 1
 ; Bat Within (Success)
 [Statedef 13001]
 type    = S
-movetype= A
+movetype= I
 physics = S
 juggle  = 3
 ctrl = 0

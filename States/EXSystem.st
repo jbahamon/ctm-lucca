@@ -740,8 +740,8 @@ sprpriority = 6
 [State 17003, NHB]
 type = PosAdd
 trigger1 = 1
-X = (Root, Pos X - Pos X)*Facing/10.0
-Y = (Root, Pos Y - Pos Y)/10.0
+X = (Root, Pos X - Pos X)*Facing/5.0
+Y = (Root, Pos Y - Pos Y)/5.0
 ignorehitpause = 1
     
 [State 17003, NHB]
@@ -789,7 +789,7 @@ ignorehitpause = 1
 [State 7000, End]
 type = PowerAdd
 trigger1 = !Time && !(Root, Var(21))
-value = 500
+value = 250
 
 [State 17003]
 type = AssertSpecial
@@ -809,6 +809,42 @@ ctrl = 0
 anim = 10191
 velset = 0,0
 sprpriority = 0
+
+
+[State 192, Spawn Modeh]
+type = Helper
+trigger1 = !Time
+helpertype = normal ;player
+name = "Mode"
+ID = 17200
+stateno = 17200
+postype = p1
+pos = 0, 10
+facing = facing
+keyctrl = 0
+ownpal = 1
+
+[State 17191, Mode]
+type = VarSet
+trigger1 = command = "rlsup"
+trigger2 = command = "rlsdown"
+v = 26
+value = 1 - Var(26)
+
+[State 5900, 3] ;Change SFX palette
+type = RemapPal
+trigger1 = command = "rlsup"
+trigger2 = command = "rlsdown"
+source = 7000,21
+dest = 7000,(23 + Var(26))
+
+
+[State 5900, 3] ;Change Own palette
+type = RemapPal
+trigger1 = command = "rlsup"
+trigger2 = command = "rlsdown"
+source = 1,1
+dest = 1,(palno + Var(26))
 
 [State 191, 2] ;Assert this until you want "round 1, fight" to begin
 type = VarSet
@@ -1080,4 +1116,72 @@ trigger1 = Anim = 10195
 trigger1 = AnimElemTime(1) >= 42
 trigger2 = RoundState > 1
 
+
+
+; Logo
+[Statedef 17200]
+type = S
+physics = N
+ctrl = 0
+anim = 10200
+velset = 0,0
+sprpriority = 7
+
+[State 1920, End]
+type = ChangeAnim
+trigger1 = (Anim - 10200) != Root, Var(26)
+value = 10200 + Root, Var(26)
+
+
+[State 1920, End]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 1920, End]
+type = AngleDraw
+trigger1 = 1
+scale = 0.25, 0.25
+
+[State 1920, End]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 1920, End]
+type = ChangeState
+trigger1 = RoundState > 1
+trigger2 = Root, StateNo != 17191
+trigger2 = Root, StateNo != 191
+value = 17201
+
+; Logo, End
+[Statedef 17201]
+type = S
+physics = N
+ctrl = 0
+velset = 0,0
+sprpriority = 7
+
+[State 1920, End]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 1920, End]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256 - Time * 16, 256
+
+
+[State 1920, End]
+type = AngleDraw
+trigger1 = 1
+scale = 0.25 + Time * 0.01, 0.25 + Time * 0.01
+
+
+[State 1920, End]
+type = DestroySelf
+trigger1 = Time >= 16
 

@@ -249,6 +249,45 @@ ctrl = 0
 anim = 191
 velset = 0,0
 
+[State 192, Spawn Modeh]
+type = Helper
+trigger1 = !Time
+trigger1 = PalNo = 12
+helpertype = normal ;player
+name = "Mode"
+ID = 17200
+stateno = 17200
+postype = p1
+pos = 0, 10
+facing = facing
+keyctrl = 0
+ownpal = 1
+
+[State 17191, Mode]
+type = VarSet
+trigger1 = PalNo = 12
+trigger1 = command = "rlsup"
+trigger2 = command = "rlsdown"
+v = 26
+value = 1 - Var(26)
+
+[State 5900, 3] ;Change SFX palette
+type = RemapPal
+triggerall = PalNo = 12
+trigger1 = command = "rlsup"
+trigger2 = command = "rlsdown"
+source = 7000,21
+dest = 7000,(23 + Var(26))
+
+
+[State 5900, 3] ;Change Own palette
+type = RemapPal
+triggerall = PalNo = 12
+trigger1 = command = "rlsup"
+trigger2 = command = "rlsdown"
+source = 1,1
+dest = 1,(palno + Var(26))
+
 [State 191, 2]
 type = PlaySnd
 trigger1 = AnimElem = 3
