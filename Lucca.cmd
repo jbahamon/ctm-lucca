@@ -688,7 +688,7 @@ type = ChangeState
 value = 13300
 triggerall = PalNo = 12
 triggerall = Command = "qcbhcfb" || Command = "qcbhcfc"
-triggerall = Power >= 3000 || Var(21) > 0
+triggerall = Power >= 2000
 trigger1 = statetype = S
 trigger1 = ctrl
 
@@ -706,7 +706,7 @@ type = ChangeState
 value = 13100
 triggerall = PalNo = 12
 triggerall = Command = "2qcfb" || Command = "2qcfc" 
-triggerall = Power >= 1000
+triggerall = Power >= 2000
 triggerall = !(NumHelper(13101) + NumHelper(13102) + NumHelper(13105))
 trigger1 = statetype = S
 trigger1 = ctrl

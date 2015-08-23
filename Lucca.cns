@@ -19,7 +19,7 @@ volume = 0
 ;variables repectively, meaning that none are persistent, i.e. all
 ;are reset. If you want your variables to persist between matches,
 ;you need to override state 5900 from common1.cns.
-IntPersistIndex = 60
+IntPersistIndex = 58
 FloatPersistIndex = 40
 
 [Size]
@@ -123,7 +123,7 @@ victory15 = "You...!\nYou're...Janus?"
 ; Var(23): Parry Time
 ; Var(24): Witch Time
 ; Var(25): Combo Control Flag
-; Var(26): Witch Mode
+; Var(59): Witch Mode
 
 ;FVar(29): Protect Damage
 ;----------------------------------------------------------------------

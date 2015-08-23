@@ -397,7 +397,7 @@ movetype= A
 physics = S
 ctrl = 0
 anim = 13100
-poweradd = -1000
+poweradd = -2000
 sprpriority = 2
 
 
@@ -487,6 +487,7 @@ value = (enemynear(numenemy>1&&!enemynear(0),alive), ScreenPos X - ScreenPos X)*
 [State 1000, Phantasmaraneae]
 type = helper
 triggerall = Var(1) = 0
+triggerall = Var(59) = 0
 trigger1 = NumHelper(13102)
 trigger1 = Helper(13102), Time = 32
 helpertype = normal
@@ -502,6 +503,7 @@ ownpal = 1
 [State 1000, Malphas]
 type = helper
 triggerall = Var(1) = 1
+triggerall = Var(59) = 0
 trigger1 = NumHelper(13102)
 trigger1 = Helper(13102), Time = 32
 helpertype = normal
@@ -511,6 +513,39 @@ name = "Malphas"
 pausemovetime = 9999999*(Var(24) > 0)
 postype = p1
 pos = Floor(FVar(0) + IfElse(FVar(0) > 0, -100, 100)), -70
+facing = IfElse(FVar(0) > 0, 1, -1)
+ownpal = 1
+
+
+[State 1000, Labolas]
+type = helper
+triggerall = Var(1) = 1
+triggerall = Var(59) = 1
+trigger1 = NumHelper(13102)
+trigger1 = Helper(13102), Time = 32
+helpertype = normal
+stateno = 13120
+ID = 13105
+name = "Labolas"
+pausemovetime = 9999999*(Var(24) > 0)
+postype = p1
+pos = -30, -60
+facing = IfElse(FVar(0) > 0, 1, -1)
+ownpal = 1
+
+[State 1000, Diomedes]
+type = helper
+triggerall = Var(1) = 0
+triggerall = Var(59) = 1
+trigger1 = NumHelper(13102)
+trigger1 = Helper(13102), Time = 32
+helpertype = normal
+stateno = 13130
+ID = 13105
+name = "Diomedes"
+pausemovetime = 9999999*(Var(24) > 0)
+postype = p1
+pos = -60, 0
 facing = IfElse(FVar(0) > 0, 1, -1)
 ownpal = 1
 
@@ -1184,7 +1219,7 @@ type = hitoverride
 trigger1 = 1
 time = -1
 attr = SCA, AA, AP, AT
-stateno = ifelse(var(0) < 10, 13110, 13112)
+stateno = 13110
 ignorehitpause = 1
 
 [State 3055, hitby]
@@ -1690,6 +1725,785 @@ persistent = 0
 type = DestroySelf
 trigger1 = Anim = 7102
 trigger1 = !AnimTime
+
+
+
+; Labolas
+[Statedef 13120]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+velset = 0, 0
+sprpriority = 0
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !Time
+trigger1 = !prevstateno
+var(3) = Facing
+ignorehitpause = 1
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Var(3)
+ignorehitpause = 1
+
+[State 13105, Var]
+type = Sprpriority
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !Time
+var(0) = IfElse(!prevstateno, 0, Var(0) + 1)
+ignorehitpause = 1
+
+[State 13105, Var]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = !PrevStateNo
+ignorehitpause = 1
+value = 13120
+elem = 4
+
+[State 3055, HitOverride]
+type = hitoverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP, AT
+stateno = 13120
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = prevstateno = 13120
+trigger1 = gethitvar(hittime)
+time = 1
+value = SCA, AA, AT, AP
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = 1
+time = 1
+value = , AT
+ignorehitpause = 1
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !prevstateno
+trigger1 = !Time
+var(1) = 0
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = NotHitBy
+trigger1 = Var(1) = [0, 64]
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = !Var(1)
+helpertype = normal
+stateno = 13121
+ID = 13121
+name = "Labolas Portal"
+pausemovetime = 9999999*(Root, Var(24) > 0)
+postype = p1
+pos = -50, -60
+ownpal = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Var(1) = [32, 48]
+trans = addalpha
+alpha = (Var(1) - 32) * 16, 256 - (Var(1) - 32) * 16
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = 1
+time = 1
+add = Floor(-32*(1 + Sin(2*Pi*Time/60.0))), Floor(-32*(1 + Sin(2*Pi*Time/60.0))), Floor(-32*(1 + Sin(2*Pi*Time/60.0)))
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = Var(1) = [0,32]
+flag = invisible
+flag2 = noshadow
+
+[State 1006, Trans]
+type = VarAdd
+trigger1 = 1
+V = 1
+value = 1
+
+[State 13110, fef]
+type = VarSet
+trigger1 = !Time
+trigger1 = !PrevStateNo
+var(2) = 0
+ignorehitpause = 1
+
+[State 13110, fef]
+type = VelSet
+trigger1 = Var(1) = [0, 32]
+trigger2 = Var(0) >= 10
+X = 0
+Y = 0
+ignorehitpause = 1
+
+[State 13105, Var]
+type = ChangeAnim
+trigger1 = Var(1) = 32
+ignorehitpause = 1
+value = 13120
+elem = 4
+
+[State 13110, fef]
+type = VelSet
+triggerall = Var(0) < 10
+trigger1 = Var(1) > 32
+trigger1 = AnimElem = 5
+X = IfElse(Var(1) < 100, 2, 4)
+Y = -6
+ignorehitpause = 1
+
+[State 13110, fef]
+type = VelAdd
+triggerall = Var(0) < 10
+trigger1 = Var(1) > 32
+trigger1 = Pos Y < 0
+Y = 0.4
+ignorehitpause = 1
+
+[State 13110, fef]
+type = EnvShake
+triggerall = Var(0) < 10
+trigger1 = Var(1) > 32
+trigger1 = Pos Y > - Vel Y && Vel Y > 0
+ampl = 10
+freq = 120
+time = 12
+ignorehitpause = 1
+
+[State 13110, fef]
+type = ChangeAnim
+triggerall = Var(0) < 10
+trigger1 = Var(1) > 32
+trigger1 = Pos Y > - Vel Y && Vel Y > 0
+value = IfElse(Var(1) < 120, 13120, 13121)
+elem = 1
+ignorehitpause = 1
+
+[State 13110, fef]
+type = PosSet
+triggerall = Var(0) < 10
+trigger1 = Var(1) > 32
+trigger1 = Pos Y > - Vel Y && Vel Y > 0
+Y = 0
+ignorehitpause = 1
+
+[State 13110, fef]
+type = VelSet
+triggerall = Var(0) < 10
+trigger1 = Var(1) > 32
+trigger1 = Pos Y > - Vel Y && Vel Y > 0
+Y = 0
+X = 0
+ignorehitpause = 1
+
+
+[State 13110, fef]
+type = StateTypeSet
+triggerall = Var(0) < 10
+trigger1 = Anim = 13120
+trigger1 = AnimElemNo(0) > 4
+statetype = A
+physics = N
+ignorehitpause = 1
+
+
+[State 13110, fef]
+type = StateTypeSet
+triggerall = Var(0) < 10
+trigger1 = Anim = 13120
+trigger1 = AnimElemNo(0) < 5
+trigger2 = Anim = 13121
+statetype = S
+physics = N
+ignorehitpause = 1
+
+
+[State 13110, fef]
+type = StateTypeSet
+triggerall = Var(0) < 10
+trigger1 = Anim = 13120
+trigger1 = MoveType != A
+movetype = A
+ignorehitpause = 1
+
+[State 13110, fef]
+type = StateTypeSet
+trigger1 = Anim = 13121
+trigger2 = Var(0) >= 10
+movetype = I
+ignorehitpause = 1
+
+[State 2101, Bite Down]
+type = HitDef
+triggerall = Var(0) < 10
+trigger1 = Anim = 13120
+trigger1 = AnimElemTime(5) = 2
+trigger1 = Var(1) < 100
+trigger1 = Var(1) > 30
+trigger1 = Var(0) < 5
+attr = A,HA
+damage = Floor(Root, FVar(39) * 180)
+animtype = Hard
+hitflag = MAF
+sparkno = -1
+pausetime = 0, 30
+ground.slidetime = 16
+ground.hittime = 30
+ground.velocity = -2,-1
+air.velocity = -2,-1
+ground.cornerpush.veloff = 0
+guard.velocity = -7
+guard.cornerpush.veloff = 0;
+getpower = 0
+givepower = 36, 36
+envshake.time = 18
+envshake.freq = 120
+envshake.ampl = 7
+fall =  0
+fall.recover = 0
+p2sprpriority = -2
+fall.recovertime = 120
+air.fall = 1
+palfx.add = 128, 7, 200
+palfx.mul = 256,256,256
+palfx.time = 24
+ignorehitpause = 1
+persistent = 0
+
+[State 2101, Bite Down]
+type = HitDef
+triggerall = Var(0) < 10
+trigger1 = Anim = 13120
+trigger1 = AnimElemTime(5) = 2
+trigger1 = Var(1) > 100
+attr = A,HA
+damage = Floor(Root, FVar(39) * 150)
+animtype = Hard
+hitflag = MAF
+sparkno = -1
+pausetime = 0, 30
+ground.slidetime = 16
+ground.hittime = 30
+ground.velocity = -6,-3
+air.velocity = -6,-3
+ground.cornerpush.veloff = 0
+guard.velocity = -7
+guard.cornerpush.veloff = 0;
+getpower = 0
+givepower = 36, 36
+envshake.time = 18
+envshake.freq = 120
+envshake.ampl = 7
+fall =  1
+fall.recover = 0
+p2sprpriority = -2
+fall.recovertime = 120
+air.fall = 1
+palfx.add = 128, 7, 200
+palfx.mul = 256,256,256
+palfx.time = 24
+ignorehitpause = 1
+persistent = 0
+
+
+[State 1006, Trans]
+type = VarSet
+trigger1 = Var(0) >= 10
+trigger1 = Var(1) < 500
+v = 1
+value = 500
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Var(0) >= 10
+trigger1 = Var(1) >= 500
+trans = addalpha
+alpha = 256 - (Var(1) - 500) * 8, (Var(1) - 500)* 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Var(0) >= 10
+trigger1 = Var(1) >= 500
+trigger1 = (Var(1) - 500) >= 32
+
+[State 2101, Scale]
+type = NotHitBy
+trigger1 = Var(0) >= 10
+trigger1 = Var(1) >= 500
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Anim = 13121
+trans = addalpha
+alpha = 256 - AnimElemTime(1) * 8, AnimElemTime(1) * 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Anim = 13121
+trigger1 = AnimElemTime(1) >= 32
+
+; Labolas Portal
+[Statedef 13121]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 7101
+velset = 0, 0
+sprpriority = -2
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Parent, Var(3)
+ignorehitpause = 1
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 14
+trigger1 = Parent, StateNo = 13120
+anim = 13103
+ID = 13103
+pos = -1, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1, 0.75
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 2101, Remove]
+type = RemoveExplod
+trigger1 = Parent, Var(1) = 110
+trigger2 = Parent, Var(0) >= 10
+ID = 13103
+persistent = 0
+
+[State 220, Explod]
+type = Explod
+trigger1 = Parent, Var(1) = 110
+trigger2 = Parent, Var(0) >= 10
+anim = 13107
+ID = 13103
+pos = -1, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1, 0.75
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = 1
+scale = 1.82, 0.35
+value = 90
+
+[State 2101, Scale]
+type = ChangeAnim
+trigger1 = Parent, Var(1) = 110 
+trigger2 = Parent, Var(0) >= 10
+value = 7102 
+persistent = 0
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
+
+
+; Diomedes
+[Statedef 13130]
+type = S
+physics = N
+movetype = I
+ctrl = 0
+velset = 0, 0
+sprpriority = 0
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !Time
+trigger1 = !prevstateno
+var(3) = Facing
+ignorehitpause = 1
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Var(3)
+ignorehitpause = 1
+
+[State 13105, Var]
+type = Sprpriority
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !Time
+var(0) = IfElse(!prevstateno, 0, Var(0) + 1)
+ignorehitpause = 1
+
+[State 13105, Var]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = !PrevStateNo
+ignorehitpause = 1
+value = 13130
+elem = 4
+
+[State 3055, HitOverride]
+type = hitoverride
+trigger1 = 1
+time = -1
+attr = SCA, AA, AP, AT
+stateno = 13130
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = prevstateno = 13130
+trigger1 = gethitvar(hittime)
+time = 1
+value = SCA, AA, AT, AP
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = nothitby
+trigger1 = 1
+time = 1
+value = , AT
+ignorehitpause = 1
+
+[State 13105, Var]
+type = VarSet
+trigger1 = !prevstateno
+trigger1 = !Time
+var(1) = 0
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = NotHitBy
+trigger1 = Var(1) = [0, 64]
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = !Var(1)
+helpertype = normal
+stateno = 13131
+ID = 13131
+name = "Diomedes Portal"
+pausemovetime = 9999999*(Root, Var(24) > 0)
+postype = p1
+pos = -30, -60
+ownpal = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Var(1) = [32, 36]
+trans = addalpha
+alpha = (Var(1) - 32) * 64, 256 - (Var(1) - 32) * 64
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = 1
+time = 1
+add = Floor(-32*(1 + Sin(2*Pi*Time/60.0))), Floor(-32*(1 + Sin(2*Pi*Time/60.0))), Floor(-32*(1 + Sin(2*Pi*Time/60.0)))
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = Var(1) = [0,32]
+flag = invisible
+flag2 = noshadow
+
+[State 1006, Trans]
+type = VarAdd
+trigger1 = 1
+V = 1
+value = 1
+
+[State 13110, fef]
+type = VarSet
+trigger1 = !Time
+trigger1 = !PrevStateNo
+var(2) = 0
+ignorehitpause = 1
+
+[State 13110, fef]
+type = VelSet
+trigger1 = Var(1) = [0, 32]
+trigger2 = Var(0) >= 10
+X = 0
+Y = 0
+ignorehitpause = 1
+
+[State 13110, fef]
+type = VelSet
+triggerall = Var(0) < 10
+trigger1 = Var(1) > 36
+X = (AnimElemNo(0) % 3)*4 + 2
+ignorehitpause = 1
+
+[State 13110, fef]
+type = EnvShake
+triggerall = Var(0) < 10
+triggerall = Var(1) > 32
+trigger1 = AnimElem = 4
+trigger2 = AnimElem = 1
+ampl = 5
+freq = 120
+time = 12
+ignorehitpause = 1
+
+[State 13110, fef]
+type = StateTypeSet
+triggerall = Var(0) < 10
+trigger1 = Anim = 13130
+statetype = A
+physics = N
+ignorehitpause = 1
+
+[State 13110, fef]
+type = StateTypeSet
+triggerall = Var(0) < 10
+trigger1 = Anim = 13130
+trigger1 = MoveType != A
+movetype = A
+ignorehitpause = 1
+
+[State 13110, fef]
+type = StateTypeSet
+trigger1 = Anim = 13131
+trigger2 = Var(0) >= 10
+movetype = I
+ignorehitpause = 1
+
+[State 2101, Bite Down]
+type = HitDef
+trigger1 = Var(0) < 5
+trigger1 = Var(1) > 36
+attr = S,HA
+damage = Floor(Root, FVar(39) * 200)
+animtype = Hard
+hitflag = MAF
+sparkno = -1
+pausetime = 0, 30
+ground.slidetime = 16
+ground.hittime = 30
+ground.velocity = -3,-6
+air.velocity = -3,-6
+ground.cornerpush.veloff = 0
+guard.velocity = -7
+guard.cornerpush.veloff = 0;
+getpower = 0
+givepower = 36, 36
+envshake.time = 18
+envshake.freq = 120
+envshake.ampl = 7
+fall =  1
+fall.recover = 0
+p2sprpriority = -2
+fall.recovertime = 120
+air.fall = 1
+palfx.add = 128, 7, 200
+palfx.mul = 256,256,256
+palfx.time = 24
+ignorehitpause = 1
+persistent = 0
+
+[State 1006, Trans]
+type = VarSet
+trigger1 = Var(0) >= 10
+trigger1 = Var(1) < 500
+v = 1
+value = 500
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Var(0) >= 10
+trigger1 = Var(1) >= 500
+trans = addalpha
+alpha = 256 - (Var(1) - 500) * 8, (Var(1) - 500)* 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Var(0) >= 10
+trigger1 = Var(1) >= 500
+trigger1 = (Var(1) - 500) >= 32
+
+
+[State 1006, Trans]
+type = trans
+trigger1 = Var(0) < 10
+trigger1 = Var(1) > 100
+trans = addalpha
+alpha = 256 - (Var(1) - 100) * 8, (Var(1) - 100)* 8
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = DestroySelf
+trigger1 = Var(0) < 10
+trigger1 = (Var(1) - 100) >= 32
+
+
+; Diomedes Portal
+[Statedef 13131]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 7101
+velset = 0, 0
+sprpriority = -2
+
+[State 13105, Var]
+type = Turn
+trigger1 = Facing != Parent, Var(3)
+ignorehitpause = 1
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 14
+trigger1 = Parent, StateNo = 13130
+anim = 13103
+ID = 13103
+pos = -1, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1, 0.75
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 2101, Remove]
+type = RemoveExplod
+trigger1 = Parent, Var(1) = 110
+trigger2 = Parent, Var(0) >= 10
+ID = 13103
+persistent = 0
+
+[State 220, Explod]
+type = Explod
+trigger1 = Parent, Var(1) = 110
+trigger2 = Parent, Var(0) >= 10
+anim = 13107
+ID = 13103
+pos = -1, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1, 0.75
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = 1
+scale = 1.82, 0.35
+value = 90
+
+[State 2101, Scale]
+type = ChangeAnim
+trigger1 = Parent, Var(1) = 110 
+trigger2 = Parent, Var(0) >= 10
+value = 7102 
+persistent = 0
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
+
+
 ;---------------------------------------------------------------------------
 ; Torture Attack - Strong
 [Statedef 13200]
@@ -3434,7 +4248,7 @@ movetype= A
 physics = S
 ctrl = 0
 anim = 13100
-poweradd = -3000
+poweradd = -2000
 sprpriority = 2
 
 [State 2010, NHB]

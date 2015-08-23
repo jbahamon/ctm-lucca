@@ -46,7 +46,7 @@ color = 256 -floor(25.6 * time)
 type = BGPalFX
 trigger1 = time <= 10 && Var(1)
 time = 1
-mul = 256 - floor(19.2 * time), 256 - floor(19.2 * time), 256 - floor(19.2 * time)
+mul = 256 - floor(6.4 * time),256 - floor(6.4 * time),256 - floor(6.4 * time)
 color = 256 -floor(25.6 * time)
 
 
@@ -62,7 +62,7 @@ color = 0
 type = BGPalFX
 trigger1 = (Time = [11, Var(1)]) && Var(1)
 time = 1
-mul = 64 , 64, 64
+mul = 192, 192, 192
 color = 0
 
 
@@ -79,7 +79,7 @@ type = BGPalFX
 trigger1 = time = [Var(1),(Var(1) + 10)]
 trigger1 = Var(1) 
 time = 1
-mul = 64 + ceil(19.2 * (time - Var(1))), 64 + ceil(19.2 * (time - Var(1))), 64 + ceil(19.2 * (time - Var(1)))
+mul = 192+ ceil(6.4 * (time - Var(1))),192+ ceil(6.4 * (time - Var(1))),192+ ceil(6.4 * (time - Var(1)))
 color = floor(25.6 * (time - Var(1)))
 
 [State 7000, Pal None]
@@ -136,6 +136,21 @@ type = ChangeAnim
 trigger1 = !Time
 trigger1 = Root, StateNo = 13100 && Root, Var(1)
 value = 13996
+
+[State 8520, Pos]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = Root, Var(59)
+trigger1 = Anim = [13996, 13997]
+value = Anim - 4
+
+[State 8520, Pos]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = Root, Var(59)
+trigger1 = Anim != [13996, 13997]
+value = Anim - 8
+
 
 [State 8520, Pos]
 type = Turn

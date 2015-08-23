@@ -810,9 +810,16 @@ anim = 10191
 velset = 0,0
 sprpriority = 0
 
+[State 17191, Mode]
+type = null;VarSet
+triggerall = !RoundsExisted
+trigger1 = !Time
+v = 59
+value = 1
 
 [State 192, Spawn Modeh]
 type = Helper
+trigger1 = !RoundsExisted
 trigger1 = !Time
 helpertype = normal ;player
 name = "Mode"
@@ -826,25 +833,28 @@ ownpal = 1
 
 [State 17191, Mode]
 type = VarSet
+triggerall = !RoundsExisted
 trigger1 = command = "rlsup"
 trigger2 = command = "rlsdown"
-v = 26
-value = 1 - Var(26)
+v = 59
+value = 1 - Var(59)
 
 [State 5900, 3] ;Change SFX palette
 type = RemapPal
+triggerall = !RoundsExisted
 trigger1 = command = "rlsup"
 trigger2 = command = "rlsdown"
 source = 7000,21
-dest = 7000,(23 + Var(26))
+dest = 7000,(23 + Var(59))
 
 
 [State 5900, 3] ;Change Own palette
 type = RemapPal
+triggerall = !RoundsExisted
 trigger1 = command = "rlsup"
 trigger2 = command = "rlsdown"
 source = 1,1
-dest = 1,(palno + Var(26))
+dest = 1,(palno + Var(59))
 
 [State 191, 2] ;Assert this until you want "round 1, fight" to begin
 type = VarSet
@@ -1129,8 +1139,8 @@ sprpriority = 7
 
 [State 1920, End]
 type = ChangeAnim
-trigger1 = (Anim - 10200) != Root, Var(26)
-value = 10200 + Root, Var(26)
+trigger1 = (Anim - 10200) != Root, Var(59)
+value = 10200 + Root, Var(59)
 
 
 [State 1920, End]
