@@ -148,7 +148,7 @@ value = Anim - 4
 type = ChangeAnim
 trigger1 = !Time
 trigger1 = Root, Var(59)
-trigger1 = Anim != [13996, 13997]
+trigger1 = Anim = [13998, 13999]
 value = Anim - 8
 
 

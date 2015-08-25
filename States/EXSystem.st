@@ -1105,10 +1105,17 @@ type = AngleSet
 trigger1 = !Time
 value = 0
 
+
+[State 1920, Rotate]
+type = VarSet
+trigger1 = !Time
+v = 2
+value = Random % 9
+
 [State 1920, Rotate]
 type = AngleAdd
 trigger1 = Anim =10195
-value = (18 + (random % 3))* var(1)
+value = (18 + Var(2))* var(1)
 
 [State 1920, Rotate]
 type = AngleDraw
@@ -1135,7 +1142,7 @@ physics = N
 ctrl = 0
 anim = 10200
 velset = 0,0
-sprpriority = 7
+sprpriority = 8
 
 [State 1920, End]
 type = ChangeAnim

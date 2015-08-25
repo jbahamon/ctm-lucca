@@ -683,9 +683,9 @@ trigger2 = ( StateNo = [200,299] ) && MoveHit
 trigger3 = ( StateNo = [400,499] ) && MoveHit
 ;---------------------------------------------------------------------------
 
-[State -1, Gomorrah]
+[State -1, Gomorrah/Baal]
 type = ChangeState
-value = 13300
+value = IfElse(Var(59), 13400, 13300)
 triggerall = PalNo = 12
 triggerall = Command = "qcbhcfb" || Command = "qcbhcfc"
 triggerall = Power >= 2000
