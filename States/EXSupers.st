@@ -4373,6 +4373,11 @@ ignorehitpause = 1
 [State 2010, NHB]
 type = VarSet
 trigger1 = !Time
+var(1) = IfElse(Command = "qcbhcfc", 1, 0)
+
+[State 2010, NHB]
+type = VarSet
+trigger1 = !Time
 var(0) = 0
 
 [State 2010, NHB]
@@ -5452,6 +5457,13 @@ anim = -1
 p2defmul = 1
 darken = 0
 
+[State 13100, HelperPos]
+type = VarSet
+trigger1 = NumHelper(13102)
+trigger1 = Helper(13102), Time = 1
+fv = 0
+value = (enemynear(numenemy>1&&!enemynear(0),alive), ScreenPos X - ScreenPos X)*Facing
+
 
 [State 1000, Hadouken]
 type = helper
@@ -5491,8 +5503,8 @@ name = "Baal"
 pausemovetime = 9999999*(Var(24) > 0)
 supermovetime = 9999999
 postype = p1
-pos = - 40, 0
-facing = 1
+pos = Floor(FVar(0)) - 175, 0
+facing = IfElse(FVar(0) > 0, 1, -1)
 ownpal = 1
 
 [State 13100, HelperPos]
@@ -5513,6 +5525,12 @@ type = VarSet
 triggerall = NumHelper(13405)
 trigger1 = Helper(13405), Time = 32
 var(0) = 1
+
+[State 2010, NHB]
+type = VarSet
+trigger1 = !Time
+var(1) = IfElse(Command = "qcbhcfc", 1, 0)
+
 [State 1010, Strength]
 type = VarSet
 trigger1 = !Time
@@ -5530,13 +5548,15 @@ triggerall = NumHelper(13406)
 trigger1 = Helper(13406), StateNo = 13410
 trigger1 = Helper(13406), NumHelper(13482) >= 8
 trigger2 = Helper(13406), StateNo = 13410
-trigger2 = Helper(13406), Time > 180
+trigger2 = Helper(13406), Time > 160
 var(2) = 1
 
 [State 1010, Strength]
-type = null;ChangeState
-trigger1 = Var(2) && NumHelper(13406)
-trigger1 = Helper(13406), StateNo = 13408
+type = ChangeState
+triggerall= Var(2) && NumHelper(13405)
+triggerall = Helper(13405), StateNo = 13407
+trigger1 = !NumHelper(13406) 
+trigger2 = !(Helper(13406), NumTarget(13406))
 value = 13401
 ctrl = 0
 
@@ -5684,10 +5704,19 @@ trigger1 = 1
 V = 1
 value = 1
 
+[State 1006, Trans]
+type = ChangeAnim
+trigger1 = NumHelper(13406)
+trigger1 = Parent, Var(2)
+value = 13146
+persistent = 0
+
 [State 13305, End]
-type = null;ChangeState
+type = ChangeState
 trigger1 = !NumHelper(13406)
-trigger2 = NumHelper(13406) && Helper(13406), StateNo = 13408
+trigger2 = NumHelper(13406) 
+trigger2 = Helper(13406), Anim = 13144
+trigger2 = Helper(13406), AnimElemTime(1) = 80
 trigger3 = Root, StateNo != 13400
 value = 13407
 
@@ -5887,15 +5916,21 @@ givepower = 36,36
 ground.velocity = 0,0
 air.velocity = 0,0
 p1getp2facing = 0
-id = 13307
+id = 13407
 chainID = -1
-nochainID = 13306,13307
+nochainID = 13406,13407
 hitonce = 1
 kill = 1
 envshake.time = 18
 envshake.freq = 120
 envshake.ampl = 6
 numhits = 0
+
+[State 3010, Hit]
+type = TargetDrop
+trigger1 = NumTarget(13406)
+trigger1 = !MoveHit
+ignorehitpause = 1
 
 [State 3010, Hit]
 type = EnvShake
@@ -5910,7 +5945,7 @@ persistent = 0
 type = TargetLifeAdd
 triggerall = NumTarget(13406)
 trigger1 = MoveHit && (AnimElemTime(2) >= 1)
-ID = 13306
+ID = 13406
 value = -10
 kill = 0
 persistent = 0
@@ -5931,12 +5966,12 @@ persistent = 0
 type = TargetBind
 trigger1 = NumTarget(13406)
 ID = 13406
-pos = Facing * (fvar(0) - Pos X), 40
+pos = 0, (fvar(1) - Pos Y)
 ignorehitpause = 1
 
 [State 3010, Hit]
 type = TargetState
-trigger1 = NumTarget(13306)
+trigger1 = NumTarget(13406)
 ID = 13406
 value = 13420
 ignorehitpause = 1
@@ -5950,15 +5985,26 @@ ignorehitpause = 1
 persistent = 0 
 
 
+[State 1006, Trans]
+type = ChangeState
+trigger1 = Anim = 13141
+trigger1 = NumTarget(13406)
+trigger2 = Root, StateNo != 13400
+value = IfElse(NumTarget(13406), 13410, 13408)
+
 ; Baal End
 [Statedef 13407]
 type = S
 physics = N
 movetype = I
 ctrl = 0
-anim = 13143
 velset = 0, 0
 sprpriority = -2
+
+[State 3055, hitby]
+type = ChangeAnim
+trigger1 = !Time
+value = IfElse(Anim = 13146, 13147, 13148)
 
 [State 3055, hitby]
 type = nothitby
@@ -5968,21 +6014,35 @@ value = SCA, AA, AT, AP
 ignorehitpause = 1
 
 [State 1006, Trans]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+
+[State 1006, Trans]
+type = VarAdd
+trigger1 = AnimElemTime(7) = 0
+trigger2 = Var(0) > 0
+v = 0
+value = 1
+ignorehitpause = 1
+
+[State 1006, Trans]
 type = Offset
-trigger1 = Time = [0, 32]
+trigger1 = Var(0) = [1, 32]
 Y = Floor(Time/2.0)
 ignorehitpause = 1
 
 [State 1006, Trans]
 type = trans
-trigger1 = Time = [0,32]
+trigger1 = Var(0) = [1, 32]
 trans = addalpha
-alpha = 256 - Time * 8, Time * 8
+alpha = 256 - Var(0) * 8, Var(0) * 8
 ignorehitpause = 1
 
 [State 1006, Trans]
 type = DestroySelf
-trigger1 = Time >= 32
+trigger1 = Var(0) >= 32
 
 ; Tongue End
 [Statedef 13408]
@@ -5992,19 +6052,33 @@ movetype = A
 ctrl = 0
 velset = 0, 0
 sprpriority = -1
-anim = 13144
+
+[State 3055, hitby]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = AnimElemNo(0)
+ignorehitpause = 1
+
+[State 3055, hitby]
+type = ChangeAnim
+trigger1 = 1
+value = Anim
+elem = Var(0)
+ignorehitpause = 1
+
+
+[State 3055, hitby]
+type = AngleDraw
+trigger1 = AnimElemNo(0) != 1
+trigger1 = AnimElemNo(0) != 8
+ignorehitpause = 1
 
 [State 3055, hitby]
 type = nothitby
 trigger1 = 1
 time = 1
 value = SCA, AA, AT, AP
-ignorehitpause = 1
-
-[State 1006, Trans]
-type = Offset
-trigger1 = Time = [0, 32]
-Y = Floor((-Time)/2.0)
 ignorehitpause = 1
 
 [State 1006, Trans]
@@ -6023,50 +6097,172 @@ trigger1 = Time >= 32
 movetype = A
 velset = 0,0
 
-[State 13320, Anim]
-type = ChangeAnim
-trigger1 = !Time 
-value = 13145
+[State 1006, Safety]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = AnimElemNo(0)
 
-[State 13105, Var]
-type = SprPriority
-trigger1 = Anim = 13410
-ignorehitpause = 1
-value = IfElse(AnimElemNo(0) = 1 || AnimElemNo(0) = 5, -1,1)
+[State 1006, Safety]
+type = ChangeAnim
+trigger1 = !(Root, Var(2))
+value = 13142
+elem = Var(0)
+
+[State 13100, HelperPos]
+type = PosSet
+trigger1 = AnimElemNo(0) = 1
+trigger2 = AnimElemNo(0) = 8
+X = Parent, Pos X + Facing * (57 +  16)
+Y = Parent, Pos Y -           57 + -10
+
+[State 1006, Safety]
+type = AngleDraw
+trigger1 = AnimElemNo(0) != 1
+trigger1 = AnimElemNo(0) != 8
+
+
+[State 13100, HelperPos]
+type = PosSet
+trigger1 = AnimElemNo(0) = 2
+trigger2 = AnimElemNo(0) = 7
+X = Parent, Pos X + Facing * (57 + (Floor(45 * FVar(3) + 22 * FVar(4))))
+Y = Parent, Pos Y -           57 + (Floor(45 * FVar(4) - 22 * FVar(3)))
+
+[State 13100, HelperPos]
+type = PosSet
+trigger1 = AnimElemNo(0) = 3
+X = Parent, Pos X + Facing * (57 + (Floor(51 * FVar(3) + 39 * FVar(4))))
+Y = Parent, Pos Y -           57 + (Floor(51 * FVar(4) - 39 * FVar(3)))
+
+[State 13100, HelperPos]
+type = PosSet
+trigger1 = AnimElemNo(0) = 4
+trigger2 = AnimElemNo(0) = 6
+X = Parent, Pos X + Facing * (57 + (Floor(95 * FVar(3) + 58 * FVar(4))))
+Y = Parent, Pos Y -           57 + (Floor(95 * FVar(4) - 58 * FVar(3)))
+
+[State 13100, HelperPos]
+type = PosSet
+trigger1 = AnimElemNo(0) = 5
+X = Parent, Pos X + Facing * (57 + (Floor(111 * FVar(3) + 65 * FVar(4))))
+Y = Parent, Pos Y -           57 + (Floor(111 * FVar(4) - 65 * FVar(3)))
+
+
+
+[State 1006, Safety]
+type = VarSet
+trigger1 = !Time
+trigger1 = NumTarget(13406)
+v = 1
+value = Target(13406), Const(size.mid.pos.y)
+
 
 [State 3010, Hit]
 type = TargetBind
 trigger1 = NumTarget(13406)
+trigger1 = !(Root, Var(2))
 ID = 13406
-pos = Facing * (fvar(0) - Pos X), 40
+pos = 0, -Var(1)
 ignorehitpause = 1
+
+[State 3010, Hit]
+type = TargetBind
+trigger1 = NumTarget(13406)
+trigger1 = (Root, Var(2))
+ID = 13406
+pos = 0,0
+ignorehitpause = 1
+
+[State 3010, Hit]
+type = TargetState
+trigger1 = NumTarget(13406)
+trigger1 = (Root, Var(2))
+value = 13421
+ignorehitpause = 1
+persistent = 0
+
+[State 13100, HelperPos]
+type = VarSet
+trigger1 = !Time
+trigger1 = NumTarget(13406)
+fv = 5
+value = Target(13406), Const(size.ground.front) + Target(13406), Const(size.ground.back)
 
 [State 1006, Safety]
 type = ChangeAnim
-trigger1 = Anim != 13146
-trigger1 = Root, Var(2)
-value = 13146
+trigger1 = Anim = 13142
+trigger1 = !AnimTime
+value = 13144
+
+[State 3020, Exit]
+type = AssertSpecial
+trigger1 = Anim = 13144
+flag = noshadow
+flag2 = Invisible
+
+[State 3020, Exit]
+type = EnvShake
+trigger1 = Anim = 13144
+trigger1 = AnimElemTime(1) = 30
+ampl = 18
+freq = 120
+time = 10
+
+[State 3020, Exit]
+type = TargetLifeAdd
+trigger1 = Anim = 13144
+trigger1 = AnimElemTime(1) = 30
+value = -15*Var(2)
+kill = 0
+
+
+[State 3020, Exit]
+type = EnvShake
+trigger1 = Anim = 13144
+trigger1 = AnimElemTime(1) = 85
+ampl = 18
+freq = 120
+time = 10
+
+
+[State 3010, Hit]
+type = TargetState
+trigger1 = Anim = 13144
+trigger1 = AnimElemTime(1) = 90
+value = 13423
+ignorehitpause = 1
+persistent = 0
+
+[State 3010, Hit]
+type = TargetDrop
+trigger1 = Anim = 13144
+trigger1 = AnimElemTime(1) = 90
+
+[State 3010, Hit]
+type = DestroySelf
+trigger1 = Anim = 13144
+trigger1 = AnimElemTime(1) = 90
 
 [State 1006, Safety]
-type = TargetDrop
-trigger1 = Anim = 13146
+type = VarSet
+trigger1 = !Time
+v = 2
+value = 0
+
+[State 3020, Exit]
+type = TargetState
+trigger1 = Anim = 13144
+trigger1 = NumTarget(13406)
+ID = 13406
+value = 13422
 persistent = 0
 
 [State 1006, Safety]
 type = ChangeState
-trigger1 = !NumTarget(13306) && Anim != 13146
+trigger1 = !NumTarget(13406)
 trigger2 = Root, StateNo != 13400
-trigger3 = Anim = 13146 && !AnimTime
 value = 13408
-
-[State 13320, Anim]
-type = ChangeAnim
-triggerall = !(Root, Var(2))
-triggerall = Anim = 13145 && AnimElemNo(0) = 5
-trigger1 = !Root, Var(1) && Root, Command = "rlsb" 
-trigger2 = Root, Var(1) && Root, Command = "rlsc"
-value = 13145
-elem = 1
 
 [State 1000, Hadouken]
 type = helper
@@ -6080,11 +6276,134 @@ postype = p1
 pos = 0, -45
 ownpal = 1
 
+[State 1006, Safety]
+type = VarSet
+trigger1 = !Time
+v = 2
+value = 0
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = !Time
+helpertype = normal
+stateno = 13411
+ID = 13411
+name = "Wrapped Tongue"
+pausemovetime = 9999999*(Root, Var(24) > 0)
+postype = p1
+pos = 0, Floor(fvar(1) - Pos Y) + Var(1)
+ownpal = 1
+
+; Wrapped Tongue
+[Statedef 13411]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13143
+velset = 0, 0
+sprpriority = 4
+
+[State 2101, Pos]
+type = PosSet
+trigger1 = 1
+X = Parent, Pos X
+Y = Parent, Pos Y
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = !Time
+time = -1
+add = -96, -96, -96
+sinadd = 32,32,32, 60
+
+[State 13320, Anim]
+type = ParentVarAdd
+triggerall = AnimElemNo(0) > 2
+trigger1 = !Root, Var(1) && Root, Command = "rlsb" 
+trigger2 =  Root, Var(1) && Root, Command = "rlsc"
+v = 2
+value = 1
+
+[State 13320, Anim]
+type = ChangeAnim
+triggerall = AnimElemNo(0) > 2 && Parent, Anim != 13144
+trigger1 = !Root, Var(1) && Root, Command = "rlsb" 
+trigger2 =  Root, Var(1) && Root, Command = "rlsc"
+value = 13143
+elem = 0
+
+[State 13320, Anim]
+type = VarSet
+triggerall = AnimElemNo(0) = 4 && Parent, Anim != 13144
+trigger1 =  Root, Var(1) && Root, Command = "rlsb" 
+trigger2 = !Root, Var(1) && Root, Command = "rlsc"
+fv = 0
+value = 1.75
+
+[State 13320, Anim]
+type = VarSet
+trigger1 = !Time 
+trigger2 = FVar(0) > 2
+fv = 0
+value = 2
+
+[State 13320, Anim]
+type = VarAdd
+trigger1 = FVar(0) < 2
+fv = 0
+value = 0.05
+
+[State 13381, fef]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 0
+
+[State 13381, fef]
+type = VarSet
+trigger1 = Root, Var(2)
+trigger2 = Root, StateNo != 13400
+v = 1
+value = Parent, AnimTime
+persistent = 0
+
+[State 13320, Anim]
+type = AngleDraw
+trigger1 = !(Root, Var(2))
+scale = Parent, FVar(5)/70.0 * FVar(0), Parent, FVar(5)/90.0 * FVar(0)
+
+[State 13320, Anim]
+type = AngleDraw
+trigger1 = (Root, Var(2))
+scale = Parent, FVar(5)/70.0 * (0.6 + 1.4*(Parent, AnimTime/(Var(1)+0.0))), Parent, FVar(5)/90.0 * (0.6 + 1.4*(Parent, AnimTime/(Var(1)+0.0)))
+
+[State 13381, End]
+type = DestroySelf
+trigger1 = (Root, Var(2))
+trigger1 = !Parent, AnimTime || Parent, Anim = 13144
+trigger2 = Root, StateNo != 13400
 
 ;Opponent
 [Statedef 13420]
 movetype = H
 velset = 0,0
+
+[State 3020, NHB]
+type = NotHitBy
+trigger1 = 1
+time = 1
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 3020, Exit]
+type = ScreenBound
+trigger1 = 1
+movecamera = 1, 0
+
+[State 3020, Exit]
+type = Turn
+trigger1 = !Time
 
 [State 3020, Exit]
 type = SelfState
@@ -6096,19 +6415,147 @@ type = Offset
 trigger1 = time % 2 = 0
 X = Random % 3 - 1
 Y = Random % 3 - 1
-	
 
-[State 3020, Exit]
-type = ScreenBound
-trigger1 = 1
-value = 0
-movecamera = 0,0
+[State 3020, anim]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = SelfAnimExist(100)
+value = 100
+ignorehitpause = 1
 
 [State 3020, anim]
 type = ChangeAnim2
 trigger1 = !Time
+trigger1 = !SelfAnimExist(100)
 value = 13320
 ignorehitpause = 1
+
+
+;Opponent, Swallowed
+[Statedef 13421]
+movetype = H
+velset = 0,0
+
+[State 3020, NHB]
+type = NotHitBy
+trigger1 = 1
+time = 1
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 3020, Exit]
+type = ScreenBound
+trigger1 = 1
+movecamera = 1, 0
+
+[State 3020, Exit]
+type = AngleDraw
+trigger1 = 1
+scale = 1 - Time*0.05, 1 - Time*0.05
+
+[State 3020, Exit]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5050
+
+[State 3020, anim]
+type = ChangeAnim2
+trigger1 = !Time
+value = 13145
+ignorehitpause = 1
+
+;Opponent, Invisible
+[Statedef 13422]
+movetype = H
+velset = 0,0
+
+[State 3020, NHB]
+type = NotHitBy
+trigger1 = 1
+time = 1
+value = SCA, AA, AP, AT
+ignorehitpause = 1
+
+[State 3020, Exit]
+type = ScreenBound
+trigger1 = 1
+movecamera = 1, 0
+
+[State 3020, Exit]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+flag2 = Invisible
+
+[State 3020, Exit]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5050
+
+; Opponent - Spit out
+[Statedef 13423]
+type = A
+physics = N
+movetype = H
+velset = -3,-7
+
+[State 803, Vel]
+type = LifeAdd
+trigger1 = !Time
+value = -1
+
+[State 3020, Exit]
+type = ScreenBound
+trigger1 = 1
+movecamera = 1, 0
+
+[State 803, Vel]
+type = Turn
+trigger1 = !Time
+
+
+[State 803, Vel]
+type = PosAdd
+trigger1 = !Time
+y = 10
+x = 15
+
+[State 803, Vel]
+type = VelSet
+trigger1 = !Time
+y = -6
+x = -6
+
+[State 803, Vel]
+type = VelAdd
+trigger1 = 1
+y = .56
+
+[State 803, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value = 11297
+
+[State 803, Vel]
+type = ChangeAnim2
+trigger1 = Vel Y > 0
+value = 11298
+
+[State 803, Vel]
+type = AngleDraw
+trigger1 = Time < 10
+scale = Time/10.0,Time/10.0
+
+[State 803, Life]
+type = PosSet
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+y = 0
+
+[State 803, Hit Ground]
+type = SelfState
+trigger1 = (Vel y > 0) && (Pos y >= 0)
+value = 5100
+ctrl = 0
 
 
 ; Baal Portal
@@ -6220,7 +6667,7 @@ sprpriority = 4
 type = Explod
 trigger1 = !Time
 anim = 13378
-ID = 13378
+ID = 13478
 pos = 0, 0
 postype = p1  ;p2,front,back,left,right
 facing = 1
@@ -6244,8 +6691,8 @@ persistent = 0
 type = helper
 trigger1 = !Time
 helpertype = normal
-stateno = 13381
-ID = 13381
+stateno = 13481
+ID = 13481
 name = "Button"
 pausemovetime = 9999999*(Root, Var(24) > 0)
 postype = p1
@@ -6359,13 +6806,13 @@ trigger1 = Var(1) >= 16
 [State 220, Explod]
 type = RemoveExplod
 trigger1 = Var(1)
-ID = 13378
+ID = 13478
 
 [State 220, Explod]
 type = Explod
 trigger1 = Var(1)
-anim = 13379
-ID = 13379
+anim = 13479
+ID = 13479
 pos = 0, 0
 postype = p1  ;p2,front,back,left,right
 facing = 1
@@ -6451,7 +6898,7 @@ value = 0
 [State 13381, fef]
 type = VarSet
 trigger1 = Root, Var(2)
-trigger2 = Root, StateNo != 13300
+trigger2 = Root, StateNo != 13400
 v = 0
 value = 1
 persistent = 0
