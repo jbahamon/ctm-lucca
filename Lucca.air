@@ -3505,6 +3505,10 @@ Clsn1: 1
 [Begin Action 13990]
 13999,1, 0,0, 10, , A
 
+; Baal BG
+[Begin Action 13989]
+13999,10, 0,0, 10, , A
+
 [Begin Action 13991]
 13999,0, 0,0, 10, , A
 

@@ -411,7 +411,7 @@ ignorehitpause = 1
 type = PlaySnd
 trigger1 = Time = 10
 trigger1 = Var(59)
-value = S8000,17 - Var(1)
+value = S8000,21 - 5 * Var(1)
 channel =  0
 
 [State 2010, NHB]
@@ -1034,6 +1034,13 @@ time = -1
 add = -32,-32,-32
 sinadd = -32,-32,-32, 60
 
+[State N, Sound]
+type = PlaySnd
+trigger1 = AnimElem = 5
+trigger1 = Var(2) = 0
+trigger2 = AnimElem = 11
+trigger2 = Var(2) = 1
+value = S8000,26
 
 [State 220, Explod]
 type = Explod
@@ -1099,7 +1106,9 @@ attr = S,HA
 damage = Floor(Root, FVar(39) * 100)
 animtype = Hard
 hitflag = MAF
+guardflag = MA
 sparkno = -1
+hitsound = S7050,2
 pausetime = 0, 30
 ground.slidetime = 16
 ground.hittime = 30
@@ -1408,6 +1417,8 @@ attr = A,HA
 damage = Floor(Root, FVar(39) * 200)
 animtype = Hard
 hitflag = MAF
+guardflag = MA
+hitsound = S8000,26
 sparkno = -1
 pausetime = 0, 30
 ground.slidetime = 16
@@ -1872,6 +1883,21 @@ ignorehitpause = 1
 value = 13120
 elem = 4
 
+[State 13105, Var]
+type = PlaySnd
+triggerall = Var(0) < 10
+trigger1 = Var(1) = 32
+value = 8000,22
+channel = 0
+
+[State 13105, Var]
+type = PlaySnd
+triggerall = Var(0) < 10
+trigger1 = Var(1) > 100
+trigger1 = AnimElem = 3
+value = 8000,23
+channel = 0
+
 [State 13110, fef]
 type = VelSet
 triggerall = Var(0) < 10
@@ -1897,6 +1923,15 @@ trigger1 = Pos Y > - Vel Y && Vel Y > 0
 ampl = 10
 freq = 120
 time = 12
+ignorehitpause = 1
+
+
+[State 13110, fef]
+type = PlaySnd
+triggerall = Var(0) < 10
+trigger1 = Var(1) > 32
+trigger1 = Pos Y > - Vel Y && Vel Y > 0
+value = S7050,7
 ignorehitpause = 1
 
 [State 13110, fef]
@@ -1974,6 +2009,8 @@ attr = A,HA
 damage = Floor(Root, FVar(39) * 180)
 animtype = Hard
 hitflag = MAF
+guardflag = MA
+hitsound = S8000,26
 sparkno = -1
 pausetime = 0, 30
 ground.slidetime = 16
@@ -2009,6 +2046,8 @@ attr = A,HA
 damage = Floor(Root, FVar(39) * 150)
 animtype = Hard
 hitflag = MAF
+guardflag = MA
+hitsound = S8000,26
 sparkno = -1
 pausetime = 0, 30
 ground.slidetime = 16
@@ -2245,6 +2284,13 @@ trigger1 = !Time
 var(1) = 0
 ignorehitpause = 1
 
+[State 13105, Var]
+type = PlaySnd
+triggerall = Var(0) < 10
+trigger1 = Var(1) = 32
+value = 8000,24
+channel = 0
+
 [State 2101, Scale]
 type = NotHitBy
 trigger1 = Var(1) = [0, 64]
@@ -2352,6 +2398,8 @@ attr = S,HA
 damage = Floor(Root, FVar(39) * 200)
 animtype = Hard
 hitflag = MAF
+guardflag = MA
+hitsound = S8000,26
 sparkno = -1
 pausetime = 0, 30
 ground.slidetime = 16
@@ -5414,7 +5462,7 @@ facep2 = 1
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = !Time
-value = S8000,3
+value = S8000,18
 channel =  0
 
 [State 2010, NHB]
@@ -5711,6 +5759,13 @@ trigger1 = Parent, Var(2)
 value = 13146
 persistent = 0
 
+[State 1006, Safety]
+type = PlaySnd
+trigger1 = Anim = 13146
+trigger1 = AnimElem = 5
+value = S8002,19
+persistent = 0
+
 [State 13305, End]
 type = ChangeState
 trigger1 = !NumHelper(13406)
@@ -5728,6 +5783,13 @@ movetype = A
 ctrl = 0
 velset = 0, 0
 sprpriority = -1
+
+
+[State 13100, HelperPos]
+type = PlaySnd
+trigger1 = AnimElemTime(1) = 16
+value = 8000,25
+
 
 [State 13100, HelperPos]
 type = VarSet
@@ -5870,7 +5932,7 @@ type = HitDef
 trigger1 = !Time
 attr = S,HT        ;SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
 hitflag = MA-        ;HLAFD+-
-guardflag = MA         ;HLA
+guardflag =          ;HLA
 animtype = light          ;light,medium,hard,back,up,diagup
 air.animtype = light
 damage = 20,0
@@ -6006,6 +6068,14 @@ type = ChangeAnim
 trigger1 = !Time
 value = IfElse(Anim = 13146, 13147, 13148)
 
+
+[State 1006, Safety]
+type = PlaySnd
+trigger1 = Anim = 13147
+trigger1 = AnimElem = 5
+value = S8002,20
+persistent = 0
+
 [State 3055, hitby]
 type = nothitby
 trigger1 = 1
@@ -6109,6 +6179,13 @@ trigger1 = !(Root, Var(2))
 value = 13142
 elem = Var(0)
 
+
+[State 1006, Safety]
+type = PlaySnd
+trigger1 = Root, Var(2)
+value = S8000,28
+persistent = 0
+
 [State 13100, HelperPos]
 type = PosSet
 trigger1 = AnimElemNo(0) = 1
@@ -6202,6 +6279,12 @@ flag = noshadow
 flag2 = Invisible
 
 [State 3020, Exit]
+type = PlaySnd
+trigger1 = Anim = 13144
+trigger1 = AnimElemTime(1) = 30
+value = S7020,5
+
+[State 3020, Exit]
 type = EnvShake
 trigger1 = Anim = 13144
 trigger1 = AnimElemTime(1) = 30
@@ -6213,7 +6296,7 @@ time = 10
 type = TargetLifeAdd
 trigger1 = Anim = 13144
 trigger1 = AnimElemTime(1) = 30
-value = -15*Var(2)
+value = -9*Var(2)
 kill = 0
 
 
@@ -6326,6 +6409,13 @@ v = 2
 value = 1
 
 [State 13320, Anim]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,27
+channel = 0
+loop = 1
+
+[State 13320, Anim]
 type = ChangeAnim
 triggerall = AnimElemNo(0) > 2 && Parent, Anim != 13144
 trigger1 = !Root, Var(1) && Root, Command = "rlsb" 
@@ -6377,6 +6467,14 @@ scale = Parent, FVar(5)/70.0 * FVar(0), Parent, FVar(5)/90.0 * FVar(0)
 type = AngleDraw
 trigger1 = (Root, Var(2))
 scale = Parent, FVar(5)/70.0 * (0.6 + 1.4*(Parent, AnimTime/(Var(1)+0.0))), Parent, FVar(5)/90.0 * (0.6 + 1.4*(Parent, AnimTime/(Var(1)+0.0)))
+
+
+[State 13320, Anim]
+type = StopSnd
+trigger1 = (Root, Var(2))
+trigger1 = !Parent, AnimTime || Parent, Anim = 13144
+trigger2 = Root, StateNo != 13400
+channel = 0
 
 [State 13381, End]
 type = DestroySelf

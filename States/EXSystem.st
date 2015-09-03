@@ -982,7 +982,7 @@ persistent = 0
 type = PlaySnd
 trigger1 = Time = 240
 trigger1 = Var(0)
-value = 8003,18
+value = 8002,18
 channel = 0
 volumescale = 128
 persistent = 0

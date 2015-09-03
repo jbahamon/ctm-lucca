@@ -131,6 +131,13 @@ trigger1 = !Time
 trigger1 = Root, StateNo = 13300
 value = 13994
 
+
+[State 8520, Pos]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = Root, StateNo = 13400
+value = 13989
+
 [State 8520, Pos]
 type = ChangeAnim
 trigger1 = !Time
