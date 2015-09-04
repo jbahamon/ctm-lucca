@@ -5456,7 +5456,7 @@ physics = S
 ctrl = 0
 anim = 13300
 poweradd = -2000
-sprpriority = 0
+sprpriority = 8
 facep2 = 1
 
 [State 2010, NHB]
@@ -5510,7 +5510,7 @@ type = VarSet
 trigger1 = NumHelper(13102)
 trigger1 = Helper(13102), Time = 1
 fv = 0
-value = (enemynear(numenemy>1&&!enemynear(0),alive), ScreenPos X - ScreenPos X)*Facing
+value = (enemynear(numenemy>1&&!enemynear(0),alive), ScreenPos X - ScreenPos X)
 
 
 [State 1000, Hadouken]
@@ -5539,6 +5539,13 @@ postype = p1
 pos = 0, -118
 ownpal = 1
 
+[State 0, DisplayToClipboard]
+type = DisplayToClipboard
+trigger1 = 1 
+text = "FVar(0) : %f"
+params = fvar(0)
+;ignorehitpause = 
+;persistent = 
 
 [State 1000, Gomorrah]
 type = helper
@@ -5551,8 +5558,8 @@ name = "Baal"
 pausemovetime = 9999999*(Var(24) > 0)
 supermovetime = 9999999
 postype = p1
-pos = Floor(FVar(0)) - 175, 0
-facing = IfElse(FVar(0) > 0, 1, -1)
+pos = Facing * Floor(IfElse(((ScreenPos X + FVar(0) - 175) < 0) || ((ScreenPos X + FVar(0) - 175) > GameWidth), FVar(0) + 175, FVar(0) - 175)), 0
+facing = Facing * IfElse(((ScreenPos X + FVar(0) - 175) < 0) || ((ScreenPos X + FVar(0) - 175) > GameWidth), -1,1)
 ownpal = 1
 
 [State 13100, HelperPos]
@@ -5946,6 +5953,7 @@ air.hittime = 20
 ground.velocity = 0,0
 air.velocity = 0,0
 p1getp2facing = 0
+p2facing = -1
 down.bounce = 0
 id = 13406
 chainID = -1
@@ -6499,9 +6507,6 @@ type = ScreenBound
 trigger1 = 1
 movecamera = 1, 0
 
-[State 3020, Exit]
-type = Turn
-trigger1 = !Time
 
 [State 3020, Exit]
 type = SelfState
