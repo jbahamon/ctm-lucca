@@ -6606,6 +6606,7 @@ velset = -3,-7
 type = LifeAdd
 trigger1 = !Time
 value = -1
+kill = 1
 
 [State 3020, Exit]
 type = ScreenBound
