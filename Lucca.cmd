@@ -875,8 +875,8 @@ value = 800
 type = ChangeState
 value = 2110
 triggerall = Command = "a+c" && !(command = "holdfwd" || command = "holdback" || command = "holdup" || command = "holddown")
-triggerall = Power >= 3000 || (PalNo = 12 && Power >= 1000)
-triggerall = Var(21) = 0
+triggerall = Power >= 3000 || (PalNo = 12 && (Power >= 1000 || Var(21) != 0))
+triggerall = Var(21) = 0 || PalNo = 12
 trigger1 = StateType = S
 trigger1 = ctrl 
 

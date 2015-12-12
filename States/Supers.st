@@ -1638,13 +1638,14 @@ facep2 = 1
 
 [State 2010, NHB]
 type = NotHitBy
-trigger1 = 1
+trigger1 = PalNo != 12
 time = 1
 value = SCA
 
 [State 2110, Super Pause FX]
 type = helper
 trigger1 = time = 1
+trigger1 = !Var(21)
 helpertype = normal
 stateno = 7000
 ID = 7000
@@ -1658,6 +1659,7 @@ supermovetime = 9999
 [State 2110, Super Pause]
 type = SuperPause
 trigger1 = Time = 1
+trigger1 = !Var(21)
 time = 60
 movetime = 60
 anim = -1
@@ -1683,12 +1685,13 @@ supermovetime = 99999
 type = VarSet
 trigger1 = (!AnimTime)
 v = 21
-value = 1
+value = !Var(21)
 
 [State 8520, Portrait]
 type = Helper
 trigger1 = PalNo = 12
 trigger1 = Time = 2
+trigger1 = !Var(21)
 stateno = 7001
 name = "Super BG"
 ID = 7001
@@ -1715,6 +1718,7 @@ channel = 0
 [State 2110, Sound1]
 type = PlaySnd
 trigger1 = !Time
+trigger1 = !Var(21)
 trigger1 = PalNo = 12
 value = S8001,16
 channel = 0
@@ -1723,10 +1727,11 @@ channel = 0
 type = PlaySnd
 trigger1 = Time = 28
 trigger1 = PalNo = 12
+trigger1 = !Var(21)
 value = S8001,14
 
 [State 2110, End]
 type = ChangeState
-trigger1 = Time > 1 && !NumHelper(7000) && Var(21) > 0
+trigger1 = Time > 1 && !NumHelper(7000) && !AnimTime
 value = 0
 ctrl = 1
