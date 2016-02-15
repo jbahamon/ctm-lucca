@@ -256,7 +256,7 @@ priority = 4, Hit
 pausetime = 0, 7
 sparkno = s7001
 sparkxy = -10, -25
-hitsound = s7050,2
+hitsound = s7020,3
 guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16
@@ -300,6 +300,27 @@ postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
 pos = -5, -30
 ownpal = 1
+
+[State 1000, Hadouken]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 0
+persistent = 0
+
+[State 2010, NHB]
+type = PlaySnd
+triggerall = !Var(1)
+trigger1 = MoveHit 
+trigger1 = Var(1) := 1
+trigger1 = Random < 200
+trigger2 = NumHelper(11100)
+trigger2 = Helper(11100), MoveHit
+trigger2 = Var(1) := 1
+trigger2 = Random < 200
+value = S8000,30
+;channel =  0
+persistent = 0
 
 [State 1000, End]
 type = changestate
@@ -367,7 +388,7 @@ priority = 4, Hit
 pausetime = 0, 7
 sparkno = s7001
 sparkxy = -10, -25
-hitsound = s7050,2
+hitsound = s7020,3
 guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16
@@ -422,6 +443,29 @@ type = PosSet
 trigger1 = Pos Y > 0
 Y = 0
 ignorehitpause = 1
+
+
+[State 1000, Hadouken]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 0
+persistent = 0
+
+[State 2010, NHB]
+type = PlaySnd
+triggerall = !Var(1)
+trigger1 = MoveHit 
+trigger1 = Var(1) := 1
+trigger1 = Random < 200
+trigger2 = NumHelper(11100)
+trigger2 = Helper(11100), MoveHit
+trigger2 = Var(1) := 1
+trigger2 = Random < 200
+value = S8000,30
+;channel =  0
+persistent = 0
+
 
 [State 1000, End]
 type = changestate
@@ -642,7 +686,7 @@ priority = 4, Hit
 pausetime = 0, 7
 sparkno = s7001
 sparkxy = -10, -25
-hitsound = s7050,2
+hitsound = s7020,3
 guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16
@@ -769,7 +813,7 @@ priority = 4, Hit
 pausetime = 0, 7
 sparkno = s7001
 sparkxy = -10, -25
-hitsound = s7050,2
+hitsound = s7020,3
 guardsound = s2, 0
 ground.type = High
 ground.slidetime = 16

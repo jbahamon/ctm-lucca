@@ -312,6 +312,12 @@ time = 1
 color = Floor(128 + 128*Cos(Time/30.0))
 
 
+[State 7000, Pal Down]
+type = PlaySnd
+trigger1 = !Time
+value = 7020,0
+persistent = 0
+
 [State 7000, End]
 type = DestroySelf
 trigger1 = Time >= 18
