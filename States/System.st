@@ -62,49 +62,11 @@ physics = S
 anim = 100
 sprpriority = 1
 
-[State 100, 1]
-type = ChangeAnim
-trigger1 = !Time
-trigger1 = PalNo = 12
-value = 10100
-
-[State 2010, NHB]
-type = PlaySnd
-trigger1 = !Time
-trigger1 = PalNo = 12
-value = S8000,13
-channel =  0
 
 [State 100, 1]
 type = VelSet
 trigger1 = 1
 x = const(velocity.run.fwd.x) * IfElse(PalNo = 12, 1.3, 1)
-
-[State 801, Shot]
-type = Helper
-trigger1 = PalNo = 12
-trigger1 = Time % 3 = 0
-name = "Withering Flower"
-ID = 100
-stateno = 17300
-postype = p1    ;p2,front,back,left,right
-pos = -10 + Random % 10, 0
-facing = 1
-keyctrl = 0
-ownpal = 1
-pausemovetime = 9999999999 * (Var(24) > 0)
-
-
-[State 1040, End]
-type = PalFX
-trigger1 = PalNo = 12
-trigger1 = Time = [0,16]
-add = 128 - 8 * Time, 64 - 4 * Time, 256 - 16 * Time
-mul = 256,256,256
-invertall = 0
-time = 1
-color = 256
-ignorehitpause = 1
 
 [State 100, 2] ;Prevent run from canceling into walk
 type = AssertSpecial

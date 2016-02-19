@@ -5263,7 +5263,7 @@ ownpal = 1
 [State 1250, slow]
 type = veladd
 trigger1 = statetype = A
-y = const(movement.yaccel) * 0.1
+y = const(movement.yaccel) * IfElse(AnimElemNo(0) < 3 || MoveHit, 0.1, 0.5)
 ignorehitpause = 1
 
 [State 1250, slow]
@@ -5342,14 +5342,14 @@ ID = 15502
 [State 15502, ComboVar]
 type = VarSet
 trigger1 = NumTarget(15502)
-var(0) = -(Pos Y - Target(15502), Pos Y)
+fvar(0) = -(Pos Y - Target(15502), Pos Y)
 ignorehitpause = 1
 persistent = 0
 
 [State 15516, ComboVar]
 type = TargetBind
 trigger1 = NumTarget(15502)
-pos = Target(15502), Const(size.air.front) + 10, var(0)
+pos = Target(15502), Const(size.air.front) + 10, fvar(0)
 ignorehitpause = 1
 persistent = 0
 
@@ -5668,14 +5668,14 @@ ignorehitpause = 1
 [State 15502, ComboVar]
 type = VarSet
 trigger1 = NumTarget(15504)
-var(0) = -(Pos Y - Target(15504), Pos Y)
+fvar(0) = -(Pos Y - Target(15504), Pos Y)
 ignorehitpause = 1
 persistent = 0
 
 [State 15516, ComboVar]
 type = TargetBind
 trigger1 = NumTarget(15504)
-pos = Target(15504), Const(size.air.front) + 10, var(0)
+pos = Target(15504), Const(size.air.front) + 10, fvar(0)
 ignorehitpause = 1
 persistent = 0
 
@@ -5714,6 +5714,16 @@ trigger1 = !Time
 X = 0.3
 Y = 0.3
 persistent = 0
+
+[State 2010, NHB]
+type = TargetVelSet
+trigger1 = !Time
+trigger1 = NumTarget(15502)
+ID = 15502
+X = Target(15502), Vel X * 0.3
+Y = Target(15502), Vel Y * 0.3
+ignorehitpause = 1
+
 
 [State 2010, NHB]
 type = PlaySnd
@@ -5795,7 +5805,7 @@ animtype  = Medium
 damage    = 15
 guardflag = HA
 hitflag = MAF
-pausetime = 12,12
+pausetime = 12,18
 sparkno = S7401
 sparkxy = -10, -15
 hitsound   = S7020,2
@@ -5803,7 +5813,7 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = -.5,0
+ground.velocity = -.5,5
 air.velocity = -.5,5
 fall = 0
 p1sprpriority = 1
@@ -5890,7 +5900,7 @@ ownpal = 1
 [State 1250, slow]
 type = veladd
 trigger1 = statetype = A
-y = const(movement.yaccel) * 0.1
+y = const(movement.yaccel) * IfElse(AnimElemNo(0) < 3, 0.1, 0.5)
 
 [State 1250, slow]
 type = statetypeset
@@ -5942,7 +5952,7 @@ animtype  = Medium
 damage    = 12
 guardflag = MA
 hitflag = MAF
-pausetime = 12,12
+pausetime = 12,18
 sparkno = S7401
 sparkxy = -5, -15
 hitsound   = S7020,3
@@ -5950,8 +5960,8 @@ guardsound = 6,0
 ground.type = Low
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = -1, -1
-air.velocity = -1,-1
+ground.velocity = -0.3, -1
+air.velocity = -0.3,-1
 yaccel = const(movement.yaccel) * 0.1
 forcenofall = 1
 p1sprpriority = 1
@@ -5968,14 +5978,14 @@ ID = 15508
 [State 15502, ComboVar]
 type = VarSet
 trigger1 = NumTarget(15508)
-var(0) = -(Pos Y - Target(15508), Pos Y)
+fvar(0) = -(Pos Y - Target(15508), Pos Y)
 ignorehitpause = 1
 persistent = 0
 
 [State 15516, ComboVar]
 type = TargetBind
 trigger1 = NumTarget(15508)
-pos = Target(15508), Const(size.air.front) + 10, var(0)
+pos = Target(15508), Const(size.air.front) + 10, fvar(0)
 ignorehitpause = 1
 persistent = 0
 
@@ -6116,7 +6126,7 @@ animtype  = Back
 damage    = 15
 guardflag = LA
 hitflag = MAF
-pausetime = 12, 20
+pausetime = 12, 18
 sparkno = S7401
 sparkxy = -5, -7
 hitsound   = S7020,1
@@ -6124,9 +6134,9 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 15
 ground.hittime  = 20
-ground.velocity = 0, 3
+ground.velocity = 0, 1
 air.hittime  = 20
-air.velocity = 0, 3
+air.velocity = 0, 1
 yaccel = 0.1
 forcenofall = 1
 p1sprpriority = 1
@@ -6281,14 +6291,14 @@ ID = 15516
 [State 15502, ComboVar]
 type = VarSet
 trigger1 = NumTarget(15516)
-var(0) = -(Pos Y - Target(15516), Pos Y)
+fvar(0) = -(Pos Y - Target(15516), Pos Y)
 ignorehitpause = 1
 persistent = 0
 
 [State 15516, ComboVar]
 type = TargetBind
 trigger1 = NumTarget(15516)
-pos = Target(15516), Const(size.air.front) + 10, var(0)
+pos = Target(15516), Const(size.air.front) + 10, fvar(0)
 ignorehitpause = 1
 persistent = 0
 
@@ -6330,8 +6340,19 @@ juggle  = 3                      ;Number of air juggle points move takes
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15517 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
+velset = 0,0
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+
+[State 2010, NHB]
+type = TargetVelSet
+trigger1 = !Time
+trigger1 = NumTarget(15508)
+ID = 15508
+X = -0.1
+Y = 0
+ignorehitpause = 1
 
 
 [State 2010, NHB]
@@ -6352,7 +6373,6 @@ postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
 pos = 30, -15
 ownpal = 1
-
 
 [State 1250, slow]
 type = veladd
@@ -6395,9 +6415,9 @@ ground.type = Low
 ground.slidetime = 0
 ground.hittime  = 30
 air.hittime  = 40
-ground.velocity = 0, -0.8
+ground.velocity = 0.1, -0.2
 yaccel = 0.1
-air.velocity =  0, -0.8
+air.velocity =  0.1, -0.2
 forcenofall = 1
 fall = 0
 p1sprpriority = 1
@@ -6409,6 +6429,21 @@ givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+ID = 15519
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = NumTarget(15519)
+fvar(0) = -(Pos Y - Target(15519), Pos Y)
+ignorehitpause = 1
+persistent = 0
+
+[State 15516, ComboVar]
+type = TargetBind
+trigger1 = NumTarget(15519)
+pos = Target(15519), Const(size.air.front) + 10, fvar(0)
+ignorehitpause = 1
+persistent = 0
 
 [State 200, Explod]
 type = Explod
@@ -6432,6 +6467,16 @@ ownpal = 1
 pausemovetime = 9999999*(Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
+
+[State 2010, NHB]
+type = VelSet
+trigger1 = MoveHit 
+trigger2 = NumHelper(15000)
+trigger2 = Helper(15000), MoveHit
+Y = 0
+ignorehitpause = 1
+persistent = 0
+
 
 [State 15517, ComboVar]
 type = VarSet
@@ -6568,7 +6613,7 @@ ownpal = 1
 [State 1250, slow]
 type = veladd
 trigger1 = statetype = A
-y = const(movement.yaccel) * 0.1
+y = const(movement.yaccel)  * IfElse(AnimElemNo(0) < 3 || MoveHit, 0, 0.5)
 
 [State 1250, slow]
 type = statetypeset
@@ -6634,8 +6679,8 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = -.5
-air.velocity = .5,-.5
+ground.velocity = -.5, 2
+air.velocity = .5, 2
 fall = 1
 p1sprpriority = 1
 p2sprpriority = -1
@@ -6813,14 +6858,14 @@ ID = 15532
 [State 15502, ComboVar]
 type = VarSet
 trigger1 = NumTarget(15532)
-var(0) = -(Pos Y - Target(15532), Pos Y)
+fvar(0) = -(Pos Y - Target(15532), Pos Y)
 ignorehitpause = 1
 persistent = 0
 
 [State 15516, ComboVar]
 type = TargetBind
 trigger1 = NumTarget(15532)
-pos = Target(15532), Const(size.air.front) + 10, var(0)
+pos = Target(15532), Const(size.air.front) + 10, fvar(0)
 ignorehitpause = 1
 persistent = 0
 
@@ -7081,6 +7126,12 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 2010, NHB]
+type = VelSet
+trigger1 = !Time
+Y = 0
+ignorehitpause = 1
+persistent = 0
 
 [State 2010, NHB]
 type = PlaySnd
@@ -7156,7 +7207,7 @@ animtype  = Hard
 damage    = 15
 guardflag = L
 hitflag = MAF
-pausetime = 12,12
+pausetime = 12,24
 sparkno = S7401
 sparkxy = -5, 0
 hitsound   = S7020,2
@@ -7165,8 +7216,8 @@ ground.type = Trip
 ground.slidetime = 0
 ground.hittime  = 20
 snap = 10,0
-ground.velocity = 0, -4
-air.velocity = 0, -4
+ground.velocity = 0, 0
+air.velocity = 0, 0
 yaccel = .2
 forcenofall = 1
 ground.cornerpush.veloff = 0;
@@ -7179,6 +7230,16 @@ givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+
+[State 2010, NHB]
+type = VelSet
+trigger1 = MoveHit 
+trigger2 = NumHelper(15000)
+trigger2 = Helper(15000), MoveHit
+X = 0
+Y = 0
+ignorehitpause = 1
+persistent = 0
 
 [State 15535, ComboVar]
 type = VarSet
@@ -7352,6 +7413,7 @@ physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15571 ;Change animation (Def: no change)
+velset = 0,0
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1

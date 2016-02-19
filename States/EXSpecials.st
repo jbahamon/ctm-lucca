@@ -2,8 +2,131 @@
 ; Alternate Special Moves
 ;===========================================================================
 
-;Tombstone
+;Witch Twist
 [Statedef 11000]
+type = S
+physics = N
+movetype = I
+anim = 11000
+ctrl = 0
+poweradd = 72 * !var(21)
+sprpriority = 1
+facep2 = 0
+juggle  = 12
+
+[State N, Sound]
+type = VelMul
+trigger1 = AnimElemNo(0) < 5
+X = 0.89
+
+[State N, Sound]
+type = NotHitBy
+trigger1 = AnimElemNo(0) < 5
+value = , AA, AP
+persistent = 0
+
+
+[State N, Sound]
+type = NotHitBy
+trigger1 = AnimElemNo(0) < 5
+value = , AA, AP
+persistent = 0
+
+[State 1000, End]
+type = VelSet
+trigger1 = AnimElem = 5
+X = 0
+
+[State 1000, End]
+type = VelSet
+trigger1 = AnimElem = 6
+Y = -6
+
+
+[State 1000, End]
+type = VelAdd
+trigger1 = AnimElemNo(0) = [6,11]
+Y = 6.0/24.0
+
+[State 1000, End]
+type = VelSet
+trigger1 = AnimElem = 12
+Y = 0
+
+[State 1000, End]
+type = VelAdd
+trigger1 = AnimElemNo(0) = 12
+Y = 0.1
+
+
+[State 1000, End]
+type = StateTypeSet
+trigger1 = AnimElem = 5
+physics = N
+statetype = A
+movetype = A
+
+[State 1000, End]
+type = StateTypeSet
+trigger1 = AnimElem = 12
+movetype = I
+
+[State 1000, End]
+type = changestate
+trigger1 = Vel Y > 0 && Vel Y > -Pos Y
+value = 52
+ctrl = 1
+
+
+;Witch Strike
+[Statedef 11005]
+type = A
+physics = N
+movetype = A
+anim = 11005
+ctrl = 0
+velset = 0, -6
+poweradd = 72 * !var(21)
+sprpriority = 1
+facep2 = 1
+juggle  = 12
+
+[State 1000, End]
+type = VelAdd
+trigger1 = AnimElemNo(0) < 8
+Y = 6.0/24.0
+
+[State 1000, End]
+type = VelSet
+trigger1 = AnimElem = 8
+Y = 0
+
+[State 1000, End]
+type = VelAdd
+trigger1 = AnimElemNo(0) = 8
+Y = 0.2
+
+[State 1000, End]
+type = StateTypeSet
+trigger1 = AnimElem = 8
+movetype = I
+
+
+[State 1000, End]
+type = changestate
+trigger1 = AnimElemTime(8) > 10
+value = 50
+ctrl = 1
+
+[State 1000, End]
+type = changestate
+trigger1 = Vel Y > 0 && Vel Y > -Pos Y
+value = 52
+ctrl = 1
+
+
+;Heel Tornado
+[Statedef 11010]
 type = S
 physics = S
 movetype = A
@@ -15,318 +138,78 @@ sprpriority = 1
 facep2 = 1
 juggle  = 12
 
-[State N, Sound]
-type = PlaySnd
-trigger1 = !Time
-value = S8001,8
-channel =  0
-persistent = 0
-
-[State 1000, Strength]
-type = varset
-trigger1 = !time 
-var(0) = ifelse(command = "qcfc", 1, 0)
-
-[State 1000, Hadouken]
-type = helper
-trigger1 = animelem = 4
-helpertype = normal
-stateno = 11005
-ID = 11000
-name = "Tombstone"
-pausemovetime = 9999999*(Var(24) > 0)
-postype = p1
-pos = 30 + 30 * Var(0), -50
-ownpal = 1
-
 [State 1000, End]
 type = changestate
 trigger1 = !animtime
 value = 0
 ctrl = 1
 
-; Tombstone
-[Statedef 11005]
-type = A
-physics = N
-movetype = A
-ctrl = 0
-velset = 0, 0
-sprpriority = 4
 
-[State 1006, Trans]
-type = trans
-trigger1 = !prevstateno
-trigger1 = AnimElemNo(0) = 1
-trans = addalpha
-alpha = Time * 64, 256 - Time * 64
-ignorehitpause = 1
-
-[State 1001, Dampen]
-Type = ParentVarset
-Trigger1 = MoveHit
-trigger1 = !(target, time) && target, movetype = H
-fvar(39) = parent, Fvar(39)*0.85
-persistent = 0
-ignorehitpause = 1
-
-[State 1005, HitOverride]
-type = hitoverride
-trigger1 = 1
-time = -1
-attr = SCA, AA, AP, AT
-stateno = ifelse(var(2) < 4, 11005, 11006)
-ignorehitpause = 1
-
-[State 1005, hitby]
-type = hitby
-trigger1 = 1
-time = -1
-value = SCA, NP, SP, HP
-ignorehitpause = 1
-
-[State 1005, Strength]
-type = varset
-trigger1 = !time && !prevstateno
-var(10) = 5
-
-[State 1005, Anim]
-type = changeanim
-trigger1 = !time && !prevstateno
-value = 11005
-
-[State 1005, hitvar]
-type = varadd
-trigger1 = !time
-var(2) = 1
-
-[State 1005, movehitvar]
-type = varset
-trigger1 = movecontact && numtarget
-trigger1 = !(target, ishelper)
-var(3) = 1
-ignorehitpause = 1
-
-[State 1005, Vel]
-type = velset
-trigger1 = 1
-Y = ifelse((time < 1 && var(2) > 1), 0.8, 4)
-X = 0
-
-[State 1005, Hit]
-type = hitdef
-trigger1 = 1
-priority = 4, Hit
-attr = S, SP
-damage = ceil(30 * root, fvar(39)), 4
-animtype = Back
-hitflag = MAF
-guardflag = M
-pausetime = 4 * (var(2) < 3), 6
-sparkno = -1
-sparkxy = -10, 0
-guard.sparkno = s7001
-guardsound = s2, 0
-ground.type = High
-ground.slidetime = 16
-ground.hittime = 16
-ground.velocity = 0, ifelse(var(2) < 2, 0, 3)
-ground.cornerpush.veloff = 0
-air.velocity = 0, 4
-guard.velocity = -10.52*0.7
-fall = (var(2) >= 2)
-air.fall = 1
-fall.recover = 0
-getpower = 0
-givepower = 36, 36
-envshake.time = 18
-envshake.freq = 120
-envshake.ampl = 6
-palfx.add = 200, 200, 200
-palfx.mul = 256, 256, 256
-palfx.time = 8
-p1sprpriority = 4
-airguard.ctrltime = 16
-airguard.velocity = 0, 1.2
-forcestand = 1
-
-[State 1005, End]
-type = changestate
-trigger1 = movecontact
-value = ifelse(var(2) < 2, 11005, 11006)
-
-
-[State 1005, End]
-type = changestate
-trigger1 = Pos Y >= Vel Y && Vel Y > 0
-value = 11006
-
-
-; Tombstone End
-[Statedef 11006]
-type = A
-physics = N
-movetype = I
-anim = 11006
-ctrl = 0
-velset = 0, 0
-sprpriority = 4
-
-[State N, Sound]
-type = PlaySnd
-trigger1 = !Time
-value = S7020,5
-channel =  0
-persistent = 0
-
-[State 1006, Trans]
-type = trans
-trigger1 = 1
-trans = addalpha
-alpha = 256 - Time * 16, Time * 16
-ignorehitpause = 1
-
-[State 11004, Shake]
-type = EnvShake
-trigger1 = !Time
-trigger1 = Pos Y >= 0
-ampl = 4
-time = 12
-freq = 120
-
-[State 11004, Pos]
-type = PosSet
-trigger1 = !Time
-trigger1 = Pos Y >= 0
-Y = 0
-
-[State 1006, End]
-type = destroyself
-trigger1 = Time > 16
-
-;Tetsuzanko
-[Statedef 11100]
+;Stiletto
+[Statedef 11020]
 type = S
 physics = S
 movetype = A
-anim = 11100
+anim = 11020
 ctrl = 0
 velset = 0, 0
-juggle = 18
-poweradd = 0
-sprpriority = 2
+poweradd = 72 * !var(21)
+sprpriority = 1
 facep2 = 1
+juggle  = 12
 
-[State 1000, Hadouken]
-type = PowerAdd
-trigger1 = !Time
-trigger1 = !(Var(0) := 0)
-trigger1 = Power >= 500
-trigger1 = Var(0) := 1
-value = -500
-ignorehitpause = 1
-
-[State 1000, Hadouken]
-type = PowerAdd
-trigger1 = !Time
-trigger1 = !Var(0)
-value = 72 * !var(21)
-ignorehitpause = 1
-
-[State 1000, Hadouken]
+[State 1000, End]
 type = VelSet
-trigger1 = animelem = 3
-X = 6
-
-[State 2010, NHB]
-type = PlaySnd
-trigger1 = AnimElem = 3
-value = S8001,2
-channel =  0
-
-[State 1250, Hit]
-type = HitDef
-trigger1 = !Time
-attr = S, SA
-damage = 38, 7
-animtype = Hard
-guardflag = M
-hitflag = MAF
-priority = 4, Hit
-pausetime = 0, 7
-sparkno = s7001
-sparkxy = -10, -25
-hitsound = s7020,3
-guardsound = s2, 0
-ground.type = High
-ground.slidetime = 16
-ground.hittime = 16
-ground.velocity = -2, -4.5
-air.type = Low
-air.velocity = -2, -4.5
-air.cornerpush.veloff = 0
-ground.cornerpush.veloff = 0
-guard.velocity = -8
-guard.cornerpush.veloff = 0;-12.74
-getpower = (!Var(0)) * IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 72, 144)), (!Var(0)) * IfElse(Var(21) > 0, 0, 36)
-givepower = 36, 36
-envshake.time = 16
-envshake.freq = 120
-envshake.ampl = 4
-p2sprpriority = -1
-fall = 1
-fall.recover = 0
-air.juggle = 18
-fall.recovertime = 120
-yaccel = 0.3
-airguard.ctrltime = 16
-airguard.velocity = -8, -1.5
-forcestand = 1
-airguard.cornerpush.veloff = 0
-airguard.cornerpush.veloff = 0
-palfx.add = 144, 64, 7
-palfx.mul = 256,256,256 
-palfx.time = 8
-
-[State 1000, Hadouken]
-type = helper
-trigger1 = Var(0)
-trigger1 = AnimElem = 4
-helpertype = normal
-stateno = 11105
-ID = 11100
-name = "Madama Butterfly's Hand"
-postype = p1
-pausemovetime = 9999999*(Var(24) > 0)
-pos = -5, -30
-ownpal = 1
-
-[State 1000, Hadouken]
-type = VarSet
-trigger1 = !Time
-v = 1
-value = 0
-persistent = 0
-
-[State 2010, NHB]
-type = PlaySnd
-triggerall = !Var(1)
-trigger1 = MoveHit 
-trigger1 = Var(1) := 1
-trigger1 = Random < 200
-trigger2 = NumHelper(11100)
-trigger2 = Helper(11100), MoveHit
-trigger2 = Var(1) := 1
-trigger2 = Random < 200
-value = S8000,30
-;channel =  0
-persistent = 0
+trigger1 = AnimElemTime(2) = [-2,2]
+X = (AnimElemTime(2) + 2) * 2
 
 [State 1000, End]
 type = changestate
 trigger1 = !animtime
 value = 0
 ctrl = 1
+
+
+
+;Heel Slide
+[Statedef 11030]
+type = S
+physics = S
+movetype = A
+anim = 11000
+ctrl = 0
+velset = 0, 0
+poweradd = 72 * !var(21)
+sprpriority = 1
+facep2 = 1
+juggle  = 12
+
+[State 1000, End]
+type = changestate
+trigger1 = !animtime
+value = 0
+ctrl = 1
+
+
+;After Burner Kick (Up)
+[Statedef 11035]
+type = S
+physics = S
+movetype = A
+anim = 11000
+ctrl = 0
+velset = 0, 0
+poweradd = 72 * !var(21)
+sprpriority = 1
+facep2 = 1
+juggle  = 12
+
+[State 1000, End]
+type = changestate
+trigger1 = !animtime
+value = 0
+ctrl = 1
+
 
 ;Tetsuzanko (Air)
 [Statedef 11101]
@@ -2650,3 +2533,68 @@ type = SelfState
 trigger1 = (Vel y > 0) && (Pos y >= 0)
 value = 5100
 ctrl = 0
+
+
+; Panther Within
+[Statedef 11400]
+type    = S
+physics = S
+anim = 10100
+velset = 0,0
+sprpriority = 1
+
+[State 2010, NHB]
+type = PosSet
+trigger1 = !Time
+Y = 0
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,13
+channel =  0
+
+[State 100, 1]
+type = VelSet
+trigger1 = 1
+x = const(velocity.run.fwd.x) * 1.75
+
+[State 801, Shot]
+type = Helper
+trigger1 = Time % 3 = 0
+name = "Withering Flower"
+ID = 100
+stateno = 17300
+postype = p1    ;p2,front,back,left,right
+pos = -10 + Random % 10, 0
+facing = 1
+keyctrl = 0
+ownpal = 1
+pausemovetime = 9999999999 * (Var(24) > 0)
+
+
+[State 1040, End]
+type = PalFX
+trigger1 = Time = [0,16]
+add = 128 - 8 * Time, 64 - 4 * Time, 256 - 16 * Time
+mul = 256,256,256
+invertall = 0
+time = 1
+color = 256
+ignorehitpause = 1
+
+[State 100, 2] ;Prevent run from canceling into walk
+type = AssertSpecial
+trigger1 = 1
+flag = NoWalk
+
+[State 100, 3] ;Prevent from turning
+type = AssertSpecial
+trigger1 = 1
+flag = NoAutoTurn
+
+[State 100, 4]
+type = ChangeState
+trigger1 = command != "holdfwd"
+value = 0
+ctrl = 1
