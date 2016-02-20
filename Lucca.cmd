@@ -649,18 +649,18 @@ value = 11000
 trigger1 = command = "Witch Twist"
 trigger1 = statetype = S
 trigger1 = StateNo = [17100, 17101]
-trigger1 = Time = [10,40]
+trigger1 = Time = [10,30]
 
 ;--------
 ;Witch Strike
 [State -1, Witch Strike]	
 type = ChangeState
 value = 11005
-trigger1 = command = "U+b"
-trigger1 = statetype = A
-trigger1 = StateNo = 50 && Anim = 41
+triggerall = command = "U+b"
+trigger1 = (StateNo = 50 && Anim = 41)
 trigger1 = PrevStateNo = 40 || PrevStateNo = 45
 trigger1 = Time < 10
+trigger2 = Statetype = S
 
 ;--------
 ;Stiletto
