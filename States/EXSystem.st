@@ -312,6 +312,12 @@ time = 1
 color = Floor(128 + 128*Cos(Time/30.0))
 
 
+[State 7000, Pal Down]
+type = PlaySnd
+trigger1 = !Time
+value = 7020,0
+persistent = 0
+
 [State 7000, End]
 type = DestroySelf
 trigger1 = Time >= 18
@@ -457,18 +463,22 @@ movehitpersist = 0
 hitcountpersist = 0
 sprpriority = 0
 
+[State 100, 3] ;Prevent from turning
+type = AssertSpecial
+trigger1 = 1
+flag = NoAutoTurn
 
 [State -3, Landing Sound]
 type = PlaySnd
 trigger1 = !Time
 value = S7010, 5
 
-
 [State -3, Landing Sound]
 type = VarSet
 trigger1 = !Time
 v = 0
 value = Random % 5
+
 
 
 [State N, Sound]
@@ -604,6 +614,10 @@ movehitpersist = 0
 hitcountpersist = 0
 sprpriority = 0
 
+[State 100, 3] ;Prevent from turning
+type = AssertSpecial
+trigger1 = 1
+flag = NoAutoTurn
 
 [State -3, Landing Sound]
 type = PlaySnd
@@ -751,6 +765,12 @@ time = -1
 value = , AT
 ignorehitpause = 1
 
+[State 7000, End]
+type = DestroySelf
+trigger1 = Time >= 16
+trigger2 = Root, StateNo != [17100, 17101]
+ignorehitpause = 1
+
 [State 17003, HitOverride]
 type = HitOverride
 trigger1 = 1
@@ -764,12 +784,6 @@ type = AssertSpecial
 trigger1 = 1
 flag = noshadow
 ignorehitpause = 1
-
-[State 7000, End]
-type = DestroySelf
-trigger1 = Time >= 15
-ignorehitpause = 1
-
 
 ; Dodge Helper Success
 [Statedef 17103]
@@ -1201,4 +1215,3 @@ scale = 0.25 + Time * 0.01, 0.25 + Time * 0.01
 [State 1920, End]
 type = DestroySelf
 trigger1 = Time >= 16
-

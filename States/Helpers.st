@@ -158,6 +158,13 @@ trigger1 = Root, Var(59)
 trigger1 = Anim = [13998, 13999]
 value = Anim - 8
 
+[State 8520, Pos]
+type = ChangeAnim
+trigger1 = !Time
+trigger1 = Root, Var(59)
+trigger1 = Anim = 13995
+value = 13991
+
 
 [State 8520, Pos]
 type = Turn
@@ -368,7 +375,7 @@ ignorehitpause = 1
 type = RemapPal
 trigger1 = !Time
 source = 1, 1
-dest = 2, (Parent, palno)
+dest = 2, (Parent, palno) + Parent, Var(59)
 
 [State 6965]
 Type=Assertspecial

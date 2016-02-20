@@ -263,18 +263,26 @@ name = "2qcbc"
 command = ~D, DB, B, D, DB, B, ~c
 time = 30
 
+
 [Command]
-name = "Shun Goku Satsu"
-command = x, x, F, a, z
-time = 48
+name = "Witch Twist"
+command = /F+a, b
+time = 30
+
 [Command]
-name = "Shun Goku Satsu"
-command = x, x, F, a+z
-time = 40
+name = "Witch Twist"
+command = /a, b
+time = 30
+
 [Command]
-name = "Shun Goku Satsu"
-command = x, x, F+a+z
-time = 32
+name = "Panther Within"
+command = /F, a, a
+time = 30
+
+[Command]
+name = "Stiletto"
+command = F, F, b
+time = 30
 
 ;-| Special Motions |------------------------------------------------------
 
@@ -450,6 +458,11 @@ time = 1
 ;-| Dir + Button |---------------------------------------------------------
 
 [Command]
+name = "U+b"
+command = /U, b
+time = 1
+
+[Command]
 name = "F+a"
 command = /F, a
 time = 1
@@ -616,6 +629,48 @@ time = 1
 [Statedef -1]
 
 ;===========================================================================
+
+
+;--------
+;Panther Within
+[State -1, Panther Within]
+type = ChangeState
+value = 11400
+trigger1 = command = "Panther Within"
+trigger1 = statetype = S
+trigger1 = ctrl || (StateNo = 17100 && Time < 10)
+
+
+;--------
+;Witch Twist
+[State -1, Witch Twist]
+type = ChangeState
+value = 11000
+trigger1 = command = "Witch Twist"
+trigger1 = statetype = S
+trigger1 = StateNo = [17100, 17101]
+trigger1 = Time = [10,30]
+
+;--------
+;Witch Strike
+[State -1, Witch Strike]	
+type = ChangeState
+value = 11005
+triggerall = command = "U+b"
+trigger1 = (StateNo = 50 && Anim = 41)
+trigger1 = PrevStateNo = 40 || PrevStateNo = 45
+trigger1 = Time < 10
+trigger2 = Statetype = S
+
+;--------
+;Stiletto
+[State -1, Stiletto]	
+type = ChangeState
+value = 11020
+trigger1 = command = "Stiletto" 
+trigger1 = statetype = S
+trigger1 = Ctrl || StateNo = 100
+
 ;---------------------------------------------------------------------------
 ;Run Fwd
 [State -1, Run Fwd]
@@ -633,7 +688,6 @@ value = 105
 trigger1 = command = "BB"
 trigger1 = statetype = S
 trigger1 = ctrl
-
 
 ;===========================================================================
 ; Super Moves
@@ -875,8 +929,8 @@ value = 800
 type = ChangeState
 value = 2110
 triggerall = Command = "a+c" && !(command = "holdfwd" || command = "holdback" || command = "holdup" || command = "holddown")
-triggerall = Power >= 3000 || (PalNo = 12 && Power >= 1000)
-triggerall = Var(21) = 0
+triggerall = Power >= 3000 || (PalNo = 12 && (Power >= 1000 || Var(21) != 0))
+triggerall = Var(21) = 0 || PalNo = 12
 trigger1 = StateType = S
 trigger1 = ctrl 
 

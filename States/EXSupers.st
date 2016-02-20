@@ -88,7 +88,7 @@ facep2 = 1
 [State N, Sound]
 type = PlaySnd
 trigger1 = !Time
-value = S8000,IfElse(Random % 3, 6, IfElse(Random % 2, 14, 9))
+value = S8001, 17 + (Random % 4)
 channel =  0
 persistent = 0
 

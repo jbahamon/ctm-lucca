@@ -18,6 +18,11 @@ sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in fro
 facep2 = 1
 
 [State 2010, NHB]
+type = VelAdd
+trigger1 = AnimElem = 2
+X = 1.5
+
+[State 2010, NHB]
 type = PlaySnd
 trigger1 = AnimElem = 3
 value = S8001,4
@@ -82,7 +87,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -120,12 +125,17 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15003 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = VelAdd
+trigger1 = AnimElem = 2
+X = 1.5
+
 
 [State 2010, NHB]
 type = PlaySnd
@@ -194,7 +204,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -235,7 +245,6 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15004 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
@@ -248,6 +257,11 @@ trigger1 = AnimElem = 2
 value = S8001,6
 channel =  0
 
+
+[State 2010, NHB]
+type = VelAdd
+trigger1 = AnimElem = 2
+X = 2
 
 [State 15010, Punch]
 type = helper
@@ -308,7 +322,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -346,12 +360,16 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15005 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = VelAdd
+trigger1 = AnimElem = 2
+X = 2
 
 [State 2010, NHB]
 type = PlaySnd
@@ -419,7 +437,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -452,12 +470,16 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15007 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = VelAdd
+trigger1 = !Time
+X = 2
 
 [State 2010, NHB]
 type = PlaySnd
@@ -525,7 +547,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -564,7 +586,6 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15008 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
@@ -577,6 +598,10 @@ trigger1 = AnimElem = 2
 value = S8001,5
 channel =  0
 
+[State 2010, NHB]
+type = VelAdd
+trigger1 = AnimElem = 2
+X = 2.5
 
 [State 15010, Punch]
 type = helper
@@ -637,7 +662,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -674,13 +699,12 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15009 ;Change animation (Def: no change)
+velset = 0,0
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
-
 
 [State 2010, NHB]
 type = PlaySnd
@@ -701,13 +725,12 @@ pausemovetime = 9999999*(Var(24) > 0)
 pos = 15, 0
 ownpal = 1
 
-
 [State 200, Explod]
 type = Explod
 trigger1 = AnimElem = 3
 anim = 7304
 ID = 15002
-pos = 12, 3
+pos = 14, 0
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = 1
@@ -749,7 +772,7 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 p1sprpriority = 1
 p2sprpriority = -1
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -796,13 +819,17 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
+velset = 0,0
 anim = 15010 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 2010, NHB]
+type = VelAdd
+trigger1 = AnimElem = 3
+X = 2
 
 [State 15010, Punch]
 type = PosSet
@@ -810,7 +837,6 @@ trigger1 = !Time
 Y = 0
 ignorehitpause = 0
 persistent = 0
-
 
 [State 15010, Punch]
 type = ChangeAnim
@@ -862,7 +888,7 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 p1sprpriority = 1
 p2sprpriority = -1
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -973,7 +999,7 @@ fall = IfElse(AnimElemNo(0) > 10, 1, 0)
 air.fall = IfElse(AnimElemNo(0) > 10, 1, 0)
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -1005,7 +1031,6 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15016 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
@@ -1018,6 +1043,11 @@ trigger1 = AnimElem = 2
 value = S8001,2
 channel =  0
 
+
+[State 2010, NHB]
+type = VelAdd
+trigger1 = AnimElem = 2
+X = 2.5
 
 [State 15010, Punch]
 type = helper
@@ -1078,7 +1108,7 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 p1sprpriority = 1
 p2sprpriority = -1
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -1122,8 +1152,8 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
+velset = 0,0
 anim = 15017 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
@@ -1176,7 +1206,7 @@ p2sprpriority = -1
 fall = 0
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -1230,7 +1260,6 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15018 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
@@ -1285,7 +1314,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -1316,12 +1345,17 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
+velset = 0,0
 anim = 15019 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = PosAdd
+trigger1 = AnimElem = 2
+X = 10
 
 [State 2010, NHB]
 type = PlaySnd
@@ -1366,7 +1400,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -1403,13 +1437,12 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
+velset = 0,0
 anim = 15032 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
-
 
 [State 2010, NHB]
 type = PlaySnd
@@ -1435,7 +1468,7 @@ ownpal = 1
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = AnimElem  = 18
-value = S8001,8
+value = S8000,29
 channel =  0
 
 [State 15010, Punch]
@@ -1531,9 +1564,9 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15033 ;Change animation (Def: no change)
+velset = 0,0
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
@@ -1659,12 +1692,16 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15034 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = VelAdd
+trigger1 = AnimElem = 2
+X = 2
 
 [State 2010, NHB]
 type = PlaySnd
@@ -1708,7 +1745,7 @@ ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 p1sprpriority = 1
 p2sprpriority = -1
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -1739,8 +1776,8 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
+velset = 0,0
 anim = 15035 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
@@ -1815,7 +1852,7 @@ p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
 fall = 0
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -1852,12 +1889,16 @@ type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = S                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15039 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = VelAdd
+trigger1 = AnimElem = 2
+X = 2
 
 
 [State 2010, NHB]
@@ -1906,7 +1947,7 @@ air.velocity = -.5,-.5
 forcenofall = 1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -2027,7 +2068,7 @@ attr = A, NA
 animtype  = Medium
 damage    = 15
 guardflag = HA
-hitflag = MAF
+hitflag = MAFD
 pausetime = 12,12
 sparkno = S7401
 sparkxy = -10, -15
@@ -2043,7 +2084,7 @@ p2sprpriority = -1
 fall = 1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 
 [State 15502, ComboVar]
@@ -2134,7 +2175,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -3289,7 +3330,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -3459,7 +3500,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -3613,7 +3654,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -3783,7 +3824,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -3936,7 +3977,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -4040,7 +4081,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -4138,7 +4179,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -4220,7 +4261,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -4305,7 +4346,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -4606,7 +4647,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -4758,7 +4799,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -4863,7 +4904,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -5031,7 +5072,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -5154,7 +5195,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -5187,20 +5228,24 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15502 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 2010, NHB]
+type = VelMul
+trigger1 = !Time
+X = 0.5
+Y = 0.1
+persistent = 0
 
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = AnimElem = 2
 value = S8001,4
 channel =  0
-
 
 [State 15010, Punch]
 type = helper
@@ -5218,7 +5263,8 @@ ownpal = 1
 [State 1250, slow]
 type = veladd
 trigger1 = statetype = A
-y = const(movement.yaccel) * 0.1
+y = const(movement.yaccel) * IfElse(AnimElemNo(0) < 3 || MoveHit, 0.1, 0.5)
+ignorehitpause = 1
 
 [State 1250, slow]
 type = statetypeset
@@ -5278,20 +5324,34 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = .5
-air.velocity = 0,-.8
-yaccel = 0.1
+ground.velocity = -1, -0.1
+air.velocity = -1,-0.1
+yaccel = const(movement.yaccel) * 0.1
 forcenofall = 1
 p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+ID = 15502
 
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = NumTarget(15502)
+fvar(0) = -(Pos Y - Target(15502), Pos Y)
+ignorehitpause = 1
+persistent = 0
+
+[State 15516, ComboVar]
+type = TargetBind
+trigger1 = NumTarget(15502)
+pos = Target(15502), Const(size.air.front) + 10, fvar(0)
+ignorehitpause = 1
+persistent = 0
 
 [State 15502, ComboVar]
 type = VarSet
@@ -5306,6 +5366,17 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+
+[State 2010, NHB]
+type = VelSet
+trigger1 = MoveHit 
+trigger2 = NumHelper(15000)
+trigger2 = Helper(15000), MoveHit
+X = 1
+Y = -0.5 * (StateType = A)
+ignorehitpause = 1
+persistent = 0
+
 [State 15502, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -5319,13 +5390,18 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15503 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 2010, NHB]
+type = VelMul
+trigger1 = !Time
+X = 0.3
+Y = 0.3
+persistent = 0
 
 [State 2010, NHB]
 type = PlaySnd
@@ -5425,7 +5501,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -5472,13 +5548,11 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15504 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
-
 
 [State 2010, NHB]
 type = PlaySnd
@@ -5502,7 +5576,8 @@ ownpal = 1
 [State 1250, slow]
 type = veladd
 trigger1 = statetype = A
-y = const(movement.yaccel) * 0.075
+y = const(movement.yaccel) * IfElse(AnimElemNo(0) < 3 || MoveHit, 0.1, 0.5)
+ignorehitpause = 1
 
 [State 1250, slow]
 type = statetypeset
@@ -5562,20 +5637,20 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = -0.2, -.4
-air.velocity = 0,-.8
-yaccel = 0.1
+ground.velocity = -0.5, -0.1
+air.velocity = -0.5,-0.1
+yaccel = const(movement.yaccel) * 0.1
 forcenofall = 1
 p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
-
+ID = 15504
 
 [State 15504, ComboVar]
 type = VarSet
@@ -5590,6 +5665,30 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = NumTarget(15504)
+fvar(0) = -(Pos Y - Target(15504), Pos Y)
+ignorehitpause = 1
+persistent = 0
+
+[State 15516, ComboVar]
+type = TargetBind
+trigger1 = NumTarget(15504)
+pos = Target(15504), Const(size.air.front) + 10, fvar(0)
+ignorehitpause = 1
+persistent = 0
+
+[State 2010, NHB]
+type = VelSet
+trigger1 = MoveHit 
+trigger2 = NumHelper(15000)
+trigger2 = Helper(15000), MoveHit
+X = 1
+Y = -0.5
+ignorehitpause = 1
+persistent = 0
+
 [State 15504, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -5603,12 +5702,27 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15505 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = VelMul
+trigger1 = !Time
+X = 0.3
+Y = 0.3
+persistent = 0
+
+[State 2010, NHB]
+type = TargetVelSet
+trigger1 = !Time
+trigger1 = NumTarget(15502)
+ID = 15502
+X = Target(15502), Vel X * 0.3
+Y = Target(15502), Vel Y * 0.3
+ignorehitpause = 1
 
 
 [State 2010, NHB]
@@ -5616,7 +5730,6 @@ type = PlaySnd
 trigger1 = AnimElem = 2
 value = S8001,2
 channel =  0
-
 
 [State 15010, Punch]
 type = helper
@@ -5692,7 +5805,7 @@ animtype  = Medium
 damage    = 15
 guardflag = HA
 hitflag = MAF
-pausetime = 12,12
+pausetime = 12,18
 sparkno = S7401
 sparkxy = -10, -15
 hitsound   = S7020,2
@@ -5700,14 +5813,14 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = -.5,0
+ground.velocity = -.5,5
 air.velocity = -.5,5
 fall = 0
 p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -5759,20 +5872,17 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15508 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
-
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = AnimElem = 2
 value = S8001,5
 channel =  0
-
 
 [State 15010, Punch]
 type = helper
@@ -5790,7 +5900,7 @@ ownpal = 1
 [State 1250, slow]
 type = veladd
 trigger1 = statetype = A
-y = const(movement.yaccel) * 0.05
+y = const(movement.yaccel) * IfElse(AnimElemNo(0) < 3, 0.1, 0.5)
 
 [State 1250, slow]
 type = statetypeset
@@ -5842,7 +5952,7 @@ animtype  = Medium
 damage    = 12
 guardflag = MA
 hitflag = MAF
-pausetime = 12,12
+pausetime = 12,18
 sparkno = S7401
 sparkxy = -5, -15
 hitsound   = S7020,3
@@ -5850,20 +5960,34 @@ guardsound = 6,0
 ground.type = Low
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = -.5
-air.velocity = 0,0
-yaccel = 0.1
+ground.velocity = -0.3, -1
+air.velocity = -0.3,-1
+yaccel = const(movement.yaccel) * 0.1
 forcenofall = 1
 p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+ID = 15508
 
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = NumTarget(15508)
+fvar(0) = -(Pos Y - Target(15508), Pos Y)
+ignorehitpause = 1
+persistent = 0
+
+[State 15516, ComboVar]
+type = TargetBind
+trigger1 = NumTarget(15508)
+pos = Target(15508), Const(size.air.front) + 10, fvar(0)
+ignorehitpause = 1
+persistent = 0
 
 [State 15508, ComboVar]
 type = VarSet
@@ -5873,15 +5997,25 @@ ignorehitpause = 1
 
 [State 15508, ComboVar]
 type = VarSet
-trigger1 = AnimElemTime(2) >= 6
+trigger1 = AnimElemTime(2) >= 0
 var(25) = 1
 ignorehitpause = 1
 
 [State 15508, ComboVar]
 type = VarSet
-trigger1 = AnimElemTime(3) >= 6
+trigger1 = AnimElemTime(3) >= 10
 var(25) = 2
 ignorehitpause = 1
+
+[State 2010, NHB]
+type = VelSet
+trigger1 = MoveHit 
+trigger2 = NumHelper(15000)
+trigger2 = Helper(15000), MoveHit
+X = 1
+Y = -1 * (StateType = A)
+ignorehitpause = 1
+persistent = 0
 
 [State 15502, ChangeAnim]
 type = ChangeState
@@ -5895,13 +6029,28 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15509 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+
+[State 2010, NHB]
+type = TargetVelSet
+trigger1 = !Time
+trigger1 = NumTarget(15504)
+ID = 15504
+X = Target(15504), Vel X * 0.5
+Y = Target(15504), Vel Y * 0.1
+ignorehitpause = 1
+
+[State 2010, NHB]
+type = VelMul
+trigger1 = !Time
+X = 0.5
+Y = 0.1
+persistent = 0
 
 [State 2010, NHB]
 type = PlaySnd
@@ -5977,27 +6126,39 @@ animtype  = Back
 damage    = 15
 guardflag = LA
 hitflag = MAF
-pausetime = 12,12
+pausetime = 12, 18
 sparkno = S7401
 sparkxy = -5, -7
 hitsound   = S7020,1
 guardsound = 6,0
 ground.type = High
-ground.slidetime = 0
+ground.slidetime = 15
 ground.hittime  = 20
-ground.velocity = 0, -1
-air.velocity = 0, -1
+ground.velocity = 0, 1
+air.hittime  = 20
+air.velocity = 0, 1
 yaccel = 0.1
 forcenofall = 1
 p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+
+[State 2010, NHB]
+type = VelSet
+trigger1 = MoveHit 
+trigger2 = NumHelper(15000)
+trigger2 = Helper(15000), MoveHit
+X = 0
+Y = 0
+ignorehitpause = 1
+persistent = 0
+
 
 [State 15509, ComboVar]
 type = VarSet
@@ -6024,20 +6185,17 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15516 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
-
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = AnimElem = 2
 value = S8001,2
 channel =  0
-
 
 [State 15010, Punch]
 type = helper
@@ -6051,7 +6209,6 @@ postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
 pos = -5, -20
 ownpal = 1
-
 
 [State 1250, slow]
 type = veladd
@@ -6116,19 +6273,34 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = -.5
-air.velocity = 0,-.8
-yaccel = 0.1
+ground.velocity = -0.1, -0.1
+air.velocity = -0.1,-0.1
+yaccel = const(movement.yaccel) * 0.1
 forcenofall = 1
 p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+ID = 15516
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = NumTarget(15516)
+fvar(0) = -(Pos Y - Target(15516), Pos Y)
+ignorehitpause = 1
+persistent = 0
+
+[State 15516, ComboVar]
+type = TargetBind
+trigger1 = NumTarget(15516)
+pos = Target(15516), Const(size.air.front) + 10, fvar(0)
+ignorehitpause = 1
+persistent = 0
 
 [State 15516, ComboVar]
 type = VarSet
@@ -6143,6 +6315,16 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 2010, NHB]
+type = VelSet
+trigger1 = MoveHit 
+trigger2 = NumHelper(15000)
+trigger2 = Helper(15000), MoveHit
+X = 0.1
+Y = -0.1 * (StateType = A)
+ignorehitpause = 1
+persistent = 0
+
 [State 15516, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -6155,12 +6337,22 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15517 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
+velset = 0,0
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+
+[State 2010, NHB]
+type = TargetVelSet
+trigger1 = !Time
+trigger1 = NumTarget(15508)
+ID = 15508
+X = -0.1
+Y = 0
+ignorehitpause = 1
 
 
 [State 2010, NHB]
@@ -6181,7 +6373,6 @@ postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
 pos = 30, -15
 ownpal = 1
-
 
 [State 1250, slow]
 type = veladd
@@ -6224,20 +6415,35 @@ ground.type = Low
 ground.slidetime = 0
 ground.hittime  = 30
 air.hittime  = 40
-ground.velocity = 0, -0.8
+ground.velocity = 0.1, -0.2
 yaccel = 0.1
-air.velocity =  0, -0.8
+air.velocity =  0.1, -0.2
 forcenofall = 1
 fall = 0
 p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+ID = 15519
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = NumTarget(15519)
+fvar(0) = -(Pos Y - Target(15519), Pos Y)
+ignorehitpause = 1
+persistent = 0
+
+[State 15516, ComboVar]
+type = TargetBind
+trigger1 = NumTarget(15519)
+pos = Target(15519), Const(size.air.front) + 10, fvar(0)
+ignorehitpause = 1
+persistent = 0
 
 [State 200, Explod]
 type = Explod
@@ -6261,6 +6467,16 @@ ownpal = 1
 pausemovetime = 9999999*(Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
+
+[State 2010, NHB]
+type = VelSet
+trigger1 = MoveHit 
+trigger2 = NumHelper(15000)
+trigger2 = Helper(15000), MoveHit
+Y = 0
+ignorehitpause = 1
+persistent = 0
+
 
 [State 15517, ComboVar]
 type = VarSet
@@ -6287,7 +6503,6 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15518 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
@@ -6336,7 +6551,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -6369,7 +6584,6 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15519 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
@@ -6399,7 +6613,7 @@ ownpal = 1
 [State 1250, slow]
 type = veladd
 trigger1 = statetype = A
-y = const(movement.yaccel) * 0.1
+y = const(movement.yaccel)  * IfElse(AnimElemNo(0) < 3 || MoveHit, 0, 0.5)
 
 [State 1250, slow]
 type = statetypeset
@@ -6465,14 +6679,14 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = -.5
-air.velocity = .5,-.5
+ground.velocity = -.5, 2
+air.velocity = .5, 2
 fall = 1
 p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -6518,8 +6732,8 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
+velset = 0,0
 anim = 15532 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
@@ -6530,6 +6744,13 @@ type = PlaySnd
 trigger1 = !Time
 value = S8000,4
 channel =  0
+
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = AnimElem = 18
+value = S8000,29
+channel =  0
+
 
 [State 15010, Punch]
 type = helper
@@ -6632,6 +6853,21 @@ givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+ID = 15532
+
+[State 15502, ComboVar]
+type = VarSet
+trigger1 = NumTarget(15532)
+fvar(0) = -(Pos Y - Target(15532), Pos Y)
+ignorehitpause = 1
+persistent = 0
+
+[State 15516, ComboVar]
+type = TargetBind
+trigger1 = NumTarget(15532)
+pos = Target(15532), Const(size.air.front) + 10, fvar(0)
+ignorehitpause = 1
+persistent = 0
 
 [State 15033, ComboVar]
 type = VarSet
@@ -6658,7 +6894,6 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15533 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
@@ -6676,7 +6911,7 @@ channel =  0
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = AnimElem = 18
-value = S8001,12
+value = S8000,12
 channel =  0
 
 [State 15010, Punch]
@@ -6806,7 +7041,6 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15534 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
@@ -6855,7 +7089,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -6886,13 +7120,18 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15535 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 2010, NHB]
+type = VelSet
+trigger1 = !Time
+Y = 0
+ignorehitpause = 1
+persistent = 0
 
 [State 2010, NHB]
 type = PlaySnd
@@ -6968,7 +7207,7 @@ animtype  = Hard
 damage    = 15
 guardflag = L
 hitflag = MAF
-pausetime = 12,12
+pausetime = 12,24
 sparkno = S7401
 sparkxy = -5, 0
 hitsound   = S7020,2
@@ -6977,8 +7216,8 @@ ground.type = Trip
 ground.slidetime = 0
 ground.hittime  = 20
 snap = 10,0
-ground.velocity = 0, -4
-air.velocity = 0, -4
+ground.velocity = 0, 0
+air.velocity = 0, 0
 yaccel = .2
 forcenofall = 1
 ground.cornerpush.veloff = 0;
@@ -6986,11 +7225,21 @@ air.cornerpush.veloff = 0;
 fall = 0
 p1sprpriority = 1
 p2sprpriority = -1
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
+
+[State 2010, NHB]
+type = VelSet
+trigger1 = MoveHit 
+trigger2 = NumHelper(15000)
+trigger2 = Helper(15000), MoveHit
+X = 0
+Y = 0
+ignorehitpause = 1
+persistent = 0
 
 [State 15535, ComboVar]
 type = VarSet
@@ -7018,7 +7267,6 @@ movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
 ;Commonly-used controllers:
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15565 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
@@ -7121,7 +7369,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 
 [State 15502, ComboVar]
@@ -7163,9 +7411,9 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15571 ;Change animation (Def: no change)
+velset = 0,0
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
@@ -7212,7 +7460,7 @@ p1sprpriority = 1
 p2sprpriority = -1
 ground.cornerpush.veloff = 0;
 air.cornerpush.veloff = 0;
-getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 36, 72)), IfElse(Var(21) > 0, 0, 18)
+getpower = IfElse(Var(21) > 0, 0, ifelse(p2movetype = H, 48, 84)), IfElse(Var(21) > 0, 0, 24)
 givepower = 18, 18
 palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
@@ -7244,7 +7492,6 @@ type    = A                      ;State-type: S-stand, C-crouch, A-air, L-liedow
 movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
 physics = N                      ;Physics: S-stand, C-crouch, A-air
 juggle  = 3                      ;Number of air juggle points move takes
-velset = 0,0                     ;Set velocity (x,y) (Def: no change)
 ctrl = 0                         ;Set ctrl (Def: no change)
 anim = 15717 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
