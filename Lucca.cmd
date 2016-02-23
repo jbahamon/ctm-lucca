@@ -269,9 +269,22 @@ name = "Witch Twist"
 command = /F+a, b
 time = 30
 
+
 [Command]
 name = "Witch Twist"
 command = /a, b
+time = 30
+
+
+[Command]
+name = "Heel Tornado"
+command = /F+a, c
+time = 30
+
+
+[Command]
+name = "Heel Tornado"
+command = /a, c
 time = 30
 
 [Command]
@@ -282,6 +295,11 @@ time = 30
 [Command]
 name = "Stiletto"
 command = F, F, b
+time = 30
+
+[Command]
+name = "Heel Slide"
+command = F, F, c
 time = 30
 
 ;-| Special Motions |------------------------------------------------------
@@ -463,6 +481,27 @@ command = /U, b
 time = 1
 
 [Command]
+name = "U+c"
+command = /U, c
+time = 1
+
+[Command]
+name = "F+c"
+command = /F,c
+time = 1
+
+[Command]
+name = "U+F+c"
+command = /U+F, c
+time = 1
+
+
+[Command]
+name = "holdUb";Required (do not remove)
+command = /U,b
+time = 1
+
+[Command]
 name = "F+a"
 command = /F, a
 time = 1
@@ -631,63 +670,7 @@ time = 1
 ;===========================================================================
 
 
-;--------
-;Panther Within
-[State -1, Panther Within]
-type = ChangeState
-value = 11400
-trigger1 = command = "Panther Within"
-trigger1 = statetype = S
-trigger1 = ctrl || (StateNo = 17100 && Time < 10)
 
-
-;--------
-;Witch Twist
-[State -1, Witch Twist]
-type = ChangeState
-value = 11000
-trigger1 = command = "Witch Twist"
-trigger1 = statetype = S
-trigger1 = StateNo = [17100, 17101]
-trigger1 = Time = [10,30]
-
-;--------
-;Witch Strike
-[State -1, Witch Strike]	
-type = ChangeState
-value = 11005
-triggerall = command = "U+b"
-trigger1 = (StateNo = 50 && Anim = 41)
-trigger1 = PrevStateNo = 40 || PrevStateNo = 45
-trigger1 = Time < 10
-trigger2 = Statetype = S
-
-;--------
-;Stiletto
-[State -1, Stiletto]	
-type = ChangeState
-value = 11020
-trigger1 = command = "Stiletto" 
-trigger1 = statetype = S
-trigger1 = Ctrl || StateNo = 100
-
-;---------------------------------------------------------------------------
-;Run Fwd
-[State -1, Run Fwd]
-type = ChangeState
-value = 100
-trigger1 = command = "FF"
-trigger1 = statetype = S
-trigger1 = ctrl
-
-;---------------------------------------------------------------------------
-;Run Back
-[State -1, Run Back]
-type = ChangeState
-value = 105
-trigger1 = command = "BB"
-trigger1 = statetype = S
-trigger1 = ctrl
 
 ;===========================================================================
 ; Super Moves
@@ -864,16 +847,126 @@ triggerall = !NumHelper(1030)
 triggerall = Command = "dba" || Command = "dbb" || Command = "dbc" 
 trigger1 = statetype != A
 trigger1 = ctrl
-;--------------------------------------------------------------------------
 
-[State -1, Tombstone]
+
+;--------
+;Panther Within
+[State -1, Panther Within]
+type = ChangeState
+value = 11400
+triggerall = PalNo = 12
+trigger1 = command = "Panther Within"
+trigger1 = statetype = S
+trigger1 = ctrl || (StateNo = 17100 && Time < 10)
+
+
+;--------
+;Witch Twist
+[State -1, Witch Twist]
 type = ChangeState
 value = 11000
 triggerall = PalNo = 12
-triggerall = command = "qcfb" || command = "qcfc"
-triggerall = roundstate = 2 && statetype != A && !numhelper(11000)
+trigger1 = command = "Witch Twist"
+trigger1 = statetype = S
+trigger1 = StateNo = [17100, 17101]
+trigger1 = Time = [5,30]
+
+;--------
+;Witch Strike
+[State -1, Witch Strike]	
+type = ChangeState
+value = 11005
+triggerall = PalNo = 12
+triggerall = command = "U+b"
+trigger1 = Time < 30; || (command = "b" && Time < 5)
+trigger1 = (StateNo = 50)
+trigger1 = PrevStateNo = 40 || PrevStateNo = 45
+trigger2 = StateNo = 11010 && Var(25)
+trigger3 = StateNo = 11031 && Var(25)
+
+[State -1, Witch Strike From Heel Slide]	
+type = ChangeState
+value = 11005
+triggerall = PalNo = 12
+triggerall = (command = "holdUb")
+trigger1 = (StateNo = 11031)
+trigger1 = Var(25)
+
+
+;--------
+;Heel Tornado
+[State -1, Heel Tornado]	
+type = ChangeState
+value = 11010
+triggerall = PalNo = 12
+trigger1 = command = "Heel Tornado"
+trigger1 = statetype = S
+trigger1 = StateNo = [17100, 17101]
+trigger1 = Time = [5,30]
+
+
+;--------
+;After Burner Kick (Up)
+[State -1, After Burner Kick]	
+type = ChangeState
+value = 11035
+triggerall = PalNo = 12
+triggerall = ((command = "U+c" || command = "U+F+c" )&&  Time < 30); || (command = "c" && Time < 5)
+trigger1 = (StateNo = 50); && Anim = 41)
+trigger1 = PrevStateNo = 40 || PrevStateNo = 45
+trigger2 = StateNo = 11010 && Var(25)
+trigger3 = StateNo = 11031 && Var(25)
+
+;--------
+;After Burner Kick (Down)
+[State -1, After Burner Kick]	
+type = ChangeState
+value = 11036
+triggerall = PalNo = 12
+triggerall = command = "F+c"
+trigger1 = Ctrl
+trigger1 = Statetype = A
+trigger2 = (stateno = 11035) && Var(25)
+trigger3 = (stateno = [15502,15800]) && Var(25)
+
+
+;--------
+;Stiletto
+[State -1, Stiletto]	
+type = ChangeState
+value = 11020 + (Statetype = A)
+triggerall = PalNo = 12
+trigger1 = command = "Stiletto" 
+trigger1 = statetype != C
+trigger1 = Ctrl || StateNo = 100
+
+;--------
+;Heel Slide
+[State -1, Heel Slide]	
+type = ChangeState
+value = 11030
+triggerall = PalNo = 12
+trigger1 = command = "Heel Slide" 
+trigger1 = statetype = S
+trigger1 = Ctrl || StateNo = 100
+
+;---------------------------------------------------------------------------
+;Run Fwd
+[State -1, Run Fwd]
+type = ChangeState
+value = 100
+trigger1 = command = "FF"
+trigger1 = statetype = S
 trigger1 = ctrl
-trigger2 = (stateno = [200, 299]) && movecontact
+
+;---------------------------------------------------------------------------
+;Run Back
+[State -1, Run Back]
+type = ChangeState
+value = 105
+trigger1 = command = "BB"
+trigger1 = statetype = S
+trigger1 = ctrl
 
 ;--------------------------------------------------------------------------
 [State -1, Tetsuzanko]
@@ -981,7 +1074,7 @@ triggerall = command = "b"
 triggerall = command != "holddown"
 trigger1 = statetype != A
 trigger1 = ctrl
-
+trigger2 = (stateno = 11020) && Var(25)
 
 [State -1, Standing Kick]
 type = ChangeState
@@ -991,7 +1084,7 @@ triggerall = command = "c"
 triggerall = command != "holddown"
 trigger1 = statetype != A
 trigger1 = ctrl
-
+trigger2 = (stateno = 11020) && Var(25)
 
 [State -1, Air Punch]
 type = ChangeState
@@ -1000,7 +1093,9 @@ triggerall = PalNo = 12
 triggerall = command = "b"
 trigger1 = statetype = A
 trigger1 = ctrl
-
+trigger2 = (stateno = 11021) && Var(25)
+trigger3 = (stateno = [11035, 11036]) && Var(25)
+trigger4 = (stateno = [11000, 11005]) && Var(25)
 
 [State -1, Air Kick]
 type = ChangeState
@@ -1009,6 +1104,9 @@ triggerall = PalNo = 12
 triggerall = command = "c"
 trigger1 = statetype = A
 trigger1 = ctrl
+trigger2 = (stateno = 11021) && Var(25)
+trigger3 = (stateno = [11035, 11036]) && Var(25)
+trigger4 = (stateno = [11000, 11005]) && Var(25)
 
 [State 15002, Air Punch Combos]
 type = ChangeState

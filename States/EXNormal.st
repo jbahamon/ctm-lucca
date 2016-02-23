@@ -131,6 +131,14 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+
+[State 2010, NHB]
+type = ChangeAnim
+trigger1 = AnimElemTime(1) = 2
+trigger1 = PrevStateNo = 11020
+value = 15003
+elem = 2
+
 [State 2010, NHB]
 type = VelAdd
 trigger1 = AnimElem = 2
@@ -1266,6 +1274,28 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 2
+anim = 7302
+ID = 15002
+pos = 6, -30
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = -1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
 
 [State 2010, NHB]
 type = VelSet
@@ -3932,10 +3962,10 @@ channel =  0
 
 [State 200, Explod]
 type = Explod
-trigger1 = AnimElem = 3
+trigger1 = AnimElem = 2
 anim = 7302
 ID = 15002
-pos = 3, -38
+pos = 3, -30
 postype = p1  ;p2,front,back,left,right
 facing = 1
 vfacing = -1
@@ -4039,10 +4069,10 @@ type = Explod
 trigger1 = AnimElem = 3
 anim = 7302
 ID = 15002
-pos = 3, -38
+pos = 6, 1
 postype = p1  ;p2,front,back,left,right
 facing = 1
-vfacing = -1
+vfacing = 1
 bindtime = -1
 vel = 0,0
 accel = 0,0
@@ -4237,6 +4267,30 @@ pausemovetime = 9999999*(Var(24) > 0)
 pos = 10, 0
 ownpal = 1
 
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 2
+anim = 7302
+ID = 15002
+pos = 6, -30
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = -1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
 [State 15018, Hit]
 type = HitDef
 trigger1 = !Time
@@ -4298,6 +4352,29 @@ anim = 15216 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 2
+anim = 7302
+ID = 15002
+pos = 6, -30
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = -1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
 
 [State 2010, NHB]
 type = PlaySnd
@@ -4728,6 +4805,29 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 3
+anim = 7302
+ID = 15002
+pos = 6, 1
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
 
 [State 15010, Punch]
 type = helper
@@ -5153,6 +5253,29 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 2
+anim = 7302
+ID = 15002
+pos = 6, -30
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = -1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = !Time
@@ -5233,6 +5356,13 @@ anim = 15502 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = ChangeAnim
+trigger1 = AnimElemTime(1) = 2
+trigger1 = PrevStateNo = 11020
+value = 15502
+elem = 2
 
 [State 2010, NHB]
 type = VelMul
@@ -5395,6 +5525,13 @@ anim = 15503 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
+
+[State 2010, NHB]
+type = ChangeAnim
+trigger1 = AnimElemTime(1) = 2
+trigger1 = PrevStateNo = 11020
+value = 15503
+elem = 2
 
 [State 2010, NHB]
 type = VelMul
@@ -6509,6 +6646,30 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 2
+anim = 7302
+ID = 15002
+pos = 3, -38
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = -1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = !Time
@@ -7003,8 +7164,8 @@ guardsound = 6,0
 ground.type = High
 ground.slidetime = 0
 ground.hittime  = 20
-ground.velocity = -.5
-air.velocity = -.5,-.5
+ground.velocity = -.5,-1
+air.velocity = -.5,-1
 forcenofall = 1
 p1sprpriority = 1
 p2sprpriority = -1
@@ -7418,6 +7579,29 @@ poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
 
+
+[State 200, Explod]
+type = Explod
+trigger1 = AnimElem = 2
+anim = 7308
+ID = 15002
+pos = 15, -15
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1,1
+sprpriority = 2
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
 
 [State 2010, NHB]
 type = PlaySnd

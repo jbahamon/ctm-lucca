@@ -414,5 +414,6 @@ type = PlaySnd
 triggerall = Time = 1
 trigger1 = stateno = 50 ;Jump 
 trigger1 = (PrevStateNo != [200,1099]) && (PrevStateNo != [2000,2099])
+trigger1 = (PrevStateNo != [11000,11999])
 trigger2 = stateno = 105 ;Run-back
 value = S7010, 5
