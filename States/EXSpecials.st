@@ -44,7 +44,7 @@ Y = -6
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = AnimElem = 5
-value = S8000,2
+value = S8000,15
 channel =  0
 ignorehitpause = 1
 
@@ -513,6 +513,12 @@ facep2 = 1
 juggle  = 12
 
 
+[State 2010, NHB]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,15
+channel =  0
+ignorehitpause = 1
 
 [State 200, Explod]
 type = Explod
@@ -1039,7 +1045,7 @@ trigger1 = !Time
 attr = S, SA
 damage = 22, 5
 animtype = Hard
-guardflag = MA
+guardflag = L
 hitflag = MAF
 priority = 4, Hit
 pausetime = 7, 7
