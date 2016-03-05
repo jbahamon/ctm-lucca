@@ -112,6 +112,12 @@ var(25) = 2
 persistent = 0
 ignorehitpause = 1
 
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(4) = 7
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -240,6 +246,11 @@ var(25) = 2
 ignorehitpause = 1
 
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(4) = 6
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -355,6 +366,12 @@ trigger1 = AnimElemTime(4) >= 4
 var(25) = 2
 ignorehitpause = 1
 
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(4) = 8
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -464,6 +481,12 @@ trigger1 = AnimElem = 3
 trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
+
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(3) = 6
+movetype = I
 
 [State 15005, ChangeAnim]
 type = ChangeState
@@ -581,6 +604,11 @@ trigger1 = AnimElemTime(4) >= 0
 var(25) = 2
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(4) = 4
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -695,6 +723,11 @@ trigger1 = AnimElemTime(3) >= 0
 var(25) = 2
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(3) = 4
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -800,7 +833,6 @@ var(25) = 1
 persistent = 0
 ignorehitpause = 1
 
-
 [State 15009, ComboVar]
 type = VarSet
 trigger1 = AnimElem = 4
@@ -808,6 +840,10 @@ var(25) = 2
 persistent = 0
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(4) >= 7
+movetype = I
 
 [State 15009, ComboVar]
 type = VarSet
@@ -908,12 +944,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15010, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 5
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -1020,12 +1054,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15002, ComboVar]
-type = VarSet
-trigger1 = AnimElemTime(3) >= 6
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 15
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -1050,7 +1082,6 @@ type = PlaySnd
 trigger1 = AnimElem = 2
 value = S8001,2
 channel =  0
-
 
 [State 2010, NHB]
 type = VelAdd
@@ -1147,6 +1178,10 @@ trigger1 = AnimElemTime(3) = 12
 var(25) = 0
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(3) = 12
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -1256,6 +1291,11 @@ trigger2 = AnimElem = 5 && MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(5) = 12
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -1356,12 +1396,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15018, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(3) = 4
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -1453,6 +1491,11 @@ type = VarSet
 trigger1 = AnimElemTime(3) = 4
 var(25) = 2
 ignorehitpause = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(3) = 8
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -1710,6 +1753,11 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -1794,6 +1842,11 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(4) = 4
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -1812,7 +1865,6 @@ anim = 15035 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
-
 
 [State 2010, NHB]
 type = PlaySnd
@@ -1907,6 +1959,11 @@ trigger1 = AnimElemTime(5) = 12
 var(25) = 2
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElemTime(5) = 14
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -1989,12 +2046,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15039, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -2123,19 +2178,23 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-
 [State 15502, ComboVar]
 type = VarSet
 trigger1 = !Time
 var(0) = 0
 ignorehitpause = 1
 
-
 [State 15502, ComboVar]
 type = VarAdd
 trigger1 = StateType = S
 var(0) = 1
 ignorehitpause = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 6
+trigger2 = Anim = 121
+movetype = I
 
 [State 15502, ComboVar]
 type = ChangeAnim
@@ -2162,7 +2221,6 @@ anim = 15071 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
-
 
 [State 2010, NHB]
 type = PlaySnd
@@ -2217,12 +2275,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15071, ComboVar]
-type = VarSet
+[State 200, 2]
+type = StateTypeSet
 trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -3373,6 +3429,11 @@ trigger1 = Command = "holdup"
 value = 40
 ctrl = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -3590,7 +3651,6 @@ trigger1 = (Var(1) := (Var(1) + 1))
 value = 15203
 elem = 2
 
-
 [State 15502, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -3696,6 +3756,11 @@ trigger1 = MoveHit
 trigger1 = Command = "holdup"
 value = 40
 ctrl = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -3914,7 +3979,6 @@ trigger1 = (Var(1) := (Var(1) + 1))
 value = 15203
 elem = 2
 
-
 [State 15502, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -3934,7 +3998,6 @@ anim = 15206 ;Change animation (Def: no change)
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
-
 
 [State 15010, Punch]
 type = helper
@@ -4019,6 +4082,11 @@ trigger1 = MoveHit
 trigger1 = Command = "holdup"
 value = 40
 ctrl = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -4117,12 +4185,10 @@ palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
 
-[State 15002, ChangeAnim]
-type = ChangeState
-trigger1 = MoveHit
-trigger1 = Command = "holdup"
-value = 40
-ctrl = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -4162,7 +4228,6 @@ postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
 pos = 30, -30
 ownpal = 1
-
 
 [State 200, Explod]
 type = Explod
@@ -4229,6 +4294,11 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -4266,7 +4336,6 @@ postype = p1
 pausemovetime = 9999999*(Var(24) > 0)
 pos = 10, 0
 ownpal = 1
-
 
 [State 200, Explod]
 type = Explod
@@ -4327,12 +4396,17 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15018, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 15002, ChangeAnim]
+type = ChangeState
+trigger1 = MoveHit
+trigger1 = Command = "holdup"
+value = 40
+ctrl = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -4435,12 +4509,17 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15018, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 15002, ChangeAnim]
+type = ChangeState
+trigger1 = MoveHit
+trigger1 = Command = "holdup"
+value = 40
+ctrl = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -4561,12 +4640,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15033, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 21
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -4905,12 +4982,10 @@ palfx.add = 200, 200, 200
 palfx.mul = 256, 256, 256
 palfx.time = 8
 
-[State 15002, ChangeAnim]
-type = ChangeState
-trigger1 = MoveHit
-trigger1 = Command = "holdup"
-value = 40
-ctrl = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -5016,6 +5091,11 @@ trigger1 = MoveHit
 trigger1 = Command = "holdup"
 value = 40
 ctrl = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -5339,6 +5419,18 @@ ignorehitpause = 1
 
 [State 15002, ChangeAnim]
 type = ChangeState
+trigger1 = MoveHit
+trigger1 = Command = "holdup"
+value = 40
+ctrl = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
+
+[State 15002, ChangeAnim]
+type = ChangeState
 trigger1 = !AnimTime
 value = 0
 ctrl = 1
@@ -5496,6 +5588,10 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
 
 [State 2010, NHB]
 type = VelSet
@@ -5650,13 +5746,17 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-
 [State 15502, ComboVar]
 type = VarSet
 trigger1 = !Time
 var(0) = 0
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = Anim = 15503 && AnimElem = 6
+trigger2 = Anim = 121
+movetype = I
 
 [State 15502, ComboVar]
 type = VarAdd
@@ -5826,6 +5926,11 @@ Y = -0.5
 ignorehitpause = 1
 persistent = 0
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
+
 [State 15504, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -5981,6 +6086,12 @@ type = ChangeAnim
 trigger1 = Var(0) = 25
 value = 121
 ignorehitpause = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = Anim = 15505 && AnimElem = 6
+trigger2 = Anim = 121
+movetype = I
 
 [State 15505, ComboVar]
 type = VarSet
@@ -6154,6 +6265,11 @@ Y = -1 * (StateType = A)
 ignorehitpause = 1
 persistent = 0
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
+
 [State 15502, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -6296,7 +6412,6 @@ Y = 0
 ignorehitpause = 1
 persistent = 0
 
-
 [State 15509, ComboVar]
 type = VarSet
 trigger1 = !Time
@@ -6309,6 +6424,11 @@ trigger1 = AnimElem = 5
 trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 5
+movetype = I
 
 [State 15509, ChangeAnim]
 type = ChangeState
@@ -6462,6 +6582,11 @@ Y = -0.1 * (StateType = A)
 ignorehitpause = 1
 persistent = 0
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
+
 [State 15516, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -6614,6 +6739,10 @@ Y = 0
 ignorehitpause = 1
 persistent = 0
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 5
+movetype = I
 
 [State 15517, ComboVar]
 type = VarSet
@@ -6724,12 +6853,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15518, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
 
 [State 15502, ChangeAnim]
 type = ChangeState
@@ -6873,6 +7000,12 @@ type = VarAdd
 trigger1 = StateType = S
 var(0) = 1
 ignorehitpause = 1
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = Anim = 15519 && AnimElem = 6
+trigger2 = Anim = 121
+movetype = I
 
 [State 15502, ComboVar]
 type = ChangeAnim
@@ -7043,6 +7176,11 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 19
+movetype = I
+
 [State 15502, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -7190,6 +7328,11 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 21
+movetype = I
+
 [State 15502, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -7262,12 +7405,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15518, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
 
 [State 15502, ChangeAnim]
 type = ChangeState
@@ -7415,6 +7556,11 @@ trigger2 = AnimElem = 5 && MoveHit
 var(25) = 1
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 5
+movetype = I
+
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime
@@ -7553,6 +7699,12 @@ trigger1 = StateType = S
 var(0) = 1
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = Anim = 15565 && AnimElem = 6
+trigger2 = Anim = 121
+movetype = I
+
 [State 15502, ComboVar]
 type = ChangeAnim
 trigger1 = Var(0) = 15
@@ -7578,7 +7730,6 @@ velset = 0,0
 poweradd = 0                     ;Power to add (Def: 0)
 sprpriority = 1                  ;Set p1's sprite layering priority to 2 (in front)
 facep2 = 1
-
 
 [State 200, Explod]
 type = Explod
@@ -7656,12 +7807,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15571, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
 
 [State 15002, ChangeAnim]
 type = ChangeState
@@ -7804,12 +7953,10 @@ trigger1 = !Time
 var(25) = 0
 ignorehitpause = 1
 
-[State 15533, ComboVar]
-type = VarSet
-trigger1 = AnimElem = 4
-trigger2 = MoveHit
-var(25) = 1
-ignorehitpause = 1
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 21
+movetype = I
 
 [State 15502, ChangeAnim]
 type = ChangeState

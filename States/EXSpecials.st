@@ -213,8 +213,6 @@ fvar(2) = (-25 - Target(11000), Const(size.mid.pos.y))
 ignorehitpause = 1
 persistent = 0
 
-trigger1 = MoveHit
-
 [State 801, Bind]
 type = PlayerPush
 trigger1 = 1
@@ -387,7 +385,6 @@ Y = 0.2
 type = StateTypeSet
 trigger1 = AnimElem = 8
 movetype = I
-
 
 [State 15002, ComboVar]
 type = VarSet
@@ -711,6 +708,12 @@ triggerall = Anim = 11010
 trigger1 = !animtime
 value = 11011
 
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = Anim = 11010
+movetype = I
+
 [State 1000, End]
 type = ChangeState
 triggerall = Anim = 11011
@@ -822,6 +825,11 @@ palfx.time = 8
 type = VelSet
 trigger1 = AnimElemTime(2) = [-2,2]
 X = (AnimElemTime(2) + 2) * 2.2
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
 
 [State 1000, End]
 type = RemoveExplod
@@ -977,6 +985,11 @@ trigger1 = !AnimTime
 ID = 11021
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 3
+movetype = I
+
 [State 1000, End]
 type = changestate
 trigger1 = !animtime
@@ -1110,6 +1123,12 @@ type = VarSet
 trigger1 = command = "rlsc"
 v = 0
 value = 1
+
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
 
 [State 1000, End]
 type = changestate
@@ -1264,6 +1283,11 @@ airguard.cornerpush.veloff = 0
 palfx.add = 96, 96, 96
 palfx.mul = 256,256,256 
 palfx.time = 8
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 4
+movetype = I
 
 [State 1000, End]
 type = changestate
@@ -1768,6 +1792,12 @@ pausemovetime = 9999999*(Var(24) > 0)
 pos = -5, -30
 ownpal = 1
 
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 7
+movetype = I
+
 [State 1000, End]
 type = changestate
 trigger1 = !animtime
@@ -1913,6 +1943,11 @@ value = S8000,30
 ;channel =  0
 persistent = 0
 
+
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 7
+movetype = I
 
 [State 1000, End]
 type = changestate
@@ -2178,6 +2213,11 @@ pausemovetime = 9999999*(Var(24) > 0)
 pos = 20, 0
 ownpal = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 5
+movetype = I
+
 [State 1000, End]
 type = changestate
 trigger1 = !animtime
@@ -2316,6 +2356,10 @@ trigger1 = Pos Y > 0
 Y = 0
 ignorehitpause = 1
 
+[State 200, 2]
+type = StateTypeSet
+trigger1 = AnimElem = 5
+movetype = I
 
 [State 1000, End]
 type = changestate
