@@ -123,6 +123,7 @@ victory15 = "You...!\nYou're...Janus?"
 ; Var(23): Parry Time
 ; Var(24): Witch Time
 ; Var(25): Combo Control Flag
+; Var(26): AfterBurner Counter
 ; Var(59): Witch Mode
 
 ;FVar(29): Protect Damage
@@ -182,11 +183,22 @@ flag2 = NoCrouchGuard
 flag3 = NoAirGuard
 ignorehitpause = 1
 
+
+
+
 ;---------------------------------------------------------------------------
 ; States that are executed when in self's state file (use statedef -3)
 ;---------------------------------------------------------------------------
 
 [Statedef -3]
+
+[State -3, Dampener]
+Type = VarSet
+Trigger1 = PalNo = 12
+Trigger1 = Var(26) != 2
+Trigger1 = Statetype != A
+var(26) = 2
+ignorehitpause = 1
 
 [State -3, Dampener]
 Type = AttackMulSet

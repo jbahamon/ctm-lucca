@@ -491,8 +491,18 @@ command = /F,c
 time = 1
 
 [Command]
+name = "B+c"
+command = /B,c
+time = 1
+
+[Command]
 name = "U+F+c"
 command = /U+F, c
+time = 1
+
+[Command]
+name = "U+B+c"
+command = /U+B, c
 time = 1
 
 
@@ -860,6 +870,46 @@ trigger1 = statetype = S
 trigger1 = ctrl || (StateNo = 17100 && Time < 10)
 
 
+;--------------------------------------------------------------------------
+[State -1, Torture Attack - Ground]
+type = ChangeState
+value = 11200
+triggerall = Power >= 500
+triggerall = PalNo = 12
+triggerall = command = "qcbb" || command = "qcbc"
+triggerall = roundstate = 2 && statetype != A 
+trigger1 = ctrl
+
+;--------------------------------------------------------------------------
+[State -1, Torture Attack - Air]
+type = ChangeState
+value = 11300
+triggerall = Power >= 500
+triggerall = PalNo = 12
+triggerall = command = "qcbb" || command = "qcbc"
+triggerall = roundstate = 2 && statetype = A 
+trigger1 = ctrl
+
+;--------------------------------------------------------------------------
+[State -1, Tetsuzanko]
+type = ChangeState
+value = 11100 + (statetype = A)
+triggerall = PalNo = 12
+triggerall = command = "BFb"
+triggerall = roundstate = 2 && !numhelper(11100)
+trigger1 = ctrl
+trigger2 = (stateno = [15002, 15599]) && movecontact
+
+;--------------------------------------------------------------------------
+[State -1, Heel Stomp]
+type = ChangeState
+value = 11150 +  (statetype = A)
+triggerall = PalNo = 12
+triggerall = command = "BFc"
+triggerall = roundstate = 2 && !numhelper(11150)
+trigger1 = ctrl
+trigger2 = (stateno = [15002, 15599]) && movecontact
+
 ;--------
 ;Witch Twist
 [State -1, Witch Twist]
@@ -911,24 +961,27 @@ trigger1 = Time = [5,30]
 type = ChangeState
 value = 11035
 triggerall = PalNo = 12
-triggerall = ((command = "U+c" || command = "U+F+c" )&&  Time < 30); || (command = "c" && Time < 5)
+triggerall = Var(26) > 0
+triggerall = Time < 30
+triggerall = ((command = "U+c" || command = "U+F+c") && (((enemynear(numenemy>1&&!enemynear(0),alive), screenpos x) - ScreenPos X) * Facing) > 0) || ((command = "U+c" || command = "U+B+c") && (((enemynear(numenemy>1&&!enemynear(0),alive), screenpos x) - ScreenPos X) * Facing) < 0) 
 trigger1 = (StateNo = 50); && Anim = 41)
-trigger1 = PrevStateNo = 40 || PrevStateNo = 45
 trigger2 = StateNo = 11010 && Var(25)
 trigger3 = StateNo = 11031 && Var(25)
-
+trigger4 = StateNo = 11035 && Var(25)
+trigger5 = Statetype = A && Ctrl
+trigger6 = StateNo = 11005 && Var(25)
 ;--------
 ;After Burner Kick (Down)
 [State -1, After Burner Kick]	
 type = ChangeState
 value = 11036
 triggerall = PalNo = 12
-triggerall = command = "F+c"
-trigger1 = Ctrl
-trigger1 = Statetype = A
+triggerall = Var(26) > 0
+triggerall = (command = "F+c" && (((enemynear(numenemy>1&&!enemynear(0),alive), screenpos x) - ScreenPos X) * Facing) > 0) || (command = "B+c" && (((enemynear(numenemy>1&&!enemynear(0),alive), screenpos x) - ScreenPos X) * Facing) < 0)
+trigger1 = Ctrl && Statetype = A
 trigger2 = (stateno = 11035) && Var(25)
 trigger3 = (stateno = [15502,15800]) && Var(25)
-
+trigger4 = StateNo = 11005 && Var(25)
 
 ;--------
 ;Stiletto
@@ -968,45 +1021,6 @@ trigger1 = command = "BB"
 trigger1 = statetype = S
 trigger1 = ctrl
 
-;--------------------------------------------------------------------------
-[State -1, Tetsuzanko]
-type = ChangeState
-value = 11100 + (statetype = A)
-triggerall = PalNo = 12
-triggerall = command = "BFb"
-triggerall = roundstate = 2 && !numhelper(11100)
-trigger1 = ctrl
-trigger2 = (stateno = [15002, 15599]) && movecontact
-
-;--------------------------------------------------------------------------
-[State -1, Heel Stomp]
-type = ChangeState
-value = 11150 +  (statetype = A)
-triggerall = PalNo = 12
-triggerall = command = "BFc"
-triggerall = roundstate = 2 && !numhelper(11150)
-trigger1 = ctrl
-trigger2 = (stateno = [15002, 15599]) && movecontact
-
-;--------------------------------------------------------------------------
-[State -1, Torture Attack - Ground]
-type = ChangeState
-value = 11200
-triggerall = Power >= 500
-triggerall = PalNo = 12
-triggerall = command = "qcbb" || command = "qcbc"
-triggerall = roundstate = 2 && statetype != A 
-trigger1 = ctrl
-
-;--------------------------------------------------------------------------
-[State -1, Torture Attack - Air]
-type = ChangeState
-value = 11300
-triggerall = Power >= 500
-triggerall = PalNo = 12
-triggerall = command = "qcbb" || command = "qcbc"
-triggerall = roundstate = 2 && statetype = A 
-trigger1 = ctrl
 ;===========================================================================
 ; Throws, Rolls, Etc
 ;===========================================================================

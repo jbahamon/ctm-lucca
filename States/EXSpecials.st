@@ -14,6 +14,20 @@ sprpriority = 1
 facep2 = 0
 juggle  = 12
 
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = Animelemtime(7)= 0
+var(25) = 1
+ignorehitpause = 1
+
 [State N, Sound]
 type = VelMul
 trigger1 = AnimElemNo(0) < 5
@@ -268,6 +282,19 @@ facep2 = 0
 juggle  = 12
 
 
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = Animelemtime(4)= 0
+var(25) = 1
+ignorehitpause = 1
+
 [State 2010, NHB]
 type = PlaySnd
 trigger1 = !Time
@@ -448,6 +475,7 @@ ID = 11005
 [State 1031, Measure]
 type = VarSet
 trigger1 = NumTarget(11005)
+trigger1 = MoveHit
 fvar(1) = Facing * (Target(11005), Pos X - Pos X)
 ignorehitpause = 1
 persistent = 0
@@ -455,6 +483,7 @@ persistent = 0
 [State 801, Bind]
 type = VarSet
 trigger1 = NumTarget(11005)
+trigger1 = MoveHit
 fvar(2) = (-25 - Target(11005), Const(size.mid.pos.y))
 ignorehitpause = 1
 persistent = 0
@@ -468,6 +497,7 @@ ignorehitpause = 1
 [State 801, Bind]
 type = TargetBind
 trigger1 = NumTarget(11005)
+trigger1 = MoveHit
 ID = (11005)
 pos = fvar(1), fvar(2)
 ignorehitpause = 1
@@ -579,8 +609,8 @@ trigger4 = AnimElem = 16
 attr = S, SA
 animtype  = Medium
 damage    = 7, 1
-guardflag = MA
 hitflag = MAF
+guardflag = MA
 pausetime = 0,12
 sparkno = S7400
 sparkxy = -6 + Random % 6, -15 + Random % 6
@@ -711,7 +741,7 @@ value = 11011
 
 [State 200, 2]
 type = StateTypeSet
-trigger1 = Anim = 11010
+trigger1 = Anim = 11011
 movetype = I
 
 [State 1000, End]
@@ -1308,6 +1338,29 @@ sprpriority = 1
 facep2 = 0
 juggle  = 12
 
+[State 15002, ComboVar]
+type = VarAdd
+trigger1 = !Time
+var(26) = -1
+ignorehitpause = 1
+
+[State 15002, ComboVar]
+type = VarSet
+trigger1 = !Time
+var(25) = 0
+ignorehitpause = 1
+
+[State 1000, End]
+type = PlayerPush
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 1000, End]
+type = Turn
+trigger1 = !Time
+trigger1 = (((enemynear(numenemy>1&&!enemynear(0),alive), screenpos x) - ScreenPos X) * Facing) < 0
+
 [State 1000, End]
 type = PosSet
 triggerall = !Time
@@ -1400,9 +1453,9 @@ guardsound = s2, 0
 ground.type = Low
 ground.slidetime = 16
 ground.hittime = 32
-ground.velocity = 0.1, -0.1
+ground.velocity = 0, -5
 air.type = Low
-air.velocity = 0.1, -0.1
+air.velocity = 0, -5
 air.cornerpush.veloff = 0
 ground.cornerpush.veloff = 0
 guard.velocity = 0
@@ -1428,6 +1481,13 @@ ID = 11035
 
 [State 1031, Measure]
 type = VarSet
+trigger1 = AnimElemTime(3) = 0
+var(25) = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 1031, Measure]
+type = VarSet
 trigger1 = NumTarget(11035)
 fvar(1) = Facing * (Target(11035), Pos X - Pos X)
 ignorehitpause = 1
@@ -1441,13 +1501,13 @@ ignorehitpause = 1
 persistent = 0
 
 [State 801, Bind]
-type = PlayerPush
+type = Null;PlayerPush
 trigger1 = 1
 value = AnimElemNo(0) = [2,3]
 ignorehitpause = 1
 
 [State 801, Bind]
-type = TargetBind
+type = Null;TargetBind
 trigger1 = NumTarget(11035)
 ID = (11035)
 pos = fvar(1), fvar(2)
@@ -1484,6 +1544,23 @@ sprpriority = 1
 facep2 = 0
 juggle  = 12
 
+
+[State 15002, ComboVar]
+type = VarAdd
+trigger1 = !Time
+var(26) = -1
+ignorehitpause = 1
+
+[State 1000, End]
+type = PlayerPush
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 1000, End]
+type = Turn
+trigger1 = !Time
+trigger1 = (((enemynear(numenemy>1&&!enemynear(0),alive), screenpos x) - ScreenPos X) * Facing) < 0
 
 [State 200, Explod]
 type = Helper
@@ -1567,9 +1644,9 @@ guardsound = s2, 0
 ground.type = Low
 ground.slidetime = 16
 ground.hittime = 32
-ground.velocity = -0.5, -0.7
+ground.velocity = 0, -3
 air.type = Low
-air.velocity = -0.5, -0.7
+air.velocity = 0, -3
 air.cornerpush.veloff = 0
 ground.cornerpush.veloff = 0
 guard.velocity = 0
@@ -1616,6 +1693,12 @@ poweradd = 0
 sprpriority = 3
 facep2 = 0
 juggle  = 0
+
+[State 15002, ComboVar]
+type = VarAdd
+trigger1 = !Time
+var(26) = -1
+ignorehitpause = 1
 
 [State 11037, Turn]
 type = Turn
