@@ -175,6 +175,22 @@ ctrl = 0
 anim = 181
 velset = 0,0
 
+[State 1100, JumpSnd]
+type = ChangeAnim
+trigger1 = PalNo = 12
+trigger1 = !Time
+value = 17305
+ignorehitpause = 1
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = PalNo = 12
+trigger1 = !Time
+value = S8002,IfElse(Random % 2, 11, 13)
+channel =  0
+persistent = 0
+
+
 [State 181, 1]
 type = NotHitBy
 trigger1 = 1
@@ -499,8 +515,6 @@ trigger1 = PalNo = 12
 trigger1 = !Time
 value = 17305
 ignorehitpause = 1
-
-
 
 [State 1100, JumpSnd]
 type = PlaySnd
