@@ -2943,7 +2943,7 @@ velset = 0,0
 
 [State 2010, NHB]
 type = PlaySnd
-trigger1 = !Time
+trigger1 = Time = 20
 value = S8002,5
 channel =  0
 

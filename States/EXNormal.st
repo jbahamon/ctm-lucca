@@ -1753,11 +1753,6 @@ trigger2 = MoveHit
 var(25) = 1
 ignorehitpause = 1
 
-[State 200, 2]
-type = StateTypeSet
-trigger1 = AnimElem = 4
-movetype = I
-
 [State 15002, ChangeAnim]
 type = ChangeState
 trigger1 = !AnimTime

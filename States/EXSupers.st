@@ -2623,7 +2623,6 @@ attr = S, ST
 hitflag = M-
 priority = 2, Miss
 sparkno = -1
-hitsound = s7010, 0
 p1stateno = 13201
 p2stateno = 13202
 guard.dist = 0
@@ -3236,6 +3235,28 @@ poweradd = 0
 velset = 0,0
 
 [State 801, Bind]
+type = PlaySnd
+trigger1 = !Time
+value = S8001,2
+channel = 0
+persistent = 0
+
+
+[State 801, Bind]
+type = PlaySnd
+trigger1 = Anim = 13201
+value = S8001,0
+channel = 0
+persistent = 0
+
+[State 801, Bind]
+type = PlaySnd
+trigger1 = Anim = 13201
+trigger1 = AnimElem = 2
+value = S7020,0
+persistent = 0
+
+[State 801, Bind]
 type = ChangeAnim
 trigger1 = Anim = 13204
 trigger1 = !AnimTime
@@ -3588,6 +3609,13 @@ trigger3 = Var(0) > 0
 V = 0
 value = 1
 
+[State 11255, Var]
+type = PlaySnd
+trigger1 = !Time
+value = S7070,1
+loop = 1
+channel = 2
+
 [State N, Sound]
 type = PlaySnd
 trigger1 = Var(0) > 0
@@ -3708,6 +3736,12 @@ pausemovetime = 9999999*(Root, Var(24) > 0)
 removeongethit = 1
 ignorehitpause = 1
 
+
+[State 11255, Var]
+type = StopSnd
+trigger1 = Var(0) >= 15
+channel = 2
+
 [State 1022, Explod]
 type = DestroySelf
 trigger1 = Var(0) >= 16
@@ -3815,10 +3849,11 @@ trigger1 = (FVar(2) := - Pos Y) || 1
 value = 13273
 persistent = 0
 
+
 [State N, Sound]
 type = PlaySnd
-trigger1 = !Time
-value = S8001,4
+trigger1 = NumTarget
+value = S8001,5
 channel = 0
 persistent = 0
 
@@ -3826,10 +3861,28 @@ persistent = 0
 type = PlaySnd
 trigger1 = NumTarget
 trigger1 = NumHelper(13270)
-trigger1 = Helper(13270), Var(0) = 8
-value = S8001,6
+trigger1 = Helper(13270), Time = 20
+value = S8001,2
 channel = 0
 persistent = 0
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = Anim = 13271
+trigger1 = AnimElem = 2
+value = S8002,21
+channel = 0
+persistent = 0
+
+
+[State N, Sound]
+type = PlaySnd
+trigger1 = Anim = 13271
+trigger1 = AnimElem = 5
+value = S8002,22
+channel = 0
+persistent = 0
+
 
 
 [State 801, Bind]
@@ -3871,25 +3924,6 @@ type = TargetBind
 trigger1 = NumHelper(13270)
 trigger1 = Helper(13270), Var(0) = 10
 pos = (Helper(13270), Pos X - Pos X)*Facing + 60 * Cos(-(Pi/180.0)* Helper(13270), FVar(2) + Pi/2.0), -(ScreenPos Y - Helper(13270), ScreenPos Y) - 60*Sin(-(Pi/180.0)* Helper(13270), FVar(2) - Pi/2.0)
-
-
-[State N, Sound]
-type = PlaySnd
-trigger1 = NumTarget
-trigger1 = Anim = 13271
-trigger1 = AnimElem = 2
-value = S8001,3
-channel = 0
-persistent = 0
-
-
-[State N, Sound]
-type = PlaySnd
-trigger1 = NumHelper(13270)
-trigger1 = Helper(13270), Var(0) = 10
-value = S8001,10
-channel = 0
-persistent = 0
 
 
 [State 11270, BindToWheel]
@@ -4101,6 +4135,12 @@ type = VarAdd
 trigger1 = Var(0) > 8
 fv = 2
 value = -13
+
+[State 11205, PosAdd]
+type = PlaySnd
+trigger1 = Var(0) = 8
+value = S7050,7
+persistent = 0
 
 [State 11205, PosAdd]
 type = EnvShake
