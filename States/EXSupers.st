@@ -773,6 +773,7 @@ persistent = 0
 [State 2101, Remove]
 type = RemoveExplod
 trigger1 = Parent, StateNo = 13107
+trigger2 =  !(Root, StateNo = 13100 || Root, StateNo = 13300 || Root, StateNo = 13400)
 ID = 13103
 persistent = 0
 
@@ -817,6 +818,12 @@ trigger1 = 1
 scale = 1.82, 0.35
 value = 90
 
+[State 2101, Remove]
+type = ChangeAnim
+trigger1 = Root, Var(0) || !(Root, StateNo = 13100 || Root, StateNo = 13300 || Root, StateNo = 13400)
+trigger1 = Anim != 7102 
+value = 7102 
+persistent = 0
 [State 2101, Scale]
 type = ChangeAnim
 trigger1 = Parent, StateNo = 13107
@@ -2642,7 +2649,6 @@ type = VelSet
 trigger1 = AnimElem = 8
 X = 3
 
-
 ; Success - Selector
 [Statedef 13201]
 type    = S
@@ -2665,6 +2671,34 @@ value = Random
 [State 13201, Var]
 type = VarSet
 trigger1 = NumTarget
+trigger1 = Var(59)
+trigger1 = !Time
+trigger1 = Target, Const(size.height) <= 50
+v = 0
+value = IfElse(Var(1) % 3 = 2, 13210, IfElse(Var(1) % 3 = 1, 13230, 13260))
+
+[State 13201, Var]
+type = VarSet
+trigger1 = NumTarget
+trigger1 = Var(59)
+trigger1 = !Time
+trigger1 = Target, Const(size.height) = [51, 120]
+v = 0
+value = IfElse(Var(1) % 2 = 1, 13230, 13260)
+
+[State 13201, Var]
+type = VarSet
+trigger1 = NumTarget
+trigger1 = Var(59)
+trigger1 = !Time
+trigger1 = Target, Const(size.height) > 120
+v = 0
+value = 13260
+
+[State 13201, Var]
+type = VarSet
+trigger1 = NumTarget
+trigger1 = !Var(59)
 trigger1 = !Time
 trigger1 = Target, Const(size.height) <= 50
 v = 0
@@ -2673,19 +2707,27 @@ value = IfElse(Var(1) % 3 = 2, 13220, IfElse(Var(1) % 3 = 1, 13250, 13270))
 [State 13201, Var]
 type = VarSet
 trigger1 = NumTarget
+trigger1 = !Var(59)
 trigger1 = !Time
 trigger1 = Target, Const(size.height) = [51, 120]
 v = 0
 value = IfElse(Var(1) % 2 = 1, 13220, 13270)
 
+[State 13201, Var]
+type = VarSet
+trigger1 = NumTarget
+trigger1 = !Var(59)
+trigger1 = !Time
+trigger1 = Target, Const(size.height) > 120
+v = 0
+value = 13270
 
 [State 13201, Var]
 type = VarSet
 trigger1 = NumTarget
 trigger1 = !Time
-trigger1 = Target, Const(size.height) > 120
 v = 0
-value = 13270
+value = 13210
 
 [State 1031, Measure]
 type = VarSet
@@ -2731,6 +2773,516 @@ type = SelfState
 trigger1 = !gethitvar(isbound)
 value = 5100
 ctrl = 0
+
+; Success - Carnage
+[Statedef 13210]
+type    = S
+movetype= A
+physics = N
+juggle  = 3
+ctrl = 0
+anim = 13204
+sprpriority = 1
+poweradd = 0
+velset = 0,0
+
+[State 801, Bind]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,20
+channel = 0
+persistent = 0
+
+[State 1031, Measure]
+type = turn
+triggerall = !Time
+trigger1 = Facing > 0 && ScreenPos X > 220
+trigger2 = Facing < 0 && ScreenPos X < 100
+
+
+[State 801, Bind]
+type = TargetState
+triggerall = NumTarget
+trigger1 = !Time
+value = IfElse(Target, Facing = Facing, 13211, 13212)
+persistent = 0
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(0) = (Target, Const(size.mid.pos.y))
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(1) = Facing * (Target, ScreenPos X - ScreenPos X)
+
+[State 801, Bind]
+type = TargetBind
+trigger1 = 1
+pos = fvar(1), 0
+
+[State 801, Bind]
+type = VarSet
+trigger1 = !Time
+fvar(2) = (100 - FVar(1)) /20.0
+
+[State 801, Bind]
+type = VarAdd
+trigger1 = Time = [0,20]
+fvar(1) = fvar(2)
+
+[State 1000, Portal]
+type = helper
+trigger1 = Time = 1
+helpertype = normal
+stateno = 13213
+ID = 13213
+name = "Portal"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -10, -100
+ownpal = 1
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Anim = 13210
+trigger1 = AnimElemNo(0) <= 9
+trigger1 = AnimElemTime(AnimElemNo(0)) = 1
+helpertype = normal
+stateno = 13214
+ID = 13214
+name = "Carnage"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -10, -100
+ownpal = 1
+
+[State 801, Bind]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+
+[State 1030, Fail]
+type = ChangeAnim
+trigger1 = Anim = 13204
+trigger1 = !AnimTime
+value = 13210
+
+[State 1030, Fail]
+type = EnvShake
+trigger1 = Anim = 13210
+trigger1 = Var(0)
+trigger1 = GameTime % 20 = 0
+ampl = 8
+freq = 120
+time = 10
+
+[State 1030, Fail]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = Anim = 13210
+trigger1 = Var(0)
+trigger1 = GameTime % 20 = 0
+value = -20
+kill = 1
+
+[State 1030, Fail]
+type = ChangeAnim
+trigger1 = Anim = 13210
+trigger1 = !AnimTime
+value = 13211
+
+[State 801, Bind]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = Anim = 13211 
+trigger1 = AnimElem = 3
+value = 13298
+persistent = 0
+
+[State 1030, Fail]
+type = TargetDrop
+trigger1 = NumTarget
+trigger1 = Anim = 13211 
+trigger1 = AnimElem = 3
+
+[State 1030, Fail]
+type = ChangeState
+trigger1 = Anim != 13211 && !NumTarget
+trigger2 = Anim = 13211 && !AnimTime
+trigger3 = NumTarget 
+trigger3 = !Target, Alive
+value = 0
+ctrl = 1
+; Turn
+
+;Get Hit
+[Statedef 13211]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 0
+
+[State 1032, Anim]
+type = Turn
+trigger1 = !Time
+
+[State 803, Safety]
+type = ChangeState
+trigger1 = !Time
+value = 13212
+ctrl = 0
+
+;Get Hit
+[Statedef 13212]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 0
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 13202
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
+; Carnage Portal
+[Statedef 13213]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 7101
+velset = 0, 0
+sprpriority = -2
+
+[State 13101, Bind]
+type = BindToParent
+trigger1 = 1
+pos = -10, -100
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PosSet
+trigger1 = 1
+X = Parent, Pos X - 10*Facing
+Y = Parent, Pos Y - 100
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 14
+anim = 13103
+ID = 13213
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 0.75, 0.5
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+supermovetime = 9999999
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 2101, Remove]
+type = RemoveExplod
+trigger1 = !(Root, StateNo = 13210)
+trigger2 = Root, Anim = 13211
+ID = 13213
+persistent = 0
+
+[State 220, Explod]
+type = Explod
+trigger1 = Parent, Anim = 13211
+anim = 13107
+ID = 13214
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 0.75, 0.5
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = 1
+scale = 1.2, 0.26
+value = 90
+
+[State 2101, Remove]
+type = ChangeAnim
+trigger1 = !(Root, StateNo = 13210) || Root, Anim = 13211
+trigger1 = Anim != 7102 
+value = 7102 
+persistent = 0
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
+
+; Carnage
+[Statedef 13214]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13150
+velset = 0, 0
+sprpriority = 1
+
+[State 1006, Trans]
+type = trans
+trigger1 = Time = [0,16]
+trans = addalpha
+alpha = Time * 16, 256 - Time * 16
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = !Time
+time = -1
+add = -64,-64,-64
+sinadd = -64,-64,-64, 60
+
+[State 2101, Remove]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Random % 3
+persistent = 0
+
+[State 2101, Remove]
+type = VelSet
+trigger1 = !Time
+X =  8 * (Random/1000.0 - 0.5)
+Y = -8 * Random/1000.0
+persistent = 0
+
+[State 2101, Remove]
+type = VelMul
+trigger1 = Anim = 13150
+X = 0.92
+Y = 0.92
+
+[State 2101, Remove]
+type = ChangeAnim
+trigger1 = Time = 60
+value = 13151
+persistent = 0
+
+[State 3111, X]
+Type = VarSet
+Trigger1 = 1
+fvar(13) = (Root, ScreenPos X - ScreenPos X) * Facing + Root, FVar(1)
+
+[State 3111, Y]
+Type = VarSet
+trigger1 = 1
+fvar(14) = Root, ScreenPos Y - ScreenPos Y + Root, FVar(0)
+
+[State 3111, Vector Length]
+Type = VarSet
+trigger1 = 1
+fvar(15) = Exp(0.5*ln((fvar(13) * fvar(13))+(fvar(14) * fvar(14))))
+
+[State 3111, Vel]
+type = VelSet
+trigger1 = Time >= 120
+trigger1 = (fvar(13) * fvar(13))+(fvar(14) * fvar(14)) >= 30
+X =  Fvar(13)/fvar(15) * 9
+Y = (FVar(14)/fvar(15) * 9)
+
+
+[State 3111, Vector Length]
+Type = ParentVarSet
+trigger1 = (fvar(13) * fvar(13))+(fvar(14) * fvar(14)) < 30
+v = 0
+value = 1
+
+
+[State 3111, Vector Length]
+Type = VelSet
+trigger1 = (fvar(13) * fvar(13))+(fvar(14) * fvar(14)) < 30
+X = 0
+Y = 0
+
+[State 1000, Hadouken]
+type = PosAdd
+trigger1 = (fvar(13) * fvar(13))+(fvar(14) * fvar(14)) < 30
+X = (Random % 20) - 10
+Y = (Random % 20) - 10
+persistent = 0
+
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = (fvar(13) * fvar(13))+(fvar(14) * fvar(14)) < 30
+helpertype = normal
+stateno = 13216
+ID = 13216
+name = "Cloud"
+postype = p1
+pausemovetime = 9999999
+pos = (Random % 20) - 10, (Random % 20) - 10
+ownpal = 1
+persistent = 0
+
+[State 2101, Scale]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,31
+channel = 1
+volumescale = 32
+persistent = 0
+
+[State 2101, Scale]
+type = PlaySnd
+trigger1 = (fvar(13) * fvar(13))+(fvar(14) * fvar(14)) < 30
+value = S7020,5
+channel = 1
+persistent = 0
+
+
+
+
+[State 2101, Scale]
+type = ChangeState
+trigger1 = Root, Anim = 13211
+trigger2 = !(Root, StateNo = 13210)
+trigger3 = !(Root, NumTarget)
+value = 13215
+
+
+; Carnage End
+[Statedef 13215]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13150
+velset = 0, 0
+sprpriority = 1
+
+
+[State 2101, Scale]
+type = StopSnd
+trigger1 = !Time
+channel = 1
+persistent = 0
+
+[State 1006, Trans]
+type = trans
+trigger1 = Time = [0,16]
+trans = addalpha
+alpha = 256 - Time * 16, Time * 16
+ignorehitpause = 1
+
+[State 2101, Remove]
+type = turn
+trigger1 = !Time
+trigger1 = Random % 2
+
+[State 2101, Remove]
+type = VarSet
+trigger1 = !Time
+fv = 0
+value = Pi/4.0  + (Random/1000.0) * Pi/4.0
+persistent = 0
+
+[State 3111, Vel]
+type = VelSet
+trigger1 = 1
+X =  Cos(FVar(0)) * 9
+Y = -Sin(FVar(0)) * 9
+
+[State 2101, Remove]
+type = AngleDraw
+trigger1 = 1
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Time >= 16
+
+; Dust Cloud
+[Statedef 13216]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13152
+velset = 0, 0
+sprpriority = 2
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = !Time
+time = 1
+add = 0,0,0
+sinadd = 0,0,0, 60
+
+[State 2101, Remove]
+type = turn
+trigger1 = !Time
+trigger1 = Random % 2
+
+[State 2101, Remove]
+type = AngleSet
+trigger1 = !Time
+value = (Random % 2) * 180
+persistent = 0
+
+[State 2101, Remove]
+type = AngleDraw
+trigger1 = 1
+
+[State 2101, Scale]
+type = ChangeAnim
+triggerall = Anim != 13153
+trigger1 = Root, StateNo != 13210
+trigger2 = Root, Anim = 13211
+value = 13153
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Anim = 13153
+trigger1 = !AnimTime
 
 ; Success - Vise
 [Statedef 13220]
