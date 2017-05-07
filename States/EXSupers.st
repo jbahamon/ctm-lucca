@@ -2723,11 +2723,11 @@ v = 0
 value = 13270
 
 [State 13201, Var]
-type = VarSet
+type = null;VarSet
 trigger1 = NumTarget
 trigger1 = !Time
 v = 0
-value = 13210
+value = 13230
 
 [State 1031, Measure]
 type = VarSet
@@ -2918,7 +2918,7 @@ value = 0
 ctrl = 1
 ; Turn
 
-;Get Hit
+; Turning
 [Statedef 13211]
 type = S
 physics = N
@@ -3283,6 +3283,7 @@ value = 13153
 type = DestroySelf
 trigger1 = Anim = 13153
 trigger1 = !AnimTime
+
 
 ; Success - Vise
 [Statedef 13220]
@@ -3773,6 +3774,725 @@ alpha = 256 - Parent, Var(0) * 16, Parent, Var(0) * 16
 [State 1022, Explod]
 type = DestroySelf
 trigger1 = Parent,Var(0) >= 16
+
+; Success - Mictlantecuhtli
+[Statedef 13230]
+type    = S
+movetype= A
+physics = N
+juggle  = 3
+ctrl = 0
+anim = 13204
+sprpriority = 1
+poweradd = 0
+velset = 0,0
+
+[State 801, Bind]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,19
+channel = 0
+persistent = 0
+
+[State 1031, Measure]
+type = turn
+triggerall = !Time
+trigger1 = Facing > 0 && ScreenPos X > 220
+trigger2 = Facing < 0 && ScreenPos X < 100
+
+[State 801, Bind]
+type = TargetState
+triggerall = NumTarget
+trigger1 = !Time
+value = IfElse(Target, Facing = Facing, 13231, 13232)
+persistent = 0
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(0) = (Target, Const(size.mid.pos.y))
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(1) = Facing * (Target, ScreenPos X - ScreenPos X)
+
+[State 801, Bind]
+type = TargetBind
+trigger1 = 1
+pos = fvar(1), 0
+
+[State 801, Bind]
+type = VarSet
+trigger1 = !Time
+fvar(2) = (100 - FVar(1)) /20.0
+
+[State 801, Bind]
+type = VarAdd
+trigger1 = Time = [0,20]
+fvar(1) = fvar(2)
+
+[State 1000, Portal]
+type = helper
+trigger1 = Time = 1
+helpertype = normal
+stateno = 13233
+ID = 13233
+name = "Portal"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = -10, -100
+ownpal = 1
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Anim = 13210
+helpertype = normal
+stateno = 13234
+ID = 13234
+name = "Mictlantecuhtli"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 40, -100
+ownpal = 1
+persistent = 0
+
+[State 801, Bind]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+
+[State 1030, Fail]
+type = ChangeAnim
+trigger1 = Anim = 13204
+trigger1 = AnimElemTime(1) = 10
+value = 13210
+
+
+[State 1030, Fail]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = NumHelper(13234)
+trigger1 = Helper(13234), Var(1) = 3
+trigger1 = GameTime % 20 = 0
+value = 13238
+
+[State 1030, Fail]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = NumHelper(13234)
+trigger1 = Helper(13234), Var(1) = 3
+trigger1 = GameTime % 20 = 0
+value = -20
+kill = 1
+
+[State 1030, Fail]
+type = ChangeAnim
+trigger1 = Anim = 13210
+trigger1 = !AnimTime
+value = 13211
+
+[State 801, Bind]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = Anim = 13211 
+trigger1 = AnimElem = 3
+value = 13298
+persistent = 0
+
+[State 1030, Fail]
+type = TargetDrop
+trigger1 = NumTarget
+trigger1 = Anim = 13211 
+trigger1 = AnimElem = 3
+
+[State 1030, Fail]
+type = ChangeState
+trigger1 = Anim != 13211 && !NumTarget
+trigger2 = Anim = 13211 && !AnimTime
+trigger3 = NumTarget 
+trigger3 = !Target, Alive
+value = 0
+ctrl = 1
+
+; Turning
+[Statedef 13231]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 0
+
+[State 1032, Anim]
+type = Turn
+trigger1 = !Time
+
+[State 803, Safety]
+type = ChangeState
+trigger1 = !Time
+value = 13232
+ctrl = 0
+
+;Get Hit
+[Statedef 13232]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 0
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 13202
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
+; Mictlantecuhtli Portal
+[Statedef 13233]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 7107
+velset = 0, 0
+sprpriority = -2
+
+[State 13101, Bind]
+type = BindToParent
+trigger1 = 1
+pos = -10, -100
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PosSet
+trigger1 = 1
+X = Parent, Pos X - 10*Facing
+Y = Parent, Pos Y - 100
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 14
+anim = 13103
+ID = 13233
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1, 0.75
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+supermovetime = 9999999
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 2101, Remove]
+type = RemoveExplod
+trigger1 = !(Root, StateNo = 13230)
+trigger2 = Root, Anim = 13210
+trigger2 = Root, AnimElem = 18
+trigger3 = Root, Anim = 13211
+ID = 13233
+persistent = 0
+
+[State 220, Explod]
+type = Explod
+trigger1 = Parent, Anim = 13211
+trigger2 = Root, Anim = 13210
+trigger2 = Root, AnimElem = 18
+anim = 13107
+ID = 13234
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 1, 0.75
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = 1
+scale = 1.82, 0.35
+value = 90
+
+[State 2101, Remove]
+type = ChangeAnim
+triggerall = Anim != 7102 
+trigger1 = !(Root, StateNo = 13230) || Root, Anim = 13211
+trigger2 = Root, Anim = 13210
+trigger2 = Root, AnimElem = 18
+value = 7102 
+persistent = 0
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
+
+;Mictlantecuhtli
+[Statedef 13234]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13160
+velset = 0, 0
+sprpriority = 1
+
+
+[State 1006, Trans]
+type = trans
+trigger1 = Time = [0,16]
+trans = addalpha
+alpha = Time * 16, 256 - Time * 16
+ignorehitpause = 1
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = !Time
+time = -1
+add = -16,-16,-16
+sinadd = -16,-16,-16, 60
+
+[State 1006, Trans]
+type = Offset
+trigger1 = Time = [0,16]
+X = Floor(-16 + Time)*Facing
+ignorehitpause = 1
+
+[State 2101, Remove]
+type = ChangeAnim
+trigger1 = Time = 33
+value = 13161
+persistent = 0
+
+[State 2101, Remove]
+type = EnvShake
+trigger1 = Anim = 13161
+trigger1 = Animelem = 5
+ampl = 12
+freq = 120
+time = 20
+persistent = 0
+
+
+[State 2101, Remove]
+type = Offset 
+trigger1 = Anim = 13161
+trigger1 = AnimelemNo(0) = 6
+Y = - (AnimelemTime(6)) * 16
+
+[State 1006, Trans]
+type = PlaySnd
+trigger1 = Anim = 13161
+trigger1 = AnimElem = 6
+value = S7000,1
+ignorehitpause = 1
+persistent = 0
+
+[State 1006, Trans]
+type = Trans
+trigger1 = Anim = 13161
+trigger1 = AnimelemNo(0) = 6
+trans = addalpha
+alpha = 256 - (AnimelemTime(6)) * 16, (AnimelemTime(6)) * 16
+ignorehitpause = 1
+
+[State 2101, Remove]
+type = ChangeAnim
+trigger1 = Anim = 13161
+trigger1 = !AnimTime
+value = 13162
+
+[State 2101, Remove]
+type = PosAdd
+trigger1 = Anim = 13162
+X = Parent, FVar(1) - 40
+Y = 100
+persistent = 0
+
+[State 2101, Remove]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+persistent = 0
+
+[State 2101, Remove]
+type = VarAdd
+trigger1 = Anim = 13162
+v = 0
+value = 1
+
+[State 2101, Remove]
+type = OffSet
+trigger1 = Anim = 13162
+trigger1 = Var(0) <= 16
+Y = - (16 - Var(0)) * 16
+
+[State 2101, Remove]
+type = Trans
+trigger1 = Anim = 13162
+trigger1 = Var(0) <= 16
+trans = addalpha
+alpha = Var(0)*16, 256 - Var(0)*16
+
+
+[State 1006, Trans]
+type = PlaySnd
+trigger1 = Var(0) >= 16
+trigger1 = GameTime % 10 = 0
+value = S7020,0
+ignorehitpause = 1
+
+[State 1006, Trans]
+type = PlaySnd
+trigger1 = Var(0) >= 16
+trigger1 = GameTime % 17 = 0
+value = S7020,5
+ignorehitpause = 1
+
+[State 2101, Remove]
+type = EnvShake
+trigger1 = Var(0) = 16
+ampl = 6
+freq = 120
+time = 200
+persistent = 0
+
+[State 2101, Remove]
+type = AngleDraw
+trigger1 = Anim = 13162
+value = -90
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Var(0) = 16
+helpertype = normal
+stateno = 13236
+ID = 13236
+name = "Tornado"
+postype = p1
+pausemovetime = 9999999
+pos = 0, 20
+ownpal = 1
+persistent = 0
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 0
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = !Time
+v = 2
+value = 0
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = Anim = 13160 || (Anim = 13161 && AnimElemNo(0) < 6)
+v = 1
+value = 0
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = Anim = 13161 
+trigger1 = AnimElemNo(0) = 6
+v = 1
+value = 1
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = Anim = 13161 
+trigger1 = AnimElemNo(0) = 6
+v = 2
+value = AnimElemTime(6)
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = Anim = 13162
+trigger1 = Var(0) <= 16
+v = 1
+value = 2
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = Anim = 13162
+trigger1 = Var(0) > 16
+v = 1
+value = 3
+
+[State 1000, Portal]
+type = helper
+trigger1 = Var(0) = 150
+helpertype = normal
+stateno = 13237
+ID = 13237
+name = "Portal"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 0, -Floor(Pos Y)
+ownpal = 1
+persistent = 0
+
+[State 2101, Scale]
+type = ChangeState
+trigger1 = !(Root, StateNo = 13230)
+trigger2 = !(Root, NumTarget)
+value = 13235
+
+; Mictlantecuhtli End
+[Statedef 13235]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13162
+velset = 0, 0
+sprpriority = 1
+
+
+[State 2101, Remove]
+type = Offset 
+trigger1 = Var(1) = 1
+Y = - (Var(2)) * 16
+
+[State 2101, Scale]
+type = Trans
+trigger1 = Var(1) = 1
+trans = addalpha
+alpha = (Var(2) - Time)*16, 256 - (Var(2) - Time)*16
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Var(1) = 1
+trigger1 = Var(2) = Time
+
+[State 2101, Remove]
+type = OffSet
+trigger1 = Var(1) = 2
+Y = - (16 - Var(0)) * 16
+
+[State 2101, Scale]
+type = Trans
+trigger1 = Var(1) = 2
+trans = addalpha
+alpha = (Var(0) - Time)*16, 256 - (Var(0) - Time)*16
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Var(1) = 2
+trigger1 = Time = Var(0)
+
+[State 1006, Trans]
+type = AngleDraw
+trigger1 = Var(1) >= 2
+value = -90
+
+[State 2101, Scale]
+type = VelSet
+trigger1 = Var(1) >= 2
+Y = 4
+
+[State 2101, Scale]
+type = Trans
+trigger1 = Var(1) = 3
+trigger2 = Var(1) = 0
+trans = addalpha
+alpha = 256 - Time * 32, Time* 32
+
+[State 2101, Scale]
+type = DestroySelf
+triggerall = Time >= 8
+trigger1 = Var(1)= 3
+trigger2 = Var(1) = 0
+
+
+; Tornado
+[Statedef 13236]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13163
+velset = 0, 0
+sprpriority = 2
+
+[State 2101, Scale]
+type = Trans
+trigger1 = Time = [0,8]
+trans = addalpha
+alpha = Time * 32, 256
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+
+[State 2101, Scale]
+type = VarAdd
+trigger1 = Parent, StateNo = 13235
+trigger2 = Var(0) > 0
+v = 0
+value = 1
+
+[State 2101, Scale]
+type = Trans
+trigger1 = Var(0)
+trans = addalpha
+alpha = 256 - Var(0) * 32, 256
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Var(0) >= 8
+
+; Exit Portal
+[Statedef 13237]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 7101
+velset = 0, 0
+sprpriority = -2
+
+[State 2101, Scale]
+type = PosSet
+trigger1 = 1
+X = Parent, Pos X
+Y = 0
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 14
+anim = 13102
+ID = 13217
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 0.75, 1
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+supermovetime = 9999999
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 2101, Remove]
+type = RemoveExplod
+trigger1 = !(Parent, StateNo = 13234)
+ID = 13217
+persistent = 0
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElemNo(0) >= 14
+trigger1 = !NumExplod(13217)
+anim = 13104
+ID = 13214
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 0.75, 1
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = 1
+scale = 1.82, 0.35
+
+[State 2101, Remove]
+type = ChangeAnim
+trigger1 = !(Parent, StateNo = 13234)
+value = 7102 
+persistent = 0
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
+
+;Get Drilled
+[Statedef 13238]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 0
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 13205
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
 
 ; Success - Treadmill
 [Statedef 13250]
