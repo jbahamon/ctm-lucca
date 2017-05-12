@@ -523,7 +523,6 @@ trigger1 = !Time
 value = S8002,IfElse(Random % 2, 11, 13)
 channel =  0
 persistent = 0
-
 ignorehitpause = 1
 
 [State 2000, End]

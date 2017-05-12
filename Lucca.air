@@ -3347,6 +3347,58 @@ LoopStart
 13162,6, 0,0, 2, , A
 13162,7, 0,0, 2, , A
 
+; Hydra
+[Begin Action 13170]
+13170,0, 0,0, 10
+
+; Hydra Tentacle
+[Begin Action 13171]
+13170,1, 0,0, 10
+
+; Hydra Tentacle
+[Begin Action 13172]
+13170,2, 0,0, 10
+
+; Hydra Tentacle
+[Begin Action 13173]
+13170,3, 0,0, 10
+
+; Hydra Tentacle
+[Begin Action 13174]
+13170,4, 0,0, 10
+
+[Begin Action 13175]
+13170,5, 0,0, 10
+
+; Hydra Tentacle
+[Begin Action 13176]
+13170,6, 0,0, 10
+
+; Hydra Tentacle
+[Begin Action 13177]
+13170,7, 0,0, 10
+
+[Begin Action 13178]
+13170,8, 0,0, 10
+
+[Begin Action 13179]
+13170,9, 0,0, 10
+
+[Begin Action 13180]
+13170,10, 0,0, 10
+
+[Begin Action 13181]
+13170,11, 0,0, 10
+
+[Begin Action 13182]
+13170,12, 85,1, 10, H
+
+[Begin Action 13183]
+13170,13, 0,0, 10
+
+[Begin Action 13184]
+13170,14, 0,0, 10
+
 ; Torture Attack - Strong
 [Begin Action 13200]
 Clsn2: 1

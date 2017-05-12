@@ -378,7 +378,6 @@ add = Floor(200 * Root, Var(24)/16.0), Floor(120 * Root, Var(24)/16.0), Floor(23
 mul = 256 - 8 * Root, Var(24), 256 - 8 * Root, Var(24), 256 - 8 * Root, Var(24)
 
 
-
 [State N, Sound]
 type = StopSnd
 trigger1 = !Root, Var(24)
@@ -2673,27 +2672,9 @@ type = VarSet
 trigger1 = NumTarget
 trigger1 = Var(59)
 trigger1 = !Time
-trigger1 = Target, Const(size.height) <= 50
 v = 0
 value = IfElse(Var(1) % 3 = 2, 13210, IfElse(Var(1) % 3 = 1, 13230, 13260))
 
-[State 13201, Var]
-type = VarSet
-trigger1 = NumTarget
-trigger1 = Var(59)
-trigger1 = !Time
-trigger1 = Target, Const(size.height) = [51, 120]
-v = 0
-value = IfElse(Var(1) % 2 = 1, 13230, 13260)
-
-[State 13201, Var]
-type = VarSet
-trigger1 = NumTarget
-trigger1 = Var(59)
-trigger1 = !Time
-trigger1 = Target, Const(size.height) > 120
-v = 0
-value = 13260
 
 [State 13201, Var]
 type = VarSet
@@ -2723,11 +2704,11 @@ v = 0
 value = 13270
 
 [State 13201, Var]
-type = null;VarSet
+type = VarSet
 trigger1 = NumTarget
 trigger1 = !Time
 v = 0
-value = 13230
+value = 13260
 
 [State 1031, Measure]
 type = VarSet
@@ -4548,6 +4529,14 @@ trigger1 = AnimElemNo(0) = 4
 trigger1 = fvar(1) >= 40
 value = 13203
 
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = Anim = 13203
+value = S8002,IfElse(Random % 2, 11, 13)
+channel =  0
+persistent = 0
+ignorehitpause = 1
+
 [State 801, Bind]
 type = EnvShake
 triggerall = NumTarget
@@ -5017,6 +5006,495 @@ channel = 2
 [State 1022, Explod]
 type = DestroySelf
 trigger1 = Var(0) >= 16
+
+
+; Success - Hydra
+[Statedef 13260]
+type    = S
+movetype= A
+physics = N
+juggle  = 3
+ctrl = 0
+anim = 13204
+sprpriority = 1
+poweradd = 0
+velset = 0,0
+
+[State 801, Bind]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,32
+channel = 0
+persistent = 0
+
+[State 1031, Measure]
+type = turn
+triggerall = !Time
+trigger1 = Facing > 0 && ScreenPos X > 220
+trigger2 = Facing < 0 && ScreenPos X < 100
+
+[State 801, Bind]
+type = TargetState
+triggerall = NumTarget
+trigger1 = !Time
+value = IfElse(Target, Facing = Facing, 13231, 13232)
+persistent = 0
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(0) = (Target, Const(size.mid.pos.y))
+
+[State 1031, Measure]
+type = VarSet
+trigger1 = !Time
+fvar(1) = Facing * (Target, ScreenPos X - ScreenPos X)
+
+[State 801, Bind]
+type = TargetBind
+trigger1 = 1
+pos = fvar(1), 0
+
+[State 801, Bind]
+type = VarSet
+trigger1 = !Time
+fvar(2) = (100 - FVar(1)) /20.0
+
+[State 801, Bind]
+type = VarAdd
+trigger1 = Time = [0,20]
+fvar(1) = fvar(2)
+
+[State 1000, Portal]
+type = helper
+trigger1 = Time = 1
+helpertype = normal
+stateno = 13263
+ID = 13263
+name = "Portal"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 100, 0
+ownpal = 1
+
+[State 1000, Hadouken]
+type = helper
+trigger1 = Anim = 13210
+helpertype = normal
+stateno = 13264
+ID = 13264
+name = "Hydra"
+postype = p1
+pausemovetime = 9999999*(Var(24) > 0)
+pos = 100, 0
+ownpal = 1
+persistent = 0
+
+[State 801, Bind]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+
+[State 1030, Fail]
+type = ChangeAnim
+trigger1 = Anim = 13204
+trigger1 = AnimElemTime(1) = 10
+value = 13210
+
+
+[State 1030, Fail]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = NumHelper(13264)
+trigger1 = Helper(13264), Var(1) = 3
+trigger1 = GameTime % 20 = 0
+value = 13238
+
+[State 1030, Fail]
+type = ChangeAnim
+trigger1 = Anim = 13210
+trigger1 = !AnimTime
+value = 13211
+
+[State 801, Bind]
+type = TargetState
+trigger1 = NumTarget
+trigger1 = Anim = 13211 
+trigger1 = AnimElem = 3
+value = 13298
+persistent = 0
+
+[State 1030, Fail]
+type = TargetDrop
+trigger1 = NumTarget
+trigger1 = Anim = 13211 
+trigger1 = AnimElem = 3
+
+[State 1030, Fail]
+type = ChangeState
+trigger1 = Anim != 13211 && !NumTarget
+trigger2 = Anim = 13211 && !AnimTime
+trigger3 = NumTarget 
+trigger3 = !Target, Alive
+value = 0
+ctrl = 1
+
+; Turning
+[Statedef 13261]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 0
+
+[State 1032, Anim]
+type = Turn
+trigger1 = !Time
+
+[State 803, Safety]
+type = ChangeState
+trigger1 = !Time
+value = 13232
+ctrl = 0
+
+;Get Hit
+[Statedef 13262]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 0
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 13202
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
+; HydraPortal
+[Statedef 13263]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 7101
+velset = 0, 0
+sprpriority = -4
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElem = 14
+anim = 13102
+ID = 13217
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 0.75, 1
+sprpriority = -5
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+supermovetime = 9999999
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 2101, Remove]
+type = RemoveExplod
+trigger1 = !(Parent, StateNo = 13260)
+ID = 13217
+persistent = 0
+
+[State 220, Explod]
+type = Explod
+trigger1 = AnimElemNo(0) >= 14
+trigger1 = !NumExplod(13217)
+anim = 13104
+ID = 13214
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+facing = 1
+vfacing = 1
+bindtime = -1
+vel = 0,0
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = 0.75, 1
+sprpriority = -3
+ontop = 0
+shadow = 0,0,0
+ownpal = 1
+pausemovetime = 9999999*(Root, Var(24) > 0)
+removeongethit = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 2101, Scale]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = 1
+scale = 1.82, 0.35
+
+[State 2101, Remove]
+type = ChangeAnim
+trigger1 = !(Parent, StateNo = 13260)
+value = 7102 
+persistent = 0
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Anim = 7102
+trigger1 = !AnimTime
+
+;Hydra
+[Statedef 13264]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 7200
+velset = 0, 0
+sprpriority = 1
+
+
+[State 220, Explod]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+
+[State 13320, Anim]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,27
+channel = 0
+loop = 1
+
+[State 220, Explod]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = 0
+
+[State 220, Explod]
+type = Helper
+trigger1 = (Var(0) := (Var(0) + 1))
+trigger1 = Var(0) < 14
+stateno = 13266
+ID = 13266
+pos = 0, 0
+postype = p1  ;p2,front,back,left,right
+sprpriority = 0
+ownpal = 1
+ignorehitpause = 1
+
+[State 13320, Anim]
+type = StopSnd
+trigger1 = !(Root, StateNo = 13260)
+trigger2 = !(Root, NumTarget)
+channel = 0
+
+[State 2101, Scale]
+type = ChangeState
+trigger1 = !(Root, StateNo = 13260)
+trigger2 = !(Root, NumTarget)
+value = 13235
+
+; Hydra End
+[Statedef 13265]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13162
+velset = 0, 0
+sprpriority = 1
+
+[State 2101, Scale]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256 - Time * 32, Time* 32
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Time >= 8
+
+; Hydra Part
+[Statedef 13266]
+type = A
+physics = N
+movetype = I
+ctrl = 0
+anim = 13170 + (Parent, Var(0) - 1)
+velset = 0, 0
+sprpriority = 1
+
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = !Time
+v = 0
+value = Parent, Var(0) - 1
+
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = !Time
+fv = 0
+value = 7 + 2 * (Random/999.0)
+
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = !Time
+fv = 1
+value = 2 * Pi * (Random/999.0)
+
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = Var(0) = 7 || Var(0) = 1
+scale = 0.9, 0.9
+
+
+[State 2101, Scale]
+type = Offset
+trigger1 = Var(0) < 4 
+X = Random % 3 - 1
+
+[State 2101, Scale]
+type = Offset
+trigger1 = Var(0) = [4, 8]
+X = Random % 3 - 1
+Y = Random % 3 - 1
+
+
+[State 2101, Scale]
+type = Offset
+trigger1 = Var(0) = 9
+X = - Facing * 0.05 * Parent, Time
+Y = 0.05 * Parent, Time 
+
+
+[State 2101, Scale]
+type = Offset
+trigger1 = Var(0) = 10
+X = Facing * 0.01 * Parent, Time
+Y = 0.01 * Parent, Time
+
+
+[State 2101, Scale]
+type = Offset
+trigger1 = Var(0) = 11
+X = - Facing * 0.05 * Parent, Time
+Y = - 0.05 * Parent, Time
+
+
+[State 2101, Scale]
+type = Offset
+trigger1 = Var(0) = 12
+X =   Facing * 0.05 * Parent, Time
+Y = - 0.05 * Parent, Time
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = Var(0)  = [4, 8]
+scale = 0.7 - 0.05 * (GameTime % 40)/40.0, 0.7 - 0.05 * (GameTime % 40)/40.0
+
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = Var(0) > 8
+trigger2 = Var(0) < 4
+scale = 0.7, 0.7
+
+[State 2101, Scale]
+type = SprPriority
+triggerall = !Time
+trigger1 = Var(0) = 10 ||  Var(0) = 13 || Var(0) = 7
+value = 3
+persistent = 0
+
+[State 2101, Scale]
+type = SprPriority
+triggerall = !Time
+trigger1 = Var(0) = 8 || Var(0) = 12
+value = 2
+persistent = 0
+
+[State 2101, Scale]
+type = SprPriority
+triggerall = !Time
+trigger1 = Var(0) = 0 ||  Var(0) = 6
+value = 1
+persistent = 0
+
+[State 2101, Scale]
+type = SprPriority
+triggerall = !Time
+trigger1 = Var(0) = 1 ||  Var(0) = 4  || Var(0) = 5
+trigger2 = Var(0) = 11 || Var(0) = 14
+value = -1
+persistent = 0
+
+[State 2101, Scale]
+type = SprPriority
+triggerall = !Time
+trigger1 = Var(0) = 2
+value = -2
+persistent = 0
+
+[State 2101, Scale]
+type = Trans
+trigger1 = Time < 8
+trans = addalpha
+alpha =  Time* 32, 256 - Time * 32
+
+[State 2101, Scale]
+type = PalFX
+trigger1 = !Time
+time = -1
+add = -16,-16,-16
+sinadd = -16,-16,-16, 60
+
+;Get Squeezed
+[Statedef 13268]
+type = S
+physics = N
+movetype = H
+velset = 0,0
+sprpriority = 0
+
+[State 1032, Anim]
+type = ChangeAnim2
+trigger1 = !Time
+value= 13205
+
+[State 803, Safety]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5100
+ctrl = 0
+
 
 ; Success - Wheel
 [Statedef 13270]
