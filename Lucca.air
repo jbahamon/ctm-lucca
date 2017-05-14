@@ -3379,7 +3379,7 @@ LoopStart
 13170,7, 0,0, 10
 
 [Begin Action 13178]
-13170,8, 0,0, 10
+13170,8, 0,28, 10
 
 [Begin Action 13179]
 13170,9, 0,0, 10
@@ -3391,13 +3391,18 @@ LoopStart
 13170,11, 0,0, 10
 
 [Begin Action 13182]
-13170,12, 85,1, 10, H
+13170,12, 75,11, 10, H
 
 [Begin Action 13183]
 13170,13, 0,0, 10
 
 [Begin Action 13184]
 13170,14, 0,0, 10
+
+; GetHit
+[Begin Action 13185]
+5010,10, 0,0, 20
+5061,0, 0,0, -1
 
 ; Torture Attack - Strong
 [Begin Action 13200]

@@ -5037,7 +5037,7 @@ trigger2 = Facing < 0 && ScreenPos X < 100
 type = TargetState
 triggerall = NumTarget
 trigger1 = !Time
-value = IfElse(Target, Facing = Facing, 13231, 13232)
+value = IfElse(Target, Facing = Facing, 13261, 13262)
 persistent = 0
 
 [State 1031, Measure]
@@ -5053,7 +5053,7 @@ fvar(1) = Facing * (Target, ScreenPos X - ScreenPos X)
 [State 801, Bind]
 type = TargetBind
 trigger1 = 1
-pos = fvar(1), 0
+pos = fvar(1), IfElse(Time > 20, -50, 0)
 
 [State 801, Bind]
 type = VarSet
@@ -5089,6 +5089,12 @@ pausemovetime = 9999999*(Var(24) > 0)
 pos = 100, 0
 ownpal = 1
 persistent = 0
+
+[State 1000, Hadouken]
+type = TargetLifeAdd
+trigger1 = Anim = 13210
+trigger1 = Time % 20 = 0
+value = -9
 
 [State 801, Bind]
 type = VarSet
@@ -5155,7 +5161,7 @@ trigger1 = !Time
 [State 803, Safety]
 type = ChangeState
 trigger1 = !Time
-value = 13232
+value = 13262
 ctrl = 0
 
 ;Get Hit
@@ -5166,10 +5172,22 @@ movetype = H
 velset = 0,0
 sprpriority = 0
 
+
+[State 2101, Scale]
+type = Offset
+trigger1 = Time >= 20
+X = Random % 3 - 1
+Y = Random % 3 - 1
+
+[State 1032, Anim]
+type = Screenbound
+trigger1 = 1
+movecamera = 1, 0
+
 [State 1032, Anim]
 type = ChangeAnim2
 trigger1 = !Time
-value= 13202
+value= 13185
 
 [State 803, Safety]
 type = SelfState
@@ -5316,7 +5334,7 @@ channel = 0
 type = ChangeState
 trigger1 = !(Root, StateNo = 13260)
 trigger2 = !(Root, NumTarget)
-value = 13235
+value = 13265
 
 ; Hydra End
 [Statedef 13265]
@@ -5348,6 +5366,12 @@ anim = 13170 + (Parent, Var(0) - 1)
 velset = 0, 0
 sprpriority = 1
 
+
+[State 2101, Scale]
+type = VarSet
+trigger1 = Parent, StateNo != 13265
+v = 1
+value = Parent, Time
 
 [State 2101, Scale]
 type = VarSet
@@ -5391,34 +5415,39 @@ Y = Random % 3 - 1
 [State 2101, Scale]
 type = Offset
 trigger1 = Var(0) = 9
-X = - Facing * 0.05 * Parent, Time
-Y = 0.05 * Parent, Time 
+X = - Facing * 0.05 * Var(1)
+Y = 0.01 * Var(1)
 
 
 [State 2101, Scale]
 type = Offset
 trigger1 = Var(0) = 10
-X = Facing * 0.01 * Parent, Time
-Y = 0.01 * Parent, Time
+X = Facing * 0.01 * Var(1)
+Y = 0.05 * Var(1)
 
 
 [State 2101, Scale]
 type = Offset
 trigger1 = Var(0) = 11
-X = - Facing * 0.05 * Parent, Time
-Y = - 0.05 * Parent, Time
-
+X = - Facing * 0.05 * Var(1)
+Y = - 0.04 * Var(1)
 
 [State 2101, Scale]
 type = Offset
 trigger1 = Var(0) = 12
-X =   Facing * 0.05 * Parent, Time
-Y = - 0.05 * Parent, Time
+X =   Facing * 0.02 * Var(1)
+Y = - 0.05 * Var(1)
 
 [State 2101, Scale]
 type = AngleDraw
-trigger1 = Var(0)  = [4, 8]
+trigger1 = Var(0)  = [4, 7]
 scale = 0.7 - 0.05 * (GameTime % 40)/40.0, 0.7 - 0.05 * (GameTime % 40)/40.0
+
+
+[State 2101, Scale]
+type = AngleDraw
+trigger1 = Var(0)  = 8
+scale = 0.9 - 0.05 * (GameTime % 40)/40.0, 0.9 - 0.05 * (GameTime % 40)/40.0
 
 
 [State 2101, Scale]
@@ -5476,25 +5505,29 @@ time = -1
 add = -16,-16,-16
 sinadd = -16,-16,-16, 60
 
-;Get Squeezed
-[Statedef 13268]
-type = S
-physics = N
-movetype = H
-velset = 0,0
-sprpriority = 0
-
-[State 1032, Anim]
-type = ChangeAnim2
+[State 2101, Scale]
+type = VarSet
 trigger1 = !Time
-value= 13205
+v = 2
+value = 0
 
-[State 803, Safety]
-type = SelfState
-trigger1 = !gethitvar(isbound)
-value = 5100
-ctrl = 0
+[State 2101, Scale]
+type = VarAdd
+trigger1 = Parent, StateNo = 13265
+trigger2 = Var(2) > 0
+v = 2
+value = 1
 
+[State 2101, Scale]
+type = Trans
+trigger1 = Var(2)
+trans = addalpha
+alpha = 256 - Var(2)* 32, Var(2)* 32
+
+
+[State 2101, Scale]
+type = DestroySelf
+trigger1 = Var(2) > 8
 
 ; Success - Wheel
 [Statedef 13270]
