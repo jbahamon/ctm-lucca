@@ -5094,7 +5094,7 @@ persistent = 0
 type = TargetLifeAdd
 trigger1 = Anim = 13210
 trigger1 = Time % 20 = 0
-value = -9
+value = -9	
 
 [State 801, Bind]
 type = VarSet
@@ -5292,6 +5292,18 @@ anim = 7200
 velset = 0, 0
 sprpriority = 1
 
+[State 13320, Anim]
+type = EnvShake
+trigger1 = !Time
+ampl = 12
+time = 24
+freq = 120
+
+[State 13320, Anim]
+type = PlaySnd
+trigger1 = !Time
+value = S8000,33
+channel = 0
 
 [State 220, Explod]
 type = VarSet
@@ -5303,7 +5315,7 @@ value = 0
 type = PlaySnd
 trigger1 = !Time
 value = S8000,27
-channel = 0
+channel = 1
 loop = 1
 
 [State 220, Explod]
@@ -5328,7 +5340,7 @@ ignorehitpause = 1
 type = StopSnd
 trigger1 = !(Root, StateNo = 13260)
 trigger2 = !(Root, NumTarget)
-channel = 0
+channel = 1
 
 [State 2101, Scale]
 type = ChangeState
@@ -5342,9 +5354,22 @@ type = A
 physics = N
 movetype = I
 ctrl = 0
-anim = 13162
+anim = 7200
 velset = 0, 0
 sprpriority = 1
+[State 13320, Anim]
+type = EnvShake
+trigger1 = !Time
+ampl = 12
+time = 24
+freq = 120
+
+
+[State 2101, Scale]
+type = PlaySnd
+trigger1 = !Time
+value = S7020,5
+
 
 [State 2101, Scale]
 type = Trans
