@@ -2703,13 +2703,6 @@ trigger1 = Target, Const(size.height) > 120
 v = 0
 value = 13270
 
-[State 13201, Var]
-type = VarSet
-trigger1 = NumTarget
-trigger1 = !Time
-v = 0
-value = 13260
-
 [State 1031, Measure]
 type = VarSet
 trigger1 = !Time
@@ -3866,13 +3859,21 @@ trigger1 = NumHelper(13234)
 trigger1 = Helper(13234), Var(1) = 3
 trigger1 = GameTime % 20 = 0
 value = -20
-kill = 1
+kill = 0
 
 [State 1030, Fail]
 type = ChangeAnim
 trigger1 = Anim = 13210
 trigger1 = !AnimTime
 value = 13211
+
+[State 1030, Fail]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = Anim = 13211 
+trigger1 = AnimElem = 3
+value = -1
+kill = 1
 
 [State 801, Bind]
 type = TargetState
@@ -5094,7 +5095,16 @@ persistent = 0
 type = TargetLifeAdd
 trigger1 = Anim = 13210
 trigger1 = Time % 20 = 0
-value = -9	
+value = -9
+kill = 0
+
+[State 1100, JumpSnd]
+type = PlaySnd
+trigger1 = Time = 90
+value = S8002,26
+channel =  0
+persistent = 0
+ignorehitpause = 1
 
 [State 801, Bind]
 type = VarSet
@@ -5122,6 +5132,13 @@ type = ChangeAnim
 trigger1 = Anim = 13210
 trigger1 = !AnimTime
 value = 13211
+
+[State 1000, Hadouken]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = Anim = 13211 
+trigger1 = AnimElem = 3
+value = -1
 
 [State 801, Bind]
 type = TargetState
@@ -5707,6 +5724,7 @@ type = TargetLifeAdd
 trigger1 = NumHelper(13270)
 trigger1 = Helper(13270), Var(0) = 9
 value = -1
+kill = 0
 
 [State 801, Bind]
 type = TargetBind

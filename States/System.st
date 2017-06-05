@@ -186,7 +186,7 @@ ignorehitpause = 1
 type = PlaySnd
 trigger1 = PalNo = 12
 trigger1 = !Time
-value = S8002,IfElse(Random % 2, 11, 13)
+value = S8002, 22 + (Random % 4)
 channel =  0
 persistent = 0
 
