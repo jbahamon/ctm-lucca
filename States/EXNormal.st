@@ -5749,8 +5749,7 @@ ignorehitpause = 1
 
 [State 200, 2]
 type = StateTypeSet
-trigger1 = Anim = 15503 && AnimElem = 6
-trigger2 = Anim = 121
+trigger1 = Anim = 121
 movetype = I
 
 [State 15502, ComboVar]

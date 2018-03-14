@@ -3056,6 +3056,15 @@ trigger1 = AnimElem = 2
 value = S7020,0
 persistent = 0
 
+
+[State 801, Bind]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = Anim = 11211
+trigger1 = AnimElem = 5
+value = -10
+kill = 0
+
 [State 801, Bind]
 type = EnvShake
 trigger1 = Anim = 11211
@@ -3076,6 +3085,15 @@ trigger1 = Anim = 11211
 trigger1 = Time > 200
 value = 11212
 persistent = 0
+
+
+[State 801, Bind]
+type = TargetLifeAdd
+trigger1 = NumTarget
+trigger1 = Anim = 11212
+trigger1 = AnimElemTime(1) = 32
+value = -63
+kill = 1
 
 [State N, Sound]
 type = PlaySnd

@@ -7806,8 +7806,8 @@ trigger1 = !Time
 attr = S,HT        ;SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
 hitflag = MA-        ;HLAFD+-
 guardflag =          ;HLA
-animtype = light          ;light,medium,hard,back,up,diagup
-air.animtype = light
+animtype = hard          ;light,medium,hard,back,up,diagup
+air.animtype = hard
 damage = 20,0
 ;guard.pause,0
 sparkno = -1
@@ -7834,8 +7834,8 @@ trigger1 = AnimElemTime(2) = 9 && !NumTarget(13406)
 attr = S,HA        ;SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
 hitflag = MA        ;HLAFD+-
 guardflag = MA         ;HLA
-animtype = light          ;light,medium,hard,back,up,diagup
-air.animtype = light
+animtype = hard ;light,medium,hard,back,up,diagup
+air.animtype = hard
 damage = 200,0
 pausetime = 18, 18
 sparkno = -1
