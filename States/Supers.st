@@ -1054,7 +1054,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = Anim = 7072
 trigger1 = !NumTarget
-trigger1 = Time > 120
+trigger1 = Time > 620
 value = 2022
 
 ; Gate End

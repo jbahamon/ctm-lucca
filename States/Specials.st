@@ -915,6 +915,7 @@ type = ChangeState
 trigger1 = HitCount > 0
 trigger2 = Pos Y > - Vel Y && Vel Y > 0
 trigger3 = Time > 70
+trigger4 = fvar(15) < 4
 value = 1009
 ctrl = 0
 
