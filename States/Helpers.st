@@ -449,3 +449,23 @@ alpha = 256 - 32 * (Time - 5), 32 * (Time - 5)
 type = DestroySelf
 trigger1 = Time >= (Var(0) + 10)
 
+
+;Marker
+[Statedef 11001]
+movetype = I
+type = A
+physics = N
+anim = 7200
+sprpriority = -1
+
+[State 11001, Invis]
+type = AssertSpecial
+trigger1 = 1
+flag = Invisible
+flag2 = NoShadow
+ignorehitpause = 1
+
+[State 1011, Pos]
+type = DestroySelf
+trigger1 = Parent, Var(1)
+

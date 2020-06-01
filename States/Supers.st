@@ -499,20 +499,6 @@ supermovetime = 9999
 type = Helper
 trigger1 = !Time
 name = "Flare"
-ID = 2010
-stateno = 2012
-pos = 0, -35
-postype = p1    ;p2,front,back,left,right
-facing = 1
-keyctrl = 0
-ownpal = 1
-persistent = 0
-supermovetime =0; 9999
-
-[State 2011, Explosion]
-type = Helper
-trigger1 = !Time
-name = "Flare"
 ID = 2011
 stateno = 2012
 pos = 0, -35
@@ -570,6 +556,35 @@ anim = 7200
 sprpriority = 3
 velset = 0,0
 
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command = "holdup"
+trigger1 = Parent, Command != "holddown"
+Y = -1.4
+ignorehitpause = 1
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command != "holdup"
+trigger1 = Parent, Command = "holddown"
+Y = 1.4
+ignorehitpause = 1
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command != "holdback"
+trigger1 = Parent, Command = "holdfwd"
+X = 1.4
+ignorehitpause = 1
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command = "holdback"
+trigger1 = Parent, Command != "holdfwd"
+X = -1.4
+ignorehitpause = 1
+
 [State 2012, VarRandom]
 type = VarRandom
 trigger1 = 1
@@ -601,17 +616,9 @@ ignorehitpause = 1
 
 [State 2012, Boom]
 type = ChangeState
-triggerall = IsHelper(2010)
 trigger1 = Parent, StateNo = 2011
 trigger1 = Parent, AnimElem = 3
 value = 2013
-ignorehitpause = 1
-
-[State 2012, End]
-type = DestroySelf
-triggerall = IsHelper(2011)
-trigger1 = Parent, StateNo = 2011
-trigger1 = Parent, AnimElem = 3
 ignorehitpause = 1
 
 [State 2012, Fail]
@@ -629,7 +636,7 @@ poweradd= 0
 ctrl = 0
 anim = 7060
 sprpriority = 3
-velset = 1.2,0
+velset = 0,0
 
 [State 2013, PosAdd]
 type = PlaySnd
@@ -655,6 +662,20 @@ type = PosAdd
 trigger1 = Parent, Command != "holdup"
 trigger1 = Parent, Command = "holddown"
 Y = 1.4
+ignorehitpause = 1
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command != "holdback"
+trigger1 = Parent, Command = "holdfwd"
+X = 1.4
+ignorehitpause = 1
+
+[State 2013, PosAdd]
+type = PosAdd
+trigger1 = Parent, Command = "holdback"
+trigger1 = Parent, Command != "holdfwd"
+X = -1.4
 ignorehitpause = 1
 
 [State 2013, RealTime]

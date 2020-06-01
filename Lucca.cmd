@@ -824,7 +824,7 @@ trigger1 = ctrl
 type = ChangeState
 value = 1000
 triggerall = PalNo != 12
-triggerall = !NumHelper(1000)
+triggerall = NumHelper(1000) < 3
 triggerall = command = "qcba" || command = "qcbb" || command = "qcbc"
 triggerall = roundstate = 2 && statetype != A 
 trigger1 = ctrl
@@ -844,9 +844,11 @@ type = ChangeState
 value = 1020
 triggerall = PalNo != 12
 triggerall = command = "qcfa" || command = "qcfb" || command = "qcfc"
-triggerall = roundstate = 2 && statetype != A && !numhelper(1020)
+triggerall = roundstate = 2 && !numhelper(1020)
 trigger1 = ctrl
 trigger2 = (stateno = [200, 299]) && movecontact
+trigger3 = (stateno = [400, 499]) && movecontact
+trigger4 = (stateno = [600, 699]) && movecontact
 ;---------------------------------------------------------------------------
 [State -1, Hypno Wave]
 type = ChangeState

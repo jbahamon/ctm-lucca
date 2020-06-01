@@ -42,19 +42,12 @@ value = S7030,0
 ignorehitpause = 1
 
 [State 1020, Robot]
-type = VarSet
-trigger1 = AnimElem = 2
-V = 1
-value = EnemyNear, ID
-persistent = 0
-
-[State 1020, Robot]
 type = Helper
 trigger1 = AnimElem = 2
 name = "Robot"
 ID = 1000
 stateno = 1001 + 2 * Var(0)
-pos = floor(IfElse(Facing > 0, - ScreenPos X - 20, -(GameWidth - ScreenPos X + 20))), IfElse(Var(0) = 0, -10, 0)
+pos = floor(IfElse(Facing > 0, - ScreenPos X - 20, -(GameWidth - ScreenPos X + 20))), IfElse(Var(0) = 0, -70, 0)
 postype = p1    ;p2,front,back,left,right
 facing = 1
 keyctrl = 0
@@ -97,17 +90,11 @@ time = 1
 ignorehitpause = 1
 
 [State 200, Dampen]
-Type=ParentVarSet
+Type = ParentVarSet
 Trigger1 = Var(2)
 fvar(39) = Parent, fvar(39)*0.85
 persistent = 0
 ignorehitpause = 1
-
-[State 1011, Pos]
-type = VarSet
-trigger1 = !Time
-v = 0
-value = Parent, Var(1)
 
 [State 1011, Pos]
 type = VarSet
@@ -121,20 +108,51 @@ trigger1 = !Time
 v = 2
 value = 0
 
+[State 1011, Pos]
+type = Turn
+trigger1 = !Time
+trigger1 = Facing != Parent, Facing
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+fv = 0
+value = Parent, Pos X + 40 * Facing
+
+[State 1020, Robot]
+type = Helper
+trigger1 = !Time
+name = "Marker"
+ID = ID + 10000
+stateno = 11001
+pos = facing * Floor(- Pos X + FVar(0)), 0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
 
 [State 1011, Vel]
 type = VelSet
 trigger1 = !Var(1)
-X = Facing * IfElse(ScreenPos X > PlayerID(Var(0)), ScreenPos X, -2, 2)
-Y = 0.2 * Sin (Time / 20.0)
+X = 1.5 * (Abs(Pos X - Helper(ID + 10000), Pos X) > 2)
+Y = 0.2 * Sin (Time / 10.0)
 
 [State 1011, Missile]
 type = ChangeAnim
-trigger1 = Abs(ScreenPos X - PlayerID(Var(0)), ScreenPos X) < 30
-trigger1 = Anim = 7030
-trigger1 = !Var(1)
+triggerall = Anim = 7030
+triggerall = !Var(1)
+trigger1 = Abs(ScreenPos X - EnemyNear, ScreenPos X) < 80
 trigger1 = Var(1) := 1
+trigger2 = Time > 400
+trigger2 = Var(1) := 1
 value = 7031
+
+[State 1020, Robot]
+type = PlaySnd
+trigger1 = Anim = 7031
+trigger1 = AnimElem = 3
+value = S7020,8
 
 [State 1020, Robot]
 type = Helper
@@ -149,7 +167,6 @@ facing = 1
 keyctrl = 0
 ownpal = 1
 persistent = 0
-
 
 [State 1011, Stop]
 type = VelSet
@@ -166,6 +183,14 @@ value = 7030
 ignorehitpause = 1
 
 [State 1011, Stop]
+type = StateTypeSet
+trigger1 = Anim = 7030
+trigger1 = Var(1)
+movetype = I
+persistent = 0
+ignorehitpause = 1
+
+[State 1011, Stop]
 type = VelSet
 trigger1 = Anim = 7030
 trigger1 = Var(1)
@@ -177,14 +202,20 @@ ignorehitpause = 1
 type = DestroySelf
 trigger1 = Var(1)
 trigger1 = Anim = 7030
-trigger1 = ScreenPos Y < - 20
+trigger1 = Pos Y < -400
 
 ;Bit GetHit
 [Statedef 1002]
 type = A
 movetype = H
 anim = 7030
-velset = 0, 0
+velset = 0, 0	
+
+[State 1011, Pos]
+type = VarSet
+trigger1 = !Time
+v = 1
+value = 1
 
 [State 1002, Explod]
 type = Explod
@@ -229,22 +260,26 @@ value = SCA, AA, AP, AT
 time = 1
 ignorehitpause = 1
 
-
 [State 1002, Invis]
-type = Trans
-trigger1 = 1
-trans = addalpha
-alpha = 256 - 16 * Time, 16 * Time
+type = AssertSpecial
+trigger1 = Time % 3
+flag = Invisible
+ignorehitpause = 1
+
+[State 1011, Vel]
+type = VarSet
+trigger1 = !Time
+var(1) = 1
 ignorehitpause = 1
 
 [State 1002, Immune]
 type = DestroySelf
-trigger1 = Time > 16
+trigger1 = Time > 32
 ignorehitpause = 1
 
 ;Debuggest
 [Statedef 1003]
-movetype = A
+movetype = I
 type = S
 physics = N
 anim = 7032
@@ -275,35 +310,76 @@ ignorehitpause = 1
 [State 1011, Pos]
 type = VarSet
 trigger1 = !Time
-v = 0
-value = Parent, Var(1)
+v = 1
+value = 0
+
+[State 1011, Pos]
+type = Turn
+trigger1 = !Time
+trigger1 = Facing != Parent, Facing
 
 [State 1011, Pos]
 type = VarSet
 trigger1 = !Time
-v = 1
-value = 0
+fv = 0
+value = Parent, Pos X + 30 * Facing
+
+[State 1020, Robot]
+type = Helper
+trigger1 = !Time
+name = "Marker"
+ID = ID + 10000
+stateno = 11001
+pos = facing * Floor(- Pos X + FVar(0)), 0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
 
 [State 1011, Vel]
 type = VelSet
 trigger1 = !Var(1) 
 trigger1 = Anim = 7032 
-X = IfElse(AnimElemNo(0) != 1, Facing * IfElse(ScreenPos X > PlayerID(Var(0)), ScreenPos X, -3, 3), 0)
+X = 1
 
 [State 1011, Missile]
 type = ChangeAnim
-trigger1 = Abs(ScreenPos X - PlayerID(Var(0)), ScreenPos X) < 20
+triggerall = !Var(1)
+trigger1 = NumHelper(ID + 10000)
+trigger1 = Abs(Pos X - Helper(ID + 10000), Pos X) < 4
 trigger1 = Anim = 7032
-trigger1 = !Var(1)
-trigger1 = Var(1) := 1
-value = 7033
+trigger1 = AnimElemNo(0) = 8 || AnimElemNo(0) = 2
+value = 7041
+ignorehitpause = 1
 
 [State 1011, Stop]
+type = ChangeAnim
+triggerall = Anim = 7032 || Anim = 7041
+triggerall = !Var(1)
+trigger1 = Abs(ScreenPos X - EnemyNear, ScreenPos X) < 30
+trigger1 = Var(1) := 1
+trigger2 = Time > 400
+trigger2 = Var(1) := 1
+value = 7033
+persistent = 0
+
+[State 1011, Missile]
 type = VelSet
-trigger1 = Anim = 7033
+trigger1 = NumHelper(ID + 10000)
+trigger1 = Abs(Pos X - Helper(ID + 10000), Pos X) < 4
+trigger2 = Anim = 7033
 X = 0
-Y = 0
 ignorehitpause = 1
+
+
+[State 1011, Attack]
+type = StateTypeSet
+trigger1 = Anim = 7033
+movetype = A
+persistent = 0
+ignorehitpause = 1
+
 
 [State 2000, HitDef]
 type = HitDef
@@ -356,6 +432,14 @@ value = 7032
 ignorehitpause = 1
 
 [State 1011, Stop]
+type = StateTypeSet
+trigger1 = Anim = 7032
+trigger1 = Var(1)
+movetype = I
+persistent = 0
+ignorehitpause = 1
+
+[State 1011, Stop]
 type = Turn
 trigger1 = Anim = 7032
 trigger1 = Var(1)
@@ -367,7 +451,7 @@ ignorehitpause = 1
 type = VelSet
 trigger1 = Anim = 7032
 trigger1 = Var(1)
-X =  IfElse(AnimElemNo(0) != 1, 2, 0)
+X =  IfElse(AnimElemNo(0) != 1, 1.5, 0)
 ignorehitpause = 1
 
 [State 1011, Destroy]
@@ -433,22 +517,26 @@ value = SCA, AA, AP, AT
 time = 1
 ignorehitpause = 1
 
-
 [State 1002, Invis]
-type = Trans
-trigger1 = 1
-trans = addalpha
-alpha = 256 - 16 * Time, 16 * Time
+type = AssertSpecial
+trigger1 = Time % 3
+flag = Invisible
+ignorehitpause = 1
+
+[State 1011, Vel]
+type = VarSet
+trigger1 = !Time
+var(1) = 1
 ignorehitpause = 1
 
 [State 1002, Immune]
 type = DestroySelf
-trigger1 = Time > 16
+trigger1 = Time > 32
 ignorehitpause = 1
 
 ;Proto-4
-[Statedef 1005]
-movetype = A
+ [Statedef 1005]
+movetype = I
 type = S
 physics = N
 anim = 7035
@@ -478,57 +566,78 @@ ignorehitpause = 1
 [State 1011, Pos]
 type = VarSet
 trigger1 = !Time
-v = 0
-value = Parent, Var(1)
-
-[State 1011, Pos]
-type = VarSet
-trigger1 = !Time
 v = 1
 value = 0
 
 [State 1011, Pos]
-type = VarSet
+type = Turn
 trigger1 = !Time
-v = 2
-value = Random % 2
+trigger1 = Facing != Parent, Facing
 
 [State 1011, Pos]
 type = VarSet
 trigger1 = !Time
-v = 3
-value = 0
+fv = 0
+value = Parent, Pos X + 10 * Facing
+
+[State 1020, Robot]
+type = Helper
+trigger1 = !Time
+name = "Marker"
+ID = ID + 10000
+stateno = 11001
+pos = facing * Floor(- Pos X + FVar(0)), 0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+persistent = 0
 
 [State 1011, Vel]
 type = VelSet
 trigger1 = !Var(1) 
-trigger1 = Anim = 7035 
-X = Facing * IfElse(ScreenPos X > PlayerID(Var(0)), ScreenPos X, -3, 3)
+trigger1 = Anim = 7035
+X = 2.5
+
+[State 1011, Missile]
+type = VelSet
+triggerall = !Var(1)
+trigger1 = NumHelper(ID + 10000)
+trigger1 = Abs(Pos X - Helper(ID + 10000), Pos X) < 4
+trigger1 = Anim = 7035
+X = 0
+ignorehitpause = 1
+
 
 [State 1011, Missile]
 type = ChangeAnim
 triggerall = Anim = 7035
-trigger1 = Var(2) > 0
-trigger1 = Abs(ScreenPos X - PlayerID(Var(0)), ScreenPos X) < 20
+trigger1 = Abs(ScreenPos X - EnemyNear, ScreenPos X) < 20
 trigger1 = !Var(1)
 trigger1 = Var(1) := 1
-trigger2 = Var(2) = 0
-trigger2 = Time > 30
+value = 7037
+
+[State 1011, Missile]
+type = ChangeAnim
+triggerall = Anim = 7035
+trigger1 = Abs(ScreenPos X - EnemyNear, ScreenPos X) < 100
+trigger1 = Abs(ScreenPos Y - EnemyNear, ScreenPos Y) < 10
+trigger1 = !Var(1)
+trigger1 = Var(1) := 1
+trigger2 = Time > 300
 trigger2 = !Var(1)
 trigger2 = Var(1) := 1
-value = 7036 + Var(2)
+value = 7036
 
-[State 1011, Stop]
-type = VelSet
-trigger1 = Anim > 7035
-X = 0
-Y = 0
-ignorehitpause = 1
+[State 1005, Attack]
+type = StateTypeSet
+trigger1 = Anim != 7035
+movetype = A
+persistent = 0
 
 [State 200, Dampen]
 Type=ParentVarSet
-Trigger1 = Var(3)
-trigger2 = MoveHit
+trigger1 = MoveHit
 fvar(39) = Parent, fvar(39)*0.85
 persistent = 0
 ignorehitpause = 1
@@ -590,7 +699,6 @@ palfx.invertall = 1
 ignorehitpause = 1
 persistent = 0
 
-
 [State 1011, Stop]
 type = ChangeAnim
 trigger1 = Anim = 7036 || Anim = 7037
@@ -610,8 +718,16 @@ ignorehitpause = 1
 type = VelSet
 trigger1 = Anim = 7035
 trigger1 = Var(1)
-X =  2
+X =  2.5
 ignorehitpause = 1
+
+[State 1005, Attack]
+type = StateTypeSet
+trigger1 = Anim = 7035
+trigger1 = Var(1)
+movetype = I
+ignorehitpause = 1
+persistent = 0
 
 [State 1011, Destroy]
 type = ChangeState
@@ -678,15 +794,20 @@ time = 1
 ignorehitpause = 1
 
 [State 1002, Invis]
-type = Trans
-trigger1 = 1
-trans = addalpha
-alpha = 256 - 16 * Time, 16 * Time
+type = AssertSpecial
+trigger1 = Time % 3
+flag = Invisible
+ignorehitpause = 1
+
+[State 1011, Vel]
+type = VarSet
+trigger1 = !Time
+var(1) = 1
 ignorehitpause = 1
 
 [State 1002, Immune]
 type = DestroySelf
-trigger1 = Time > 16
+trigger1 = Time > 32
 ignorehitpause = 1
 
 ; Vertical Missile
@@ -698,12 +819,34 @@ juggle  = 3
 ctrl = 0
 anim = 7039
 sprpriority = 2
-velset = 0.7, -4.7
+velset = 0, -3.7
+
+[State 3111, X]
+Type = VarSet
+Trigger1 = 1
+fvar(13) = (EnemyNear(0), Pos X- Pos X) * Facing
+
+[State 3111, Y]
+Type = VarSet
+trigger1 = 1
+fvar(14) = (EnemyNear(0), pos Y - Pos Y +Enemynear(0),Const(size.mid.pos.y))
+
+[State 3111, Vector Length]
+Type = VarSet
+trigger1 =1
+fvar(15) = Exp(0.5*ln((fvar(13) * fvar(13))+(fvar(14) * fvar(14))))
 
 [State 1001, Explod]
-type = VelAdd
-trigger1 = 1
-Y = 0.2
+type = VelSet
+trigger1 = Time < 30
+X = Time/30.0 * Fvar(13)/fvar(15) * 5.2
+Y = (30 - Time)/30.0 * -3.7 + (FVar(14)/fvar(15) * 5.2) * Time/30.0
+
+[State 3111, Vel]
+type=velset
+trigger1 = Time >= 30
+X = Fvar(13)/fvar(15) * 5.2
+Y = FVar(14)/fvar(15) * 5.2
 
 [State 1001, Explod]
 type = AngleDraw
@@ -728,7 +871,6 @@ ignorehitpause = 1
 [State 1001, HitDef]
 type = HitDef
 trigger1 = !Time
-trigger1 = !var(0)
 attr = A, SP
 hitflag = MAF        ;HLAFD+-
 guardflag = MA         ;HLA
@@ -762,6 +904,7 @@ palfx.time = 8
 
 [State 200, Dampen]
 Type=ParentVarset
+Trigger1 = Parent, StateNo
 Trigger1 = MoveHit
 var(2) = 1
 persistent = 0
@@ -771,6 +914,7 @@ ignorehitpause = 1
 type = ChangeState
 trigger1 = HitCount > 0
 trigger2 = Pos Y > - Vel Y && Vel Y > 0
+trigger3 = Time > 70
 value = 1009
 ctrl = 0
 
@@ -1090,7 +1234,7 @@ trigger1 = Vel Y >= 0
 ;---------------------------------------------------------------------------
 ; Napalm
 [Statedef 1020]
-type    = S
+type    = U
 movetype= A
 physics = N
 juggle  = 3
@@ -1105,6 +1249,13 @@ velset = 0,0
 type = VarSet
 trigger1 = !Time
 var(0) = ifelse(command = "qcfc", 2, ifelse(command = "qcfb", 1, 0))
+
+[State 1020, Strength]
+type = VelSet
+trigger1 = AnimElem = 3
+trigger1 = StateType = A
+X = -1
+Y = -2
 
 [State 1020, Grenade]
 type = Helper
@@ -1122,7 +1273,7 @@ persistent = 0
 [State 1020, End]
 type = ChangeState
 trigger1 = !AnimTime
-value = 0
+value = IfElse(StateType = A, 50, 0)
 ctrl = 1
 
 ; Napalm Grenade
@@ -1142,11 +1293,19 @@ fvar(39) = Parent, fvar(39)*0.9
 persistent = 0
 ignorehitpause = 1
 
+
+[State 1021, Air?]
+type = VarSet
+trigger1 = !Time
+trigger1 = !var(1)
+var(2) = parent, StateType = A
+
 [State 1021, Strength]
 type = VarSet
 trigger1 = !Time
 trigger1 = !(var(1) := 0)
 var(0) = parent, var(0)
+
 
 [State 1021, HitOverride]
 type = HitOverride
@@ -1177,10 +1336,18 @@ persistent = 0
 
 [State 1021, Vel]
 type = VelSet
+trigger1 = !Var(2)
 trigger1 = parent, AnimElemTime(3) = 0 && parent, StateNo = 1020
-x =  IfElse(var(0) = 2, 5.5, IfElse(var(0) = 1, 4, 5)) * Cos(IfElse(var(0) = 2, 0.5 ,IfElse(var(0) = 1, 0.78, 1.4)))
-y = -IfElse(var(0) = 2, 5.5, IfElse(var(0) = 1, 4, 5)) * Sin(IfElse(var(0) = 2, 0.5 ,IfElse(var(0) = 1, 0.78, 1.4)))
+x =  IfElse(var(0) = 2, 7, IfElse(var(0) = 1, 6, 5.5)) * Cos(IfElse(var(0) = 2, 0.5 ,IfElse(var(0) = 1, 0.78, 1.2)))
+y = -IfElse(var(0) = 2, 7, IfElse(var(0) = 1, 6, 5.5)) * Sin(IfElse(var(0) = 2, 0.5 ,IfElse(var(0) = 1, 0.78, 1.2)))
 
+
+[State 1021, Vel]
+type = VelSet
+trigger1 = Var(2)
+trigger1 = parent, AnimElemTime(3) = 0 && parent, StateNo = 1020
+x =  IfElse(var(0) = 2, 6, IfElse(var(0) = 1, 5.5, 5)) * Cos(IfElse(var(0) = 2, 0.2, IfElse(var(0) = 1, 0, -0.32)))
+y = -IfElse(var(0) = 2, 6, IfElse(var(0) = 1, 5.5, 5)) * Sin(IfElse(var(0) = 2, 0.2, IfElse(var(0) = 1, 0, -0.32)))
 
 [State 1021, DoneVar]
 type = VarSet
@@ -1190,7 +1357,7 @@ var(1) = 1
 [State 1021, Gravity]
 type = VelAdd
 trigger1 = var(1)
-y = IfElse(var(0) = 0, 0.2, 0.2)
+y = 0.2
 
 [State 1021, Air]
 type = PlaySnd
@@ -1734,7 +1901,7 @@ trigger1 = NumTarget(1030) && Target(1030), Anim = 5110
 anim = 7012
 ID = 1030
 postype = p1
-pos = Facing * (Target(1030), Pos X - Pos X) + Target(1030), Const(size.height)/2 , (Target(1030), Pos Y - Pos Y) - 30
+pos = Floor(Facing * (Target(1030), Pos X - Pos X) + Floor(Target(1030), Const(size.height)/2)), Floor((Target(1030), Pos Y - Pos Y) - 30)
 removetime = -1;300
 facing = Facing
 sprpriority = 3
