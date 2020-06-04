@@ -578,7 +578,7 @@ trigger1 = Facing != Parent, Facing
 type = VarSet
 trigger1 = !Time
 fv = 0
-value = Parent, Pos X + 10 * Facing
+value = Parent, Pos X - 10 * Facing
 
 [State 1020, Robot]
 type = Helper
