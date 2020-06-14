@@ -137,9 +137,9 @@ Requires 1000 Power. Bayonetta strikes a pose. If hit while in this state, she w
 Requires 1000 Power. Bayonetta performs a chant, using her hair as the summoning medium for an Infernal Demon. The specific demon depends on the button used and whether you're using the Bayonetta 1 or 2 moveset:
 
   * Punch + Bayonetta 1 summons Phantasmaraneae, the Twister of Flame: a fire spider that swipes twice with its claws.
-  * Kick + Bayonetta 1 summons Malphas, a demonic bird that will pause before charging forward.
+  * Kick + Bayonetta 1 summons Malphas: a demonic bird that will pause before charging forward.
   * Punch + Bayonetta 2 summons Diomedes, Severer of the Dark: an infernal unicorn that will trample the opponent.
-  * Kick + Bayonetta 2 summons Labolas, Destroyer of Fates:a hellhound that will jump twice on the opponent.
+  * Kick + Bayonetta 2 summons Labolas, Destroyer of Fates: a hellhound that will jump twice on the opponent.
 
 - **Climax Summon**: `D, DB, B, D, DF, F, b/c` (Ground)
 
