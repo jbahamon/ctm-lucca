@@ -1,8 +1,4 @@
-
-Lucca by SilentProtagonist 
-=========================
-
-Lucca is a three-button character made for MUGEN 1.0.
+Lucca is a three-button character (a+b+c keys) made for MUGEN 1.0.
 This is not a final version but it should be playable.
 
 What's missing:
@@ -10,155 +6,173 @@ What's missing:
 - More palettes.
 - Specific character interactions (intros, winposes, double techs, maybe)
 
-
-Lucca's Moveset
-==============
+## Moveset
 
 Lucca isn't very agile nor fast. Her game revolves around summoning
 robots and throwing projectiles to put some pressure on your opponent.
-Her air strong attack, also, gives her good horizontal range.
 
-Throws
---------------
+### Special Moves
 
-**Shockwave**: F/B + (a+b)/(b+c)/(a+c) (Standing)
+- **Hypnowave**: `D, DB, B, a/b/c` (Ground)
 
-Lucca pushes her opponent, firing multiple hits with her Shockwave
-at them.
+Requires 500 Power. Lucca uses her Hypnowave tech to put a single opponent 
+whithin the attack's range to sleep. Doesn't deal any damage, but if it hits, the
+opponent will be vulnerable for a while. Qualifies as a throw.
 
-**Hypnowave**: D, DB, B + a/b/c (Standing). Requires 500 Power.
+- **Napalm**: `D, DF, F, a/b/c` (Ground/air)
 
-Lucca uses her Hypnowave to make a single opponent fall asleep. 
-The opponent has to be within range of the attack, obviously.
-This attack actually doesn't do any damage, but if it hits, your 
-opponent will be vulnerable for a bit of time (or until it gets hit).
-Use this to your advantage!
-
-
-Specials
---------------
-
-**Napalm**: D, DF, F + a/b/c (Standing).
-
-A standard projectile thrown in an arc. It explodes by hitting 
-either your opponent or the ground. Both the grenade and the explosion
+A projectile thrown in an arc. It explodes when it hits 
+either an opponent or the ground. Both the grenade and the explosion
 deal damage. The speed and angle depend on the button pressed. 
 
-**Fire Uppercut**: F, D, DF + a/b/c (Standing).
+- **Fire Uppercut**: `F, D, DF, a/b/c` (Ground)
 
 Lucca advances a bit, throwing a fiery uppercut.
 
-**Robot Call**: D, DB, B, + a/b/c (Standing)
+- **Robot Call**: `D, DB, B, a/b/c` (Ground)
 
-Lucca brings out a remote control, using it to call help from a robot 
-she repaired. The button pressed determines the summoned robot:
+Lucca brings out a remote control, calling for help. 
 
-Pressing a calls a Bit that floats toward your opponent. It shoots
-a missile that rises and then falls on your opponent.
+The button pressed determines the summoned robot:
 
-Pressing b calls a Debuggest that walks toward your opponent and tries to 
-shock it.
+Pressing `a` calls a Bit that will float on front of Lucca and will shoot a 
+single tracking missile when an enemy gets too close.
 
-Pressing c calls a Proto-4 that either fires a missile towards your opponent 
-or tries to shock them.
+Pressing `b` calls a Debuggest that will stand in front of Lucca and shock any enemy 
+that gets too close.
 
-You can only have up one summoned robot at a given time.
+Pressing `c` calls a Proto-4 that will fire a missile when the opponent approaches.
+
+You can have up to 3 summoned robots at a time.
 
 
-Supers
-------
+### Super Moves
 
-**Gato!**: D, DB, B, D, DB, B + a/b/c (Standing). Requires 1000 Power.
+- **Gato/Gonzales**: `D, DB, B, D, DB, B, a/b/c` (Ground)
 
-Lucca summons Gato. He's had some practice, as he'll walk toward your 
-opponent and try to punch him/her. You're free to move after Gato starts moving,
-so try to team up with him! Gato will stop walking after a set time, 
-so don't do this if your opponent is far away.
+Requires 1000 Power. Lucca summons Gato, the training robot. He will advance towards 
+the opponent and try to punch them, stopping after a little while. Lucca is free 
+to move after Gato is summoned.
 	
-**Flare**: D, DF, F, D, DF, F, a/b/c (Standing). Requires 1000 Power.
+- **Flare**: `D, DF, F, D, DF, F, a/b/c` (Ground)
 
-Lucca executes the strongest Fire magic move. The flare will slowly advance
-toward your opponent for a bit before dissapearing, and you can make it 
-move up or down by pressing U or D.
+Requires 1000 Power. Lucca executes the strongest Fire magic move. 
+You can control the Flare's movement for a while.
 
-**Gate Trap**: D, B, D, F + a/b/c (Standing) Requires 1000 Power. 
+- **Gate Trap**: `D, B, D, F, a/b/c` (Ground)
 
-Lucca uses her Gate Key to open a Gate on the floor. If the opponent stands on it,
-they will fall through it. You don't see what's on the other side of the Gate, 
-but it sure sounds like it hurts.
+Requires 1000 Power. Lucca uses her Gate Key to open a Gate on the floor, 
+which stays there for a while. If the opponent stands on it, they will fall 
+through the gate and get damaged before returning to the battlefield. 
+Qualifies as a throw.
 
-The Gate stays open for a bit after you create it.
+### Special Mode
 
-This is a throw, so keep in mind it won't work against unthrowable enemies 
-(bosses are an example).
+- **Protect**: `a + c` (Ground)
 
-Special Mode
-------------
+Requires 3000 Power. Lucca casts Protect on herself, improving her defenses. 
+She gains super armor while in this state, and incoming damage is reduced. Lucca's Power 
+will deplete continuously: when she runs out of Power, the mode ends.
 
-**Protect**: a + c (Standing). Requires 3000 Power.
+### Final Move
 
-Lucca casts Protect on herself, improving her defenses. You'll receive less damage,
-and attacks won't make you flinch, so you can go on the offensive without worrying 
-about getting hurt.
+- **Gate Key Summon**: `D, B, D, F, a/b/c` (Ground while Protect is active)
 
-Your Power will automatically decrease: when you run out of Power, the mode ends.
+Spends all remaining Power. Lucca uses her Gate Key to summon the Black Tyranno. 
+It will appear over the closest opponent and bite down. Qualifies as a throw.
 
-Final Move
-----------
+## 12p Mode
 
-**Gate Key Summon**: D, B, D, F + a/b/c (Standing, must have Protect activated). Uses all of your Power, ending Protect.
+Lucca's 12p mode is based on Bayonetta! During the intro you can choose whether you want a moveset based on Bayonetta 1 or 2. Their basic moveset is the same at the moment, but their supermoves are different. The basics are as follows:
 
-Lucca uses her Gate Key to summon the Black Tyranno! It will appear over the closest 
-opponent and bite down. Make sure it hits as you only have one shot. 
+- You use `a` for dodging: if you dodge at the right time, you gain some Power. You can dodge forwards or backwards, and in the air. Pressing forward and dodging twice in quick succession performs Panther Within for a quick approach.
+- `b` and `c` are Punch and Kick, respectively. Chain these in various orders and you will perform the various combos from the Bayonetta games. Most combos end with a Wicked Weave: a summoned punch or kick for an extra oomph.
 
-"AVAVAGO!"
+### 12p Special Moves
 
+- **Torture Attack**: `D, DB, B, b/c` (Ground/Air)
 
-----------------------------
-Credits and Acknowledgements
-----------------------------
+Uses 500 Power. A short-ranged throw. Depending on the opponent's size, a different torture device or Infernal Demon will be used to inflict damage on them.
 
-- bga, for supporting me all this time.
+- **Tetsuzanko**: `B, F, b` (Ground/Air)
 
-- The Spriters Resource (http://www.spriters-resource.com) for the sprites. In particular,
-  the sprites ripped by Tonberry2k were incredibly useful.
+A forward slam attack. If you have 500 Power or more, 500 will be consumed to summon a Wicked Punch.
 
-- The Chrono Compendium (http://chronocompendium.com), in particular the user Dirtie, for
-  ripping the sound effects from Chrono Trigger and making them available to everyone.
+- **Heel Stomp**: `B, F, c` (Ground/Air)
 
-- The guys at the Mugen Fighters Guild forum (http://mugenguild.com/forumx/index.php),
+A short-ranged stomp. If you have 500 Power or more, 500 will be consumed to summon a Wicked Stomp.
+
+- **Stiletto**: `F, F, b` (Ground/Air)
+
+An punching attack that closes distance while attacking.
+
+- **Heel Slide**: `F, F, c` (Ground/Air)
+
+A sliding attack that closes distance while attacking. If you hold `c` while it connects, it will attempt to launch the opponent into the air.
+
+- **Witch Twist**: `b` (While dodging)
+
+A rising attack that launches the enemies into the air along with her.
+
+- **Heel Tornado**: `c` (While dodging)
+
+An attack that stays in the ground and offers some movement while performed.
+
+- **Witch Strike**: `b` (Right after jumping)
+
+A multi-hitting uppercut
+
+- **After Burner Kick**: `c` (Right after jumping) or `F + c` (Air)
+
+An either ascending or descending air kick.
+
+### 12p Super Moves
+
+- **Bat Within**: `D, DB, B, D, DB, B, b/c` (Ground)
+
+Bayonetta strikes a pose. If hit while in this state, she will dodge the attack and time will slow down for everyone but her for a while.
+
+- **Infernal Demon Summon**: `D, DF, F, D, DF, F, b/c` (Ground)
+
+Bayonetta performs a chant, using her hair as the summoning medium for an Infernal Demon. The specific demon depends on the button used and whether you're using the Bayonetta 1 or 2 moveset:
+
+	- Punch + Bayonetta 1 summons Phantasmaraneae, the Twister of Flame: a fire spider that swipes twice with its claws.
+	- Kick + Bayonetta 1 summons Malphas, a demonic bird that will pause before charging forward.
+	- Punch + Bayonetta 2 summons Diomedes, Severer of the Dark: an infernal unicorn that will trample the opponent.
+	- Kick + Bayonetta 2 summons Labolas, Destroyer of Fates:a hellhound that will jump twice on the opponent.
+
+- **Climax Summon**: `D, DB, B, D, DF, F, b/c` (Ground)
+
+Bayonetta performs a chant, using her hair for a final summon. Qualifies as a throw. The summoned demon depends on whether you're using the Bayonetta 1 or 2 moveset:
+
+	- Bayonetta 1 summons Gomorrah, Devourer of the Divine. It will bite down on the opponent.
+	- Bayonetta 2 summons Baal, Empress of the Fathoms. It will attempt to grab the opponent with its tongue.
+
+Regardless of the summoned demon, tapping the button indicated in the prompt will increase the move's damage.
+
+# Copyright, licensing, etc.
+
+Use my code for whatever you want. Chrono Trigger and all of its characters are property of Square-Enix. Bayonetta belongs to Nintendo and Platinum Games. This creation/adaptation was made for entertainment, not for profit. If you want to host this, modify or use it for your own purposes, try to contact me first.
+
+# Credits and Acknowledgments 
+
+Thanks to:
+
+- My friends and family, for supporting me all this time.
+
+- [The Spriters Resource](http://www.spriters-resource.com) for the sprites. Rips by Tonberry2k, Nemu, Dazz
+  and many others were incredibly useful.
+
+- [The Chrono Compendium](http://chronocompendium.com). In particular, the user Dirtie ripped 
+  a ton of Chrono Trigger sound effect and made them available to everyone.
+
+- The guys at the [Mugen Fighters Guild Forum](http://mugenguild.com/forumx/index.php),
   for answering my questions and helping me learn. Their Code Library/Snippet Section rocks.
 
-- POTS, as I read his characters' code whenever I had doubts. I used some of his code as a
-  base for some moves/state controllers.
+- So many MUGEN creators: PoTS, SMEE, Bia, warusaki3 and everyone who creates stuff that others can use.
 
-- Square (now Square-Enix) and the team that created Chrono Trigger, for making this
-wonderful game.
-
-- warusaki3, as I used some sounds extracted from one of its characters (though their use is
-currently disabled).
+- Square (now Square-Enix) and the team that created Chrono Trigger.
 
 - Elecbyte, of course, for creating the awesome fighting game engine that is MUGEN.
 
 - And you...
-
----------- 
-Disclaimer
-----------
-
-- Chrono Trigger and all of its characters are property of Square-Enix.
-
-- This creation/adaptation was made for entertainment and not for profit.
-
-- This creation/adaptation, nor any part of it, may not be used for commercial purposes. 
-
-- If you want to host this creation, modify or use it for your own purposes,
-  try to ask me first.
-
--------
-Contact
--------
-
-- If you have questions, suggestions, comments, send me a private message at the Mugen Fighters Guild's forum.
-  I may not answer immediately, but I'll try.
-
