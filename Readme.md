@@ -3,7 +3,7 @@ This is not a final version but it should be playable.
 
 What's missing:
 
-- More palettes.
+- Possibly remaking Fire Uppercut.
 - Specific character interactions (intros, winposes, double techs, maybe)
 
 ## Moveset
