@@ -92,7 +92,7 @@ Lucca's 12p mode is based on Bayonetta! During the intro you can choose whether 
 
 - **Torture Attack**: `D, DB, B, b/c` (Ground/Air)
 
-Uses 500 Power. A short-ranged throw. Depending on the opponent's size, a different torture device or Infernal Demon will be used to inflict damage on them.
+Requires 500 Power. A short-ranged throw. Depending on the opponent's size, a different torture device or Infernal Demon will be used to inflict damage on them.
 
 - **Tetsuzanko**: `B, F, b` (Ground/Air)
 
@@ -130,11 +130,11 @@ An either ascending or descending air kick.
 
 - **Bat Within**: `D, DB, B, D, DB, B, b/c` (Ground)
 
-Bayonetta strikes a pose. If hit while in this state, she will dodge the attack and time will slow down for everyone but her for a while.
+Requires 1000 Power. Bayonetta strikes a pose. If hit while in this state, she will dodge the attack and time will slow down for everyone but her for a while.
 
 - **Infernal Demon Summon**: `D, DF, F, D, DF, F, b/c` (Ground)
 
-Bayonetta performs a chant, using her hair as the summoning medium for an Infernal Demon. The specific demon depends on the button used and whether you're using the Bayonetta 1 or 2 moveset:
+Requires 1000 Power. Bayonetta performs a chant, using her hair as the summoning medium for an Infernal Demon. The specific demon depends on the button used and whether you're using the Bayonetta 1 or 2 moveset:
 
   * Punch + Bayonetta 1 summons Phantasmaraneae, the Twister of Flame: a fire spider that swipes twice with its claws.
   * Kick + Bayonetta 1 summons Malphas, a demonic bird that will pause before charging forward.
@@ -143,7 +143,7 @@ Bayonetta performs a chant, using her hair as the summoning medium for an Infern
 
 - **Climax Summon**: `D, DB, B, D, DF, F, b/c` (Ground)
 
-Bayonetta performs a chant, using her hair for a final summon. Qualifies as a throw. The summoned demon depends on whether you're using the Bayonetta 1 or 2 moveset:
+Requires 2000 Power. Bayonetta performs a chant, using her hair for a final summon. Qualifies as a throw. The summoned demon depends on whether you're using the Bayonetta 1 or 2 moveset:
 
   * Bayonetta 1 summons Gomorrah, Devourer of the Divine. It will bite down on the opponent.
   * Bayonetta 2 summons Baal, Empress of the Fathoms. It will attempt to grab the opponent with its tongue.
