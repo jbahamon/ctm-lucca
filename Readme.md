@@ -150,11 +150,11 @@ Requires 2000 Power. Bayonetta performs a chant, using her hair for a final summ
 
 Regardless of the summoned demon, tapping the button indicated in the prompt will increase the move's damage.
 
-# Copyright, licensing, etc.
+## Copyright, licensing, etc.
 
 Use my code for whatever you want. Chrono Trigger and all of its characters are property of Square-Enix. Bayonetta belongs to Nintendo and Platinum Games. This creation/adaptation was made for entertainment, not for profit. If you want to host this, modify or use it for your own purposes, try to contact me first.
 
-# Credits and Acknowledgments 
+## Credits and Acknowledgments 
 
 Thanks to:
 
